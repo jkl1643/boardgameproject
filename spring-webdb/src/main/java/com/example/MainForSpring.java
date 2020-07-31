@@ -257,7 +257,7 @@ public class MainForSpring {
 		}
 		ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
 		try {
-					changeInfoSvc.changePassword(arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);
+					changeInfoSvc.changePassword(arg[1], arg[2], arg[3], arg[4], arg[5], arg[6], arg[7]);
 			System.out.println("정보를 수정했습니다.\n");
 		} catch (MemberNotFoundException e) {
 			System.out.println("존재하지 않는 이메일입니다.\n");
