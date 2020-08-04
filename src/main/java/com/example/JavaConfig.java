@@ -1,5 +1,6 @@
 package com.example;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -8,17 +9,57 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class JavaConfig {
-
-    @Autowired
-    ApplicationContext applicationContext;
+    @Bean
+    public DataSource dataSource() {
+        DataSource ds = new DataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost/spring5fs?characterEncoding=UTF-8&serverTimezone=UTC");
+        ds.setUsername("spring5");
+        ds.setPassword("spring5");
+        ds.setInitialSize(2);
+        ds.setMaxActive(10);
+        ds.setTestWhileIdle(true);
+        ds.setMinEvictableIdleTimeMillis(60000*3);
+        ds.setTimeBetweenEvictionRunsMillis(10*1000);
+        return ds;
+    }
 
     @Bean
-    public DriverManagerDataSource datasource() {
-        DriverManagerDataSource datasource = new DriverManagerDataSource();
-        datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://localhost/midterm?characterEncoding=utf8&serverTimezone=UTC");
-        datasource.setUsername("root");
-        datasource.setPassword("1234");
-        return datasource;
+    public MemberDao memberDao() {
+        return new MemberDao(dataSource());
     }
+
+    @Bean
+    public MemberRegisterService memberRegSvc() {
+        return new MemberRegisterService(memberDao());
+    }
+
+    @Bean
+    public checkIdPassword checkidpwd() {
+        checkIdPassword checkidpwd = new checkIdPassword(dataSource());
+        checkidpwd.setMemberDao(memberDao());
+        return checkidpwd;
+    }
+
+    @Bean
+    public MemberLogin lgn() {
+        MemberLogin lgn = new MemberLogin(dataSource());
+        lgn.setMemberDao(memberDao());
+        return lgn;
+    }
+
+    @Bean
+    public MemberLogout lgo() {
+        MemberLogout lgo = new MemberLogout(dataSource());
+        lgo.setMemberDao(memberDao());
+        return lgo;
+    }
+
+    @Bean
+    public ChangeInfoService changeInfoSvc(MemberDao memberDao) {
+        ChangeInfoService changeInfoSvc = new ChangeInfoService();
+        changeInfoSvc.setMemberDao(memberDao());
+        return changeInfoSvc;
+    }
+
 }
