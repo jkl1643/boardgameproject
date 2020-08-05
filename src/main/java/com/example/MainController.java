@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,27 +38,28 @@ public class MainController {
     public static int delaccount = 0;
     public static int delmemo = 0;
     public static int editaccount = 0;
+    public static int result_search = 0;
     public static String userid2 = null;
     public static int state = 1;
-
+    private Room_Server a = new Room_Server();
     @Autowired
     private MemberDao memberDao;
 
     //윤수명 추가 1
     @Autowired
     private CustomWrite customwrite;
-    
+
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
-   
+
     public void setCustomWrite(CustomWrite customwrite) {
 		this.customwrite = customwrite;
 	}
-    
-    
-    
+
+
+
     @RequestMapping("/login")
     public ModelAndView login(ModelAndView mav, Model model, String delid, String delpwd,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
@@ -82,6 +84,7 @@ public class MainController {
 
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
+
 
         RegisterRequest req = new RegisterRequest();
         if (login != 1 && delaccount != 1) {
@@ -398,23 +401,42 @@ public class MainController {
  // 윤수명 고객문의 컨트롤러1
     @RequestMapping("/custom")
     public String handleStep1() {
-    	
+
     	return "custom";
     }
-    
-    
-    
+
+
+
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
    		return "customwrite";
    	}
-       
-       	
+
+
        @PostMapping("/customwriteok")
-   	public String handleStep3(CustomRequest request) {	
+   	public String handleStep3(CustomRequest request) {
    			customwrite.inputdata(request);
    			return "customwriteok";
-   	
+
    	}
+    @GetMapping("/lobby")
+    public ModelAndView lobby_start(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        model.addAttribute("Room_list", a.getRoom_list());
+        a.create("test");
+        mv.setViewName("lobby");
+        return mv;
+    }
+
+    @GetMapping("/join")
+    public ModelAndView lobby_join(Model model, @RequestParam(value = "id", required = false) String ID)
+    {
+        ModelAndView mv = new ModelAndView();
+        model.addAttribute("id", ID);
+        mv.setViewName("room");
+        return mv;
+    }
+
 }

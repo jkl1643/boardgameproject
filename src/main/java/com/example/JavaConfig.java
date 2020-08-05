@@ -13,6 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
+
 @Configuration
 public class JavaConfig {
     @Bean
