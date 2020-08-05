@@ -68,7 +68,7 @@ public class JavaConfig {
         return changeInfoSvc;
     }
     
-    // 윤수명 추가
+    // 윤수명 추가1
    	@Bean
    	public CustomDao customdao() {
    		return new CustomDao(dataSource());

@@ -29,7 +29,7 @@ public class MainController {
     @Autowired
     private MemberDao memberDao;
 
-    //윤수명 추가
+    //윤수명 추가 1
     @Autowired
     private CustomWrite customwrite;
     
@@ -320,7 +320,7 @@ public class MainController {
 
 
 
- // 윤수명 고객문의 컨트롤러
+ // 윤수명 고객문의 컨트롤러1
     @RequestMapping("/custom")
     public String handleStep1() {
     	
