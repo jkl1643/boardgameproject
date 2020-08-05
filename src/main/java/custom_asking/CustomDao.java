@@ -37,7 +37,7 @@ public class CustomDao {
 
 	public Custom selectByEmail(String email) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from MEMO where EMAIL = ?", // memo 수정
+				"select * from CUSTOM where EMAIL = ?", // memo 수정
 				memRowMapper, email);
 
 		return results.isEmpty() ? null : results.get(0);
@@ -45,7 +45,7 @@ public class CustomDao {
 	
 	public Custom selectByTitle(String title) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from MEMO where TITLE = ?", // memo 수정
+				"select * from CUSTOM where TITLE = ?", // memo 수정
 				memRowMapper, title);
 
 		return results.isEmpty() ? null : results.get(0);
@@ -60,7 +60,7 @@ public class CustomDao {
 					throws SQLException {
 			
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into MEMO (TITLE, CONTENT, NAME, EMAIL, REGDATE) " + // memo 수정
+						"insert into CUSTOM (TITLE, CONTENT, NAME, EMAIL, REGDATE) " + // memo 수정
 								"values (?, ?, ?, ?, ?)",
 						new String[] { "COUNT" });
 		
@@ -80,19 +80,19 @@ public class CustomDao {
 
 	public void update(Custom custom) {
 		jdbcTemplate.update(
-				"update MEMO set TITLE = ?, CONTENT = ? where NAME = ?", // memo 수정
+				"update CUSTOM set TITLE = ?, CONTENT = ? where NAME = ?", // memo 수정
 				custom.getTitle(), custom.getContent(), custom.getName());
 	}
 
 	public List<Custom> selectAll() {
-		List<Custom> results = jdbcTemplate.query("select * from MEMO",
+		List<Custom> results = jdbcTemplate.query("select * from CUSTOM",
 				memRowMapper);
 		return results;
 	}
 	
 	public void delete(Custom custom) {
 		jdbcTemplate.update(
-				"delete from MEMO where COUNT = ?", // memo 수정
+				"delete from CUSTOM where COUNT = ?", // memo 수정
 				custom.getCount());
 	}
 	
@@ -100,13 +100,13 @@ public class CustomDao {
 
 	public int count() {
 		Integer count = jdbcTemplate.queryForObject(
-				"select count(*) from MEMO", Integer.class); //memo 수정
+				"select count(*) from CUSTOM", Integer.class); //memo 수정
 		return count;
 	}
 
 	public List<Custom> selectByRegdate(LocalDateTime from, LocalDateTime to) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from MEMO where REGDATE between ? and ? " +
+				"select * from CUSTOM where REGDATE between ? and ? " +
 						"order by REGDATE desc",
 				memRowMapper,
 				from, to);
@@ -115,7 +115,7 @@ public class CustomDao {
 
 	public Custom selectByCount(Long Count) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from MEMO where COUNT = ?",
+				"select * from CUSTOM where COUNT = ?",
 				memRowMapper, Count);
 
 		return results.isEmpty() ? null : results.get(0);

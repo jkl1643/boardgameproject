@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import custom_asking.CustomDao;
+import custom_asking.CustomWrite;
 
 @Configuration
 public class JavaConfig {
@@ -62,5 +67,25 @@ public class JavaConfig {
         changeInfoSvc.setMemberDao(memberDao());
         return changeInfoSvc;
     }
+    
+    // 윤수명 추가
+   	@Bean
+   	public CustomDao customdao() {
+   		return new CustomDao(dataSource());
+   	}
+
+   	@Bean
+   	public CustomWrite boardrequeset() {
+   		return new CustomWrite(customdao());
+   	}
+   	
+   	@Bean
+   	public PlatformTransactionManager transactionManager() {
+   		DataSourceTransactionManager tm = new DataSourceTransactionManager();
+   		tm.setDataSource(dataSource());
+   		return tm;
+   	}
+    
+    
 
 }
