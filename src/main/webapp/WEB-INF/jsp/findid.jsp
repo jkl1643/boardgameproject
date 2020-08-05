@@ -14,8 +14,7 @@
 <body>
 <h1>아이디찾기</h1>
 <form action=resultfindpwd method="post">
-    아이디 : <Input Type = "Text" Name = "id"> <BR>
-    전화번호 : <Input Type = "Text" Name = "tel"> <BR>
+    인증번호 입력 : <Input Type = "Text" Name = "id"> <BR>
     <BR><Input Type = "Submit" Value = "아이디 찾기">
 </form>
 </body>
