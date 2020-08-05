@@ -60,13 +60,15 @@
 				boolean created_account = (boolean)request.getAttribute("created_account");
 				boolean error = (boolean)request.getAttribute("error");
 				if(email) {	%>
-				존재하지 않는 이메일입니다.
-				<%} else if (emailpwd) {%>
-				이메일과 암호가 일치하지 않습니다.
+				존재하지 않는 아이디입니다.
+				<%} else if (email){ %>
+					아이디를 입력해주세요.
+				<%}	else if (emailpwd) {%>
+					이메일과 암호가 일치하지 않습니다.
 				<%} else if (delaccount) {%>
-				계정이 삭제되었습니다.
+					계정이 삭제되었습니다.
 				<%} else if (logout) {%>
-				로그아웃 되었습니다.
+					로그아웃 되었습니다.
 				<%}
 				if (created_account) { %> 계정이 생성되었습니다. <%}
 				if (error) { %>	계정이 생성되지 않았습니다.<%}	%>

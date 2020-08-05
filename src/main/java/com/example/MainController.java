@@ -134,11 +134,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname,
-                             @RequestParam(value = "MEMO", required = false) String memo,
-                             @RequestParam(value = "IMAGE", required = false) String image,
-                             @RequestParam(value = "DATE", required = false) String date,
-                             @RequestParam(value = "DATE2", required = false) String date2) {
+    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
         mav.addObject("unknown_email", false);
@@ -163,7 +159,6 @@ public class MainController {
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
-        System.out.println("memo = " + memo);
         if (id == null) {
             id = "0";
         }
@@ -179,7 +174,11 @@ public class MainController {
                 mav.setViewName("main");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
+                /*if(id == null) {
+                    mav.addObject("unknown_email", true);
+                }*/
                 mav.addObject("unknown_email", true);
+
                 id = "0";
                 mav.setViewName("login");
             } catch (WrongIdPasswordException e) {
