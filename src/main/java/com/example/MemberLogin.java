@@ -22,7 +22,7 @@ public class MemberLogin { //이메일과 암호 입력해서 이메일이 있�
 	public void login(String email, String inputPassword) throws IOException {
 		loginEmail = email;
 		Member member = memberDao.selectByEmail(email);
-		
+		System.out.println("email : " + loginEmail);
 		if(member == null)
 			throw new MemberNotFoundException();
 		member.checkLogin(email, inputPassword);		

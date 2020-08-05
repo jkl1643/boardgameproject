@@ -19,7 +19,6 @@ public class MainController {
     private static final ApplicationContext ctx = new AnnotationConfigApplicationContext(JavaConfig.class);
     public static int login = 0;
     public static int delaccount = 0;
-    public static String loginEmail;
     public static int delmemo = 0;
     public static int editaccount = 0;
     public static int result_search = 0;
@@ -99,7 +98,7 @@ public class MainController {
                 mav.addObject("error", true);
                 System.out.println("dd");
             }
-            loginEmail = id;
+            MemberLogin.loginEmail = id;
             mav.setViewName("login");
             id = "0";
             req.setEmail("0");
@@ -151,6 +150,7 @@ public class MainController {
         mav.addObject("error", false);
         delaccount = 0;
         model.addAttribute("userid", userid2);
+        System.out.println("id = " + id);
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
