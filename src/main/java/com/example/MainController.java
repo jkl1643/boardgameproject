@@ -285,5 +285,18 @@ public class MainController {
         mav.setViewName("resultfindpwd");
         return mav;
     }
+    
 
+    // 윤수명 고객문의 컨트롤러
+    @RequestMapping("/custom")
+    public String handleStep1() {
+    	
+    	return "custom";
+    }
+    	
+    	
+    
+
+    
+    
 }

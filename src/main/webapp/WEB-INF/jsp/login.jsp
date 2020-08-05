@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +35,7 @@
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
 		<li><a href="#gamerank">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
 		<li><a href="#theme">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
-		<li><a href="#custom">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
+		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
 	<div id="search">
 			<input type="text" placeholder="게임 검색" id="searbut"> <!-- 게임검색 창의 텍스트 입력칸 -->
