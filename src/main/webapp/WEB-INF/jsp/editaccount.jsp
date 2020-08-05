@@ -6,7 +6,7 @@
 <meta charset="EUC-KR">
 <title>정보수정</title>
 </head>
-<body>
+<body><!-- sdfasd -->
 <h1>정보 수정</h1>
 	<form action="main" method="post">
 		<table>
