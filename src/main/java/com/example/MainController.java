@@ -57,7 +57,6 @@ public class MainController {
 	}
     
     
-    
     @RequestMapping("/login")
     public ModelAndView login(ModelAndView mav, Model model, String delid, String delpwd,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
@@ -394,21 +393,18 @@ public class MainController {
 
 
 
- // 윤수명 고객문의 컨트롤러1
+ // 윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
     	
     	return "custom";
     }
     
-    
-    
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
    		return "customwrite";
    	}
-       
        	
        @PostMapping("/customwriteok")
    	public String handleStep3(CustomRequest request) {	
@@ -416,4 +412,5 @@ public class MainController {
    			return "customwriteok";
    	
    	}
+//윤수명끝----------------------------
 }
