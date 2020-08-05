@@ -31,7 +31,7 @@ public class MemberDao {
 												rs.getInt("member_gamelog"),
 												rs.getTimestamp("member_regdate")
 												);
-					member.setId((int) rs.getLong("ID"));
+					member.setId(rs.getLong("member_number"));
 					return member;
 				}
 			};
@@ -70,7 +70,7 @@ public class MemberDao {
 							rs.getInt("member_gamelog"),
 							rs.getTimestamp("member_regdate")
 					);
-					member.setId((int) rs.getLong("ID"));
+					member.setId(rs.getLong("ID"));
 					return member;
 				});
 		return results;
@@ -97,7 +97,7 @@ public class MemberDao {
 			}
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
-		member.setId((int) keyValue.longValue());
+		member.setId(keyValue.longValue());
 	}
 	
 	public void delete(String email, String password) {
@@ -112,7 +112,7 @@ public class MemberDao {
 				(ResultSet rs, int rowNum) -> {
 					Member member = new Member(rs.getString("member_email"), rs.getString("member_password"), rs.getString("member_nickname")
 							,rs.getInt("member_gamelog"), rs.getTimestamp("member_regdate"));
-					member.setId((int) rs.getLong("ID"));
+					member.setId(rs.getLong("ID"));
 			return member;
 		}, id, tel);
 	}

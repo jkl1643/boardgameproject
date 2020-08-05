@@ -33,7 +33,7 @@ public class MemberLogin { //이메일과 암호 입력해서 이메일이 있�
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into LOGINLOG(EMAIL, STATUS, REGDATE) values(?, ?, ?)", new String[] { "ID" });
+						"insert into LOGINLOG(EMAIL, STATUS, REGDATE) values(?, ?, ?)", new String[] { "member_number" });
 				pstmt.setString(1, member.getEmail());
 				pstmt.setString(2, "Login");
 				pstmt.setString(3, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -41,7 +41,7 @@ public class MemberLogin { //이메일과 암호 입력해서 이메일이 있�
 			}
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
-		member.setId((int) keyValue.longValue());
+		member.setId(keyValue.longValue());
 	}
 	
 	public void setMemberDao(MemberDao memberDao) {

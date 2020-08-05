@@ -3,7 +3,7 @@ package com.example;
 import java.util.Date;
 
 public class Member {
-	private Integer id;
+	private Long id;
 	private String email;
 	private String password;
 	private String nickname;
@@ -20,10 +20,10 @@ public class Member {
 	public Date getRegisterDate() {
 		return registerDate;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getEmail() {

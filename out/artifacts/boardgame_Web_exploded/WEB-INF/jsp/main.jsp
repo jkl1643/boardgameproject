@@ -48,8 +48,9 @@
 	</form>
 	
 </tr>
-	<tr>
-	<form action="main" method="post">		
+		<form action="main" method="post">
+		<tr>
+
 			<td>날 짜</td>
 			<td><input type="date" name="DATE"/></td>
 		</tr>

@@ -11,19 +11,20 @@
 
 	<table>
 		<form action="main" method="post">
-		<tr>
-			<td>아이디</td>
-			<td><Input Type = "Text" Name = "id" style = "width:80px"> <BR></td>
-		</tr>
-		<tr>
-			<td>비밀번호</td>
-			<td><Input Type = "PassWord" Name = "pwd" style = "width:80px"> <BR></td>
-		</tr>
-		<tr>
+			<tr>
+				<td>아이디</td>
+				<td><Input Type = "Text" Name = "id" style = "width:80px"> <BR></td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td><Input Type = "PassWord" Name = "pwd" style = "width:80px"> <BR></td>
+			</tr>
+			<tr>
 			<td>
-					<Input Type = "Submit" Value = "로그인">
-				</form>
+				<Input Type = "Submit" Value = "로그인">
 			</td>
+		</form>
+
 			<td>
 				<form action="newaccount" method="post">
 					<Input Type = "Submit" Value = "회원가입">

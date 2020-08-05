@@ -35,7 +35,7 @@ public class MemberLogout {
 			}
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
-		member.setId((int) keyValue.longValue());
+		member.setId(keyValue.longValue());
 	}
 	
 	public void setMemberDao(MemberDao memberDao) {

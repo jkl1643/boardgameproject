@@ -7,7 +7,7 @@ public class MemberRegisterService {
 		this.memberDao = memberDao;
 	}
 	
-	public Integer regist(RegisterRequest req) {
+	public Long regist(RegisterRequest req) {
 		Member member = memberDao.selectByEmail(req.getEmail()); //이메일 중복확인용
 		if(member != null) { //같은이메일이있다
 			throw new DuplicateMemberException("dup email " + req.getEmail());
