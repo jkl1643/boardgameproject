@@ -37,7 +37,7 @@ public class MemberDao {
 			};
 	
 	public Member selectByEmail(String email) {
-		List<Member> results = jdbcTemplate.query("select * from MEMBER where member_email = ?", memRowMapper, email);
+		List<Member> results = jdbcTemplate.query("select * from MEMBER where member_email LIKE ?", memRowMapper, email);
 		return results.isEmpty() ? null : results.get(0);
 	}
 	/*public Member selectByEmail(String email) {
@@ -77,8 +77,8 @@ public class MemberDao {
 	}
 	
 	public void update(Member member) {
-		jdbcTemplate.update("update MEMBER set member_nickname = ?, member_password = ?, " + "where member_email = ?", member.getNickname(),
-				member.getPassword(), member.getEmail());
+		jdbcTemplate.update("update MEMBER set member_password = ?, member_nickname = ? where member_email LIKE ?",
+				member.getPassword(), member.getNickname(), member.getEmail());
 	}
 
 	public void insert(final Member member) {
@@ -101,19 +101,22 @@ public class MemberDao {
 	}
 	
 	public void delete(String email, String password) {
-		jdbcTemplate.update("delete from MEMBER where member_email = ?", email);
+		jdbcTemplate.update("delete from MEMBER where member_email LIKE ?", email);
 		System.out.println(email + "님의 계정과 메모가 삭제 되었습니다.");
 		delaccount = 1;
 	}
 	
-	public List<Member> findpwd(String id, String tel) {
+	public List<Member> findpwd(String email, String nickname) {
 		System.out.println("findpwd안");
 		return jdbcTemplate.query("select * from MEMBER WHERE member_email LIKE ? AND member_nickname LIKE ?",
 				(ResultSet rs, int rowNum) -> {
-					Member member = new Member(rs.getString("member_email"), rs.getString("member_password"), rs.getString("member_nickname")
-							,rs.getInt("member_gamelog"), rs.getTimestamp("member_regdate"));
-					member.setId(rs.getLong("ID"));
+					Member member = new Member(rs.getString("member_email"),
+							rs.getString("member_password"),
+							rs.getString("member_nickname"),
+							rs.getInt("member_gamelog"),
+							rs.getTimestamp("member_regdate"));
+					member.setId(rs.getLong("member_number"));
 			return member;
-		}, id, tel);
+		}, email, nickname);
 	}
 }

@@ -11,7 +11,7 @@
 	<li> ${member.email}님의 비밀번호는 ${member.password}입니다.</li>
 	</c:forEach>
 	
-	<form action=login method="post">
+	<form action=home method="post">
 		<BR><Input Type = "Submit" Value = "확인">
 	</form>
 </body>
