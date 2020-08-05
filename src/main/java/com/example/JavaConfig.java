@@ -13,9 +13,9 @@ public class JavaConfig {
     public DataSource dataSource() {
         DataSource ds = new DataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost/spring5fs?characterEncoding=UTF-8&serverTimezone=UTC");
-        ds.setUsername("spring5");
-        ds.setPassword("spring5");
+        ds.setUrl("jdbc:mysql://localhost/boardgameproject?characterEncoding=UTF-8&serverTimezone=UTC");
+        ds.setUsername("boardgame");
+        ds.setPassword("boardgame");
         ds.setInitialSize(2);
         ds.setMaxActive(10);
         ds.setTestWhileIdle(true);

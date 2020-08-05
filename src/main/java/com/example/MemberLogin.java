@@ -41,7 +41,7 @@ public class MemberLogin { //이메일과 암호 입력해서 이메일이 있�
 			}
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
-		member.setId(keyValue.longValue());
+		member.setId((int) keyValue.longValue());
 	}
 	
 	public void setMemberDao(MemberDao memberDao) {

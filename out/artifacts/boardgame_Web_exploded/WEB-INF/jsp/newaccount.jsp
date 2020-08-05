@@ -24,16 +24,8 @@
 			<td><Input Type = "PassWord" Name = "PWD2"> <BR></td>
 		</tr>
 		<tr>
-			<td>이름</td>
-			<td><Input Type = "Text" Name = "NAME"> <BR></td>
-		</tr>
-		<tr>
-			<td>전화번호</td>
-			<td><Input Type = "Text" Name = "TELEPHONE"> <BR></td>
-		</tr>
-		<tr>
-			<td>주소</td>
-			<td><Input Type = "Text" Name = "ADDRESS"> <BR></td>
+			<td>닉네임</td>
+			<td><Input Type = "Text" Name = "NICKNAME"> <BR></td>
 		</tr>
 		<tr>
 			<td><Input Type = "Submit" Value = "가입 완료"></td>

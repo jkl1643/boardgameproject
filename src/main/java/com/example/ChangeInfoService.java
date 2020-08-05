@@ -2,8 +2,8 @@ package com.example;
 
 public class ChangeInfoService {
 	private MemberDao memberDao;
-	public String changePassword(String email, String oldPwd, String newPwd, String newPwd2, 
-			String name, String tel, String address) {
+	public void changePassword(String email, String oldPwd, String newPwd, String newPwd2,
+							   String nickname) {
 		System.out.println("수정1");
 		Member member = memberDao.selectByEmail(email);
 		System.out.println("수정2");
@@ -18,23 +18,12 @@ public class ChangeInfoService {
 			member.changePassword(oldPwd, newPwd);
 			memberDao.update(member);
 		}
-		if (name.isEmpty()) {
+		if (nickname.isEmpty()) {
 		} else {
-			member.changeName(name);
+			member.changeNickname(nickname);
 			memberDao.update(member);
 		}
-		if (tel.isEmpty()) {
-		} else {
-			member.changeTel(tel);
-			memberDao.update(member);
-		}
-		if (address.isEmpty()) {
-		} else {
-			member.changeAddress(address);
-			memberDao.update(member);
-		}
-		
-		return member.getSavePath();
+
 	}
 	
 	public void setMemberDao(MemberDao memberDao) {

@@ -3,10 +3,8 @@ package com.example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +35,7 @@ public class MainController {
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
-                              @RequestParam(value = "NAME", required = false) String name,
+                              @RequestParam(value = "NICKNAME", required = false) String nickname,
                               @RequestParam(value = "TELEPHONE", required = false) String telephone,
                               @RequestParam(value = "ADDRESS", required = false) String address) {
 
@@ -54,21 +52,16 @@ public class MainController {
         mav.addObject("created_account", false);
         mav.addObject("error", false);
 
-        //ctx = new GenericXmlApplicationContext("classpath:applicationContext.xml");
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delaccount = " + delaccount);
 
-
-
         RegisterRequest req = new RegisterRequest();
         if (login != 1 && delaccount != 1) {
             req.setEmail(id);
-            req.setName(name);
+            req.setNickname(nickname);
             req.setPassword(pwd);
             req.setConfirmPassword(pwd2);
-            req.setTel(telephone);
-            req.setAddress(address);
         }
         if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
             System.out.println("pwd = " + pwd);
@@ -82,14 +75,16 @@ public class MainController {
                 return mav;
             }
             //회원가입 정보들을 입력하지 않앗을때
-            if (pwd.isEmpty() || pwd2.isEmpty() || telephone.isEmpty() || address.isEmpty()) {
+            if (pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
                 mav.addObject("error", true);
                 mav.setViewName("login");
                 return mav;
             }
             try {
                 MemberRegisterService memberRegSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
+                System.out.println("1");
                 memberRegSvc.regist(req); //회원가입
+                System.out.println("2");
                 mav.addObject("created_account", true);
             } catch (DuplicateMemberException e) {
                 mav.addObject("error", true);
@@ -99,11 +94,10 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
-            mav.setViewName("login");
             id = "0";
             req.setEmail("0");
             System.out.println("계정생성 = " + id);
-
+            mav.setViewName("login");
             return mav;
         } else
             mav.setViewName("login");
@@ -126,7 +120,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String name, String tel, String add,
+    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname,
                              @RequestParam(value = "MEMO", required = false) String memo,
                              @RequestParam(value = "IMAGE", required = false) String image,
                              @RequestParam(value = "DATE", required = false) String date,
@@ -192,7 +186,7 @@ public class MainController {
             ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
             try {
                 editaccount = 0;
-                changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, name, tel, add);
+                changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, nickname);
 
                 System.out.println("정보를 수정했습니다.\n");
                 mav.addObject("editaccount", true);

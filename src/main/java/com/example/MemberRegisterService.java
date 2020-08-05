@@ -7,14 +7,14 @@ public class MemberRegisterService {
 		this.memberDao = memberDao;
 	}
 	
-	public Long regist(RegisterRequest req) {
+	public Integer regist(RegisterRequest req) {
 		Member member = memberDao.selectByEmail(req.getEmail()); //이메일 중복확인용
 		if(member != null) { //같은이메일이있다
 			throw new DuplicateMemberException("dup email " + req.getEmail());
 		}
-		
-		Member newMember = new Member(req.getEmail(), req.getPassword(), req.getName(), req.getTel(), 
-				req.getAddress(), req.getRegisterDate()); //맴버객체를 만듬 new Date()
+		System.out.println("3");
+		Member newMember = new Member(req.getEmail(), req.getPassword(), req.getNickname(), req.getGamelog(), req.getRegisterDate()); //맴버객체를 만듬 new Date()
+		System.out.println("4");
 		memberDao.insert(newMember); //Dao에 삽입
 		
 		return newMember.getId();
