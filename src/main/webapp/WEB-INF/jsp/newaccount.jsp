@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>계정 생성</h1>
-	<form action="login" method="post">
+	<form action="home" method="post">
 	<table>
 		<tr>
 			<td>아이디</td>

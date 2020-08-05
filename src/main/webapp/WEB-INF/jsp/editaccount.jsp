@@ -27,16 +27,8 @@
 				<td><Input Type = "PassWord" Name = "pwd2"></td>
 			</tr>
 			<tr>
-				<td>이름</td>
-				<td><Input Type = "Text" Name = "name"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><Input Type = "Text" Name = "tel"></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><Input Type = "Text" Name = "add"></td>
+				<td>닉네임</td>
+				<td><Input Type = "Text" Name = "nickname"></td>
 			</tr>
 		</table>
 		<Input Type = "Submit" Value = "수정 완료">

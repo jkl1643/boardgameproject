@@ -16,20 +16,11 @@ import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
 
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
-import java.util.Random;
 
 @Controller
 public class MainController {
@@ -38,8 +29,8 @@ public class MainController {
     public static int delaccount = 0;
     public static int delmemo = 0;
     public static int editaccount = 0;
-    public static int result_search = 0;
     public static String userid2 = null;
+    public static String userNickname = null;
     public static int state = 1;
     private Room_Server a = new Room_Server();
     @Autowired
@@ -59,8 +50,7 @@ public class MainController {
 	}
 
 
-
-    @RequestMapping("/login")
+    @RequestMapping("/home")
     public ModelAndView login(ModelAndView mav, Model model, String delid, String delpwd,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
@@ -103,7 +93,7 @@ public class MainController {
             System.out.println("telephone = " + telephone);
             System.out.println("address = " + address);
             if (!req.isPasswordEqualToConfirmPassword()) {
-                mav.setViewName("login");
+                mav.setViewName("home");
                 mav.addObject("error", true);
                 System.out.println("암호와 확인이 일치하지 않습니다.\n");
                 return mav;
@@ -111,7 +101,7 @@ public class MainController {
             //회원가입 정보들을 입력하지 않앗을때
             if (id.equals("0") || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
                 mav.addObject("error", true);
-                mav.setViewName("login");
+                mav.setViewName("home");
                 return mav;
             }
             try {
@@ -131,10 +121,10 @@ public class MainController {
             id = "0";
             req.setEmail("0");
             System.out.println("계정생성 = " + id);
-            mav.setViewName("login");
+            mav.setViewName("home");
             return mav;
         } else {
-            mav.setViewName("login");
+            mav.setViewName("home");
         }
         id = "0";
         System.out.println("나중id22 = " + id);
@@ -155,11 +145,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname,
-                             @RequestParam(value = "MEMO", required = false) String memo,
-                             @RequestParam(value = "IMAGE", required = false) String image,
-                             @RequestParam(value = "DATE", required = false) String date,
-                             @RequestParam(value = "DATE2", required = false) String date2) {
+    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
         mav.addObject("unknown_email", false);
@@ -184,7 +170,6 @@ public class MainController {
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
-        System.out.println("memo = " + memo);
         if (id == null) {
             id = "0";
         }
@@ -195,25 +180,30 @@ public class MainController {
                 lgn.login(id, pwd); //로그인
                 System.out.println("id = " + id + ", pwd = " + pwd);
                 userid2 = MemberLogin.loginEmail;
+                userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
                 mav.setViewName("main");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
+                /*if(id == null) {
+                    mav.addObject("unknown_email", true);
+                }*/
                 mav.addObject("unknown_email", true);
+
                 id = "0";
-                mav.setViewName("login");
+                mav.setViewName("home");
             } catch (WrongIdPasswordException e) {
                 System.out.println("이메일과 암호가 일치하지 않습니다.\n");
                 mav.addObject("email_pwd_match", true);
                 id = "0";
-                mav.setViewName("login");
+                mav.setViewName("home");
             } catch (IOException e) {
                 id = "0";
-                mav.setViewName("login");
+                mav.setViewName("home");
             } catch (NullPointerException e) {
                 id = "0";
-                mav.setViewName("login");
+                mav.setViewName("home");
             }
             //계정삭제, 메모삭제, 정보수정을 누르지 않았을때와 메모에 아무런값을입력하지 않았을때
         } else if (editaccount == 1) {
@@ -222,7 +212,6 @@ public class MainController {
             try {
                 editaccount = 0;
                 changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, nickname);
-
                 System.out.println("정보를 수정했습니다.\n");
                 mav.addObject("editaccount", true);
             } catch (MemberNotFoundException e) {
@@ -272,7 +261,7 @@ public class MainController {
                 System.out.println("bbbbb");
                 login = 0;
                 delaccount = 0;
-                mav.setViewName("login");
+                mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 mav.setViewName("delaccount");
                 mav.addObject("wrongemail", true);
@@ -301,6 +290,7 @@ public class MainController {
         editaccount = 1;
         System.out.println("userid2 = " + userid2);
         model.addAttribute("userid", userid2);
+        model.addAttribute("userpassword", userNickname);
         mav.setViewName("editaccount");
         return mav;
     }
@@ -398,14 +388,12 @@ public class MainController {
 
 
 
- // 윤수명 고객문의 컨트롤러1
+    //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
 
     	return "custom";
     }
-
-
 
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
@@ -413,13 +401,13 @@ public class MainController {
    		return "customwrite";
    	}
 
-
        @PostMapping("/customwriteok")
    	public String handleStep3(CustomRequest request) {
    			customwrite.inputdata(request);
    			return "customwriteok";
 
    	}
+    //윤수명끝----------------------------
     @GetMapping("/lobby")
     public ModelAndView lobby_start(Model model)
     {
