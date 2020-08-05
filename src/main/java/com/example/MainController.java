@@ -287,6 +287,13 @@ public class MainController {
         return mav;
     }
 
+    @RequestMapping("/findid")
+    public ModelAndView findid(Model model) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("findid");
+        return mav;
+    }
+
     @RequestMapping("/resultfindpwd")
     public ModelAndView findpwd(Model model, String id, String tel) {
         ModelAndView mav = new ModelAndView();

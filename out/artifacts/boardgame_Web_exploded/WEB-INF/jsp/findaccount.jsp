@@ -12,7 +12,7 @@
     <title>계정찾기</title>
 </head>
 <body>
-    <div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디 찾기</div>
+    <div OnClick="location.href ='findid'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디 찾기</div>
     <div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">비밀번호 찾기</div>
 </body>
 </html>
