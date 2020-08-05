@@ -10,9 +10,11 @@
     <title>제목</title>
 </head>
 <body>
- 내용
+
+  <a href="<c:url value="/customwrite" />">글쓰기 </a>
 
 	
  	
 </body>
 </html>
+

@@ -5,9 +5,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
+import custom_asking.CustomRequest;
+import custom_asking.CustomWrite;
+
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -18,6 +24,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -36,10 +43,21 @@ public class MainController {
     @Autowired
     private MemberDao memberDao;
 
+    //윤수명 추가 1
+    @Autowired
+    private CustomWrite customwrite;
+    
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
+   
+    public void setCustomWrite(CustomWrite customwrite) {
+		this.customwrite = customwrite;
+	}
+    
+    
+    
     @RequestMapping("/login")
     public ModelAndView login(ModelAndView mav, Model model, String delid, String delpwd,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
@@ -376,9 +394,26 @@ public class MainController {
 
 
 
-    // 윤수명 고객문의 컨트롤러
+ // 윤수명 고객문의 컨트롤러1
     @RequestMapping("/custom")
     public String handleStep1() {
+    	
     	return "custom";
     }
+    
+    
+    
+    @RequestMapping("/customwrite")
+   	public String handleStep2(Model model) {
+   		model.addAttribute("customrequest", new CustomRequest());
+   		return "customwrite";
+   	}
+       
+       	
+       @PostMapping("/customwriteok")
+   	public String handleStep3(CustomRequest request) {	
+   			customwrite.inputdata(request);
+   			return "customwriteok";
+   	
+   	}
 }
