@@ -19,7 +19,6 @@ public class MainController {
     public static int delaccount = 0;
     public static int delmemo = 0;
     public static int editaccount = 0;
-    public static int result_search = 0;
     public static String userid2 = null;
     public static int state = 1;
 
@@ -54,7 +53,6 @@ public class MainController {
 
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
-        System.out.println("delaccount = " + delaccount);
 
         RegisterRequest req = new RegisterRequest();
         if (login != 1 && delaccount != 1) {
@@ -63,7 +61,11 @@ public class MainController {
             req.setPassword(pwd);
             req.setConfirmPassword(pwd2);
         }
+
+        System.out.println("id = " + id);
+
         if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
+
             System.out.println("pwd = " + pwd);
             System.out.println("pwd2 = " + pwd2);
             System.out.println("telephone = " + telephone);
@@ -75,7 +77,7 @@ public class MainController {
                 return mav;
             }
             //회원가입 정보들을 입력하지 않앗을때
-            if (pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
+            if (id.equals("0") || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
                 mav.addObject("error", true);
                 mav.setViewName("login");
                 return mav;
@@ -99,8 +101,9 @@ public class MainController {
             System.out.println("계정생성 = " + id);
             mav.setViewName("login");
             return mav;
-        } else
+        } else {
             mav.setViewName("login");
+        }
         id = "0";
         System.out.println("나중id22 = " + id);
         if (login == 1 && delaccount == 0) {//로그아웃
@@ -270,6 +273,13 @@ public class MainController {
         return mav;
     }
 
+    @RequestMapping("/findaccount")
+    public ModelAndView findaccount(Model model) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("findaccount");
+        return mav;
+    }
+
     @RequestMapping("/findpwd")
     public ModelAndView findpwd(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -285,12 +295,12 @@ public class MainController {
         mav.setViewName("resultfindpwd");
         return mav;
     }
-    
+
+
 
     // 윤수명 고객문의 컨트롤러
     @RequestMapping("/custom")
     public String handleStep1() {
-    	
     	return "custom";
     }
     	
