@@ -1,6 +1,7 @@
 package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-
+import custom_asking.Custom;
+import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
 
@@ -36,14 +37,20 @@ public class MainController {
     @Autowired
     private MemberDao memberDao;
 
-    //윤수명 추가 1
+    //윤수명 추가 2
     @Autowired
     private CustomWrite customwrite;
-
+    
+    @Autowired
+    private CustomDao customdao;
+    
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-
+   
+	public void setCustomDao(CustomDao customdao) {
+		this.customdao =customdao;
+	}
 
     public void setCustomWrite(CustomWrite customwrite) {
 		this.customwrite = customwrite;
@@ -401,12 +408,21 @@ public class MainController {
    		return "customwrite";
    	}
 
-       @PostMapping("/customwriteok")
+    @PostMapping("/customwriteok")
    	public String handleStep3(CustomRequest request) {
    			customwrite.inputdata(request);
    			return "customwriteok";
 
    	}
+       
+    @GetMapping(value = "/custom")
+   	public String list(Model model) {
+   		List<Custom> questionlist = customdao.selectAll();
+   		model.addAttribute("QuestionList",questionlist);
+   		return "custom";
+   	}   
+       
+  
     //윤수명끝----------------------------
     @GetMapping("/lobby")
     public ModelAndView lobby_start(Model model)

@@ -11,6 +11,17 @@
 </head>
 <body>
 
+	<c:forEach var="questionlist" items="${QuestionList}" varStatus="status">
+	
+			 ${questionlist.count}&nbsp;&nbsp; 
+			 <a href="<c:url value="/content/${questionlist.count}"/> ">${questionlist.title} </a>
+			${questionlist.name}&nbsp;&nbsp;&nbsp;${questionlist.registerDateTime}
+			<br>
+			
+		</c:forEach>
+
+
+
   <a href="<c:url value="/customwrite" />">글쓰기 </a>
 
 	
