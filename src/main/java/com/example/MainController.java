@@ -427,14 +427,7 @@ public class MainController {
 		model.addAttribute("custom", custom);
 		return "customchange";
 	}
-    
-    
-    @PostMapping("/customwriteok")
-   	public String handleStep3(CustomRequest request) {
-   			customwrite.inputdata(request);
-   			return "customwriteok";
-
-   	}
+     
        
     @PostMapping("/customchangeok")
    	public String handleStep5(CustomRequest request) {

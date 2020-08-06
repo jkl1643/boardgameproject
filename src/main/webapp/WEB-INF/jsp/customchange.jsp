@@ -13,25 +13,25 @@
 <form:form action="customchangeok" modelAttribute="customchangerequest">
     <p>
         <label>제목<br>
-        <form:input path="title" value = "${custom.title}" />
+        <form:input path="title1" value = "${custom.title}" />
     
         </label>
     </p>
     <p>
         <label>
-        <form:input path="content" value = "${custom.content}" />
+        <form:input path="content1" value = "${custom.content}" />
   
         </label>
     </p>
     <p>
         <label>작성자<br>
-        <form:input path="name" value = "${custom.name}" />
+        <form:input path="name1" value = "${custom.name}" />
         </label>
     </p>
     
     <p>
     	<label>이메일<br>
-    	  <form:input path="email"  />
+    	  <form:input path="email1"  />
     	 </label>
 	 </p>
     <input type="submit" value="저장하기">

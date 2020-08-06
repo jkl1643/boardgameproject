@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
@@ -76,8 +77,13 @@ public class JavaConfig {
    	}
 
    	@Bean
-   	public CustomWrite boardrequeset() {
+   	public CustomWrite customwrite() {
    		return new CustomWrite(customdao());
+   	}
+   	
+   	@Bean
+   	public CustomChange customchange() {
+   		return new CustomChange(customdao());
    	}
    	
    	@Bean
