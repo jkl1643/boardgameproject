@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import custom_asking.Custom;
+import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
@@ -46,6 +47,14 @@ public class MainController {
     
     @Autowired
     private CustomDao customdao;
+    
+    @Autowired
+    private CustomChange customchange;
+    
+    // 윤수명 끝
+    public void setCustomChange(CustomChange customchange) {
+		this.customchange = customchange;
+	}
     
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
@@ -429,7 +438,7 @@ public class MainController {
        
     @PostMapping("/customchangeok")
    	public String handleStep5(CustomRequest request) {
-   			customwrite.inputdata(request);
+   			customchange.changedata(request);
    			return "customchangeok";
 
    	}

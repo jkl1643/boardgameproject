@@ -9,7 +9,7 @@
     <title>제목</title>
 </head>
 <body>
-<%-- 
+ 
 <form:form action="customchangeok" modelAttribute="customchangerequest">
     <p>
         <label>제목<br>
@@ -37,9 +37,9 @@
     <input type="submit" value="저장하기">
     </form:form>
 	
- --%>
+ 
 
-${custom.title}
+
  	
 </body>
 </html>
