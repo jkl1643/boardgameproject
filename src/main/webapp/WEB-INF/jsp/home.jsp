@@ -48,10 +48,10 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 
 	<table>
 		<tr>
-			<td>
+			<td>${login}
 				<%
 					if(login == 0){ %>
-						<jsp:include page="login2기석이가 준거 적용전.jsp"></jsp:include> <%--로그인 전--%>
+						<jsp:include page="login.jsp"></jsp:include> <%--로그인 전--%>
 				<%} else { %>
 						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공페이지--%>
 				<%}	%>
@@ -65,7 +65,22 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 	</div>
 	<div id="logbox5">
 	</div>
+	<%--<%
+	String id = "";
 
+
+
+	try{
+
+	id = (String)session.getAttribute("id");            // request에서 id 파라미터를 가져온다
+
+
+
+	if(id==null||id.equals("")){                            // id가 Null 이거나 없을 경우
+
+	response.sendRedirect("loginform.jsp");    // 로그인 페이지로 리다이렉트 한다.
+
+	<%}%>--%>
 
 	<%--<div id="logbox1">
 		<div id="logbox2"></div>

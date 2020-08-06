@@ -8,7 +8,7 @@
     <title>메인</title>
     <STYLE TYPE="text/css">
         <!--
-        BODY {background-image: url(board.jpg); background-repeat: no-repeat; background-size: cover}
+        BODY {background-image: url('board.jpg'); background-repeat: no-repeat; background-size: cover}
         .part1 {font-family: fantasy; position: relative; left: 750px; font-size: xx-large}
         ul {list-style-type: none; margin: 0; padding: 0; width: 1100px; background-color: #333}
         ul:after {content: ''; display: block; clear: both}
@@ -41,7 +41,6 @@ ${userid}님 로그인 되었습니다.<BR>
         </td>
     </tr>
     <tr>
-
         <td>
             <form action="editaccount" method="post">
                 <Input Type="Submit" Value="정보수정 ▶">

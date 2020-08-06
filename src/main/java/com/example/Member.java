@@ -53,19 +53,23 @@ public class Member {
 	public void changeNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 	public void checkLogin(String email, String inputPassword) {
-		if(!password.equals(inputPassword))
+		if(!password.equals(inputPassword)) {
 			throw new WrongIdPasswordException();
+		}
 		System.out.println(email + "님 로그인 되었습니다.");
 	}	
 	public void checkPassword(String inputemail, String inputPassword) {
 		System.out.println("password = " + password + "inputPassword = " + inputPassword);
-		if(!password.equals(inputPassword))
+		if(!password.equals(inputPassword)) {
 			throw new WrongIdPasswordException();
+		}
 		
 		if(!MemberLogin.loginEmail.equals(inputemail)) {
 			throw new NotMatchException();
-		} else
+		} else {
 			System.out.println("else = " + MemberLogin.loginEmail + ", " + inputemail);
+		}
 	}
 }

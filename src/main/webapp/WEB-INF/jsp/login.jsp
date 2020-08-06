@@ -15,7 +15,7 @@
 	li a {display: block; color: white; text-align: center; padding: 16px 60px; text-decoration: none}
 	li a:hover:not(a.active) {background-color: #111}
 	.active {background-color: #4CAF50}
-	div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
+	div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid #0000ff; background: white}
 	input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 	button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 	div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
@@ -23,7 +23,7 @@
 	#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: #a52a2a; font-family: 돋움}
 	-->
 </STYLE>
 </head>
