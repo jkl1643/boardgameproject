@@ -24,6 +24,9 @@
 	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
+div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
+div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 -->
 </STYLE>
 </head>
@@ -46,18 +49,22 @@
 	<table>
 		<tr>
 			<td>
-				${login}${login}${login}${login}${login}
 				<%
-
 					if(login == 0){ %>
 						<jsp:include page="login2기석이가 준거 적용전.jsp"></jsp:include> <%--로그인 전--%>
 				<%} else { %>
-						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공후--%>
+						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공페이지--%>
 				<%}	%>
 
 			</td>
 		</tr>
 	</table>
+	<div id="logbox3">
+	</div>
+	<div id="logbox4">
+	</div>
+	<div id="logbox5">
+	</div>
 
 
 	<%--<div id="logbox1">

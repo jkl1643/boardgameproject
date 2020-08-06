@@ -52,10 +52,8 @@ ${userid}님 로그인 되었습니다.<BR>
                 <Input Type="Submit" Value="로그아웃 ▶">
             </form>
         </td>
-
     </tr>
     <tr>
-
     </tr>
     <%--<form action="main" method="post">
         <tr>
@@ -79,24 +77,11 @@ ${userid}님 로그인 되었습니다.<BR>
             </c:forEach></td>
         </tr>
     </form>--%>
-    <%
-        boolean select_date = (boolean) request.getAttribute("select_date");
-        boolean insert_memo = (boolean) request.getAttribute("insert_memo");
-        boolean delmemo = (boolean) request.getAttribute("delmemo");
+    <%--<%
         boolean editaccount = (boolean) request.getAttribute("editaccount");
         boolean chkpwd = (boolean) request.getAttribute("chkpwd");
         boolean currentpwd = (boolean) request.getAttribute("currentpwd");
-        boolean created_memo = (boolean) request.getAttribute("created_memo");
-        if (select_date == true) {
-    %><BR>날짜를 선택해주십시오.<BR>
-    <%} else if (insert_memo == true) {%>
-    <BR>메모를 입력해주십시오.<BR>
-    <%
-        }
-        if (delmemo == true) {
-    %>
-    <BR>메모가 삭제되었습니다.<BR>
-    <%}%>
+
     <%if (editaccount == true) {%>
     <BR>정보를 수정했습니다.<BR>
     <%}%>
@@ -106,16 +91,11 @@ ${userid}님 로그인 되었습니다.<BR>
     <%if (currentpwd == true) {%>
     <BR>현재 비밀번호가 일치하지 않습니다.<BR>
     <%}%>
-    <%if (created_memo == true) {%>
-    <BR>메모가 등록되었습니다.<BR>
-    <%}%>
-    <BR>
-
+    <BR>--%>
 
     <script>
         document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
     </script>
-
 </table>
 </div>
 </body>
