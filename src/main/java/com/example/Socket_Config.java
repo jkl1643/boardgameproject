@@ -14,7 +14,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class Socket_Config implements WebSocketConfigurer
 {
     @Autowired
-    WebSocketHandler socketHandler;
+    Socket_Handler socketHandler;
 
 
     @Override
