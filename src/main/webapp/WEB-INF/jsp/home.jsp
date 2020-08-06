@@ -50,9 +50,9 @@
 				<%
 
 					if(login == 0){ %>
-						<jsp:include page="login2기석이가 준거 적용전.jsp"></jsp:include>
+						<jsp:include page="login2기석이가 준거 적용전.jsp"></jsp:include> <%--로그인 전--%>
 				<%} else { %>
-						<jsp:include page="main.jsp"></jsp:include>
+						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공후--%>
 				<%}	%>
 
 			</td>
