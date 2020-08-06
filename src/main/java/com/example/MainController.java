@@ -90,7 +90,10 @@ public class MainController {
         mav.addObject("insert_memo", false);
         mav.addObject("created_account", false);
         mav.addObject("error", false);
-
+        if(login == 0)
+            mav.addObject("login", 0);
+        else
+            mav.addObject("login", 1);
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
 
@@ -182,6 +185,7 @@ public class MainController {
         mav.addObject("chkpwd", false);
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
+        mav.addObject("login", 0);
         delaccount = 0;
         model.addAttribute("userid", userid2);
         System.out.println("id = " + id);
@@ -197,12 +201,13 @@ public class MainController {
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
+                mav.addObject("login", 1);
                 System.out.println("id = " + id + ", pwd = " + pwd);
                 userid2 = MemberLogin.loginEmail;
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-                mav.setViewName("main");
+                mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
                 /*if(id == null) {
@@ -469,8 +474,7 @@ public class MainController {
 	
     //윤수명끝----------------------------
     @GetMapping("/lobby")
-    public ModelAndView lobby_start(Model model)
-    {
+    public ModelAndView lobby_start(Model model) {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("Room_list", a.getRoom_list());
         a.create("test");
@@ -479,12 +483,10 @@ public class MainController {
     }
 
     @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "id", required = false) String ID)
-    {
+    public ModelAndView lobby_join(Model model, @RequestParam(value = "id", required = false) String ID) {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("id", ID);
         mv.setViewName("room");
         return mv;
     }
-
 }

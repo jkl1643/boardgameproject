@@ -7,17 +7,15 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+
 @Configuration
 @EnableWebSocket
-public class Socket_Config implements WebSocketConfigurer
-{
+public class Socket_Config implements WebSocketConfigurer {
     @Autowired
     Socket_Handler socketHandler;
 
-
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(socketHandler,"/join");
+        registry.addHandler(socketHandler, "/join");
     }
-
 }
