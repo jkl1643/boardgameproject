@@ -24,6 +24,9 @@
 	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
+div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
+div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 -->
 </STYLE>
 </head>
@@ -39,8 +42,32 @@
 			<input type="text" placeholder="게임 검색" id="searbut"> <!-- 게임검색 창의 텍스트 입력칸 -->
 			<button id="searbut1">검색</button> <!-- 게임검색 창의 검색 버튼 -->
 	</div>
+	<%
+	int login = (int)request.getAttribute("login");
+	%>
 
-	<div id="logbox1">
+	<table>
+		<tr>
+			<td>
+				<%
+					if(login == 0){ %>
+						<jsp:include page="login2기석이가 준거 적용전.jsp"></jsp:include> <%--로그인 전--%>
+				<%} else { %>
+						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공페이지--%>
+				<%}	%>
+
+			</td>
+		</tr>
+	</table>
+	<div id="logbox3">
+	</div>
+	<div id="logbox4">
+	</div>
+	<div id="logbox5">
+	</div>
+
+
+	<%--<div id="logbox1">
 		<div id="logbox2"></div>
 		<form action="main" method="post">
 			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
@@ -49,9 +76,9 @@
  			<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
  			<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
  			<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
-			<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+			<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>
 
-			<%--유병렬 추가--%>
+			&lt;%&ndash;유병렬 추가&ndash;%&gt;
 			<div><%
 				boolean email = (boolean)request.getAttribute("unknown_email");
 				boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
@@ -73,20 +100,20 @@
 				if (created_account) { %> 계정이 생성되었습니다. <%}
 				if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
 			</div>
-			<%--유병렬 추가--%>
+			&lt;%&ndash;유병렬 추가&ndash;%&gt;
 
 
  			<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
  			<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
  			<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-			<%--<div id="loginbutton1"><a href="http://localhost:8080/boardgame_Web_exploded/main" id="loginbutton2">로그인</a></div>--%> <%--병렬이가 제거한것--%>
-			<%--<div id="signupbutton1"><a href="#signup" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
-			<%--<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>--%>
+			&lt;%&ndash;<div id="loginbutton1"><a href="http://localhost:8080/boardgame_Web_exploded/main" id="loginbutton2">로그인</a></div>&ndash;%&gt; &lt;%&ndash;병렬이가 제거한것&ndash;%&gt;
+			&lt;%&ndash;<div id="signupbutton1"><a href="#signup" id="signupbutton2">회원가입</a></div>&ndash;%&gt; &lt;%&ndash;유병렬 제거한것&ndash;%&gt;
+			&lt;%&ndash;<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>&ndash;%&gt;
 		</form>
-		<%--<form action="newaccount" method="post">--%>
- 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
-			<%--<div><Input Type = "Submit" Value = "회원가입" id="signupbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>--%>
-		<%--</form>--%>
-	</div>
+		&lt;%&ndash;<form action="newaccount" method="post">&ndash;%&gt;
+ 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> &lt;%&ndash;유병렬 제거한것&ndash;%&gt;
+			&lt;%&ndash;<div><Input Type = "Submit" Value = "회원가입" id="signupbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>&ndash;%&gt;
+		&lt;%&ndash;</form>&ndash;%&gt;
+	</div>--%>
 </body>
 </html>

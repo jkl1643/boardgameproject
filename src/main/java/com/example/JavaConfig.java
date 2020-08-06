@@ -1,5 +1,6 @@
 package com.example;
 
+import custom_asking.CustomChange;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class JavaConfig {
         return changeInfoSvc;
     }
     
-    // 윤수명 추가1
+    // 윤수명 추가2
    	@Bean
    	public CustomDao customdao() {
    		return new CustomDao(dataSource());
@@ -86,7 +87,9 @@ public class JavaConfig {
    		tm.setDataSource(dataSource());
    		return tm;
    	}
-    
-    
 
+    @Bean
+    public CustomChange customchange() {
+        return new CustomChange(customdao());
+    }
 }
