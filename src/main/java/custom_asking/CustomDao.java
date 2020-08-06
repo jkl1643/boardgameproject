@@ -80,7 +80,7 @@ public class CustomDao {
 
 	public void update(Custom custom) {
 		jdbcTemplate.update(
-				"update CUSTOM set TITLE = ?, CONTENT = ? where NAME = ?", // memo 수정
+				"update CUSTOM set TITLE = ?, CONTENT = ? where NAME = ?", 
 				custom.getTitle(), custom.getContent(), custom.getName());
 	}
 

@@ -2,15 +2,19 @@ package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
 import custom_asking.Custom;
 import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
@@ -19,7 +23,6 @@ import custom_asking.CustomWrite;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -408,6 +411,15 @@ public class MainController {
    		return "customwrite";
    	}
 
+    @GetMapping(value = "/customchange/{count}")
+    public String change(@PathVariable("count") Long memCount, Model model) {
+		Custom custom = customdao.selectByCount(memCount);
+	
+		model.addAttribute("custom", custom);
+		return "customchange";
+	}
+    
+    
     @PostMapping("/customwriteok")
    	public String handleStep3(CustomRequest request) {
    			customwrite.inputdata(request);
@@ -415,6 +427,14 @@ public class MainController {
 
    	}
        
+    @PostMapping("/customchangeok")
+   	public String handleStep5(CustomRequest request) {
+   			customwrite.inputdata(request);
+   			return "customchangeok";
+
+   	}
+    
+    
     @GetMapping(value = "/custom")
    	public String list(Model model) {
    		List<Custom> questionlist = customdao.selectAll();
@@ -422,7 +442,22 @@ public class MainController {
    		return "custom";
    	}   
        
-  
+	@GetMapping(value = "/content/{count}")
+	public String detail(@PathVariable("count") Long memCount, Model model) {
+		Custom custom = customdao.selectByCount(memCount);
+	
+		model.addAttribute("custom", custom);
+		return "customread";
+	}
+    
+	@GetMapping(value = "/delete/{count}")
+	public String delete(@PathVariable("count") Long memCount, Model model) {
+		Custom custom = customdao.selectByCount(memCount);
+		customdao.delete(custom);
+		return "customdeleteok";
+	}
+	
+	
     //윤수명끝----------------------------
     @GetMapping("/lobby")
     public ModelAndView lobby_start(Model model)
