@@ -70,7 +70,7 @@ public class JavaConfig {
         return changeInfoSvc;
     }
     
-    // 윤수명 추가2
+    // 윤수명 추가22g
    	@Bean
    	public CustomDao customdao() {
    		return new CustomDao(dataSource());
