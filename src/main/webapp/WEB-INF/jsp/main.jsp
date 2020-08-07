@@ -91,7 +91,18 @@ ${userid}님 로그인 되었습니다.<BR>
     <BR>현재 비밀번호가 일치하지 않습니다.<BR>
     <%}%>
     <BR>--%>
+    <%
+        String id = request.getParameter("id");
+        String password = request.getParameter("password");
+        int login = (int)request.getAttribute("login");
+        if(login == 1){
+            session.setAttribute("id2", id);
+            /*response.sendRedirect("main.jsp");*/
+        } else {
+            session.invalidate();
+        }
 
+    %>
     <script>
         document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
     </script>

@@ -77,7 +77,7 @@ public class MainController {
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
-
+        System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
 
         mav.addObject("unknown_email", false);
@@ -170,7 +170,8 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
+    public ModelAndView main(Model model, String id,
+             String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
         mav.addObject("unknown_email", false);
@@ -192,10 +193,15 @@ public class MainController {
         delaccount = 0;
         model.addAttribute("userid", userid2);
         System.out.println("id = " + id);
-        System.out.println("login = " + login);
+
+        String id2 = "";
+
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
+        if(id.equals(id2)){
+            System.out.println("이미 로그인한 아이디");
+        }
         if (id == null) {
             id = "0";
         }
@@ -207,11 +213,13 @@ public class MainController {
                 session.setAttribute("id", id);
                 session.setAttribute("password", pwd);
                 mav.addObject("login", 1);
+                System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
                 userid2 = MemberLogin.loginEmail;
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
+                System.out.println("id2 = " + id2);
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");

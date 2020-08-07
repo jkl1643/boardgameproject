@@ -60,7 +60,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 		</tr>
 	</table>--%>
 
-	${login}${login}${login}${login}
+
 
 	${id}
 	<% if(session.getAttribute("id") == null || session.getAttribute("id").equals("0")){ %>
@@ -170,18 +170,29 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 			</table>
 		</div>
 	<%}%>
+	${login}${login}${login}${login}
 	<%
-		String id = request.getParameter("id");
+		String id2 = request.getParameter("id2");
 		String password = request.getParameter("password");
 
-		if(login == 1){
-			session.setAttribute("id", id);
+		if (login == 1) {
+			session.setAttribute("id2", id2);
 			/*response.sendRedirect("main.jsp");*/
-		} else {
+		} /*else {
 			session.invalidate();
-		}
-
-	%>
+		}*/
+		String id = "";
+		try {
+			id = (String) session.getAttribute("id2");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}%>
+<%--		if (id.equals(id2)) {%>--%>
+<%--	아이디 같음--%>
+<%--	<%--%>
+<%--		}--%>
+<%--	%>--%>
+	${id2}${id2}${id}${id}
 	<div id="logbox3">
 	</div>
 	<div id="logbox4">
