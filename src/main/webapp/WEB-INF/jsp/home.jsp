@@ -190,7 +190,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 <%--		if (id.equals(id2)) {%>--%>
 <%--	아이디 같음--%>
 <%--	<%--%>
-<%--		}--%>
+<%--		--%>
 <%--	%>--%>
 	${id2}${id2}${id}${id}
 	<div id="logbox3">
