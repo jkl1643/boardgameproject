@@ -440,27 +440,31 @@ public class MainController {
 
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
-		Custom custom = customdao.selectByCount(memCount);
+		Custom custom1 = customdao.selectByCount(memCount);
 	
-		model.addAttribute("custom", custom);
+		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
-    
-    
-    @PostMapping("/customwriteok")
-   	public String handleStep3(CustomRequest request) {
-   			customwrite.inputdata(request);
-   			return "customwriteok";
-
-   	}
+     
        
-    @PostMapping("/customchangeok")
-   	public String handleStep5(CustomRequest request) {
-   			customchange.changedata(request);
-   			return "customchangeok";
-
-   	}
+    @RequestMapping("/customchangeok")
+    public String handleStep5(CustomRequest req) {
+    	//customdao.update(req);
+		return "customchangeok";
+    	
+   	    }
     
+  
+
+    /*
+    @RequestMapping("/customchangeok/{count}")
+   	public String  changecustom(@PathVariable("count") Long memCount, Model model)  {
+    		Custom custom = customdao.selectByCount(memCount);
+   			customdao.update(custom);
+   			return "customdeleteok";
+   
+   	}*/
+  
     
     @GetMapping(value = "/custom")
    	public String list(Model model) {

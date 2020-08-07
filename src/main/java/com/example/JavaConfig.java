@@ -1,6 +1,7 @@
 package com.example;
 
 import custom_asking.CustomChange;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
@@ -32,6 +34,11 @@ public class JavaConfig {
         return ds;
     }
 
+    
+    @Autowired
+    private CustomChange customchange;
+    
+    
     @Bean
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
@@ -70,15 +77,22 @@ public class JavaConfig {
         return changeInfoSvc;
     }
     
-    // 윤수명 추가2
+    // 윤수명 추가22g
    	@Bean
    	public CustomDao customdao() {
    		return new CustomDao(dataSource());
    	}
 
    	@Bean
-   	public CustomWrite boardrequeset() {
+   	public CustomWrite customwrite() {
    		return new CustomWrite(customdao());
+   	}
+   	
+   	@Bean
+   	public CustomChange customchange() {
+   		CustomChange controller = new CustomChange();
+   		controller.setCustomChange(null);
+   		return controller;
    	}
    	
    	@Bean
@@ -87,9 +101,9 @@ public class JavaConfig {
    		tm.setDataSource(dataSource());
    		return tm;
    	}
+   	
+   	
+	
 
-    @Bean
-    public CustomChange customchange() {
-        return new CustomChange(customdao());
-    }
+   
 }

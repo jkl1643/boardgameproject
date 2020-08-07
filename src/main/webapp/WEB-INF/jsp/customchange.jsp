@@ -9,36 +9,81 @@
     <title>제목</title>
 </head>
 <body>
- 
-<form:form action="customchangeok" modelAttribute="customchangerequest">
+
+<form action="customchangeok" method =post>
+<p>
+        <label>번호<br>
+			<Input Type = "Text" Name = "count1" value ="${custom1.count}">
+		</label>
+</p>
+
+
+
+<p>
+        <label>제목<br>
+			<Input Type = "Text" Name = "title1" value ="${custom1.title}">
+		</label>
+</p>
+
+<p>
+        <label>내용<br>
+<Input Type = "Text" Name = "content1" value ="${custom1.content}">
+		</label>
+</p>
+
+<p>
+        <label>작성자<br>
+<Input Type = "Text" Name = "name1" value ="${custom1.name}">
+		</label>
+</p>
+
+<p>
+        <label>이메일<br>
+<Input Type = "Text" Name = "name1" value ="${custom1.email}">
+		</label>
+</p>
+
+
+<input type="submit" value="수정하기">
+</form>
+<%--
+<form action="customchangeok" method =post>
+	<p>
+        <label>번호<br>
+        <form:input path="count1" value = "${custom.title}" />
+    
+        </label>
+    </p>
+
+
     <p>
         <label>제목<br>
-        <form:input path="title" value = "${custom.title}" />
+        <form:input path="title1" value = "${custom.title}" />
     
         </label>
     </p>
     <p>
         <label>
-        <form:input path="content" value = "${custom.content}" />
+        <form:input path="content1" value = "${custom.content}" />
   
         </label>
     </p>
     <p>
         <label>작성자<br>
-        <form:input path="name" value = "${custom.name}" />
+        <form:input path="name1" value = "${custom.name}" />
         </label>
     </p>
     
     <p>
     	<label>이메일<br>
-    	  <form:input path="email"  />
+    	  <form:input path="email1"  />
     	 </label>
 	 </p>
-    <input type="submit" value="저장하기">
-    </form:form>
-	
- 
+    <input type="submit" value="수정하기">
+    </form>
 
+	
+--%>
 
  	
 </body>
