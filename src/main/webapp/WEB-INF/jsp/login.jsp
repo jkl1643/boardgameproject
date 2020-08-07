@@ -30,101 +30,41 @@
 <body>
 	<%--<h1> 다이어리프로그램 </h1>--%>
 	<div id="logbox1">
-            <div id="logbox2"></div>
-            <form action="main" method="post">
-                <div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
-
-                 <div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
-                 <div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
-                 <div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
-                 <div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
-                <div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
-
-                <%--유병렬 추가--%>
-                <div><%
-                    boolean email = (boolean)request.getAttribute("unknown_email");
-                    boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
-                    boolean logout = (boolean)request.getAttribute("logout");
-                    boolean delaccount = (boolean)request.getAttribute("delaccount");
-                    boolean created_account = (boolean)request.getAttribute("created_account");
-                    boolean error = (boolean)request.getAttribute("error");
-                    if(email) {	%>
-                    존재하지 않는 아이디입니다.
-                    <%} else if (email){ %>
-                        아이디를 입력해주세요.
-                    <%}	else if (emailpwd) {%>
-                        이메일과 암호가 일치하지 않습니다.
-                    <%} else if (delaccount) {%>
-                        계정이 삭제되었습니다.
-                    <%} else if (logout) {%>
-                        로그아웃 되었습니다.
-                    <%}
-                    if (created_account) { %> 계정이 생성되었습니다. <%}
-                    if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
-                </div>
-                <%--유병렬 추가--%>
-
-
-                 <div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
-                 <div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
-                 <div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-                <%--<div id="loginbutton1"><a href="http://localhost:8080/boardgame_Web_exploded/main" id="loginbutton2">로그인</a></div>--%> <%--병렬이가 제거한것--%>
-                <%--<div id="signupbutton1"><a href="#signup" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
-                <%--<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>--%>
-            </form>
-            <%--<form action="newaccount" method="post">--%>
-                 <div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
-                <%--<div><Input Type = "Submit" Value = "회원가입" id="signupbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>--%>
-            <%--</form>--%>
-        </div>
-	<%--<table>
-		<form action="main" method="post">
-			<tr>
-				<td>아이디</td>
-				<td><Input Type = "Text" Name = "id" style = "width:80px"> <BR></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><Input Type = "PassWord" Name = "pwd" style = "width:80px"> <BR></td>
-			</tr>
-			<tr>
-			<td>
-				<Input Type = "Submit" Value = "로그인">
-			</td>
-		</form>
-
-			<td>
-				<form action="newaccount" method="post">
-					<Input Type = "Submit" Value = "회원가입">
-				</form>	
-			</td>
-			<td>
-				<form action="findpwd" method="post">
-					<Input Type = "Submit" Value = "비밀번호찾기">
-				</form>
-			</td>		
-		</tr>
-		</tr>
-	</table>--%>
-
-	<%--<%boolean email = (boolean)request.getAttribute("unknown_email");
-		boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
-		boolean logout = (boolean)request.getAttribute("logout");
-		boolean delaccount = (boolean)request.getAttribute("delaccount");
-		boolean created_account = (boolean)request.getAttribute("created_account");
-		boolean error = (boolean)request.getAttribute("error");
-		if(email) {
-			%>존재하지 않는 이메일입니다.
-		<%} else if (emailpwd) {%>
-			이메일과 암호가 일치하지 않습니다.
-		<%} else if (delaccount) {%>
-			계정이 삭제되었습니다.
-		<%} else if (logout) {%>
-			로그아웃 되었습니다.
-		<%}
-
-		if (created_account) { %> 계정이 생성되었습니다. <%}
-		if (error) { %>	계정이 생성되지 않았습니다.<%}	%>--%>
-	<BR>	
+        <div id="logbox2"></div>
+        <form action="main" method="post">
+            <div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
+            <div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
+            <div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
+            <div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
+            <div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
+            <div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+            <div><%
+                boolean email = (boolean)request.getAttribute("unknown_email");
+                boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
+                boolean logout = (boolean)request.getAttribute("logout");
+                boolean delaccount = (boolean)request.getAttribute("delaccount");
+                boolean created_account = (boolean)request.getAttribute("created_account");
+                boolean error = (boolean)request.getAttribute("error");
+                if(email) {	%>
+                존재하지 않는 아이디입니다.
+                <%} else if (email){ %>
+                    아이디를 입력해주세요.
+                <%}	else if (emailpwd) {%>
+                    이메일과 암호가 일치하지 않습니다.
+                <%} else if (delaccount) {%>
+                    계정이 삭제되었습니다.
+                <%} else if (logout) {%>
+                    로그아웃 되었습니다.
+                <%}
+                if (created_account) { %> 계정이 생성되었습니다. <%}
+                if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
+            </div>
+             <div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
+             <div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
+             <div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
+        </form>
+         <div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
+    </div>
+	<BR>
 </body>
 </html>
