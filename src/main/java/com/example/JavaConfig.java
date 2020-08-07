@@ -1,6 +1,7 @@
 package com.example;
 
 import custom_asking.CustomChange;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class JavaConfig {
         return ds;
     }
 
+    
+    @Autowired
+    private CustomChange customchange;
+    
+    
     @Bean
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
@@ -84,7 +90,9 @@ public class JavaConfig {
    	
    	@Bean
    	public CustomChange customchange() {
-   		return new CustomChange(customdao());
+   		CustomChange controller = new CustomChange();
+   		controller.setCustomChange(null);
+   		return controller;
    	}
    	
    	@Bean
@@ -93,6 +101,9 @@ public class JavaConfig {
    		tm.setDataSource(dataSource());
    		return tm;
    	}
+   	
+   	
+	
 
    
 }

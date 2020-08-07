@@ -439,24 +439,23 @@ public class MainController {
 	}
      
        
-    /*@RequestMapping("/customchangeok")
-   	public ModelAndView changecustom(Long count, String title, String content, String name) {
-   			customchange.changedata(count, title, content, name);
-   			ModelAndView mav = new ModelAndView();
-   			
-   			model.addAttribute("result", results2);
-   			mav.setViewName("resultfindpwd");
-   			return mav;
-
-   	}*/
+    @RequestMapping("/customchangeok")
+    public String handleStep5(CustomRequest req) {
+    	//customdao.update(req);
+		return "customchangeok";
+    	
+   	    }
     
+  
+
+    /*
     @RequestMapping("/customchangeok/{count}")
    	public String  changecustom(@PathVariable("count") Long memCount, Model model)  {
     		Custom custom = customdao.selectByCount(memCount);
    			customdao.update(custom);
    			return "customdeleteok";
    
-   	}
+   	}*/
   
     
     @GetMapping(value = "/custom")
