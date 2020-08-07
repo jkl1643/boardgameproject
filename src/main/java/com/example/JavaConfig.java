@@ -94,8 +94,5 @@ public class JavaConfig {
    		return tm;
    	}
 
-    @Bean
-    public CustomChange customchange() {
-        return new CustomChange(customdao());
-    }
+   
 }

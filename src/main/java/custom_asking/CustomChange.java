@@ -1,6 +1,5 @@
 package custom_asking;
 
-import java.time.LocalDateTime;
 
 public class CustomChange {
 	private CustomDao customdao;
@@ -9,15 +8,14 @@ public class CustomChange {
 		this.customdao = customdao;
 	}
 	
-	public Long changedata(CustomRequest req) {
+	public void changedata(Long count1, String title1, String content1, String name1) {
 		
-		Custom newRequest = new Custom(
-			req.getTitle(),req.getContent(),req.getName(),req.getEmail(), LocalDateTime.now());
+		Custom custom = customdao.selectByCount(count1);
+			
 	
-		customdao.update(newRequest);
-		return newRequest.getCount();
+		customdao.update(custom);
+		
 	}
 	
 }
-
 

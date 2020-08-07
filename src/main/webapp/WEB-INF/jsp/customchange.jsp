@@ -9,8 +9,16 @@
     <title>제목</title>
 </head>
 <body>
- 
-<form:form action="customchangeok" modelAttribute="customchangerequest">
+
+<form action="customchangeok" method =post>
+	<p>
+        <label>번호<br>
+        <form:input path="count1" value = "${custom.title}" />
+    
+        </label>
+    </p>
+
+
     <p>
         <label>제목<br>
         <form:input path="title1" value = "${custom.title}" />
@@ -34,10 +42,10 @@
     	  <form:input path="email1"  />
     	 </label>
 	 </p>
-    <input type="submit" value="저장하기">
-    </form:form>
+    <input type="submit" value="수정하기">
+    </form>
+
 	
- 
 
 
  	

@@ -2,6 +2,8 @@ package custom_asking;
 
 import java.time.LocalDateTime;
 
+import com.example.WrongIdPasswordException;
+
 public class Custom {
 	private Long count;
 	private String title; // 문의 제목
@@ -75,6 +77,13 @@ public class Custom {
 	public void setRegisterDateTime(LocalDateTime registerDateTime) {
 		this.registerDateTime = registerDateTime;
 	}
+	
+	
+	public void changeCustom(String oldPassword, String newPassword) {
+		
+		}
+	
+	
 	
 	
 }
