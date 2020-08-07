@@ -88,6 +88,7 @@ public class MainController {
         mav.addObject("wrongemail", false);
         mav.addObject("created_account", false);
         mav.addObject("error", false);
+        mav.addObject("id", id);
         if(login == 0) {
             mav.addObject("login", 0);
         } else {
@@ -199,12 +200,6 @@ public class MainController {
             id = "0";
         }
         if (login == 0) { //이전에 로그인 한적이 없을때
-
-
-
-
-
-
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);

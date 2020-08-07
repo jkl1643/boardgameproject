@@ -46,89 +46,147 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 	int login = (int)request.getAttribute("login");
 	%>
 
-	<table>
+	<%--<table>
 		<tr>
 			<td>${login}
 				<%
 					if(login == 0){ %>
-						<jsp:include page="login.jsp"></jsp:include> <%--로그인 전--%>
+						<jsp:include page="login.jsp"></jsp:include> &lt;%&ndash;로그인 전&ndash;%&gt;
 				<%} else { %>
-						<jsp:include page="main.jsp"></jsp:include> <%--로그인 성공페이지--%>
+						<jsp:include page="main.jsp"></jsp:include> &lt;%&ndash;로그인 성공페이지&ndash;%&gt;
 				<%}	%>
 
 			</td>
 		</tr>
-	</table>
+	</table>--%>
+
+	${login}${login}${login}${login}
+
+	${id}
+	<% if(session.getAttribute("id") == null || session.getAttribute("id").equals("0")){ %>
+		<div id="logbox1">
+			<div id="logbox2"></div>
+			<form action="main" method="post">
+				<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
+				<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
+				<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
+				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
+				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
+				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+				<div><%
+					boolean email = (boolean)request.getAttribute("unknown_email");
+					boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
+					boolean logout = (boolean)request.getAttribute("logout");
+					boolean delaccount = (boolean)request.getAttribute("delaccount");
+					boolean created_account = (boolean)request.getAttribute("created_account");
+					boolean error = (boolean)request.getAttribute("error");
+					if(email) {	%>
+					존재하지 않는 아이디입니다.
+					<%} else if (email){ %>
+					아이디를 입력해주세요.
+					<%}	else if (emailpwd) {%>
+					이메일과 암호가 일치하지 않습니다.
+					<%} else if (delaccount) {%>
+					계정이 삭제되었습니다.
+					<%} else if (logout) {%>
+					로그아웃 되었습니다.
+					<%}
+						if (created_account) { %> 계정이 생성되었습니다. <%}
+						if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
+				</div>
+				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
+				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
+				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
+			</form>
+			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
+		</div>
+	<%}	else {%>
+		<div id="logbox1">
+			<div id="logbox2"></div>
+			${userid}님 로그인 되었습니다.<BR>
+			<table>
+				<tr>
+					<td>
+						<form action="delaccount" method="post">
+							<Input Type="Submit" Value="계정삭제 ▶">
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<form action="editaccount" method="post">
+							<Input Type="Submit" Value="정보수정 ▶">
+						</form>
+					</td>
+					<td>
+						<form action="home" method="post">
+							<Input Type="Submit" Value="로그아웃 ▶">
+						</form>
+					</td>
+				</tr>
+				<tr>
+				</tr>
+				<%--<form action="main" method="post">
+					<tr>
+						<td>날 짜</td>
+						<td><input type="date" name="DATE"/></td>
+					</tr>
+					<tr>
+						<td>메 모</td>
+						<td><Input Type="Text" Name="MEMO" style="width:80px"></td>
+					</tr>
+					<tr>
+						<td>이미지</td>
+						<td><input type="file" name="IMAGE"></td>
+					</tr>
+					<tr>
+						<td><Input Type="Submit" Value="메모등록"> <BR></td>
+						<td><c:forEach var="memo" items="${memos}" varStatus="status">
+							<li> ${status.index+1}. ${memo.year}년 ${memo.month}월 ${memo.day}일 [ 메모 : ${memo.memo} ] [ 이미지
+								: ${memo.saveImagePath} ]
+							</li>
+						</c:forEach></td>
+					</tr>
+				</form>--%>
+				<%--<%
+					boolean editaccount = (boolean) request.getAttribute("editaccount");
+					boolean chkpwd = (boolean) request.getAttribute("chkpwd");
+					boolean currentpwd = (boolean) request.getAttribute("currentpwd");
+
+				<%if (editaccount == true) {%>
+				<BR>정보를 수정했습니다.<BR>
+				<%}%>
+				<%if (chkpwd == true) {%>
+				<BR>확인 비밀번호가 일치하지 않습니다.<BR>
+				<%}%>
+				<%if (currentpwd == true) {%>
+				<BR>현재 비밀번호가 일치하지 않습니다.<BR>
+				<%}%>
+				<BR>--%>
+
+				<script>
+					document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
+				</script>
+			</table>
+		</div>
+	<%}%>
+	<%
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+
+		if(login == 1){
+			session.setAttribute("id", id);
+			/*response.sendRedirect("main.jsp");*/
+		} else {
+			session.invalidate();
+		}
+
+	%>
 	<div id="logbox3">
 	</div>
 	<div id="logbox4">
 	</div>
 	<div id="logbox5">
 	</div>
-	<%--<%
-	String id = "";
-
-
-
-	try{
-
-	id = (String)session.getAttribute("id");            // request에서 id 파라미터를 가져온다
-
-
-
-	if(id==null||id.equals("")){                            // id가 Null 이거나 없을 경우
-
-	response.sendRedirect("loginform.jsp");    // 로그인 페이지로 리다이렉트 한다.
-
-	<%}%>--%>
-
-	<%--<div id="logbox1">
-		<div id="logbox2"></div>
-		<form action="main" method="post">
-			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
-
- 			<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
- 			<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
- 			<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
- 			<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
-			<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>
-
-			&lt;%&ndash;유병렬 추가&ndash;%&gt;
-			<div><%
-				boolean email = (boolean)request.getAttribute("unknown_email");
-				boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
-				boolean logout = (boolean)request.getAttribute("logout");
-				boolean delaccount = (boolean)request.getAttribute("delaccount");
-				boolean created_account = (boolean)request.getAttribute("created_account");
-				boolean error = (boolean)request.getAttribute("error");
-				if(email) {	%>
-				존재하지 않는 아이디입니다.
-				<%} else if (email){ %>
-					아이디를 입력해주세요.
-				<%}	else if (emailpwd) {%>
-					이메일과 암호가 일치하지 않습니다.
-				<%} else if (delaccount) {%>
-					계정이 삭제되었습니다.
-				<%} else if (logout) {%>
-					로그아웃 되었습니다.
-				<%}
-				if (created_account) { %> 계정이 생성되었습니다. <%}
-				if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
-			</div>
-			&lt;%&ndash;유병렬 추가&ndash;%&gt;
-
-
- 			<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
- 			<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
- 			<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-			&lt;%&ndash;<div id="loginbutton1"><a href="http://localhost:8080/boardgame_Web_exploded/main" id="loginbutton2">로그인</a></div>&ndash;%&gt; &lt;%&ndash;병렬이가 제거한것&ndash;%&gt;
-			&lt;%&ndash;<div id="signupbutton1"><a href="#signup" id="signupbutton2">회원가입</a></div>&ndash;%&gt; &lt;%&ndash;유병렬 제거한것&ndash;%&gt;
-			&lt;%&ndash;<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>&ndash;%&gt;
-		</form>
-		&lt;%&ndash;<form action="newaccount" method="post">&ndash;%&gt;
- 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> &lt;%&ndash;유병렬 제거한것&ndash;%&gt;
-			&lt;%&ndash;<div><Input Type = "Submit" Value = "회원가입" id="signupbutton1"> &lt;%&ndash;유병렬 입력한것&ndash;%&gt;</div>&ndash;%&gt;
-		&lt;%&ndash;</form>&ndash;%&gt;
-	</div>--%>
 </body>
 </html>
