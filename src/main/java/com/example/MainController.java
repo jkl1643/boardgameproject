@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import custom_asking.CustomWrite;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -70,13 +72,11 @@ public class MainController {
 
 
     @RequestMapping("/home")
-    public ModelAndView login(ModelAndView mav, Model model, String delid, String delpwd,
+    public ModelAndView login(ModelAndView mav, HttpSession session,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
-                              @RequestParam(value = "NICKNAME", required = false) String nickname,
-                              @RequestParam(value = "TELEPHONE", required = false) String telephone,
-                              @RequestParam(value = "ADDRESS", required = false) String address) {
+                              @RequestParam(value = "NICKNAME", required = false) String nickname) {
 
         System.out.println("이메일 = " + id);
 
@@ -86,11 +86,13 @@ public class MainController {
         mav.addObject("logout", false);
         mav.addObject("delaccount", false);
         mav.addObject("wrongemail", false);
-        mav.addObject("select_date", false);
-        mav.addObject("insert_memo", false);
         mav.addObject("created_account", false);
         mav.addObject("error", false);
-
+        if(login == 0) {
+            mav.addObject("login", 0);
+        } else {
+            mav.addObject("login", 1);
+        }
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
 
@@ -106,11 +108,8 @@ public class MainController {
         System.out.println("id = " + id);
 
         if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
-
             System.out.println("pwd = " + pwd);
             System.out.println("pwd2 = " + pwd2);
-            System.out.println("telephone = " + telephone);
-            System.out.println("address = " + address);
             if (!req.isPasswordEqualToConfirmPassword()) {
                 mav.setViewName("home");
                 mav.addObject("error", true);
@@ -149,8 +148,14 @@ public class MainController {
         System.out.println("나중id22 = " + id);
         if (login == 1 && delaccount == 0) {//로그아웃
             login = 0;
+            if(login == 0) {
+                mav.addObject("login", 0);
+            } else {
+                mav.addObject("login", 1);
+            }
             System.out.println("로그아웃 = " + login);
             MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            session.invalidate();
             mav.addObject("logout", true);
             lgo.logout();
         }
@@ -164,7 +169,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname) {
+    public ModelAndView main(Model model, String id, String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
         mav.addObject("unknown_email", false);
@@ -182,6 +187,7 @@ public class MainController {
         mav.addObject("chkpwd", false);
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
+        mav.addObject("login", 0);
         delaccount = 0;
         model.addAttribute("userid", userid2);
         System.out.println("id = " + id);
@@ -193,16 +199,25 @@ public class MainController {
             id = "0";
         }
         if (login == 0) { //이전에 로그인 한적이 없을때
+
+
+
+
+
+
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
+                session.setAttribute("id", id);
+                session.setAttribute("password", pwd);
+                mav.addObject("login", 1);
                 System.out.println("id = " + id + ", pwd = " + pwd);
                 userid2 = MemberLogin.loginEmail;
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-                mav.setViewName("main");
+                mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
                 /*if(id == null) {
@@ -224,7 +239,7 @@ public class MainController {
                 id = "0";
                 mav.setViewName("home");
             }
-            //계정삭제, 메모삭제, 정보수정을 누르지 않았을때와 메모에 아무런값을입력하지 않았을때
+            //계정삭제, 정보수정을 누르지 않았을때
         } else if (editaccount == 1) {
             editaccount = 0;
             ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
@@ -249,7 +264,7 @@ public class MainController {
                 editaccount = 0;
             }
         } else {
-            mav.setViewName("main");
+            mav.setViewName("home");
         }
         return mav;
     }
@@ -462,8 +477,7 @@ public class MainController {
 	
     //윤수명끝----------------------------
     @GetMapping("/lobby")
-    public ModelAndView lobby_start(Model model)
-    {
+    public ModelAndView lobby_start(Model model) {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("Room_list", a.getRoom_list());
         a.create("test");
@@ -472,12 +486,10 @@ public class MainController {
     }
 
     @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "id", required = false) String ID)
-    {
+    public ModelAndView lobby_join(Model model, @RequestParam(value = "id", required = false) String ID) {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("id", ID);
         mv.setViewName("room");
         return mv;
     }
-
 }
