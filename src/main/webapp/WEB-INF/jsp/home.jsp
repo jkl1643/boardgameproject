@@ -60,10 +60,20 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 		</tr>
 	</table>--%>
 
+	<%--<%
+		String id = (String)session.getAttribute("id");%>${id}<%
+		if(id != null){	%>
+	아이디 널아님
 
+	<%} else{
+		session.invalidate();
+	}%>--%>
 
 	${id}
-	<% if(session.getAttribute("id") == null || session.getAttribute("id").equals("0")){ %>
+	<%--<%
+		session.setMaxInactiveInterval(5); // 초 단위
+	%>--%>
+	<% if(session.getAttribute("id") == null){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
@@ -73,7 +83,8 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
-				<div><%
+				<div>
+					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
 					boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
 					boolean logout = (boolean)request.getAttribute("logout");
@@ -97,6 +108,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
+
 			</form>
 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
 		</div>
@@ -170,29 +182,47 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 			</table>
 		</div>
 	<%}%>
-	${login}${login}${login}${login}
-	<%
+	   login = ${login}, id = ${id}
+	<%--<%
+		String id = (String)session.getAttribute("id");
+		if(id != null){	%>
+		아이디 널아님
+
+	<%} else{
+		session.invalidate();
+	}%>--%>
+
+
+	<%--<%
 		String id2 = request.getParameter("id2");
 		String password = request.getParameter("password");
-
-		if (login == 1) {
+		%>id2 = ${id2}<%
+		//if (login == 1) {
 			session.setAttribute("id2", id2);
 			/*response.sendRedirect("main.jsp");*/
-		} /*else {
-			session.invalidate();
-		}*/
+		//} /*else {
+			//session.invalidate();
+		//}*/
 		String id = "";
 		try {
 			id = (String) session.getAttribute("id2");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}%>
+		}
+		%>
+		id2 = ${id2}, id = ${id}
+	<%
+		if(id == null){
+			session.invalidate();
+		}
+	%>id2 = ${id2}, id = ${id}--%>
+
 <%--		if (id.equals(id2)) {%>--%>
 <%--	아이디 같음--%>
 <%--	<%--%>
 <%--		--%>
 <%--	%>--%>
-	${id2}${id2}${id}${id}
+
 	<div id="logbox3">
 	</div>
 	<div id="logbox4">

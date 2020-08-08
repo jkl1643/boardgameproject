@@ -73,13 +73,14 @@ public class MainController {
 
     @RequestMapping("/home")
     public ModelAndView login(ModelAndView mav, HttpSession session,
-                              @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
+                              @RequestParam(value = "EMAIL", required = false) String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
 
+        id = null;
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -108,7 +109,7 @@ public class MainController {
 
         System.out.println("id = " + id);
 
-        if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
+        if (/*!id.equals("0")*/id != null) { //회원가입 아아디에 값을 입력했을때
             System.out.println("pwd = " + pwd);
             System.out.println("pwd2 = " + pwd2);
             if (!req.isPasswordEqualToConfirmPassword()) {
@@ -118,7 +119,7 @@ public class MainController {
                 return mav;
             }
             //회원가입 정보들을 입력하지 않앗을때
-            if (id.equals("0") || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
+            if (id == null || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
                 mav.addObject("error", true);
                 mav.setViewName("home");
                 return mav;
@@ -137,7 +138,7 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
-            id = "0";
+            id = null;
             req.setEmail("0");
             System.out.println("계정생성 = " + id);
             mav.setViewName("home");
@@ -147,19 +148,23 @@ public class MainController {
         }
         id = "0";
         System.out.println("나중id22 = " + id);
-        if (login == 1 && delaccount == 0) {//로그아웃
+        if (id != null && delaccount == 0) {//로그아웃
             login = 0;
             if(login == 0) {
                 mav.addObject("login", 0);
             } else {
                 mav.addObject("login", 1);
             }
+
             System.out.println("로그아웃 = " + login);
             MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
-            session.invalidate();
+
             mav.addObject("logout", true);
             lgo.logout();
         }
+        /*if(id == null){
+            session.invalidate();
+        }*/
         return mav;
     }
 
@@ -170,7 +175,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id,
+    public ModelAndView main(Model model, String id, HttpServletRequest request,
              String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
@@ -193,25 +198,27 @@ public class MainController {
         delaccount = 0;
         model.addAttribute("userid", userid2);
         System.out.println("id = " + id);
-
-        String id2 = "";
-
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
-        if(id.equals(id2)){
-            System.out.println("이미 로그인한 아이디");
-        }
+        session.setAttribute("id", id);
+
+        session.setAttribute("password", pwd);
+
         if (id == null) {
             id = "0";
         }
-        if (login == 0) { //이전에 로그인 한적이 없을때
+        if (id != null) { //이전에 로그인 한적이 없을때
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
-                session.setAttribute("id", id);
-                session.setAttribute("password", pwd);
+
+                String name = (String)session.getAttribute("id");
+                System.out.println("ididid = " + name);
+                if(id.equals(name)) {
+                    System.out.println("이미 로그인한 아이디");
+                }
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
@@ -219,7 +226,7 @@ public class MainController {
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-                System.out.println("id2 = " + id2);
+
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
@@ -269,6 +276,11 @@ public class MainController {
         } else {
             mav.setViewName("home");
         }
+        /*String name = (String)session.getAttribute("id");
+        System.out.println("ididid = " + name);
+        if(id.equals(name)){
+            System.out.println("이미 로그인한 아이디");
+        }*/
         return mav;
     }
 
@@ -325,7 +337,7 @@ public class MainController {
     public ModelAndView editaccount(Model model) {
         ModelAndView mav = new ModelAndView();
         editaccount = 1;
-        System.out.println("userid2 = " + userid2);
+        System.out.println("userid22 = " + userid2);
         model.addAttribute("userid", userid2);
         model.addAttribute("userpassword", userNickname);
         mav.setViewName("editaccount");
