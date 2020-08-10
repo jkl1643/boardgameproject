@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>메인</title>
+    <STYLE TYPE="text/css">
+        <!--
+        div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+        #logbox2 {background-image: url('brick.jpg'); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+        table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
+        input#but1 {background-color: black; color: white; position: relative; left: 10px}
+        table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
+        input#but2 {background-color: black; color: white}
+        input#but3 {background-color: black; color: white}
+        input#but4 {background-color: black; color: white}
+        input#but5 {background-color: black; color: white}
+        -->
+    </STYLE>
+</head>
+<body>
+<div id="logbox1">
+    <div id="logbox2"></div>
+<table id="table1">
+    <tr>
+    	<td>${userid}님 환영합니다!</td>
+    	<td>
+            <form action="delaccount" method="post"> <!-- 내 전적으로 바꿈 -->
+                <Input Type="Submit" Value="내 정보 수정 ▶" id="but1">
+            </form>
+        </td>
+    </tr>
+</table>
+<table id="table2">
+    <tr>
+        <td>
+            <form action="delaccount" method="post"> <!-- 내 전적으로 바꿈 -->
+                <Input Type="Submit" Value="내 전적 ▶" id="but2">
+            </form>
+        </td>
+        <td>
+            <form action="delaccount" method="post"> <!-- form 태그 안에 내용 바꿔라 -->
+                <Input Type="Submit" Value="내 게임 ▶" id="but3">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="editaccount" method="post">
+                <Input Type="Submit" Value="위시리스트 ▶" id="but4">
+            </form>
+        </td>
+        <td>
+            <form action="home" method="post">
+                <Input Type="Submit" Value="로그아웃 ▶" id="but5">
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>
