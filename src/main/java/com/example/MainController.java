@@ -73,14 +73,13 @@ public class MainController {
 
     @RequestMapping("/home")
     public ModelAndView login(ModelAndView mav, HttpSession session,
-                              @RequestParam(value = "EMAIL", required = false) String id,
+                              @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
 
-        id = null;
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -109,7 +108,7 @@ public class MainController {
 
         System.out.println("id = " + id);
 
-        if (/*!id.equals("0")*/id != null) { //회원가입 아아디에 값을 입력했을때
+        if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
             System.out.println("pwd = " + pwd);
             System.out.println("pwd2 = " + pwd2);
             if (!req.isPasswordEqualToConfirmPassword()) {
@@ -119,7 +118,7 @@ public class MainController {
                 return mav;
             }
             //회원가입 정보들을 입력하지 않앗을때
-            if (id == null || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
+            if (id.isEmpty() || pwd.isEmpty() || pwd2.isEmpty() || nickname.isEmpty()) {
                 mav.addObject("error", true);
                 mav.setViewName("home");
                 return mav;
@@ -138,7 +137,7 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
-            id = null;
+            id = "0";
             req.setEmail("0");
             System.out.println("계정생성 = " + id);
             mav.setViewName("home");
@@ -148,7 +147,7 @@ public class MainController {
         }
         id = "0";
         System.out.println("나중id22 = " + id);
-        if (id != null && delaccount == 0) {//로그아웃
+        if (login == 1 && delaccount == 0) {//로그아웃
             login = 0;
             if(login == 0) {
                 mav.addObject("login", 0);
@@ -161,6 +160,7 @@ public class MainController {
 
             mav.addObject("logout", true);
             lgo.logout();
+            session.invalidate();
         }
         /*if(id == null){
             session.invalidate();
@@ -195,30 +195,33 @@ public class MainController {
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
         mav.addObject("login", 0);
+        session.setAttribute("idid", id);
         delaccount = 0;
         model.addAttribute("userid", userid2);
         System.out.println("id = " + id);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
-        session.setAttribute("id", id);
-
-        session.setAttribute("password", pwd);
-
-        if (id == null) {
-            id = "0";
+        if(login == 1) {
+            mav.addObject("id2", id);
         }
-        if (id != null) { //이전에 로그인 한적이 없을때
+
+        /*if (id == null) {
+            id = "0";
+        }*/
+        String idid = (String) session.getAttribute("idid");
+        if (login == 0) { //이전에 로그인 한적이 없을때
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
 
-                String name = (String)session.getAttribute("id");
-                System.out.println("ididid = " + name);
-                if(id.equals(name)) {
+                /*String name = (String)session.getAttribute("id");
+                System.out.println("ididid = " + name);*/
+
+                /*if(id.equals(name)) {
                     System.out.println("이미 로그인한 아이디");
-                }
+                }*/
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);

@@ -1,3 +1,4 @@
+<%@ page import="com.example.RegisterRequest" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -44,6 +45,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 	</div>
 	<%
 	int login = (int)request.getAttribute("login");
+	String idid = (String)session.getAttribute("idid");
 	%>
 
 	<%--<table>
@@ -69,11 +71,11 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 		session.invalidate();
 	}%>--%>
 
-	${id}
+	${id}, ${idid}
 	<%--<%
 		session.setMaxInactiveInterval(5); // 초 단위
 	%>--%>
-	<% if(session.getAttribute("id") == null){ %>
+	<% if(login == 0/*session.getAttribute("id") == null*/){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
@@ -108,11 +110,27 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1"></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-
 			</form>
 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
 		</div>
-	<%}	else {%>
+	<%}	else {
+	/*if(login == 0){
+
+		RegisterRequest req = new RegisterRequest();
+		String checkId = (String) session.getAttribute("id");
+		String checkId2 = (String) request.getAttribute("id2");
+		System.out.println("checkId : " + checkId + ", checkId2 : " + checkId2);
+		if (checkId.equals(checkId2)) {
+	<script type = "text/javascript">
+			if(confirm("이미 다른 브라우저에서 로그인 되어 있습니다 여기서 로그인 하시겠습니까?")){
+				alert("d");
+			} else{
+				alert("s");
+			}
+	</script>
+		}
+	}*/
+	%>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			${userid}님 로그인 되었습니다.<BR>
