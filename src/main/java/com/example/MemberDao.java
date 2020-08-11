@@ -19,18 +19,18 @@ public class MemberDao {
 		Integer count = jdbcTemplate.queryForObject("select count(*) from MEMBER", Integer.class);
 		return count;
 	}
-	
-	private RowMapper<Member> memRowMapper = 
-			new RowMapper<Member>() {				
+
+	public RowMapper<Member> memRowMapper =
+			new RowMapper<Member>() {
 				@Override
 				public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
 					// TODO Auto-generated method stub
 					Member member = new Member(rs.getString("member_email"),
-												rs.getString("member_password"),
-												rs.getString("member_nickname"),
-												rs.getInt("member_gamelog"),
-												rs.getTimestamp("member_regdate")
-												);
+							rs.getString("member_password"),
+							rs.getString("member_nickname"),
+							rs.getInt("member_gamelog"),
+							rs.getTimestamp("member_regdate")
+					);
 					member.setId(rs.getLong("member_number"));
 					return member;
 				}
