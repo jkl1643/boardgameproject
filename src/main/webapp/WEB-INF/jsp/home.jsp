@@ -298,6 +298,7 @@
 	박스
 	<script type="text/javascript">
 	//window.location.href = "http://stackoverflow.com";
+	//api 구현 못함
 		
 	
 	</script>
