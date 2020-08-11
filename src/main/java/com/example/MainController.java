@@ -3,6 +3,7 @@ package com.example;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import custom_asking.Custom;
 import custom_asking.CustomChange;
@@ -453,6 +453,15 @@ public class MainController {
    		return "customwrite";
    	}
 
+	@PostMapping("/customwriteok")
+	public String handleStep3(CustomRequest request) {	
+			customwrite.inputdata(request);
+			return "customwriteok";
+	
+	}
+    
+    
+    
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
@@ -502,6 +511,12 @@ public class MainController {
 		customdao.delete(custom);
 		return "customdeleteok";
 	}
+	
+	  @RequestMapping("/gameranking")
+	    public String handleStep6() {
+
+	    	return "gameranking";
+	    }
 	
 	
     //윤수명끝----------------------------
