@@ -242,10 +242,21 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 <%--	%>--%>
 
 	<div id="logbox3">
+	사랑해요 연예가 중계
 	</div>
 	<div id="logbox4">
+	박스
+	<script type="text/javascript">
+	//window.location.href = "http://stackoverflow.com";
+		
+	
+	</script>
+	<input type="button" value="새창" onclick="window.open('http://stackoverflow.com', '팝업창 이름', 'width=1000, height=1000')">
+	<input type="button" value="새창1" onclick="window.open('http://naver.com', '팝업창 이름1', 'width=1000, height=1000')">
+	<input type="button" value="새창2" onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
+	소설가
 	</div>
 </body>
 </html>
