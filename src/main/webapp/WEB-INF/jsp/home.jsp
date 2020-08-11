@@ -27,9 +27,18 @@
 	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
-div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
-div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
-div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
+	div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
+	div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
+	div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
+	div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+	#logbox2 {background-image: url('brick.jpg'); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+	table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
+	input#but1 {background-color: black; color: white; position: relative; left: 10px}
+	table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
+	input#but2 {background-color: black; color: white}
+	input#but3 {background-color: black; color: white}
+	input#but4 {background-color: black; color: white}
+	input#but5 {background-color: black; color: white}
 -->
 </STYLE>
 </head>
@@ -134,74 +143,106 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 		}
 	}*/
 	%>
-		<div id="logbox1">
-			<div id="logbox2"></div>
-			${userid}님 로그인 되었습니다.<BR>
-			<table>
-				<tr>
-					<td>
-						<form action="delaccount" method="post">
-							<Input Type="Submit" Value="계정삭제 ▶">
-						</form>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<form action="editaccount" method="post">
-							<Input Type="Submit" Value="정보수정 ▶">
-						</form>
-					</td>
-					<td>
-						<form action="home" method="post">
-							<Input Type="Submit" Value="로그아웃 ▶">
-						</form>
-					</td>
-				</tr>
-				<tr>
-				</tr>
-				<%--<form action="main" method="post">
-					<tr>
-						<td>날 짜</td>
-						<td><input type="date" name="DATE"/></td>
-					</tr>
-					<tr>
-						<td>메 모</td>
-						<td><Input Type="Text" Name="MEMO" style="width:80px"></td>
-					</tr>
-					<tr>
-						<td>이미지</td>
-						<td><input type="file" name="IMAGE"></td>
-					</tr>
-					<tr>
-						<td><Input Type="Submit" Value="메모등록"> <BR></td>
-						<td><c:forEach var="memo" items="${memos}" varStatus="status">
-							<li> ${status.index+1}. ${memo.year}년 ${memo.month}월 ${memo.day}일 [ 메모 : ${memo.memo} ] [ 이미지
-								: ${memo.saveImagePath} ]
-							</li>
-						</c:forEach></td>
-					</tr>
-				</form>--%>
-				<%--<%
-					boolean editaccount = (boolean) request.getAttribute("editaccount");
-					boolean chkpwd = (boolean) request.getAttribute("chkpwd");
-					boolean currentpwd = (boolean) request.getAttribute("currentpwd");
+	<div id="logbox1">
+		<div id="logbox2"></div>
+		<table id="table1">
+			<tr>
+				<td>${userid}님 환영합니다!</td>
+				<td>
+					<form action="editaccount" method="post"> <!-- 내 전적으로 바꿈 -->
+						<Input Type="Submit" Value="내 정보 수정 ▶" id="but1">
+					</form>
+				</td>
+			</tr>
+		</table>
+		<table id="table2">
+			<tr>
+				<td>
+					<form action="" method="post"> <!-- 내 전적으로 바꿈 -->
+						<Input Type="Submit" Value="내 전적 ▶" id="but2">
+					</form>
+				</td>
+				<td>
+					<form action="" method="post"> <!-- form 태그 안에 내용 바꿔라 -->
+						<Input Type="Submit" Value="내 게임 ▶" id="but3">
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form action="" method="post">
+						<Input Type="Submit" Value="위시리스트 ▶" id="but4">
+					</form>
+				</td>
+				<td>
+					<form action="home" method="post">
+						<Input Type="Submit" Value="로그아웃 ▶" id="but5">
+					</form>
+				</td>
+			</tr>
+		</table>
+			<%--<tr>
+                <td>
+                    <form action="delaccount" method="post">
+                        <Input Type="Submit" Value="계정삭제 ▶">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="editaccount" method="post">
+                        <Input Type="Submit" Value="정보수정 ▶">
+                    </form>
+                </td>
+                <td>
+                    <form action="home" method="post">
+                        <Input Type="Submit" Value="로그아웃 ▶">
+                    </form>
+                </td>
+            </tr>--%>
+			<%--<form action="main" method="post">
+                <tr>
+                    <td>날 짜</td>
+                    <td><input type="date" name="DATE"/></td>
+                </tr>
+                <tr>
+                    <td>메 모</td>
+                    <td><Input Type="Text" Name="MEMO" style="width:80px"></td>
+                </tr>
+                <tr>
+                    <td>이미지</td>
+                    <td><input type="file" name="IMAGE"></td>
+                </tr>
+                <tr>
+                    <td><Input Type="Submit" Value="메모등록"> <BR></td>
+                    <td><c:forEach var="memo" items="${memos}" varStatus="status">
+                        <li> ${status.index+1}. ${memo.year}년 ${memo.month}월 ${memo.day}일 [ 메모 : ${memo.memo} ] [ 이미지
+                            : ${memo.saveImagePath} ]
+                        </li>
+                    </c:forEach></td>
+                </tr>
+            </form>--%>
+			<%--<%
+                boolean editaccount = (boolean) request.getAttribute("editaccount");
+                boolean chkpwd = (boolean) request.getAttribute("chkpwd");
+                boolean currentpwd = (boolean) request.getAttribute("currentpwd");
 
-				<%if (editaccount == true) {%>
-				<BR>정보를 수정했습니다.<BR>
-				<%}%>
-				<%if (chkpwd == true) {%>
-				<BR>확인 비밀번호가 일치하지 않습니다.<BR>
-				<%}%>
-				<%if (currentpwd == true) {%>
-				<BR>현재 비밀번호가 일치하지 않습니다.<BR>
-				<%}%>
-				<BR>--%>
+            <%if (editaccount == true) {%>
+            <BR>정보를 수정했습니다.<BR>
+            <%}%>
+            <%if (chkpwd == true) {%>
+            <BR>확인 비밀번호가 일치하지 않습니다.<BR>
+            <%}%>
+            <%if (currentpwd == true) {%>
+            <BR>현재 비밀번호가 일치하지 않습니다.<BR>
+            <%}%>
+            <BR>--%>
 
-				<script>
-					document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
-				</script>
-			</table>
-		</div>
+			<%--<script>
+				document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
+			</script>--%>
+
+	</div>
 	<%}%>
 	   login = ${login}, id = ${id}
 	<%--<%
