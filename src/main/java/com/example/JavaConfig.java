@@ -29,16 +29,16 @@ public class JavaConfig {
         ds.setInitialSize(2);
         ds.setMaxActive(10);
         ds.setTestWhileIdle(true);
-        ds.setMinEvictableIdleTimeMillis(60000*3);
-        ds.setTimeBetweenEvictionRunsMillis(10*1000);
+        ds.setMinEvictableIdleTimeMillis(60000 * 3);
+        ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
         return ds;
     }
 
-    
+
     @Autowired
     private CustomChange customchange;
-    
-    
+
+
     @Bean
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
@@ -76,31 +76,43 @@ public class JavaConfig {
         changeInfoSvc.setMemberDao(memberDao());
         return changeInfoSvc;
     }
-    
-    // 윤수명 추가22g
-   	@Bean
-   	public CustomDao customdao() {
-   		return new CustomDao(dataSource());
-   	}
 
-   	@Bean
-   	public CustomWrite customwrite() {
-   		return new CustomWrite(customdao());
-   	}
-   	
-   	@Bean
-   	public CustomChange customchange() {
-   		CustomChange controller = new CustomChange();
-   		controller.setCustomChange(null);
-   		return controller;
-   	}
-   	
-   	@Bean
-   	public PlatformTransactionManager transactionManager() {
-   		DataSourceTransactionManager tm = new DataSourceTransactionManager();
-   		tm.setDataSource(dataSource());
-   		return tm;
-   	}
+    // 윤수명 추가22g
+    @Bean
+    public CustomDao customdao() {
+        return new CustomDao(dataSource());
+    }
+
+    @Bean
+    public CustomWrite customwrite() {
+        return new CustomWrite(customdao());
+    }
+
+    @Bean
+    public CustomChange customchange() {
+        CustomChange controller = new CustomChange();
+        controller.setCustomChange(null);
+        return controller;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        DataSourceTransactionManager tm = new DataSourceTransactionManager();
+        tm.setDataSource(dataSource());
+        return tm;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Bean
+    public Main_Server Server()
+    {
+        return new Main_Server();
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////
    	
    	
 	

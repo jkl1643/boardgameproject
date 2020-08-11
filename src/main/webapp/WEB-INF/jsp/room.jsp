@@ -37,24 +37,24 @@
     })
 
     function connect(){
-        webSocket = new WebSocket("ws://" + location.host + "/boardgame_war_exploded/chat");
+        webSocket = new WebSocket("ws://" + location.host + "/chat");
 
         webSocket.onopen = onOpen;
         webSocket.onclose = onClose;
         webSocket.onmessage = onMessage;
     }
     function disconnect(){
-        webSocket.send(JSON.stringify({Id : roomId,writer:nickname}));
+        webSocket.send(JSON.stringify({roomID : roomId, type:"disconnect", writer:nickname}));
         webSocket.close();
     }
     function send(){
         msg = document.getElementById("message").value;
         alert(msg);
-        webSocket.send(JSON.stringify({Id : roomId,writer:nickname,message : msg}));
+        webSocket.send(JSON.stringify({roomID : roomId, type:"chat", writer:nickname, message : msg}));
         document.getElementById("message").value = "";
     }
     function onOpen(){
-        webSocket.send(JSON.stringify({Id : roomId,writer:nickname}));
+        webSocket.send(JSON.stringify({roomID : roomId, type:"connect", writer:nickname}));
     }
     function onMessage(e){
         alert("test");
