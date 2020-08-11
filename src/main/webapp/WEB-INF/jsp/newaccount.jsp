@@ -25,7 +25,7 @@
 	<form action="home" method="post">
 	<table id="table1">
 		<tr>
-			<td><strong>아이디</strong></td>
+			<td><strong>이메일</strong></td>
 			<td><Input Type = "Text" Name = "EMAIL"> <BR></td>
 		</tr>
 		<tr>
