@@ -93,11 +93,11 @@
 			<form action="main" method="post">
 				<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
 
-				<%
+				<%--<%
 					if(%> check1 == true){
 
 					}
-				%>
+				%>--%>
 				<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
 				<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
