@@ -198,6 +198,10 @@ public class MainController {
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
         mav.addObject("login", 0);
+
+        Member member = memberDao.selectByEmail(id);
+        System.out.println(member);
+        session.setAttribute("mem", member);
         session.setAttribute("idid", id);
         delaccount = 0;
         model.addAttribute("userid", userid2);

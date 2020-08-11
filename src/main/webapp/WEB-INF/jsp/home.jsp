@@ -1,4 +1,6 @@
 <%@ page import="com.example.RegisterRequest" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -46,6 +48,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 	<%
 	int login = (int)request.getAttribute("login");
 	String idid = (String)session.getAttribute("idid");
+	Member mem = (Member)session.getAttribute("mem");
 	%>
 
 	<%--<table>
@@ -71,7 +74,7 @@ div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: re
 		session.invalidate();
 	}%>--%>
 
-	${id}, ${idid}
+	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()}
 	<%--<%
 		session.setMaxInactiveInterval(5); // 초 단위
 	%>--%>
