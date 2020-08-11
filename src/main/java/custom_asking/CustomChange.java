@@ -14,9 +14,13 @@ public class CustomChange {
 	public void changedata(Long count1, String title1, String content1, String name1, String email1) {
 		
 		Custom custom = customdao.selectByCount(count1);
-			
+
+		if(!title1.isEmpty()){
+			custom.changeTitle(title1);
+			customdao.update(custom);
+		}
 	
-		customdao.update(custom);
+
 		
 	}
 	

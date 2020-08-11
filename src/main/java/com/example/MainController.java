@@ -478,12 +478,11 @@ public class MainController {
 	}
      
        
-    @RequestMapping("/customchangeok")
-    public String handleStep5(CustomRequest req) {
+    @RequestMapping("/customchangeok222")
+    public String handleStep5(Model model) {
     	//customdao.update(req);
-		return "customchangeok";
-    	
-   	    }
+		return "custom";
+    }
     
   
 

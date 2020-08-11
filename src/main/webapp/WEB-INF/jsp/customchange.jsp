@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form action="customchangeok" method =post>
+<form action="customchangeok222" method="post">
 <p>
         <label>번호<br>
 			<Input Type = "Text" Name = "count1" value ="${custom1.count}">
@@ -21,7 +21,7 @@
 
 <p>
         <label>제목<br>
-			<Input Type = "Text" Name = "title1" value ="${custom1.title}">
+			<Input Type = "Text" id = "title1" value ="${custom1.title}">
 		</label>
 </p>
 
