@@ -83,6 +83,13 @@ public class MainController {
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
+        try {
+            Member member = memberDao.selectByEmail(id);
+            System.out.println(member);
+            session.setAttribute("mem", member);
+        } catch (Exception e) {
+            session.setAttribute("mem", null);
+        }
 
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
@@ -199,7 +206,7 @@ public class MainController {
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
         mav.addObject("login", 0);
-
+        System.out.println("login = " + login);
         Member member = memberDao.selectByEmail(id);
         System.out.println(member);
         session.setAttribute("mem", member);

@@ -58,8 +58,8 @@
 		int login = (int) request.getAttribute("login");
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
+		System.out.println("mem : " + mem);
 	%>
-
 	<%--<table>
 		<tr>
 			<td>${login}
@@ -69,20 +69,16 @@
 				<%} else { %>
 						<jsp:include page="main.jsp"></jsp:include> &lt;%&ndash;로그인 성공페이지&ndash;%&gt;
 				<%}	%>
-
 			</td>
 		</tr>
 	</table>--%>
-
 	<%--<%
 		String id = (String)session.getAttribute("id");%>${id}<%
 		if(id != null){	%>
 	아이디 널아님
-
 	<%} else{
 		session.invalidate();
 	}%>--%>
-
 	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()}
 	<%--<%
 		session.setMaxInactiveInterval(5); // 초 단위
@@ -97,13 +93,12 @@
 				}
 			}
 		}
-
-		if(login == 0 && session.getAttribute("id") == null){ %>
+		System.out.println("mem2 : " + mem);
+		if(/*login == 0 || */mem == null/* && mem.getEmail().isEmpty() || mem.getEmail() == null || mem == null*/){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
 				<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
-
 				<%--<%
 					if(%> check1 == true){
 
