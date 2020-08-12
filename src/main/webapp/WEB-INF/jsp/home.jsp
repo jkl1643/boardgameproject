@@ -63,6 +63,8 @@
 		if(loginduplicate){
 			System.out.println("듀플");
 			return;
+		} else {
+			System.out.println("듀플안됨");
 		}
 	%>
 	<%--<table>
