@@ -23,6 +23,7 @@ import custom_asking.CustomWrite;
 import org.springframework.web.socket.WebSocketSession;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -178,7 +179,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, HttpServletRequest request,
+    public ModelAndView main(Model model, String id, HttpServletResponse response, String saveId,
              String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
@@ -236,7 +237,10 @@ public class MainController {
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-
+                if(saveId != null) {
+                    Cookie cookie = new Cookie("saveId", id);
+                    response.addCookie(cookie);
+                }
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
@@ -518,11 +522,11 @@ public class MainController {
 		return "customdeleteok";
 	}
 	
-	  @RequestMapping("/gameranking")
-	    public String handleStep6() {
+    @RequestMapping("/gameranking")
+    public String handleStep6() {
 
-	    	return "gameranking";
-	    }
+        return "gameranking";
+    }
 
 
     //윤수명끝----------------------------
