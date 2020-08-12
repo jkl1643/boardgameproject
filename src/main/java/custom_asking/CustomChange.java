@@ -10,12 +10,14 @@ public class CustomChange {
 		this.customdao = customdao;
 	}
 	
-	@Transactional
+
 	public void changedata(Long count1, String title1, String content1, String name1, String email1) {
 		System.out.println("count1 : " + count1);
 		Custom custom = customdao.selectByCount(count1);
-		System.out.println("수정2");
-		if(!title1.isEmpty()){
+		System.out.println("수정2제먹 : " + custom.getTitle());
+		System.out.println("바꿀타이틀 : " + title1);
+
+		if(!custom.getTitle().isEmpty()){
 			custom.changeTitle(title1);
 			customdao.update(custom);
 		}

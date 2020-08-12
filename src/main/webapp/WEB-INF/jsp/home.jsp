@@ -98,7 +98,7 @@
 			}
 		}
 
-		if(login == 0/*session.getAttribute("id") == null*/){ %>
+		if(login == 0 && session.getAttribute("id") == null){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">

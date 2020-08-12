@@ -91,7 +91,7 @@ public class JavaConfig {
     @Bean
     public CustomChange customchange() {
         CustomChange controller = new CustomChange();
-        controller.setCustomChange(null);
+        controller.setCustomChange(customdao());
         return controller;
     }
 
