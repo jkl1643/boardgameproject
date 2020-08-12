@@ -1,18 +1,15 @@
 package custom_asking;
 
 import java.sql.*;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
-import com.example.Member;
 
 import custom_asking.Custom;;
 
@@ -83,16 +80,10 @@ public class CustomDao {
 	public void update(Custom custom) {
 		jdbcTemplate.update(
 				"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where COUNT = ?",
-			//	"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where EMAIL LIKE ?",
 				custom.getTitle(), custom.getContent(), custom.getName(), custom.getCount());
 	}
 
-	/*
-	public void update(Member member) {
-		jdbcTemplate.update("update MEMBER set member_password = ?, member_nickname = ? where member_email LIKE ?",
-				member.getPassword(), member.getNickname(), member.getEmail());
-	}
-	*/
+	
 	public List<Custom> selectAll() {
 		List<Custom> results = jdbcTemplate.query("select * from CUSTOM",
 				memRowMapper);
@@ -109,7 +100,7 @@ public class CustomDao {
 
 	public int count() {
 		Integer count = jdbcTemplate.queryForObject(
-				"select count(*) from CUSTOM", Integer.class); //memo 수정
+				"select count(*) from CUSTOM", Integer.class); 
 		return count;
 	}
 
