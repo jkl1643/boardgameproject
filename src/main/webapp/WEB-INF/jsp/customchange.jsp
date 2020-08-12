@@ -17,7 +17,7 @@
 	</p>
 	<p>
 		<label>제목<br>
-			<Input Type="Text" id="title1" value="${custom1.title}">
+			<Input Type="Text" Name="title1" value="${custom1.title}">
 		</label>
 	</p>
 	<p>

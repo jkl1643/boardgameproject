@@ -82,7 +82,7 @@ public class CustomDao {
 
 	public void update(Custom custom) {
 		jdbcTemplate.update(
-				"update CUSTOM set TITLE = ?, CONTENT = ? NAME = ? where EMAIL LIKE ?", 
+				"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where EMAIL LIKE ?",
 				custom.getTitle(), custom.getContent(), custom.getName(), custom.getEmail());
 	}
 
