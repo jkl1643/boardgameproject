@@ -87,7 +87,18 @@
 	<%--<%
 		session.setMaxInactiveInterval(5); // 초 단위
 	%>--%>
-	<% if(login == 0/*session.getAttribute("id") == null*/){ %>
+	<%
+		Cookie [] cookie = request.getCookies();
+		String cookieId = "";
+		if(cookie != null) {
+			for(Cookie i : cookie) {
+				if(i.getName().equals("saveId")) {
+					cookieId = i.getValue();
+				}
+			}
+		}
+
+		if(login == 0/*session.getAttribute("id") == null*/){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
@@ -98,7 +109,7 @@
 
 					}
 				%>--%>
-				<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1"></div>
+				<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
 				<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
@@ -125,7 +136,7 @@
 						if (created_account) { %> 계정이 생성되었습니다. <%}
 						if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
 				</div>
-				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="check1" name="check1"></div>
+				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
 			</form>
@@ -148,6 +159,7 @@
 	</script>
 		}
 	}*/
+
 	%>
 	<div id="logbox1">
 		<div id="logbox2"></div>
