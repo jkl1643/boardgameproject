@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-    <title>제목</title>
+    <title>고객문의 작성</title>
 </head>
 <body>
 
