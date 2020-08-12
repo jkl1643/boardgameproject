@@ -185,9 +185,9 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
+            System.out.println("계정생성 = " + id);
             id = "0";
             req.setEmail("0");
-            System.out.println("계정생성 = " + id);
             mav.setViewName("home");
             return mav;
         } else {
