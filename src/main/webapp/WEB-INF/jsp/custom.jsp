@@ -20,10 +20,13 @@
 			
 		</c:forEach>
 
-
+<c:if test="${! empty mem}">
 <p>
   <a href="<c:url value="/customwrite" />">글쓰기 </a>
 </p>
+
+</c:if>
+
 <p>
 	<a href="<c:url value="/home" />">메인으로 </a>
 </p>	

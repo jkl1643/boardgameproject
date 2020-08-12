@@ -32,15 +32,17 @@
     </p>
     <p>
         <label>작성자<br>
-        <form:input path="name"/>
+        <form:input path="name" value = "${mem.getNickname()}"/>
         </label>
     </p>
     
+    <div style="display:none;">
     <p>
     	<label>이메일<br>
-    	  <form:input path="email"  />
+    	  <form:input path="email" value = "${idid}" />
     	 </label>
 	 </p>
+	 </div>
     <input type="submit" value="저장하기">
     </form:form>
     
