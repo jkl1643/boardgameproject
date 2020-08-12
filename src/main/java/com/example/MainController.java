@@ -449,8 +449,6 @@ public class MainController {
         return mav;
     }
 
-
-
     //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
@@ -470,8 +468,6 @@ public class MainController {
 			return "customwriteok";
 
 	}
-
-
 
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
