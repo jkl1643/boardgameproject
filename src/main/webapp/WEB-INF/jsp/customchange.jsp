@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-    <title>제목</title>
+    <title>글 수정</title>
 </head>
 <body>
 <form action="customchangeok" method="post">
@@ -38,8 +38,9 @@
 		<label>이메일<br>
 			<Input Type="Text" Name="email1" value="${custom1.email}">
 		</label>
-	</div>	
 	</p>
+	</div>	
+
 	<input type="submit" value="수정하기">
 </form>
 <%--

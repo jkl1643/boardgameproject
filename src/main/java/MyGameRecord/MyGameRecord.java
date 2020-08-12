@@ -44,7 +44,7 @@ public class MyGameRecord {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	
+	//
 	public int getWin() {
 		return win;
 	}
