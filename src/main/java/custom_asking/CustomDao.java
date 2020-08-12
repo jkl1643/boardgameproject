@@ -123,7 +123,7 @@ public class CustomDao {
 
 	public Custom selectByCount(Long Count) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from CUSTOM where COUNT = ?",
+				"select * from CUSTOM where COUNT LIKE ?",
 				memRowMapper, Count);
 
 		return results.isEmpty() ? null : results.get(0);

@@ -9,43 +9,33 @@
     <title>제목</title>
 </head>
 <body>
-
 <form action="customchangeok" method="post">
-<p>
-        <label>번호<br>
-			<Input Type = "Text" Name = "count1" value ="${custom1.count}">
+	<p>
+		<label>번호<br>
+			<Input Type="Text" Name="count1" value="${custom1.count}">
 		</label>
-</p>
-
-
-
-<p>
-        <label>제목<br>
-			<Input Type = "Text" id = "title1" value ="${custom1.title}">
+	</p>
+	<p>
+		<label>제목<br>
+			<Input Type="Text" id="title1" value="${custom1.title}">
 		</label>
-</p>
-
-<p>
-        <label>내용<br>
-<Input Type = "Text" Name = "content1" value ="${custom1.content}">
+	</p>
+	<p>
+		<label>내용<br>
+			<Input Type="Text" Name="content1" value="${custom1.content}">
 		</label>
-</p>
-
-<p>
-        <label>작성자<br>
-<Input Type = "Text" Name = "name1" value ="${custom1.name}">
+	</p>
+	<p>
+		<label>작성자<br>
+			<Input Type="Text" Name="name1" value="${custom1.name}">
 		</label>
-</p>
-
-<p>
-        <label>이메일<br>
-<Input Type = "Text" Name = "name1" value ="${custom1.email}">
+	</p>
+	<p>
+		<label>이메일<br>
+			<Input Type="Text" Name="email1" value="${custom1.email}">
 		</label>
-</p>
-
-
-<input type="submit" value="수정하기">
-
+	</p>
+	<input type="submit" value="수정하기">
 </form>
 <%--
 <form action="customchangeok" method =post>
