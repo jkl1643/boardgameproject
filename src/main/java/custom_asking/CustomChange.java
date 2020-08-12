@@ -21,7 +21,7 @@ public class CustomChange {
 		}
 	}
 }
-/*
+/*Custom custom1 = customdao.selectByCount(memCount);
 private MemberDao memberDao;
 
 @Transactional
