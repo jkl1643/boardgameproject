@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form action="customchangeok222" method="post">
+<form action="customchangeok" method="post">
 <p>
         <label>번호<br>
 			<Input Type = "Text" Name = "count1" value ="${custom1.count}">
@@ -45,6 +45,7 @@
 
 
 <input type="submit" value="수정하기">
+
 </form>
 <%--
 <form action="customchangeok" method =post>
