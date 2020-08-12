@@ -83,7 +83,9 @@ public class Custom {
 		this.title = title;
 	}
 	
-	
+	public void changeContent(String content) {
+		this.content = content;
+	}
 	
 	
 }

@@ -1,6 +1,6 @@
 package custom_asking;
 
-import org.springframework.transaction.annotation.Transactional;
+
 
 
 public class CustomChange {
@@ -19,11 +19,12 @@ public class CustomChange {
 
 		if(!custom.getTitle().isEmpty()){
 			custom.changeTitle(title1);
+			custom.changeContent(content1);
 			customdao.update(custom);
 		}
 	}
 }
-/*
+/*Custom custom1 = customdao.selectByCount(memCount);
 private MemberDao memberDao;
 
 @Transactional

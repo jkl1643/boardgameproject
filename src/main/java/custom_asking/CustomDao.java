@@ -82,8 +82,9 @@ public class CustomDao {
 
 	public void update(Custom custom) {
 		jdbcTemplate.update(
-				"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where EMAIL LIKE ?",
-				custom.getTitle(), custom.getContent(), custom.getName(), custom.getEmail());
+				"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where COUNT = ?",
+			//	"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where EMAIL LIKE ?",
+				custom.getTitle(), custom.getContent(), custom.getName(), custom.getCount());
 	}
 
 	/*
@@ -123,9 +124,14 @@ public class CustomDao {
 
 	public Custom selectByCount(Long Count) {
 		List<Custom> results = jdbcTemplate.query(
-				"select * from CUSTOM where COUNT LIKE ?",
+				"select * from CUSTOM where COUNT = ?",
 				memRowMapper, Count);
 
 		return results.isEmpty() ? null : results.get(0);
 	}
+	
+	
+	
+	
+	
 }
