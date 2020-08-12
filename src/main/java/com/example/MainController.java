@@ -441,9 +441,9 @@ public class MainController {
     }
 
     @RequestMapping("/resultfindpwd")
-    public ModelAndView findpwd(Model model, String id, String tel) {
+    public ModelAndView findpwd(Model model, String id, String nickname) {
         ModelAndView mav = new ModelAndView();
-        List<Member> results2 = memberDao.findpwd(id, tel);
+        List<Member> results2 = memberDao.findpwd(id, nickname);
         model.addAttribute("result", results2);
         mav.setViewName("resultfindpwd");
         return mav;
