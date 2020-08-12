@@ -58,7 +58,12 @@
 		int login = (int) request.getAttribute("login");
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
-		System.out.println("mem : " + mem);
+		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
+		System.out.println("jsp mem : " + mem);
+		if(loginduplicate){
+			System.out.println("듀플");
+			return;
+		}
 	%>
 	<%--<table>
 		<tr>
@@ -160,7 +165,7 @@
 		<div id="logbox2"></div>
 		<table id="table1">
 			<tr>
-				<td>${userid}님 환영합니다!</td>
+				<td>${mem.getEmail()}님 환영합니다!</td>
 				<td>
 					<form action="editaccount" method="post"> <!-- 내 전적으로 바꿈 -->
 						<Input Type="Submit" Value="내 정보 수정 ▶" id="but1">
@@ -188,7 +193,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="home" method="post">
+					<form action="logout" method="post">
 						<Input Type="Submit" Value="로그아웃 ▶" id="but5">
 					</form>
 				</td>

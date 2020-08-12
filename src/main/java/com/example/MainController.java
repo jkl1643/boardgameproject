@@ -1,5 +1,6 @@
 package com.example;
 
+//import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -74,6 +75,38 @@ public class MainController {
 		this.customwrite = customwrite;
 	}
 
+	@RequestMapping("/logout")
+    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+        mav.addObject("unknown_email", false);
+        mav.addObject("email_pwd_match", false);
+        mav.addObject("email_pwd_match2", false);
+        mav.addObject("logout", false);
+        mav.addObject("delaccount", false);
+        mav.addObject("wrongemail", false);
+        mav.addObject("created_account", false);
+        mav.addObject("error", false);
+        //mav.addObject("loginduplicate", false);
+        //mav.addObject("id", id);
+        Member name = (Member)session.getAttribute("mem");
+        //if (name ) {//로그아웃
+            login = 0;
+            if(login == 0) {
+                mav.addObject("login", 0);
+            } else {
+                mav.addObject("login", 1);
+            }
+            session.invalidate();
+            System.out.println("로그아웃 = " + login);
+
+            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            mav.addObject("loginduplicate", false);
+            mav.addObject("logout", true);
+            lgo.logout();
+
+        //}
+        mav.setViewName("home");
+        return mav;
+    }
 
     @RequestMapping("/home")
     public ModelAndView login(ModelAndView mav, HttpSession session,
@@ -83,13 +116,15 @@ public class MainController {
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
-        try {
+        /*try {
             Member member = memberDao.selectByEmail(id);
-            System.out.println(member);
+            System.out.println("member = " + member);
             session.setAttribute("mem", member);
+            login = 0;
         } catch (Exception e) {
             session.setAttribute("mem", null);
-        }
+            login = 1;
+        }*/
 
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
@@ -100,6 +135,7 @@ public class MainController {
         mav.addObject("created_account", false);
         mav.addObject("error", false);
         mav.addObject("id", id);
+        mav.addObject("loginduplicate", false);
         if(login == 0) {
             mav.addObject("login", 0);
         } else {
@@ -158,21 +194,22 @@ public class MainController {
         }
         id = "0";
         System.out.println("나중id22 = " + id);
-        if (login == 1 && delaccount == 0) {//로그아웃
+        /*if (login == 1 && delaccount == 0) {//로그아웃
             login = 0;
             if(login == 0) {
                 mav.addObject("login", 0);
             } else {
                 mav.addObject("login", 1);
             }
-
+            session.invalidate();
             System.out.println("로그아웃 = " + login);
-            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
 
+            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            mav.addObject("loginduplicate", false);
             mav.addObject("logout", true);
             lgo.logout();
-            session.invalidate();
-        }
+
+        }*/
         /*if(id == null){
             session.invalidate();
         }*/
@@ -206,13 +243,15 @@ public class MainController {
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
         mav.addObject("login", 0);
+        mav.addObject("loginduplicate", false);
         System.out.println("login = " + login);
+
         Member member = memberDao.selectByEmail(id);
-        System.out.println(member);
-        session.setAttribute("mem", member);
+        System.out.println("member = " + member);
+
         session.setAttribute("idid", id);
         delaccount = 0;
-        model.addAttribute("userid", userid2);
+        model.addAttribute("userid", id);
         System.out.println("id = " + id);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
@@ -226,17 +265,29 @@ public class MainController {
         }*/
         String idid = (String) session.getAttribute("idid");
         if (login == 0) { //이전에 로그인 한적이 없을때
+            Member name = (Member)session.getAttribute("mem");
+            System.out.println("name = " + name);
+            if(name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
+                System.out.println("ididid = " + name.getEmail());
+                if(id.equals(name.getEmail())) {
+                    System.out.println("중복");
+                    mav.addObject("loginduplicate", true);
+                } else {
+                    session.setAttribute("mem", member);
+                    System.out.println("셋됨");
+                }
+            } else {
+                session.setAttribute("mem", member);
+                System.out.println("널임");
+            }
+
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
+
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
 
-                /*String name = (String)session.getAttribute("id");
-                System.out.println("ididid = " + name);*/
 
-                /*if(id.equals(name)) {
-                    System.out.println("이미 로그인한 아이디");
-                }*/
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
