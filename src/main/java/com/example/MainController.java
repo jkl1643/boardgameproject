@@ -482,7 +482,7 @@ public class MainController {
 	}
      
        
-    @RequestMapping("/customchange/customchangeok")
+    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
     public String handleStep5(Model model) {
 		//return "redirect:/customchangeok";
     	return "customchangeok";
