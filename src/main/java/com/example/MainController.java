@@ -1,5 +1,6 @@
 package com.example;
 
+//import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -23,6 +24,7 @@ import custom_asking.CustomWrite;
 import org.springframework.web.socket.WebSocketSession;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -73,6 +75,38 @@ public class MainController {
 		this.customwrite = customwrite;
 	}
 
+	@RequestMapping("/logout")
+    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+        mav.addObject("unknown_email", false);
+        mav.addObject("email_pwd_match", false);
+        mav.addObject("email_pwd_match2", false);
+        mav.addObject("logout", false);
+        mav.addObject("delaccount", false);
+        mav.addObject("wrongemail", false);
+        mav.addObject("created_account", false);
+        mav.addObject("error", false);
+        //mav.addObject("loginduplicate", false);
+        //mav.addObject("id", id);
+        Member name = (Member)session.getAttribute("mem");
+        //if (name ) {//로그아웃
+            login = 0;
+            if(login == 0) {
+                mav.addObject("login", 0);
+            } else {
+                mav.addObject("login", 1);
+            }
+            session.invalidate();
+            System.out.println("로그아웃 = " + login);
+
+            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            mav.addObject("loginduplicate", false);
+            mav.addObject("logout", true);
+            lgo.logout();
+
+        //}
+        mav.setViewName("home");
+        return mav;
+    }
 
     @RequestMapping("/home")
     public ModelAndView login(ModelAndView mav, HttpSession session,
@@ -82,6 +116,16 @@ public class MainController {
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
+        try {
+            /*Member member = memberDao.selectByEmail(id);
+
+            session.setAttribute("mem", member);*/
+            Member name = (Member)session.getAttribute("mem");
+            System.out.println("home name = " + name);
+            login = 0;
+        } catch (Exception e) {
+            login = 1;
+        }
 
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
@@ -92,6 +136,7 @@ public class MainController {
         mav.addObject("created_account", false);
         mav.addObject("error", false);
         mav.addObject("id", id);
+        mav.addObject("loginduplicate", false);
         if(login == 0) {
             mav.addObject("login", 0);
         } else {
@@ -140,9 +185,9 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
+            System.out.println("계정생성 = " + id);
             id = "0";
             req.setEmail("0");
-            System.out.println("계정생성 = " + id);
             mav.setViewName("home");
             return mav;
         } else {
@@ -150,21 +195,22 @@ public class MainController {
         }
         id = "0";
         System.out.println("나중id22 = " + id);
-        if (login == 1 && delaccount == 0) {//로그아웃
+        /*if (login == 1 && delaccount == 0) {//로그아웃
             login = 0;
             if(login == 0) {
                 mav.addObject("login", 0);
             } else {
                 mav.addObject("login", 1);
             }
-
+            session.invalidate();
             System.out.println("로그아웃 = " + login);
-            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
 
+            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            mav.addObject("loginduplicate", false);
             mav.addObject("logout", true);
             lgo.logout();
-            session.invalidate();
-        }
+
+        }*/
         /*if(id == null){
             session.invalidate();
         }*/
@@ -178,7 +224,7 @@ public class MainController {
     }
 
     @RequestMapping("/main")
-    public ModelAndView main(Model model, String id, HttpServletRequest request,
+    public ModelAndView main(Model model, String id, HttpServletResponse response, String saveId,
              String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
@@ -198,9 +244,15 @@ public class MainController {
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
         mav.addObject("login", 0);
+        mav.addObject("loginduplicate", false);
+        System.out.println("login1 = " + login);
+
+        Member member = memberDao.selectByEmail(id);
+        System.out.println("member = " + member);
+
         session.setAttribute("idid", id);
         delaccount = 0;
-        model.addAttribute("userid", userid2);
+        model.addAttribute("userid", id);
         System.out.println("id = " + id);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
@@ -214,17 +266,27 @@ public class MainController {
         }*/
         String idid = (String) session.getAttribute("idid");
         if (login == 0) { //이전에 로그인 한적이 없을때
+            Member name = (Member)session.getAttribute("mem");
+            System.out.println("name = " + name);
+            if(name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
+                System.out.println("ididid = " + name.getEmail());
+                if(id.equals(name.getEmail())) {
+                    System.out.println("중복");
+                    mav.addObject("loginduplicate", true);
+                } else {
+                    session.setAttribute("mem", member);
+                    System.out.println("셋됨");
+                }
+            } else {
+                session.setAttribute("mem", member);
+                System.out.println("널임");
+            }
+
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
 
-                /*String name = (String)session.getAttribute("id");
-                System.out.println("ididid = " + name);*/
-
-                /*if(id.equals(name)) {
-                    System.out.println("이미 로그인한 아이디");
-                }*/
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
@@ -232,7 +294,10 @@ public class MainController {
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-
+                if(saveId != null) {
+                    Cookie cookie = new Cookie("saveId", id);
+                    response.addCookie(cookie);
+                }
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
@@ -287,6 +352,7 @@ public class MainController {
         if(id.equals(name)){
             System.out.println("이미 로그인한 아이디");
         }*/
+        System.out.println("login2 = " + login);
         return mav;
     }
 
@@ -349,7 +415,7 @@ public class MainController {
         mav.setViewName("editaccount");
         return mav;
     }
-
+//
     @RequestMapping("/findaccount")
     public ModelAndView findaccount(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -433,15 +499,13 @@ public class MainController {
     }
 
     @RequestMapping("/resultfindpwd")
-    public ModelAndView findpwd(Model model, String id, String tel) {
+    public ModelAndView findpwd(Model model, String id, String nickname) {
         ModelAndView mav = new ModelAndView();
-        List<Member> results2 = memberDao.findpwd(id, tel);
+        List<Member> results2 = memberDao.findpwd(id, nickname);
         model.addAttribute("result", results2);
         mav.setViewName("resultfindpwd");
         return mav;
     }
-
-
 
     //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
@@ -463,8 +527,6 @@ public class MainController {
 
 	}
 
-
-
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
@@ -472,27 +534,15 @@ public class MainController {
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
-     
        
-    @RequestMapping("/customchangeok")
-    public String handleStep5(CustomRequest req) {
-    	//customdao.update(req);
-		return "customchangeok";
-    	
-   	    }
-    
-  
+    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
+    public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
+	
+        customchange.changedata(count1, title1, content1, name1, email1);
+    	return "customchangeok";
+    }
 
-    /*
-    @RequestMapping("/customchangeok/{count}")
-   	public String  changecustom(@PathVariable("count") Long memCount, Model model)  {
-    		Custom custom = customdao.selectByCount(memCount);
-   			customdao.update(custom);
-   			return "customdeleteok";
-   
-   	}*/
-  
-    
+ 
     @GetMapping(value = "/custom")
    	public String list(Model model) {
    		List<Custom> questionlist = customdao.selectAll();
@@ -515,15 +565,12 @@ public class MainController {
 		return "customdeleteok";
 	}
 	
-	  @RequestMapping("/gameranking")
-	    public String handleStep6() {
+    @RequestMapping("/gameranking")
+    public String handleStep6() {
 
-	    	return "gameranking";
-	    }
-
-
+        return "gameranking";
+    }
     //윤수명끝----------------------------
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

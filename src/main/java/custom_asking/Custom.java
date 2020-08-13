@@ -79,11 +79,13 @@ public class Custom {
 	}
 	
 	
-	public void changeCustom(String oldPassword, String newPassword) {
-		
-		}
+	public void changeTitle(String title) {
+		this.title = title;
+	}
 	
-	
+	public void changeContent(String content) {
+		this.content = content;
+	}
 	
 	
 }

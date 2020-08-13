@@ -13,6 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import MyGameRecord.MyGameRecordDao;
 import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
@@ -46,8 +47,13 @@ public class JavaConfig {
     }
 
     @Bean
+    public MyGameRecordDao mygamerecordDao() {
+        return new MyGameRecordDao(dataSource());
+    }
+    
+    @Bean
     public MemberRegisterService memberRegSvc() {
-        return new MemberRegisterService(memberDao());
+        return new MemberRegisterService(memberDao(), mygamerecordDao());
     }
 
     @Bean
@@ -78,7 +84,7 @@ public class JavaConfig {
         return changeInfoSvc;
     }
 
-    // 윤수명 추가22g
+    // 윤수명 추가22gf
     @Bean
     public CustomDao customdao() {
         return new CustomDao(dataSource());
@@ -92,7 +98,7 @@ public class JavaConfig {
     @Bean
     public CustomChange customchange() {
         CustomChange controller = new CustomChange();
-        controller.setCustomChange(null);
+        controller.setCustomChange(customdao());
         return controller;
     }
 

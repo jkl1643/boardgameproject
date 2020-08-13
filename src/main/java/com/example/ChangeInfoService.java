@@ -3,9 +3,8 @@ package com.example;
 public class ChangeInfoService {
 	private MemberDao memberDao;
 	public void changePassword(String email, String oldPwd, String newPwd, String newPwd2, String nickname) {
-		System.out.println("수정1");
 		Member member = memberDao.selectByEmail(email);
-		System.out.println("수정2");
+
 
 		if (member == null) {
 			throw new MemberNotFoundException();
