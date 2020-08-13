@@ -26,3 +26,4 @@ public class MemberRegisterService {
 		return newMember.getId();
 	}	
 }
+//

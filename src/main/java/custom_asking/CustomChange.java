@@ -26,7 +26,7 @@ public class CustomChange {
 }
 /*Custom custom1 = customdao.selectByCount(memCount);
 private MemberDao memberDao;
-
+//
 @Transactional
 public void changePassword(String email, String oldPwd, String newPwd) {
 	Member member = memberDao.selectByEmail(email);

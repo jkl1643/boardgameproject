@@ -67,7 +67,7 @@ public class MyGameRecordDao {
 		Number keyValue = keyHolder.getKey();
 		record.setCount(keyValue.longValue());
 	}
-
+//
 	public void update(MyGameRecord record) {
 		jdbcTemplate.update(
 				"update MYGAMERECORD set TOTAL = ?, WIN = ?, DRAW = ?, LOSE = ?, where NICKNAME = ?",
