@@ -13,7 +13,8 @@ public class Room {
     private String name;
     private String password;
     private String game;
-    private Set<String> users;
+    private String status;
+    private Set<String> usernicks;
     private int player;
     private int maxplayer;
 
@@ -22,9 +23,9 @@ public class Room {
         this.ID = UUID.randomUUID().toString();
         this.name = name;
         this.game = game;
-        this.users = new HashSet<>();
+        this.usernicks = new HashSet<>();
         this.password = password;
-
+        this.status = "Waiting";
         switch (game)
         {
             case "Yahtzee":
@@ -35,23 +36,25 @@ public class Room {
         }
     }
 
-    public boolean join(WebSocketSession user, String pw)
+    public boolean join(String nick, String pw)
     {
-        System.out.println("pw : " + pw ) ;
-        System.out.println("pw2 : " + password );
-        if (!password.equals(pw))
-            return false;
 
-        users.add(user.getId());
-        player = users.size();
+        if (!password.equals(pw))
+        {
+            System.out.println("미일치 : " + pw + " / " + password);
+            return false;
+        }
+
+        usernicks.add(nick);
+        player = usernicks.size();
         return true;
     }
-    public void exit(WebSocketSession user)
+    public void exit(String nick)
     {
-        users.remove(user.getId());
-        player = users.size();
+        usernicks.remove(nick);
+        player = usernicks.size();
     }
-
+    public String getStatus() { return status; }
     public String getID() { return ID; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -62,8 +65,8 @@ public class Room {
     public int getPlayer() { return player; }
     public int getMaxplayer() { return maxplayer; }
     public void setID(String ID) { this.ID = ID; }
-    public Set<String> getUsers() { return users; }
-    public void setUsers(Set<String> users) { this.users = users; }
+    public Set<String> getUsers() { return usernicks; }
+    public void setUsers(Set<String> users) { this.usernicks = users; }
     public void setPlayer(int player) { this.player = player; }
     public void setMaxplayer(int maxplayer) { this.maxplayer = maxplayer; }
 }

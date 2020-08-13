@@ -527,33 +527,33 @@ public class MainController {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @GetMapping("/lobby")
-    public ModelAndView lobby_start(Model model) {
+
+    @PostMapping("/join")
+    public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
+                                   @RequestParam(value = "joinpw", required = false) String PW) {
         ModelAndView mv = new ModelAndView();
-        // model.addAttribute("Room_list", a.getRoom_list());
-        // a.create("test");
-        mv.setViewName("lobby");
+        if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
+
+            Server.select(ID, PW, (String) session.getAttribute("idid"));
+            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid");
+
+            model.addAttribute("id", ID);
+            model.addAttribute("pw", PW);
+            mv.setViewName("room");
+        }
+        else
+            mv.setViewName("mainlobby");
         return mv;
     }
-    @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "roomid", required = false) String ID,
-                                   @RequestParam(value = "pw", defaultValue = "",required = false) String PW,
-                                   @RequestParam(value = "userid", required = false) String userkey) {
-        ModelAndView mv = new ModelAndView();
-        WebSocketSession user = Server.getUser_list().get(userkey);
-        System.out.println("dd : " + PW);
-        Server.select(ID, PW, user);
-        model.addAttribute("id", ID);
-        mv.setViewName("room");
-        return mv;
-    }
+
     @GetMapping("/test")
-    public ModelAndView test_lobby(Model model) {
+    public ModelAndView test_lobby(Model model, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        model.addAttribute("Room_list", Server.getRoom_list().values());
+        model.addAttribute("userid", session.getAttribute("idid"));
         mv.setViewName("mainlobby");
         return mv;
     }
+
     @PostMapping("/createroom")
     public ModelAndView CreateRoom(Model model,
                                    @RequestParam(value = "Createroomname", required = true) String name,
@@ -564,6 +564,15 @@ public class MainController {
         model.addAttribute("Room_list", Server.getRoom_list().values());
         ModelAndView mv = new ModelAndView();
         mv.setViewName("mainlobby"); // room 만든후 .
+        return mv;
+    }
+
+    @GetMapping("/refreshlist")
+    public ModelAndView Refresh(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        model.addAttribute("Room_list", Server.getRoom_list().values());
+        mv.setViewName("roomlist"); // room 만든후 .
         return mv;
     }
 }

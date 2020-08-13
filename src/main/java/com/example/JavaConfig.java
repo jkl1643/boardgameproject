@@ -1,5 +1,6 @@
 package com.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import custom_asking.CustomChange;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -111,6 +112,11 @@ public class JavaConfig {
         return new Main_Server();
     }
 
+    @Bean
+    public ObjectMapper objectMapper()
+    {
+        return new ObjectMapper();
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
    	

@@ -14,42 +14,39 @@
 </head>
 <body>
 
-<label for="nickname"></label><input type="text" id="nickname" class="form-inline" placeholder="닉네임을 입력해주세요" required autofocus>
-<button class = "btn btn-primary" id = "name">확인</button>
-<div id = "chatroom" style = "width:400px; height: 600px; border:1px solid; background-color : gray">sadasdas</div>
+<%
+    String nick = (String)session.getAttribute("idid");
+    if (nick == null || nick.equals(""))
+        response.sendRedirect("home");
+%>
+<div id = "chatroom" style = "width:400px; height: 600px; border:1px solid; background-color : gray"></div>
 <label for="message"></label><input type = "text" id = "message" style = "height : 30px; width : 340px" placeholder="내용을 입력하세요" autofocus>
 <button class = "btn btn-primary" id = "send">전송</button>
 
 <script type="text/javascript">
     var webSocket;
-    var nickname;
+    var nickname = "<%=nick%>";
     var roomId = "${id}";
 
-    document.getElementById("name").addEventListener("click",function(){
-        nickname = document.getElementById("nickname").value;
-        document.getElementById("nickname").style.display = "none";
-        document.getElementById("name").style.display = "none";
-        connect();
-    })
+    webSocket = new WebSocket("ws://" + location.host + "/chat");
+    webSocket.onopen = onOpen;
+    webSocket.onclose = onClose;
+    webSocket.onmessage = onMessage;
 
     document.getElementById("send").addEventListener("click",function(){
         send();
     })
 
-    function connect(){
-        webSocket = new WebSocket("ws://" + location.host + "/chat");
 
-        webSocket.onopen = onOpen;
-        webSocket.onclose = onClose;
-        webSocket.onmessage = onMessage;
-    }
+
+
     function disconnect(){
         webSocket.send(JSON.stringify({roomID : roomId, type:"disconnect", writer:nickname}));
         webSocket.close();
     }
     function send(){
         msg = document.getElementById("message").value;
-        alert(msg);
+
         webSocket.send(JSON.stringify({roomID : roomId, type:"chat", writer:nickname, message : msg}));
         document.getElementById("message").value = "";
     }
@@ -57,7 +54,7 @@
         webSocket.send(JSON.stringify({roomID : roomId, type:"connect", writer:nickname}));
     }
     function onMessage(e){
-        alert("test");
+
         data = e.data;
         chatroom = document.getElementById("chatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
