@@ -537,19 +537,12 @@ public class MainController {
        
     @RequestMapping("/customchange/customchangeok") // 수정함 병렬
     public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
-		//return "redirect:/customchangeok";
+	
         customchange.changedata(count1, title1, content1, name1, email1);
     	return "customchangeok";
     }
 
-    /*
-    @RequestMapping("/customchangeok/{count}")
-   	public String  changecustom(@PathVariable("count") Long memCount, Model model)  {
-    		Custom custom = customdao.selectByCount(memCount);
-   			customdao.update(custom);
-   			return "customdeleteok";
-   	}*/
-
+ 
     @GetMapping(value = "/custom")
    	public String list(Model model) {
    		List<Custom> questionlist = customdao.selectAll();

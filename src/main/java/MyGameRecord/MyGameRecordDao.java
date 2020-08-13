@@ -51,14 +51,15 @@ public class MyGameRecordDao {
 					throws SQLException {
 			
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into MYGAMERECORD (NICKNAME, WIN, DRAW, LOSE) " + // memo 수정
-								"values (?, ?, ?, ?)",
+						"insert into MYGAMERECORD (NICKNAME, TOTAL, WIN, DRAW, LOSE) " + // memo 수정
+								"values (?, ?, ?, ?, ?)",
 						new String[] { "COUNT" });
 		
 				pstmt.setString(1, record.getNickname());
-				pstmt.setInt(2, record.getWin());
-				pstmt.setInt(3,record.getDraw());
-				pstmt.setInt(4,record.getLose());
+				pstmt.setInt(2, record.getTotal());
+				pstmt.setInt(3, record.getWin());
+				pstmt.setInt(4,record.getDraw());
+				pstmt.setInt(5,record.getLose());
 				
 				return pstmt;
 			}

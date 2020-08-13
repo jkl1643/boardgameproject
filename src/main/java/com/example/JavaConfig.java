@@ -12,6 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import MyGameRecord.MyGameRecordDao;
 import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
@@ -45,8 +46,13 @@ public class JavaConfig {
     }
 
     @Bean
+    public MyGameRecordDao mygamerecordDao() {
+        return new MyGameRecordDao(dataSource());
+    }
+    
+    @Bean
     public MemberRegisterService memberRegSvc() {
-        return new MemberRegisterService(memberDao());
+        return new MemberRegisterService(memberDao(), mygamerecordDao());
     }
 
     @Bean
