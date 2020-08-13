@@ -535,7 +535,7 @@ public class MainController {
         if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
 
             Server.select(ID, PW, (String) session.getAttribute("idid"));
-            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid");
+            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid"));
 
             model.addAttribute("id", ID);
             model.addAttribute("pw", PW);
