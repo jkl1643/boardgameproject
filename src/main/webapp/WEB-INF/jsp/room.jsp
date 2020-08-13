@@ -25,47 +25,51 @@
     var nickname;
     var roomId = "${id}";
 
-    document.getElementById("name").addEventListener("click",function(){
+    document.getElementById("name").addEventListener("click", function () {
         nickname = document.getElementById("nickname").value;
         document.getElementById("nickname").style.display = "none";
         document.getElementById("name").style.display = "none";
         connect();
     })
 
-    document.getElementById("send").addEventListener("click",function(){
+    document.getElementById("send").addEventListener("click", function () {
         send();
     })
 
-    function connect(){
+    function connect() {
         webSocket = new WebSocket("ws://" + location.host + "/chat");
 
         webSocket.onopen = onOpen;
         webSocket.onclose = onClose;
         webSocket.onmessage = onMessage;
     }
-    function disconnect(){
-        webSocket.send(JSON.stringify({roomID : roomId, type:"disconnect", writer:nickname}));
+
+    function disconnect() {
+        webSocket.send(JSON.stringify({roomID: roomId, type: "disconnect", writer: nickname}));
         webSocket.close();
     }
-    function send(){
+
+    function send() {
         msg = document.getElementById("message").value;
         alert(msg);
-        webSocket.send(JSON.stringify({roomID : roomId, type:"chat", writer:nickname, message : msg}));
+        webSocket.send(JSON.stringify({roomID: roomId, type: "chat", writer: nickname, message: msg}));
         document.getElementById("message").value = "";
     }
-    function onOpen(){
-        webSocket.send(JSON.stringify({roomID : roomId, type:"connect", writer:nickname}));
+
+    function onOpen() {
+        webSocket.send(JSON.stringify({roomID: roomId, type: "connect", writer: nickname}));
     }
-    function onMessage(e){
+
+    function onMessage(e) {
         alert("test");
         data = e.data;
         chatroom = document.getElementById("chatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
     }
-    function onClose(){
+
+    function onClose() {
         disconnect();
     }
-
 </script>
 </body>
 </html>

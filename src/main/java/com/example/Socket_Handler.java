@@ -29,10 +29,8 @@ public class Socket_Handler  extends TextWebSocketHandler {
         Chat_Message chatMessage = objectMapper.readValue(msg, Chat_Message.class);
         Room room = Server.getRoom_list().get(chatMessage.getRoomID());
 
-
         System.out.println(msg);
-/*
-        for(String key : room.getUsers()) {
+/*      for(String key : room.getUsers()) {
             WebSocketSession wss = Server.getUser_list().get(key);
             try {
                 wss.sendMessage(new TextMessage(msg));
@@ -46,18 +44,13 @@ public class Socket_Handler  extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-
         System.out.println("소켓 실행");
         super.afterConnectionEstablished(session); // 부모 실행
         Server.getUser_list().put(session.getId(), session);
-
-
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-
-
         Server.getUser_list().remove(session.getId());
         super.afterConnectionClosed(session, status); // 부모 실행
         System.out.println("소켓 종료");

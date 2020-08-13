@@ -10,27 +10,22 @@
     <title>고객문의 목록</title>
 </head>
 <body>
-
-	<c:forEach var="questionlist" items="${QuestionList}" varStatus="status">
-	
-			 ${questionlist.count}&nbsp;&nbsp; 
-			 <a href="<c:url value="/content/${questionlist.count}"/> ">${questionlist.title} </a>
-			${questionlist.name}&nbsp;&nbsp;&nbsp;${questionlist.registerDateTime}
-			<br>
-			
-		</c:forEach>
+<c:forEach var="questionlist" items="${QuestionList}" varStatus="status">
+	${questionlist.count}&nbsp;&nbsp;
+	<a href="<c:url value="/content/${questionlist.count}"/> ">${questionlist.title} </a>
+	${questionlist.name}&nbsp;&nbsp;&nbsp;${questionlist.registerDateTime}
+	<br>
+</c:forEach>
 
 <c:if test="${! empty mem}">
-<p>
-  <a href="<c:url value="/customwrite" />">글쓰기 </a>
-</p>
-
+	<p>
+		<a href="<c:url value="/customwrite" />">글쓰기 </a>
+	</p>
 </c:if>
 
 <p>
 	<a href="<c:url value="/home" />">메인으로 </a>
-</p>	
- 	
+</p>
 </body>
 </html>
 

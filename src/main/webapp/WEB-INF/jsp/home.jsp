@@ -74,7 +74,7 @@
 	%>
 	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
 	<%
-		session.setMaxInactiveInterval(5); // 초 단위
+		//session.setMaxInactiveInterval(5); // 초 단위
 	%>
 	<%
 		Cookie [] cookie = request.getCookies();
