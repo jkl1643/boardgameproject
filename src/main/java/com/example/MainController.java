@@ -3,7 +3,6 @@ package com.example;
 //import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -15,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import custom_asking.Custom;
 import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
 import org.springframework.web.socket.WebSocketSession;
-
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -415,7 +412,7 @@ public class MainController {
         mav.setViewName("editaccount");
         return mav;
     }
-//
+
     @RequestMapping("/findaccount")
     public ModelAndView findaccount(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -491,8 +488,6 @@ public class MainController {
         HttpSession saveKey = req.getSession();
         saveKey.setAttribute("AuthenticationKey", AuthenticationKey);*/
 
-
-
         ModelAndView mav = new ModelAndView();
         mav.setViewName("findid");
         return mav;
@@ -510,7 +505,6 @@ public class MainController {
     //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
-
     	return "custom";
     }
 
@@ -524,20 +518,17 @@ public class MainController {
 	public String handleStep3(CustomRequest request) {
 			customwrite.inputdata(request);
 			return "customwriteok";
-
 	}
 
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
-	
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
        
     @RequestMapping("/customchange/customchangeok") // 수정함 병렬
     public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
-	
         customchange.changedata(count1, title1, content1, name1, email1);
     	return "customchangeok";
     }
@@ -553,7 +544,6 @@ public class MainController {
 	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
-	
 		model.addAttribute("custom", custom);
 		return "customread";
 	}
@@ -564,10 +554,9 @@ public class MainController {
 		customdao.delete(custom);
 		return "customdeleteok";
 	}
-	
+
     @RequestMapping("/gameranking")
     public String handleStep6() {
-
         return "gameranking";
     }
     //윤수명끝----------------------------
@@ -582,9 +571,10 @@ public class MainController {
         mv.setViewName("lobby");
         return mv;
     }
+
     @GetMapping("/join")
     public ModelAndView lobby_join(Model model, @RequestParam(value = "roomid", required = false) String ID,
-                                   @RequestParam(value = "pw", defaultValue = "",required = false) String PW,
+                                   @RequestParam(value = "pw", defaultValue = "", required = false) String PW,
                                    @RequestParam(value = "userid", required = false) String userkey) {
         ModelAndView mv = new ModelAndView();
         WebSocketSession user = Server.getUser_list().get(userkey);
@@ -594,6 +584,7 @@ public class MainController {
         mv.setViewName("room");
         return mv;
     }
+
     @GetMapping("/test")
     public ModelAndView test_lobby(Model model) {
         ModelAndView mv = new ModelAndView();
@@ -601,12 +592,12 @@ public class MainController {
         mv.setViewName("mainlobby");
         return mv;
     }
+
     @PostMapping("/createroom")
     public ModelAndView CreateRoom(Model model,
                                    @RequestParam(value = "Createroomname", required = true) String name,
                                    @RequestParam(value = "Createroomgame", required = true) String game,
-                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
-    {
+                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw) {
         Server.create(name, game, pw);
         model.addAttribute("Room_list", Server.getRoom_list().values());
         ModelAndView mv = new ModelAndView();
