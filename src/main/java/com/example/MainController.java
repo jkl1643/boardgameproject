@@ -116,15 +116,16 @@ public class MainController {
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
         System.out.println("이메일 = " + id);
-        /*try {
-            Member member = memberDao.selectByEmail(id);
-            System.out.println("member = " + member);
-            session.setAttribute("mem", member);
+        try {
+            /*Member member = memberDao.selectByEmail(id);
+
+            session.setAttribute("mem", member);*/
+            Member name = (Member)session.getAttribute("mem");
+            System.out.println("home name = " + name);
             login = 0;
         } catch (Exception e) {
-            session.setAttribute("mem", null);
             login = 1;
-        }*/
+        }
 
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
@@ -184,9 +185,9 @@ public class MainController {
                 System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
+            System.out.println("계정생성 = " + id);
             id = "0";
             req.setEmail("0");
-            System.out.println("계정생성 = " + id);
             mav.setViewName("home");
             return mav;
         } else {
@@ -244,7 +245,7 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("login", 0);
         mav.addObject("loginduplicate", false);
-        System.out.println("login = " + login);
+        System.out.println("login1 = " + login);
 
         Member member = memberDao.selectByEmail(id);
         System.out.println("member = " + member);
@@ -283,10 +284,8 @@ public class MainController {
 
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
-
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
-
 
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
@@ -353,6 +352,7 @@ public class MainController {
         if(id.equals(name)){
             System.out.println("이미 로그인한 아이디");
         }*/
+        System.out.println("login2 = " + login);
         return mav;
     }
 

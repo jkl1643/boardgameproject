@@ -63,31 +63,14 @@
 		if(loginduplicate){
 			System.out.println("듀플");
 			return;
+		} else {
+			System.out.println("듀플안됨");
 		}
 	%>
-	<%--<table>
-		<tr>
-			<td>${login}
-				<%
-					if(login == 0){ %>
-						<jsp:include page="login.jsp"></jsp:include> &lt;%&ndash;로그인 전&ndash;%&gt;
-				<%} else { %>
-						<jsp:include page="main.jsp"></jsp:include> &lt;%&ndash;로그인 성공페이지&ndash;%&gt;
-				<%}	%>
-			</td>
-		</tr>
-	</table>--%>
-	<%--<%
-		String id = (String)session.getAttribute("id");%>${id}<%
-		if(id != null){	%>
-	아이디 널아님
-	<%} else{
-		session.invalidate();
-	}%>--%>
 	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()}
-	<%--<%
+	<%
 		session.setMaxInactiveInterval(5); // 초 단위
-	%>--%>
+	%>
 	<%
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
@@ -104,11 +87,6 @@
 			<div id="logbox2"></div>
 			<form action="main" method="post">
 				<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
-				<%--<%
-					if(%> check1 == true){
-
-					}
-				%>--%>
 				<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
 				<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
@@ -134,7 +112,7 @@
 					로그아웃 되었습니다.
 					<%}
 						if (created_account) { %> 계정이 생성되었습니다. <%}
-						if (error) { %>	계정이 생성되지 않았습니다.<%}	%>
+						if (error) { %>	이미 있는 닉네임입니다.<%}	%>
 				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
@@ -142,25 +120,7 @@
 			</form>
 			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
 		</div>
-	<%}	else {
-	/*if(login == 0){
-
-		RegisterRequest req = new RegisterRequest();
-		String checkId = (String) session.getAttribute("id");
-		String checkId2 = (String) request.getAttribute("id2");
-		System.out.println("checkId : " + checkId + ", checkId2 : " + checkId2);
-		if (checkId.equals(checkId2)) {
-	<script type = "text/javascript">
-			if(confirm("이미 다른 브라우저에서 로그인 되어 있습니다 여기서 로그인 하시겠습니까?")){
-				alert("d");
-			} else{
-				alert("s");
-			}
-	</script>
-		}
-	}*/
-
-	%>
+	<%}	else {%>
 	<div id="logbox1">
 		<div id="logbox2"></div>
 		<table id="table1">
@@ -199,127 +159,27 @@
 				</td>
 			</tr>
 		</table>
-			<%--<tr>
-                <td>
-                    <form action="delaccount" method="post">
-                        <Input Type="Submit" Value="계정삭제 ▶">
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <form action="editaccount" method="post">
-                        <Input Type="Submit" Value="정보수정 ▶">
-                    </form>
-                </td>
-                <td>
-                    <form action="home" method="post">
-                        <Input Type="Submit" Value="로그아웃 ▶">
-                    </form>
-                </td>
-            </tr>--%>
-			<%--<form action="main" method="post">
-                <tr>
-                    <td>날 짜</td>
-                    <td><input type="date" name="DATE"/></td>
-                </tr>
-                <tr>
-                    <td>메 모</td>
-                    <td><Input Type="Text" Name="MEMO" style="width:80px"></td>
-                </tr>
-                <tr>
-                    <td>이미지</td>
-                    <td><input type="file" name="IMAGE"></td>
-                </tr>
-                <tr>
-                    <td><Input Type="Submit" Value="메모등록"> <BR></td>
-                    <td><c:forEach var="memo" items="${memos}" varStatus="status">
-                        <li> ${status.index+1}. ${memo.year}년 ${memo.month}월 ${memo.day}일 [ 메모 : ${memo.memo} ] [ 이미지
-                            : ${memo.saveImagePath} ]
-                        </li>
-                    </c:forEach></td>
-                </tr>
-            </form>--%>
-			<%--<%
-                boolean editaccount = (boolean) request.getAttribute("editaccount");
-                boolean chkpwd = (boolean) request.getAttribute("chkpwd");
-                boolean currentpwd = (boolean) request.getAttribute("currentpwd");
-
-            <%if (editaccount == true) {%>
-            <BR>정보를 수정했습니다.<BR>
-            <%}%>
-            <%if (chkpwd == true) {%>
-            <BR>확인 비밀번호가 일치하지 않습니다.<BR>
-            <%}%>
-            <%if (currentpwd == true) {%>
-            <BR>현재 비밀번호가 일치하지 않습니다.<BR>
-            <%}%>
-            <BR>--%>
-
-			<%--<script>
-				document.getElementById('currentDatetime').value = new Date().toISOString().slice(0, -1);
-			</script>--%>
-
 	</div>
 	<%}%>
 	     login = ${login}, id = ${id}
-	<%--<%
-		String id = (String)session.getAttribute("id");
-		if(id != null){	%>
-		아이디 널아님
-
-	<%} else{
-		session.invalidate();
-	}%>--%>
-
-
-	<%--<%
-		String id2 = request.getParameter("id2");
-		String password = request.getParameter("password");
-		%>id2 = ${id2}<%
-		//if (login == 1) {
-			session.setAttribute("id2", id2);
-			/*response.sendRedirect("main.jsp");*/
-		//} /*else {
-			//session.invalidate();
-		//}*/
-		String id = "";
-		try {
-			id = (String) session.getAttribute("id2");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		%>
-		id2 = ${id2}, id = ${id}
-	<%
-		if(id == null){
-			session.invalidate();
-		}
-	%>id2 = ${id2}, id = ${id}--%>
-
-<%--		if (id.equals(id2)) {%>--%>
-<%--	아이디 같음--%>
-<%--	<%--%>
-<%--		--%>
-<%--	%>--%>
-
 	<div id="logbox3">
-	사랑해요 연예가 중계
+		사랑해요 연예가 중계
 	</div>
 	<div id="logbox4">
-	박스
-	<script type="text/javascript">
-	//window.location.href = "http://stackoverflow.com";
-	//api 구현 못함
-		
-	
-	</script>
-	<input type="button" value="새창" onclick="window.open('http://stackoverflow.com', '팝업창 이름', 'width=1000, height=1000')">
-	<input type="button" value="새창1" onclick="window.open('http://naver.com', '팝업창 이름1', 'width=1000, height=1000')">
-	<input type="button" value="새창2" onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
+		박스
+		<script type="text/javascript">
+			//window.location.href = "http://stackoverflow.com";
+			//api 구현 못함
+		</script>
+		<input type="button" value="새창"
+			   onclick="window.open('http://stackoverflow.com', '팝업창 이름', 'width=1000, height=1000')">
+		<input type="button" value="새창1"
+			   onclick="window.open('http://naver.com', '팝업창 이름1', 'width=1000, height=1000')">
+		<input type="button" value="새창2"
+			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-	소설가
+		소설가
 	</div>
 </body>
 </html>
