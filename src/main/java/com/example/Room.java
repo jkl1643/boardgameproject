@@ -17,16 +17,14 @@ public class Room {
     private int player;
     private int maxplayer;
 
-    Room(String name, String game, String password)
-    {
+    Room(String name, String game, String password) {
         this.ID = UUID.randomUUID().toString();
         this.name = name;
         this.game = game;
         this.users = new HashSet<>();
         this.password = password;
 
-        switch (game)
-        {
+        switch (game) {
             case "Yahtzee":
                 maxplayer = 2;
                 break;
@@ -35,10 +33,9 @@ public class Room {
         }
     }
 
-    public boolean join(WebSocketSession user, String pw)
-    {
-        System.out.println("pw : " + pw ) ;
-        System.out.println("pw2 : " + password );
+    public boolean join(WebSocketSession user, String pw) {
+        System.out.println("pw : " + pw);
+        System.out.println("pw2 : " + password);
         if (!password.equals(pw))
             return false;
 
@@ -46,8 +43,8 @@ public class Room {
         player = users.size();
         return true;
     }
-    public void exit(WebSocketSession user)
-    {
+
+    public void exit(WebSocketSession user) {
         users.remove(user.getId());
         player = users.size();
     }

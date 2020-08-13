@@ -70,29 +70,35 @@
   <div id="createRoom" class="modal">
     <div class="modal-content">
       <Form action="createroom" Method="post"><br>
-      방제목 : <input type="text" value="닉네임님의 게임방입니다." name="Createroomname"/><br><br>
-      게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="Yahtzee"/><br><br>
-      비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" valuse=""/><br><br>
-      비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
-        <Input Type ="Submit" Value="방 생성"/>
-      </Form> <button id="Modalclose">창 닫기</button>
+        방제목 : <input type="text" value="닉네임님의 게임방입니다." name="Createroomname"/><br><br>
+        게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="Yahtzee"/><br><br>
+        비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" valuse=""/><br><br>
+        비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
+        <Input Type="Submit" Value="방 생성"/>
+      </Form>
+      <button id="Modalclose">창 닫기</button>
     </div>
   </div>
+
   <roomlist id="pgroomlist">
     방 목록 출력 <br>( 5개씩 페이지구성 or 스크롤 방식 )
     <table>
-      <td> 방제목 </td> <td> 인원 </td> <td> 상태 </td> <td> 입장 </td>
-    <c:forEach var="room" items="${Room_list}" varStatus="status">
-      <tr>
-        <td>${room.name}</td>
-        <td> ${room.player} / ${room.maxplayer}</td>
-        <td> 구현중</td>
-        <td>
-          <a href = "join?roomid=${room.ID}" onclick="window.open(this.href,'_blank', 'width=800, height=600'); return false;" href="mainlobby" >입장</a>
-          // roomid 말고 pw 랑 userid도 주입 해야함.
-        </td>
-      </tr>
-    </c:forEach>
+      <td> 방제목</td>
+      <td> 인원</td>
+      <td> 상태</td>
+      <td> 입장</td>
+      <c:forEach var="room" items="${Room_list}" varStatus="status">
+        <tr>
+          <td>${room.name}</td>
+          <td> ${room.player} / ${room.maxplayer}</td>
+          <td> 구현중</td>
+          <td>
+            <a href="join?roomid=${room.ID}"
+               onclick="window.open(this.href,'_blank', 'width=800, height=600'); return false;" href="mainlobby">입장</a>
+            // roomid 말고 pw 랑 userid도 주입 해야함.
+          </td>
+        </tr>
+      </c:forEach>
     </table>
   </roomlist>
   <chatting id="pgchatting"> 로비 채팅 구현 <br>( 접속중인 소켓 전체 전송 ) </chatting>
@@ -107,10 +113,6 @@
   var pw = document.getElementById('Createroompw');
   function test() { modal.style.display = "block"; }
   modalclose.onclick = function() { modal.style.display = "none"; }
-
   usepw.onclick = function() { if(usepw.checked) { pw.disabled=false} else {pw.disabled=true}}
-
-
-
 </script>
 </html>

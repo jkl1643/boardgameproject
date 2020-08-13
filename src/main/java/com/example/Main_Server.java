@@ -9,19 +9,15 @@ import java.util.*;
 
 // Room_Server : 만들어진 방들을 저장하고 관리하는 클래스
 public class Main_Server {
-
     private HashMap<String, WebSocketSession> User_list = new HashMap<>();
     private HashMap<String, Room> Room_list;
 
-
-    Main_Server()
-    {
-       Room_list = new HashMap<String, Room>();
+    Main_Server() {
+        Room_list = new HashMap<String, Room>();
 
     }
 
-    public int create(String name, String game, String pw)
-    {
+    public int create(String name, String game, String pw) {
         Room room = new Room(name, game, pw);
         Room_list.put(room.getID(), room);
 
@@ -30,11 +26,9 @@ public class Main_Server {
         return Room_list.size();
     }
 
-    public void select(String roomID, String pw, WebSocketSession user)
-    {
-        for(Room room : Room_list.values())
-        {
-            if(room.getID().equals(roomID))
+    public void select(String roomID, String pw, WebSocketSession user) {
+        for (Room room : Room_list.values()) {
+            if (room.getID().equals(roomID))
                 room.join(user, pw);
         }
     }
