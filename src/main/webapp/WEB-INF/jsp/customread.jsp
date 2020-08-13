@@ -11,7 +11,7 @@
     <p>제목: ${custom.title}</p>
     <p>내용: ${custom.content}</p>
     <p>작성자: ${custom.name}</p>
-    <p>기록날짜: ${custom.registerDateTime} </p>
+    <p>기록날짜: ${custom.registerDateTime}  </p>
                        
       
 	 <c:set var="email" value="${custom.email}" />

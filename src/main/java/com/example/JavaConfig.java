@@ -95,7 +95,7 @@ public class JavaConfig {
     public MyGameRecordDao mygamerecordDao() {
         return new MyGameRecordDao(dataSource());
     }
-
+//
     @Bean
     public CustomChange customchange() {
         CustomChange controller = new CustomChange();

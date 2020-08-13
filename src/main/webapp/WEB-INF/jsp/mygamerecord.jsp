@@ -15,7 +15,7 @@
 승 : ${rec.getWin()}
 무승부 : ${rec.getDraw()}
 패배 : ${rec.getLose()} 	
- 	--%>
+ 	'--%>
  닉네임 : ${myrecord.nickname}
 총 경기 수 : ${myrecord.total()}
 승 : ${myrecord.win()}

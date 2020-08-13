@@ -60,7 +60,7 @@
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
 	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
-	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
+//	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
 		
 		
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
