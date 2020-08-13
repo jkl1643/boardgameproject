@@ -45,10 +45,7 @@ public class JavaConfig {
         return new MemberDao(dataSource());
     }
 
-    @Bean
-    public MyGameRecordDao mygamerecordDao() {
-        return new MyGameRecordDao(dataSource());
-    }
+  
     
     @Bean
     public MemberRegisterService memberRegSvc() {
@@ -92,6 +89,11 @@ public class JavaConfig {
     @Bean
     public CustomWrite customwrite() {
         return new CustomWrite(customdao());
+    }
+    
+    @Bean
+    public MyGameRecordDao mygamerecordDao() {
+        return new MyGameRecordDao(dataSource());
     }
 
     @Bean

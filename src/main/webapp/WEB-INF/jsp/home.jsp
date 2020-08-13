@@ -1,6 +1,7 @@
 <%@ page import="com.example.RegisterRequest" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.Member" %>
+<%@ page import="MyGameRecord.MyGameRecord" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -58,6 +59,10 @@
 		int login = (int) request.getAttribute("login");
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
+	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
+	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
+		
+		
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
 		System.out.println("jsp mem : " + mem);
 		if(loginduplicate){
@@ -67,7 +72,7 @@
 			System.out.println("듀플안됨");
 		}
 	%>
-	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()}
+	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
 	<%
 		session.setMaxInactiveInterval(5); // 초 단위
 	%>
@@ -136,7 +141,7 @@
 		<table id="table2">
 			<tr>
 				<td>
-					<form action="" method="post"> <!-- 내 전적으로 바꿈 -->
+					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
 						<Input Type="Submit" Value="내 전적 ▶" id="but2">
 					</form>
 				</td>

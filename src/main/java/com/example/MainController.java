@@ -23,6 +23,8 @@ import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
 import org.springframework.web.socket.WebSocketSession;
 
+import MyGameRecord.MyGameRecord;
+import MyGameRecord.MyGameRecordDao;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +60,9 @@ public class MainController {
     @Autowired
     private CustomChange customchange;
     
+    @Autowired
+    private MyGameRecordDao mygamerecordDao;
+    
     // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
@@ -75,6 +80,12 @@ public class MainController {
 		this.customwrite = customwrite;
 	}
 
+    public void setMyGameRecordDao(MyGameRecordDao mygamerecordDao) {
+		this.mygamerecordDao = mygamerecordDao;
+	}
+    
+    
+    
 	@RequestMapping("/logout")
     public ModelAndView logout(ModelAndView mav, HttpSession session) {
         mav.addObject("unknown_email", false);
@@ -248,6 +259,7 @@ public class MainController {
         System.out.println("login1 = " + login);
 
         Member member = memberDao.selectByEmail(id);
+       // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
         System.out.println("member = " + member);
 
         session.setAttribute("idid", id);
@@ -275,10 +287,12 @@ public class MainController {
                     mav.addObject("loginduplicate", true);
                 } else {
                     session.setAttribute("mem", member);
+          //          session.setAttribute("rec", record); // 수명
                     System.out.println("셋됨");
                 }
             } else {
                 session.setAttribute("mem", member);
+//                session.setAttribute("rec", record); // 수명
                 System.out.println("널임");
             }
 
@@ -513,7 +527,14 @@ public class MainController {
 
     	return "custom";
     }
+/*
+    @RequestMapping("/record")
+    public String handleStep7() {
 
+    	return "mygamerecord";
+    }
+  */  
+    
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
@@ -549,7 +570,18 @@ public class MainController {
    		model.addAttribute("QuestionList",questionlist);
    		return "custom";
    	}   
+    
+    
+    
        
+    @GetMapping(value = "/record")
+    public String myresult(Model model, String nickname) {
+    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
+    	model.addAttribute("myrecord", record);
+		return "mygamerecord";
+    	
+    }
+    
 	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
