@@ -35,7 +35,11 @@ public class Member {
 	public String getNickname() {
 		return nickname;
 	}
-
+	
+	//수명 추가
+	public void setNickname(String nickname) {
+			this.nickname = nickname;
+	}
 	public int getGamelog() {
 		return gamelog;
 	}

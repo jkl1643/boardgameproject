@@ -10,17 +10,14 @@
     <title>내 전적</title>
 </head>
 <body>
-<%-- -닉네임 : ${rec.getNickname()}
-총 경기 수 : ${rec.getTotal()}
-승 : ${rec.getWin()}
-무승부 : ${rec.getDraw()}
-패배 : ${rec.getLose()} 	
- 	'--%>
- 닉네임 : ${myrecord.nickname()}
-총 경기 수 : ${myrecord.total()}
-승 : ${myrecord.win()}
-무승부 : ${myrecord.draw()}
-패배 : ${myrecord.lose()}	
+
+ 닉네임 : ${myrecord.nickname}
+총 경기 수 : ${myrecord.total}
+승 : ${myrecord.win}
+무승부 : ${myrecord.draw}
+패배 : ${myrecord.lose}	
  	
+
+
 </body>
 </html>

@@ -72,7 +72,7 @@
 			System.out.println("듀플안됨");
 		}
 	%>
-	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
+	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${mem.getNickname()}
 	<%
 		//session.setMaxInactiveInterval(5); // 초 단위
 	%>
@@ -142,6 +142,9 @@
 			<tr>
 				<td>
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
+						 <div style="display:none;">
+							<Input Type="Text" Name="nickname1" value="${mem.getNickname()}">
+						</div>
 						<Input Type="Submit" Value="내 전적 ▶" id="but2">
 					</form>
 				</td>

@@ -525,13 +525,20 @@ public class MainController {
     public String handleStep1() {
     	return "custom";
     }
-/*
-    @RequestMapping("/record")
+
+    /*@RequestMapping("/record")
     public String handleStep7() {
 
     	return "mygamerecord";
+    }*/
+   
+    @RequestMapping(value = "/record")
+    public String myresult(Model model, String nickname1) {
+    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname1);
+    	model.addAttribute("myrecord", record);
+		return "mygamerecord";
+    	
     }
-  */  
     
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
@@ -567,15 +574,6 @@ public class MainController {
    	}   
     
     
-    
-       
-    @GetMapping(value = "/record")
-    public String myresult(Model model, String nickname) {
-    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
-    	model.addAttribute("myrecord", record);
-		return "mygamerecord";
-    	
-    }
     
 	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
