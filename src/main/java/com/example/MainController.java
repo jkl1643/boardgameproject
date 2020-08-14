@@ -520,6 +520,13 @@ public class MainController {
         return mav;
     }
 
+    @RequestMapping("/gamescreen")
+    public ModelAndView gamescreen(Model model) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("gamescreen");
+        return mav;
+    }
+
     //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
