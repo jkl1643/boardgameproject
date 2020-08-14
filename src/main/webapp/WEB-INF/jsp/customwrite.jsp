@@ -47,7 +47,7 @@
     </form:form>
     
 
- 	<a href="<c:url value="/custom"/>">메인으로 </a>
+ 	<a href="<c:url value="/custom"/>">돌아가기 </a>
 
 	
  	
