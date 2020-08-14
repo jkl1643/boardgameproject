@@ -187,7 +187,7 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		소설가
+		야추
 	</div>
 </body>
 </html>
