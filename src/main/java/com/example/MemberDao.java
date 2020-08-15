@@ -28,7 +28,7 @@ public class MemberDao {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							rs.getInt("member_gamelog"),
+							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate")
 					);
 					member.setId(rs.getLong("member_number"));
@@ -67,7 +67,7 @@ public class MemberDao {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							rs.getInt("member_gamelog"),
+							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate")
 					);
 					member.setId(rs.getLong("ID"));
@@ -87,12 +87,11 @@ public class MemberDao {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into MEMBER(member_email, member_password, member_nickname, member_gamelog, member_regdate) values(?, ?, ?, ?, ?)", new String[] { "ID" });
+						"insert into MEMBER(member_email, member_password, member_nickname, member_regdate) values(?, ?, ?, ?)", new String[] { "ID" });
 				pstmt.setString(1, member.getEmail());
 				pstmt.setString(2, member.getPassword());
 				pstmt.setString(3, member.getNickname());
-				pstmt.setString(4, String.valueOf(1));
-				pstmt.setString(5, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				pstmt.setString(4, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 				return pstmt;
 			}
 		}, keyHolder);
@@ -113,7 +112,7 @@ public class MemberDao {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							rs.getInt("member_gamelog"),
+							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate"));
 					member.setId(rs.getLong("member_number"));
 			return member;

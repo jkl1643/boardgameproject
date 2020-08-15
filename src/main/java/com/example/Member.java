@@ -7,14 +7,14 @@ public class Member {
 	private String email;
 	private String password;
 	private String nickname;
-	private int gamelog;
+	//private int gamelog;
 	private Date registerDate;
 
-	public Member(String email, String password, String nickname, int gamelog, Date registerDate) {
+	public Member(String email, String password, String nickname,  Date registerDate) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
-		this.gamelog = gamelog;
+
 		this.registerDate = registerDate;
 	}
 	public Date getRegisterDate() {
@@ -35,17 +35,20 @@ public class Member {
 	public String getNickname() {
 		return nickname;
 	}
+
 	
 	//수명 추가
 	public void setNickname(String nickname) {
 			this.nickname = nickname;
 	}
+	/*
 	public int getGamelog() {
 		return gamelog;
 	}
 	public void setGamelog(int gamelog) {
 		this.gamelog = gamelog;
-	}
+	}*/
+
 	public void changePassword(String oldPassword, String newPassword) {
 		if(!password.equals(oldPassword)) {//저장되있는거   , 지금입력한거
 			System.out.println("password = " + password);

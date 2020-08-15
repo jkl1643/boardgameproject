@@ -27,10 +27,10 @@ public class MemberLogout {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into LOGINLOG(EMAIL, STATUS, REGDATE) values(?, ?, ?)", new String[] { "ID" });
-				pstmt.setString(1, MemberLogin.loginEmail);
-				pstmt.setString(2, "Logout");
-				pstmt.setString(3, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+						"insert into LOGINLOG(LOGINLOG_STATUS, LOGINLOG_REGDATE, MEMBER_NUMBER) values(?, ?, ?)", new String[] { "ID" });
+				pstmt.setString(1, "Logout");
+				pstmt.setString(2, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				pstmt.setLong(3, member.getId());
 				return pstmt;
 			}
 		}, keyHolder);

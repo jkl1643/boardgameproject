@@ -187,7 +187,7 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		야추
+	 <img src="image/yahtzee.jpg" width = "100" height = "100">
 	</div>
 </body>
 </html>
