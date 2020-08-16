@@ -1,6 +1,7 @@
 package com.example;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -53,40 +54,39 @@ public class MainController {
     //윤수명 추가 2
     @Autowired
     private CustomWrite customwrite;
-    
+
     @Autowired
     private CustomDao customdao;
-    
+
     @Autowired
     private CustomChange customchange;
-    
+
     @Autowired
     private MyGameRecordDao mygamerecordDao;
 
     // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
-		this.customchange = customchange;
-	}
-    
+        this.customchange = customchange;
+    }
+
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-   
-	public void setCustomDao(CustomDao customdao) {
-		this.customdao =customdao;
-	}
+
+    public void setCustomDao(CustomDao customdao) {
+        this.customdao = customdao;
+    }
 
     public void setCustomWrite(CustomWrite customwrite) {
-		this.customwrite = customwrite;
-	}
+        this.customwrite = customwrite;
+    }
 
     public void setMyGameRecordDao(MyGameRecordDao mygamerecordDao) {
-		this.mygamerecordDao = mygamerecordDao;
-	}
+        this.mygamerecordDao = mygamerecordDao;
+    }
 
 
-
-	@RequestMapping("/logout")
+    @RequestMapping("/logout")
     public ModelAndView logout(ModelAndView mav, HttpSession session) {
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
@@ -98,21 +98,21 @@ public class MainController {
         mav.addObject("error", false);
         //mav.addObject("loginduplicate", false);
         //mav.addObject("id", id);
-        Member name = (Member)session.getAttribute("mem");
+        Member name = (Member) session.getAttribute("mem");
         //if (name ) {//로그아웃
-            login = 0;
-            if(login == 0) {
-                mav.addObject("login", 0);
-            } else {
-                mav.addObject("login", 1);
-            }
-            session.invalidate();
-            System.out.println("로그아웃 = " + login);
+        login = 0;
+        if (login == 0) {
+            mav.addObject("login", 0);
+        } else {
+            mav.addObject("login", 1);
+        }
+        session.invalidate();
+        System.out.println("로그아웃 = " + login);
 
-            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
-            mav.addObject("loginduplicate", false);
-            mav.addObject("logout", true);
-            lgo.logout();
+        MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+        mav.addObject("loginduplicate", false);
+        mav.addObject("logout", true);
+        lgo.logout();
 
         //}
         mav.setViewName("home");
@@ -131,7 +131,7 @@ public class MainController {
             /*Member member = memberDao.selectByEmail(id);
 
             session.setAttribute("mem", member);*/
-            Member name = (Member)session.getAttribute("mem");
+            Member name = (Member) session.getAttribute("mem");
             System.out.println("home name = " + name);
             login = 0;
         } catch (Exception e) {
@@ -148,7 +148,7 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("id", id);
         mav.addObject("loginduplicate", false);
-        if(login == 0) {
+        if (login == 0) {
             mav.addObject("login", 0);
         } else {
             mav.addObject("login", 1);
@@ -236,7 +236,7 @@ public class MainController {
 
     @RequestMapping("/main")
     public ModelAndView main(Model model, String id, HttpServletResponse response, String saveId,
-             String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
+                             String oldpwd, String pwd, String pwd2, String nickname, HttpSession session) {
         System.out.println("-------------메인 ----------------");
         ModelAndView mav = new ModelAndView();
         mav.addObject("unknown_email", false);
@@ -259,7 +259,7 @@ public class MainController {
         System.out.println("login1 = " + login);
 
         Member member = memberDao.selectByEmail(id);
-       // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
+        // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
         System.out.println("member = " + member);
 
         session.setAttribute("idid", id);
@@ -269,7 +269,7 @@ public class MainController {
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
-        if(login == 1) {
+        if (login == 1) {
             mav.addObject("id2", id);
         }
 
@@ -278,16 +278,16 @@ public class MainController {
         }*/
         String idid = (String) session.getAttribute("idid");
         if (login == 0) { //이전에 로그인 한적이 없을때
-            Member name = (Member)session.getAttribute("mem");
+            Member name = (Member) session.getAttribute("mem");
             System.out.println("name = " + name);
-            if(name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
+            if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
                 System.out.println("ididid = " + name.getEmail());
-                if(id.equals(name.getEmail())) {
+                if (id.equals(name.getEmail())) {
                     System.out.println("중복");
                     mav.addObject("loginduplicate", true);
                 } else {
                     session.setAttribute("mem", member);
-          //          session.setAttribute("rec", record); // 수명
+                    //          session.setAttribute("rec", record); // 수명
                     System.out.println("셋됨");
                 }
             } else {
@@ -308,7 +308,7 @@ public class MainController {
                 userNickname = nickname;
                 model.addAttribute("userid", userid2);
                 login = 1; //로그인을했을때
-                if(saveId != null) {
+                if (saveId != null) {
                     Cookie cookie = new Cookie("saveId", id);
                     response.addCookie(cookie);
                 }
@@ -506,7 +506,6 @@ public class MainController {
         saveKey.setAttribute("AuthenticationKey", AuthenticationKey);*/
 
 
-
         ModelAndView mav = new ModelAndView();
         mav.setViewName("findid");
         return mav;
@@ -532,7 +531,7 @@ public class MainController {
     @RequestMapping("/custom")
     public String handleStep1() {
 
-    	return "custom";
+        return "custom";
     }
 /*
     @RequestMapping("/record")
@@ -543,65 +542,63 @@ public class MainController {
   */
 
     @RequestMapping("/customwrite")
-   	public String handleStep2(Model model) {
-   		model.addAttribute("customrequest", new CustomRequest());
-   		return "customwrite";
-   	}
+    public String handleStep2(Model model) {
+        model.addAttribute("customrequest", new CustomRequest());
+        return "customwrite";
+    }
 
-	@PostMapping("/customwriteok")
-	public String handleStep3(CustomRequest request) {
-			customwrite.inputdata(request);
-			return "customwriteok";
+    @PostMapping("/customwriteok")
+    public String handleStep3(CustomRequest request) {
+        customwrite.inputdata(request);
+        return "customwriteok";
 
-	}
+    }
 
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
-		Custom custom1 = customdao.selectByCount(memCount);
-	
-		model.addAttribute("custom1", custom1);
-		return "customchange";
-	}
-       
-    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
-    public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
-	
-        customchange.changedata(count1, title1, content1, name1, email1);
-    	return "customchangeok";
+        Custom custom1 = customdao.selectByCount(memCount);
+
+        model.addAttribute("custom1", custom1);
+        return "customchange";
     }
 
- 
+    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
+    public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
+
+        customchange.changedata(count1, title1, content1, name1, email1);
+        return "customchangeok";
+    }
+
+
     @GetMapping(value = "/custom")
-   	public String list(Model model) {
-   		List<Custom> questionlist = customdao.selectAll();
-   		model.addAttribute("QuestionList",questionlist);
-   		return "custom";
-   	}   
-
-
+    public String list(Model model) {
+        List<Custom> questionlist = customdao.selectAll();
+        model.addAttribute("QuestionList", questionlist);
+        return "custom";
+    }
 
 
     @GetMapping(value = "/record")
     public String myresult(Model model, String nickname) {
-    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
-    	model.addAttribute("myrecord", record);
-		return "mygamerecord";
+        MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
+        model.addAttribute("myrecord", record);
+        return "mygamerecord";
 
     }
 
-	@GetMapping(value = "/content/{count}")
-	public String detail(@PathVariable("count") Long memCount, Model model) {
-		Custom custom = customdao.selectByCount(memCount);
-		model.addAttribute("custom", custom);
-		return "customread";
-	}
-    
-	@GetMapping(value = "/delete/{count}")
-	public String delete(@PathVariable("count") Long memCount, Model model) {
-		Custom custom = customdao.selectByCount(memCount);
-		customdao.delete(custom);
-		return "customdeleteok";
-	}
+    @GetMapping(value = "/content/{count}")
+    public String detail(@PathVariable("count") Long memCount, Model model) {
+        Custom custom = customdao.selectByCount(memCount);
+        model.addAttribute("custom", custom);
+        return "customread";
+    }
+
+    @GetMapping(value = "/delete/{count}")
+    public String delete(@PathVariable("count") Long memCount, Model model) {
+        Custom custom = customdao.selectByCount(memCount);
+        customdao.delete(custom);
+        return "customdeleteok";
+    }
 
     @RequestMapping("/gameranking")
     public String handleStep6() {
@@ -609,7 +606,7 @@ public class MainController {
     }
     //윤수명끝----------------------------
 
-  //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/lobby")
     public ModelAndView lobby_start(Model model) {
@@ -620,68 +617,65 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "roomid", required = false) String ID,
-                                   @RequestParam(value = "pw", defaultValue = "", required = false) String PW,
-                                   @RequestParam(value = "userid", required = false) String userkey) {
 
-    @PostMapping("/join")
-    public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
-                                   @RequestParam(value = "joinpw", required = false) String PW) {
-        ModelAndView mv = new ModelAndView();
-        if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
 
-            Server.select(ID, PW, (String) session.getAttribute("idid"));
-            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid"));
+        @PostMapping("/join")
+        public ModelAndView lobby_join (Model model, HttpSession
+        session, @RequestParam(value = "joinid", required = false) String ID,
+                @RequestParam(value = "joinpw", required = false) String PW){
+            ModelAndView mv = new ModelAndView();
+            if (Server.getRoom_list().get(ID).getPassword().equals(PW)) {
 
-            model.addAttribute("id", ID);
-            model.addAttribute("pw", PW);
-            mv.setViewName("Game_room");
+                Server.select(ID, PW, (String) session.getAttribute("idid"));
+                System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid"));
+
+                model.addAttribute("id", ID);
+                model.addAttribute("pw", PW);
+                mv.setViewName("Game_room");
+            } else
+                mv.setViewName("Game_lobby");
+            return mv;
         }
-        else
+
+        @GetMapping("/test")
+        public ModelAndView test_lobby (Model model, HttpSession session){
+            ModelAndView mv = new ModelAndView();
+            model.addAttribute("userid", session.getAttribute("idid"));
             mv.setViewName("Game_lobby");
-        return mv;
-    }
-
-    @GetMapping("/test")
-    public ModelAndView test_lobby(Model model, HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        model.addAttribute("userid", session.getAttribute("idid"));
-        mv.setViewName("Game_lobby");
-        return mv;
-    }
+            return mv;
+        }
 //
-    @PostMapping("/createroom")
-    public ModelAndView CreateRoom(Model model,
-                                   @RequestParam(value = "Createroomname", required = true) String name,
-                                   @RequestParam(value = "Createroomgame", required = true) String game,
-                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
-    {
-        Server.create(name, game, pw);
-        model.addAttribute("Room_list", Server.getRoom_list().values());
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("Game_lobby"); // room 만든후 .
-        return mv;
-    }
+        @PostMapping("/createroom")
+        public ModelAndView CreateRoom (Model model,
+                @RequestParam(value = "Createroomname", required = true) String name,
+                @RequestParam(value = "Createroomgame", required = true) String game,
+                @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
+        {
+            Server.create(name, game, pw);
+            model.addAttribute("Room_list", Server.getRoom_list().values());
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("Game_lobby"); // room 만든후 .
+            return mv;
+        }
 
-    @GetMapping("/refreshlist")
-    public ModelAndView Refresh(Model model)
-    {
-        ModelAndView mv = new ModelAndView();
-        model.addAttribute("Room_list", Server.getRoom_list().values());
-        mv.setViewName("Game_roomlist"); // room 만든후 .
-        return mv;
-    }
+        @GetMapping("/refreshlist")
+        public ModelAndView Refresh (Model model)
+        {
+            ModelAndView mv = new ModelAndView();
+            model.addAttribute("Room_list", Server.getRoom_list().values());
+            mv.setViewName("Game_roomlist"); // room 만든후 .
+            return mv;
+        }
 
-    @GetMapping("/gamerank")
-    public ModelAndView Gamerank(Model model)
-    {
-        ModelAndView mv = new ModelAndView();
-        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
-        model.addAttribute("Rank_list", control.GameRank_list());
-        mv.setViewName("Game_rank");
-        return mv;
+        @GetMapping("/gamerank")
+        public ModelAndView Gamerank (Model model)
+        {
+            ModelAndView mv = new ModelAndView();
+            DBcontroller control = (DBcontroller) ctx.getBean("dbcontrol");
+            model.addAttribute("Rank_list", control.GameRank_list());
+            mv.setViewName("Game_rank");
+            return mv;
+        }
     }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

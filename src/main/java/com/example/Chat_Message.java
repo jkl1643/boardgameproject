@@ -21,14 +21,37 @@ public class Chat_Message {
     private int a = 0;
 
 
-    public String getRoomID() { return roomID; }
-    public void setRoomID(String roomID) { this.roomID = roomID; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-    public String getWriter() { return writer; }
-    public void setWriter(String writer) { this.writer = writer; }
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID) {
+        this.roomID = roomID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
 
 }
 

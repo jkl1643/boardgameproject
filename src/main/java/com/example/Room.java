@@ -18,16 +18,14 @@ public class Room {
     private int player;
     private int maxplayer;
 
-    Room(String name, String game, String password)
-    {
+    Room(String name, String game, String password) {
         this.ID = UUID.randomUUID().toString();
         this.name = name;
         this.game = game;
         this.usernicks = new HashSet<>();
         this.password = password;
         this.status = "Waiting";
-        switch (game)
-        {
+        switch (game) {
             case "Yahtzee":
                 maxplayer = 2;
                 break;
@@ -36,11 +34,9 @@ public class Room {
         }
     }
 
-    public boolean join(String nick, String pw)
-    {
+    public boolean join(String nick, String pw) {
 
-        if (!password.equals(pw))
-        {
+        if (!password.equals(pw)) {
             System.out.println("미일치 : " + pw + " / " + password);
             return false;
         }
@@ -49,24 +45,69 @@ public class Room {
         player = usernicks.size();
         return true;
     }
-    public void exit(String nick)
-    {
+
+    public void exit(String nick) {
         usernicks.remove(nick);
         player = usernicks.size();
     }
-    public String getStatus() { return status; }
-    public String getID() { return ID; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-    public String getGame() { return game; }
-    public void setGame(String game) { this.game = game; }
-    public int getPlayer() { return player; }
-    public int getMaxplayer() { return maxplayer; }
-    public void setID(String ID) { this.ID = ID; }
-    public Set<String> getUsers() { return usernicks; }
-    public void setUsers(Set<String> users) { this.usernicks = users; }
-    public void setPlayer(int player) { this.player = player; }
-    public void setMaxplayer(int maxplayer) { this.maxplayer = maxplayer; }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
+
+    public int getMaxplayer() {
+        return maxplayer;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public Set<String> getUsers() {
+        return usernicks;
+    }
+
+    public void setUsers(Set<String> users) {
+        this.usernicks = users;
+    }
+
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
+    public void setMaxplayer(int maxplayer) {
+        this.maxplayer = maxplayer;
+    }
 }

@@ -7,9 +7,9 @@ import custom_asking.CustomDao;
 
 @Controller
 public class CustomChangeController {
-	private CustomDao customdao;
+    private CustomDao customdao;
 
-	public void setBoardDao(CustomDao customdao) {
-		this.customdao =customdao;
-	}
+    public void setBoardDao(CustomDao customdao) {
+        this.customdao = customdao;
+    }
 }

@@ -7,13 +7,11 @@ import java.util.List;
 public class DBcontroller {
     private GameDao gameDao;
 
-    public DBcontroller(GameDao gameDao)
-    {
+    public DBcontroller(GameDao gameDao) {
         this.gameDao = gameDao;
     }
 
-    public List<Game> GameRank_list()
-    {
+    public List<Game> GameRank_list() {
         return gameDao.SelectRank();
     }
 }

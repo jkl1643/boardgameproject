@@ -19,7 +19,7 @@ import java.util.List;
 // Socket_Handler : 소켓이 생성될때나 사라질때, 사용될 때 작동되는 클래스
 @Component
 
-public class Socket_Handler  extends TextWebSocketHandler {
+public class Socket_Handler extends TextWebSocketHandler {
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -35,11 +35,10 @@ public class Socket_Handler  extends TextWebSocketHandler {
         Chat_Message Message = new Chat_Message();
 
 
-        switch (chatMessage.getType())
-        {
+        switch (chatMessage.getType()) {
             case "chat":
                 Message.setType("chat");
-                Message.setMessage(nick + " : "  + value);
+                Message.setMessage(nick + " : " + value);
                 break;
             case "connect":
                 Message.setType("chat");
