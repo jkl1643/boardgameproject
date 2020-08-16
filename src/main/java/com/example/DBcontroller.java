@@ -11,9 +11,9 @@ public class DBcontroller {
     {
         this.gameDao = gameDao;
     }
-
-    public List<Game> GameRank_list()
-    {
-        return gameDao.SelectRank();
-    }
+    public Game Selectbykey(int key) { return gameDao.Selectbykey(key); }
+    public void Buygame(Purchase buy) { gameDao.Buygame(buy);}
+    public List<Game> GameRank_list() { return gameDao.SelectRank(); }
+    public List<Integer> GameCount_list() { return gameDao.SelectRankCount(); }
+    public Integer keyBynick(String nick) { return gameDao.keybynick(nick); }
 }

@@ -47,7 +47,7 @@
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
-		<li><a href="<c:url value='/gameranking'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
+		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
 		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
