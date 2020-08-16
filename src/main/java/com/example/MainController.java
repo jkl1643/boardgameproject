@@ -620,10 +620,6 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "roomid", required = false) String ID,
-                                   @RequestParam(value = "pw", defaultValue = "", required = false) String PW,
-                                   @RequestParam(value = "userid", required = false) String userkey) {
 
     @PostMapping("/join")
     public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
