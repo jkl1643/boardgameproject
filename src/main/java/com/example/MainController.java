@@ -21,7 +21,6 @@ import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
-import org.springframework.web.socket.WebSocketSession;
 
 
 import javax.servlet.http.Cookie;
@@ -586,10 +585,10 @@ public class MainController {
 
             model.addAttribute("id", ID);
             model.addAttribute("pw", PW);
-            mv.setViewName("room");
+            mv.setViewName("Game_room");
         }
         else
-            mv.setViewName("mainlobby");
+            mv.setViewName("Game_lobby");
         return mv;
     }
 
@@ -597,7 +596,7 @@ public class MainController {
     public ModelAndView test_lobby(Model model, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("userid", session.getAttribute("idid"));
-        mv.setViewName("mainlobby");
+        mv.setViewName("Game_lobby");
         return mv;
     }
 //
@@ -610,7 +609,7 @@ public class MainController {
         Server.create(name, game, pw);
         model.addAttribute("Room_list", Server.getRoom_list().values());
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("mainlobby"); // room 만든후 .
+        mv.setViewName("Game_lobby"); // room 만든후 .
         return mv;
     }
 
@@ -619,7 +618,17 @@ public class MainController {
     {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("Room_list", Server.getRoom_list().values());
-        mv.setViewName("roomlist"); // room 만든후 .
+        mv.setViewName("Game_roomlist"); // room 만든후 .
+        return mv;
+    }
+
+    @GetMapping("/gamerank")
+    public ModelAndView Gamerank(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+        model.addAttribute("Rank_list", control.GameRank_list());
+        mv.setViewName("Game_rank");
         return mv;
     }
 }

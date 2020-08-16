@@ -10,6 +10,16 @@ public class Chat_Message {
     private String message = "none";
     private String type = "none"; // 나중에 Enum 으로 수정
 
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    private int a = 0;
+
 
     public String getRoomID() { return roomID; }
     public void setRoomID(String roomID) { this.roomID = roomID; }
