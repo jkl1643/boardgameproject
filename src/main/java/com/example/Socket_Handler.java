@@ -34,7 +34,6 @@ public class Socket_Handler extends TextWebSocketHandler {
         String value = chatMessage.getMessage();
         Chat_Message Message = new Chat_Message();
 
-
         switch (chatMessage.getType()) {
             case "chat":
                 Message.setType("chat");
@@ -58,6 +57,7 @@ public class Socket_Handler extends TextWebSocketHandler {
             for (WebSocketSession wss : Server.getUser_list().values()) {
                 wss.sendMessage(new TextMessage(sendMessage));
             }
+
         } else {
             Room room = Server.getRoom_list().get(chatMessage.getRoomID());
             for (String nicks : room.getUsers()) {
