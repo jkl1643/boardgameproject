@@ -47,8 +47,6 @@ public class JavaConfig {
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
     }
-
-  
     
     @Bean
     public MemberRegisterService memberRegSvc() {

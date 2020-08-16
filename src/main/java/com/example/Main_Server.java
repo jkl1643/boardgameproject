@@ -15,26 +15,20 @@ import java.util.*;
 
 // Room_Server : 만들어진 방들을 저장하고 관리하는 클래스
 public class Main_Server {
-
-
     @Autowired
     private ObjectMapper objectMapper;
     private HashMap<String, String> User_nick;
     private HashMap<String, WebSocketSession> User_list;
     private HashMap<String, Room> Room_list;
 
-
-    Main_Server()
-    {
-       Room_list = new HashMap<String, Room>();
-       User_nick = new HashMap<>();
-       User_list = new HashMap<>();
+    Main_Server() {
+        Room_list = new HashMap<String, Room>();
+        User_nick = new HashMap<>();
+        User_list = new HashMap<>();
     }
 
-    public void connectuser(String nick, WebSocketSession user)
-    {
-        if(User_nick.get(nick) != null)
-        {
+    public void connectuser(String nick, WebSocketSession user) {
+        if (User_nick.get(nick) != null) {
             User_list.remove(User_nick.get(nick));
             User_nick.remove(nick);
         }
@@ -42,15 +36,14 @@ public class Main_Server {
         User_nick.put(nick, user.getId());
     }
 
-    public void disconnectuser(String nick)
-    {
+    public void disconnectuser(String nick) {
         User_list.remove(User_nick.get(nick));
         User_nick.remove(nick);
     }
 
 
 //    방관련
-    public int create(String name, String game, String pw){
+    public int create(String name, String game, String pw) {
         Room room = new Room(name, game, pw);
         Room_list.put(room.getID(), room);
 
@@ -65,8 +58,8 @@ public class Main_Server {
             e.printStackTrace();
         }
         System.out.println(Room_list.size());
-        for(WebSocketSession wss : User_list.values())
-        {
+
+        for (WebSocketSession wss : User_list.values()) {
             try {
                 wss.sendMessage(new TextMessage(js));
             } catch (IOException e) {
@@ -76,11 +69,9 @@ public class Main_Server {
         return Room_list.size();
     }
 
-    public void select(String roomID, String pw, String nick)
-    {
-        for(Room room : Room_list.values())
-        {
-            if(room.getID().equals(roomID))
+    public void select(String roomID, String pw, String nick) {
+        for (Room room : Room_list.values()) {
+            if (room.getID().equals(roomID))
                 room.join(nick, pw);
         }
 

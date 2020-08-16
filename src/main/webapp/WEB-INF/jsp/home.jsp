@@ -9,39 +9,39 @@
 <head>
 <meta charset="EUC-KR">
 <title>보드게임: 문제있어?</title>
-<STYLE TYPE="text/css">
-<!--
-	BODY {background-image: url(board.jpg); background-repeat: no-repeat; background-size: cover}
-	.part1 {font-family: fantasy; position: relative; left: 750px; font-size: xx-large}
-	ul {list-style-type: none; margin: 0; padding: 0; width: 1100px; background-color: #333}
-	ul:after {content: ''; display: block; clear: both}
-	li {float: left}
-	li a {display: block; color: white; text-align: center; padding: 16px 60px; text-decoration: none}
-	li a:hover:not(a.active) {background-color: #111}
-	.active {background-color: #4CAF50}
-	div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
-	input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
-	button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
-	div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-	#logbox2 {background-image: url('brick.jpg'); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
-	#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
-	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-	a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
-	div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
-	div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
-	div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
-	div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-	#logbox2 {background-image: url('brick.jpg'); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
-	table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
-	input#but1 {background-color: black; color: white; position: relative; left: 10px}
-	table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
-	input#but2 {background-color: black; color: white}
-	input#but3 {background-color: black; color: white}
-	input#but4 {background-color: black; color: white}
-	input#but5 {background-color: black; color: white}
--->
-</STYLE>
+	<STYLE TYPE="text/css">
+		<!--
+		BODY {background-image: url("board.jpg"); background-repeat: no-repeat; background-size: cover}
+		.part1 {font-family: fantasy; position: relative; left: 750px; font-size: xx-large}
+		ul {list-style-type: none; margin: 0; padding: 0; width: 1100px; background-color: #333}
+		ul:after {content: ''; display: block; clear: both}
+		li {float: left}
+		li a {display: block; color: white; text-align: center; padding: 16px 60px; text-decoration: none}
+		li a:hover:not(a.active) {background-color: #111}
+		.active {background-color: #4CAF50}
+		div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
+		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
+		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+		#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+		#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+		#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+		div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
+		div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
+		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+		#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
+		input#but1 {background-color: black; color: white; position: relative; left: 10px}
+		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
+		input#but2 {background-color: black; color: white}
+		input#but3 {background-color: black; color: white}
+		input#but4 {background-color: black; color: white}
+		input#but5 {background-color: black; color: white}
+		-->
+	</STYLE>
 </head>
 <body>
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->

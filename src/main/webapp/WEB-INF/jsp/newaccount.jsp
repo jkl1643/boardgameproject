@@ -6,7 +6,7 @@
 <title>회원가입</title>
 <STYLE TYPE="text/css">
 <!--
-	BODY {background-image: url('board2.jpg'); background-repeat: no-repeat; background-size: 2000px 1750px}
+	BODY {background-image: url("board2.jpg"); background-repeat: no-repeat; background-size: 2000px 1750px}
 	.title {text-align: center; font-family: sans-serif; color: brown}
 	table#table1 {width: 400px; height: 400px; position: relative; left: 400px; top: 10px}
 	div#textbox1 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 10px}

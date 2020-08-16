@@ -58,9 +58,6 @@ public class MemberDao {
 				}, email);
 		return results.isEmpty() ? null : results.get(0);
 	}*/
-	
-	
-	
 	public List<Member> selectAll(){
 		List<Member> results = jdbcTemplate.query("select * from MEMBER",
 				(ResultSet rs, int rowNum) -> {

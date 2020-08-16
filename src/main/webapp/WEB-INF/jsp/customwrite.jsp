@@ -3,9 +3,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +10,6 @@
     <title>고객문의 작성</title>
 </head>
 <body>
-
-
-
 
 <form:form action="customwriteok" modelAttribute="customrequest">
     <p>
@@ -45,11 +39,7 @@
 	 </div>
     <input type="submit" value="저장하기">
     </form:form>
-    
 
  	<a href="<c:url value="/custom"/>">돌아가기 </a>
-
-	
- 	
 </body>
 </html>

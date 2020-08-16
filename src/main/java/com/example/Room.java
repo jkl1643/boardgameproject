@@ -8,7 +8,6 @@ import java.util.UUID;
 
 // Room : 게임 방, 방에 접속해있는 유저들의 정보나 방의 정보들을 관리.
 public class Room {
-
     private String ID;
     private String name;
     private String password;
@@ -18,16 +17,14 @@ public class Room {
     private int player;
     private int maxplayer;
 
-    Room(String name, String game, String password)
-    {
+    Room(String name, String game, String password) {
         this.ID = UUID.randomUUID().toString();
         this.name = name;
         this.game = game;
         this.usernicks = new HashSet<>();
         this.password = password;
         this.status = "Waiting";
-        switch (game)
-        {
+        switch (game) {
             case "Yahtzee":
                 maxplayer = 2;
                 break;
@@ -36,11 +33,9 @@ public class Room {
         }
     }
 
-    public boolean join(String nick, String pw)
-    {
+    public boolean join(String nick, String pw) {
 
-        if (!password.equals(pw))
-        {
+        if (!password.equals(pw)) {
             System.out.println("미일치 : " + pw + " / " + password);
             return false;
         }
@@ -49,11 +44,12 @@ public class Room {
         player = usernicks.size();
         return true;
     }
-    public void exit(String nick)
-    {
+
+    public void exit(String nick) {
         usernicks.remove(nick);
         player = usernicks.size();
     }
+
     public String getStatus() { return status; }
     public String getID() { return ID; }
     public String getName() { return name; }

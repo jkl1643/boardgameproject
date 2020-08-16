@@ -10,15 +10,12 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 public class SocketHandlerInterceptor implements HandshakeInterceptor {
-
-
     @Override
-    public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception
-    {
+    public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
         HttpSession session = request.getServletRequest().getSession();
 
-        map.put("session",session);
+        map.put("session", session);
         return true;
     }
 

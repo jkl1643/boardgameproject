@@ -34,12 +34,10 @@ public class Socket_Handler  extends TextWebSocketHandler {
         String value = chatMessage.getMessage();
         Chat_Message Message = new Chat_Message();
 
-
-        switch (chatMessage.getType())
-        {
+        switch (chatMessage.getType()) {
             case "chat":
                 Message.setType("chat");
-                Message.setMessage(nick + " : "  + value);
+                Message.setMessage(nick + " : " + value);
                 break;
             case "connect":
                 Message.setType("chat");
@@ -75,7 +73,6 @@ public class Socket_Handler  extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         String nick = (String) httpsession.getAttribute("idid");
         System.out.println("소켓 실행 : " + session.getId() + " / " + nick);

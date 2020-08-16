@@ -22,7 +22,6 @@ public class Dice {
     private int Chance;
     private int Yahtzee;
 
-
     public String getCmd() { return cmd; }
     public void setCmd(String cmd) { this.cmd = cmd; }
     public int getDice1() { return dice1; }
