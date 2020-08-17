@@ -1,6 +1,8 @@
 package com.example;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.example.Dao.Purchase;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -20,7 +22,6 @@ import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomRequest;
 import custom_asking.CustomWrite;
-import org.springframework.web.socket.WebSocketSession;
 
 
 import MyGameRecord.MyGameRecord;
@@ -32,6 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -63,7 +67,7 @@ public class MainController {
     
     @Autowired
     private MyGameRecordDao mygamerecordDao;
-    
+
     // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
@@ -84,9 +88,9 @@ public class MainController {
     public void setMyGameRecordDao(MyGameRecordDao mygamerecordDao) {
 		this.mygamerecordDao = mygamerecordDao;
 	}
-    
-    
-    
+
+
+
 	@RequestMapping("/logout")
     public ModelAndView logout(ModelAndView mav, HttpSession session) {
         mav.addObject("unknown_email", false);
@@ -506,6 +510,8 @@ public class MainController {
         HttpSession saveKey = req.getSession();
         saveKey.setAttribute("AuthenticationKey", AuthenticationKey);*/
 
+
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("findid");
         return mav;
@@ -530,6 +536,7 @@ public class MainController {
     //윤수명 고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
+
     	return "custom";
     }
 
@@ -546,7 +553,7 @@ public class MainController {
 		return "mygamerecord";
     	
     }
-    
+
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
@@ -557,17 +564,20 @@ public class MainController {
 	public String handleStep3(CustomRequest request) {
 			customwrite.inputdata(request);
 			return "customwriteok";
+
 	}
 
     @GetMapping(value = "/customchange/{count}")
     public String change(@PathVariable("count") Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
+	
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
        
     @RequestMapping("/customchange/customchangeok") // 수정함 병렬
     public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
+	
         customchange.changedata(count1, title1, content1, name1, email1);
     	return "customchangeok";
     }
@@ -579,9 +589,17 @@ public class MainController {
    		model.addAttribute("QuestionList",questionlist);
    		return "custom";
    	}   
-    
-    
-    
+
+
+/*
+    @GetMapping(value = "/record")
+    public String myresult(Model model, String nickname) {
+    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
+    	model.addAttribute("myrecord", record);
+		return "mygamerecord";
+
+    }
+*/
 	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
@@ -613,36 +631,98 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/join")
-    public ModelAndView lobby_join(Model model, @RequestParam(value = "roomid", required = false) String ID,
-                                   @RequestParam(value = "pw", defaultValue = "", required = false) String PW,
-                                   @RequestParam(value = "userid", required = false) String userkey) {
+
+    @PostMapping("/join")
+    public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
+                                   @RequestParam(value = "joinpw", required = false) String PW) {
         ModelAndView mv = new ModelAndView();
-        WebSocketSession user = Server.getUser_list().get(userkey);
-        System.out.println("dd : " + PW);
-        Server.select(ID, PW, user);
-        model.addAttribute("id", ID);
-        mv.setViewName("room");
+        if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
+
+            Server.select(ID, PW, (String) session.getAttribute("idid"));
+            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid"));
+
+            model.addAttribute("id", ID);
+            model.addAttribute("pw", PW);
+            mv.setViewName("Game_room");
+        }
+        else
+            mv.setViewName("Game_lobby");
         return mv;
     }
 
     @GetMapping("/test")
-    public ModelAndView test_lobby(Model model) {
+    public ModelAndView test_lobby(Model model, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        model.addAttribute("Room_list", Server.getRoom_list().values());
-        mv.setViewName("mainlobby");
+        model.addAttribute("userid", session.getAttribute("idid"));
+        mv.setViewName("Game_lobby");
         return mv;
     }
-
+//
     @PostMapping("/createroom")
     public ModelAndView CreateRoom(Model model,
                                    @RequestParam(value = "Createroomname", required = true) String name,
                                    @RequestParam(value = "Createroomgame", required = true) String game,
-                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw) {
+                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
+    {
         Server.create(name, game, pw);
         model.addAttribute("Room_list", Server.getRoom_list().values());
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("mainlobby"); // room 만든후 .
+        mv.setViewName("Game_lobby"); // room 만든후 .
+        return mv;
+    }
+
+    @GetMapping("/refreshlist")
+    public ModelAndView Refresh(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        model.addAttribute("Room_list", Server.getRoom_list().values());
+        mv.setViewName("Game_roomlist"); // room 만든후 .
+        return mv;
+    }
+
+    @GetMapping("/gamerank")
+    public ModelAndView Gamerank(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
+        mv.setViewName("Game_rank");
+        return mv;
+    }
+
+    @GetMapping("/gameinfo")
+    public ModelAndView Gameinfo(Model model,
+                                 @RequestParam(value = "game", required = true) int game_number)
+    {
+        ModelAndView mv = new ModelAndView();
+        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+        model.addAttribute("Game", control.Selectbykey(game_number));
+        mv.setViewName("Game_info");
+        return mv;
+    }
+
+    @GetMapping("/buygame")
+    public ModelAndView Buygame(Model model, HttpSession session,
+                                 @RequestParam(value = "gamenumber", required = true) int game_number)
+    {
+        ModelAndView mv = new ModelAndView();
+        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+
+        LocalDateTime Today = LocalDateTime.now().plusHours(9);
+        int key = control.keyBynick((String) session.getAttribute("idid"));
+        Purchase buy = new Purchase(key, game_number, Today);
+        control.Buygame(buy);
+        // 추가 한후 다시 전페이지로 돌아가기 .
+        // 게임페이지에서 이미 구입한 게임이면 구입하는걸 막기. ( 대신 게임하러 가기 )
+        // 내 게임 목록을 구현하기.
+        // 내 게임 목록에 쓸정보를 찾기.
+        // 디자인은 에픽 식으로 이미지를 나열하고 이미지에 커서가 갈시 게임하러 이동하게.
+        // 게임 목록에서도 게임을 구입했는지 구현하기.
+        // 게임 목록에 유저목록 구현하기. ( or 없애기 )
+        // 게임 목록에 유저 정보 구현하기
+        // 게임방 구현하기.
+        mv.setViewName("Game_info");
         return mv;
     }
 }

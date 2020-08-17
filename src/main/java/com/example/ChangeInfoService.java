@@ -5,7 +5,6 @@ public class ChangeInfoService {
 	public void changePassword(String email, String oldPwd, String newPwd, String newPwd2, String nickname) {
 		Member member = memberDao.selectByEmail(email);
 
-
 		if (member == null) {
 			throw new MemberNotFoundException();
 		} else if (!newPwd.equals(newPwd2)) {

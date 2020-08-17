@@ -6,7 +6,7 @@
 <title>계정찾기</title>
 <STYLE TYPE="text/css">
 <!--
-	BODY {background-image: url('board.jpg'); background-repeat: no-repeat; background-size: cover}
+	BODY {background-image: url("board.jpg"); background-repeat: no-repeat; background-size: cover}
 	h1#text {text-align: center}
 	button#findid {width: 300px; height: 150px; background-color: black; color: white; position: relative; left: 500px; top: 100px}
 	button#findpwd {width: 300px; height: 150px; background-color: black; color: white; position: relative; left: 700px; top: 100px}

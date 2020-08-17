@@ -7,7 +7,7 @@
 <title>로그인</title>
 <STYLE TYPE="text/css">
 	<!--
-	BODY {background-image: url(board.jpg); background-repeat: no-repeat; background-size: cover}
+	BODY {background-image: url("board.jpg"); background-repeat: no-repeat; background-size: cover}
 	.part1 {font-family: fantasy; position: relative; left: 750px; font-size: xx-large}
 	ul {list-style-type: none; margin: 0; padding: 0; width: 1100px; background-color: #333}
 	ul:after {content: ''; display: block; clear: both}
@@ -19,7 +19,7 @@
 	input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 	button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 	div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-	#logbox2 {background-image: url('brick.jpg'); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+	#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 	#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 	a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 	#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}

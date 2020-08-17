@@ -1,19 +1,22 @@
 package com.example;
 
+import com.example.Dao.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import custom_asking.CustomChange;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import MyGameRecord.MyGameRecordDao;
-import custom_asking.CustomChange;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
@@ -44,8 +47,6 @@ public class JavaConfig {
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
     }
-
-  
     
     @Bean
     public MemberRegisterService memberRegSvc() {
@@ -113,10 +114,43 @@ public class JavaConfig {
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @Autowired
+    ApplicationContext applicationContext;
+
     @Bean
     public Main_Server Server()
     {
         return new Main_Server();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper()
+    {
+        return new ObjectMapper();
+    }
+
+    @Bean
+    public SqlSessionFactory GameFactory() throws Exception
+    {
+        SqlSessionFactoryBean GameFactory = new SqlSessionFactoryBean();
+        GameFactory.setDataSource(dataSource());
+        GameFactory.setTypeAliases(Game.class);
+        GameFactory.setMapperLocations(applicationContext.getResource("classpath:Mapper/GameMapper.xml"));
+        return GameFactory.getObject();
+    }
+
+    @Bean
+    public SqlSessionTemplate GameFactoryTemplate() throws Exception
+    {
+        return new SqlSessionTemplate(GameFactory());
+
+    }
+
+    @Bean
+    public DBcontroller dbcontrol() throws Exception
+    {
+        DBcontroller dbcontrol = new DBcontroller(GameFactoryTemplate().getMapper(GameDao.class));
+        return dbcontrol;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
