@@ -18,7 +18,6 @@ import java.util.List;
 
 // Socket_Handler : 소켓이 생성될때나 사라질때, 사용될 때 작동되는 클래스
 @Component
-
 public class Socket_Handler  extends TextWebSocketHandler {
     @Autowired
     private ObjectMapper objectMapper;
