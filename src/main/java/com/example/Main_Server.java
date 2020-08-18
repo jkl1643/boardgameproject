@@ -1,6 +1,7 @@
 package com.example;
 
 
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,11 @@ import java.util.*;
 
 // Room_Server : 만들어진 방들을 저장하고 관리하는 클래스
 public class Main_Server {
-
-
     @Autowired
     private ObjectMapper objectMapper;
     private HashMap<String, String> User_nick;
     private HashMap<String, WebSocketSession> User_list;
     private HashMap<String, Room> Room_list;
-
 
     Main_Server() {
         Room_list = new HashMap<String, Room>();
@@ -38,14 +36,16 @@ public class Main_Server {
         User_nick.put(nick, user.getId());
     }
 
-    public void disconnectuser(String nick) {
+    public void disconnectuser(String nick)
+    {
         User_list.remove(User_nick.get(nick));
         User_nick.remove(nick);
     }
 
 
-    //    방관련
-    public int create(String name, String game, String pw) {
+//    방관련
+    public int create(String name, String game, String pw)
+    {
         Room room = new Room(name, game, pw);
         Room_list.put(room.getID(), room);
 
@@ -60,7 +60,8 @@ public class Main_Server {
             e.printStackTrace();
         }
         System.out.println(Room_list.size());
-        for (WebSocketSession wss : User_list.values()) {
+        for(WebSocketSession wss : User_list.values())
+        {
             try {
                 wss.sendMessage(new TextMessage(js));
             } catch (IOException e) {
@@ -70,35 +71,20 @@ public class Main_Server {
         return Room_list.size();
     }
 
-    public void select(String roomID, String pw, String nick) {
-        for (Room room : Room_list.values()) {
-            if (room.getID().equals(roomID))
+    public void select(String roomID, String pw, String nick)
+    {
+        for(Room room : Room_list.values())
+        {
+            if(room.getID().equals(roomID))
                 room.join(nick, pw);
         }
 
     }
 
-    public HashMap<String, Room> getRoom_list() {
-        return Room_list;
-    }
-
-    public void setRoom_list(HashMap<String, Room> Room_list) {
-        this.Room_list = Room_list;
-    }
-
-    public HashMap<String, WebSocketSession> getUser_list() {
-        return User_list;
-    }
-
-    public void setUser_list(HashMap<String, WebSocketSession> user_list) {
-        User_list = user_list;
-    }
-
-    public HashMap<String, String> getUser_nick() {
-        return User_nick;
-    }
-
-    public void setUser_nick(HashMap<String, String> user_nick) {
-        User_nick = user_nick;
-    }
+    public HashMap<String, Room> getRoom_list() { return Room_list; }
+    public void setRoom_list(HashMap<String, Room> Room_list) { this.Room_list = Room_list; }
+    public HashMap<String, WebSocketSession> getUser_list() { return User_list; }
+    public void setUser_list(HashMap<String, WebSocketSession> user_list) { User_list = user_list; }
+    public HashMap<String, String> getUser_nick() { return User_nick; }
+    public void setUser_nick(HashMap<String, String> user_nick) { User_nick = user_nick; }
 }

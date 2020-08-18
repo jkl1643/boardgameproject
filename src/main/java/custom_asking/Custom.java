@@ -5,87 +5,98 @@ import java.time.LocalDateTime;
 import com.example.WrongIdPasswordException;
 
 public class Custom {
-    private Long count;
-    private String title; // 문의 제목
-    private String content; // 문의 내용
-    private String name; // 닉네임
-    private String email;
-    private LocalDateTime registerDateTime;
-
-    public Custom(String title, String content,
-                  String name, String email, LocalDateTime regDateTime) {
-        this.title = title;
-        this.content = content;
-        this.name = name;
-        this.email = email;
-        this.registerDateTime = regDateTime;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
+	private Long count;
+	private String title; // 문의 제목
+	private String content; // 문의 내용
+	//private String name;
+	private int number; // 닉네임
+	//private String email;
+	private LocalDateTime registerDateTime;
+	
+	public Custom(String title, String content, LocalDateTime regDateTime,
+			 int number) {
+		this.title = title;
+		this.content = content;
+		this.number = number;
+		//this.name = name;
+		//this.email = email;
+		this.registerDateTime = regDateTime;
+	}
+	
+	public Long getCount() {
+		return count;
+	}
 
 
-    public String getTitle() {
-        return title;
-    }
+	public void setCount(Long count) {
+		this.count = count;
+	}
 
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
 
-    public String getContent() {
-        return content;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getContent() {
+		return content;
+	}
 
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/*public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 
 
-    public LocalDateTime getRegisterDateTime() {
-        return registerDateTime;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}*/
+	
+	public int getNumber() {
+		return number;
+	}
 
 
-    public void setRegisterDateTime(LocalDateTime registerDateTime) {
-        this.registerDateTime = registerDateTime;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
+	
+	public LocalDateTime getRegisterDateTime() {
+		return registerDateTime;
+	}
 
 
-    public void changeTitle(String title) {
-        this.title = title;
-    }
-
-    public void changeContent(String content) {
-        this.content = content;
-    }
-
-
+	public void setRegisterDateTime(LocalDateTime registerDateTime) {
+		this.registerDateTime = registerDateTime;
+	}
+	
+	
+	public void changeTitle(String title) {
+		this.title = title;
+	}
+	
+	public void changeContent(String content) {
+		this.content = content;
+	}
+	
+	
 }

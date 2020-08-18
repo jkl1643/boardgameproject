@@ -23,6 +23,12 @@
         where game_name=#{game_name}
     </select>
 
+    <select id="keybynick" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select member_number
+        from MEMBER
+        where member_nickname=#{member_nickname}
+    </select>
+
     <select id="SelectAll" resultMap="Game">
         select *
         from GAME
@@ -31,9 +37,27 @@
 
     <select id="SelectRank" resultMap="Game">
         Select game.*
-        From purchase, game
-        where purchase.game_number = game.game_number
+        From purchase RIGHT JOIN game ON purchase.game_number = game.game_number
         group by purchase.game_number
-        order by count(*) desc
+        order by count(member_number) desc
+    </select>
+
+    <select id="SelectRankCount" resultType="java.lang.Integer">
+        Select count(member_number)
+        From purchase RIGHT JOIN game ON purchase.game_number = game.game_number
+        group by purchase.game_number
+        order by count(member_number) desc
+    </select>
+
+    <insert id="Buygame"  parameterType="com.example.Dao.Purchase">
+		insert into
+		purchase(purchase_date, member_number, game_number)
+		values(#{purchase_date}, #{member_number}, #{game_number})
+	</insert>
+
+    <select id="Checkingbuy" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*)
+        from purchase
+        where purchase.member_number = #{member} AND purchase.game_number = #{game}
     </select>
 </mapper>

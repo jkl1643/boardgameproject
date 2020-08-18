@@ -20,7 +20,6 @@ import MyGameRecord.MyGameRecordDao;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
-
 @Configuration
 public class JavaConfig {
     @Bean
@@ -38,17 +37,14 @@ public class JavaConfig {
         return ds;
     }
 
-
     @Autowired
     private CustomChange customchange;
-
 
     @Bean
     public MemberDao memberDao() {
         return new MemberDao(dataSource());
     }
-
-
+    
     @Bean
     public MemberRegisterService memberRegSvc() {
         return new MemberRegisterService(memberDao(), mygamerecordDao());
@@ -92,13 +88,12 @@ public class JavaConfig {
     public CustomWrite customwrite() {
         return new CustomWrite(customdao());
     }
-
+    
     @Bean
     public MyGameRecordDao mygamerecordDao() {
         return new MyGameRecordDao(dataSource());
     }
-
-    //
+//
     @Bean
     public CustomChange customchange() {
         CustomChange controller = new CustomChange();
@@ -120,17 +115,20 @@ public class JavaConfig {
     ApplicationContext applicationContext;
 
     @Bean
-    public Main_Server Server() {
+    public Main_Server Server()
+    {
         return new Main_Server();
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
+    public ObjectMapper objectMapper()
+    {
         return new ObjectMapper();
     }
 
     @Bean
-    public SqlSessionFactory GameFactory() throws Exception {
+    public SqlSessionFactory GameFactory() throws Exception
+    {
         SqlSessionFactoryBean GameFactory = new SqlSessionFactoryBean();
         GameFactory.setDataSource(dataSource());
         GameFactory.setTypeAliases(Game.class);
@@ -139,19 +137,24 @@ public class JavaConfig {
     }
 
     @Bean
-    public SqlSessionTemplate GameFactoryTemplate() throws Exception {
+    public SqlSessionTemplate GameFactoryTemplate() throws Exception
+    {
         return new SqlSessionTemplate(GameFactory());
 
     }
 
     @Bean
-    public DBcontroller dbcontrol() throws Exception {
+    public DBcontroller dbcontrol() throws Exception
+    {
         DBcontroller dbcontrol = new DBcontroller(GameFactoryTemplate().getMapper(GameDao.class));
         return dbcontrol;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
+   	
+   	
+	
 
-
+   
 }
