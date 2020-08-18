@@ -18,7 +18,6 @@ import java.util.List;
 
 // Socket_Handler : 소켓이 생성될때나 사라질때, 사용될 때 작동되는 클래스
 @Component
-
 public class Socket_Handler  extends TextWebSocketHandler {
     @Autowired
     private ObjectMapper objectMapper;
@@ -41,7 +40,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
                 break;
             case "connect":
                 Message.setType("chat");
-                Message.setMessage(nick + "님이 입장하였습니다.");
+                Message.setMessage(nick + "님이 입장하였습니다222222222.");
                 break;
             case "disconnect":
                 Message.setType("chat");
@@ -50,7 +49,6 @@ public class Socket_Handler  extends TextWebSocketHandler {
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getType());
         }
-
         String sendMessage = objectMapper.writeValueAsString(Message);
 
         if (chatMessage.getRoomID().equals("lobby")) {
