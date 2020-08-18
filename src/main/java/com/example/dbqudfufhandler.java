@@ -30,10 +30,10 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println("메세지온거 = " + message);
-
-
+        String msg = message.getPayload();
+        System.out.println("메세지온거 = " + msg);
     }
+
     @OnMessage
     public void handleMessage(String message){
         System.out.println("메세지온거 = " + message);
