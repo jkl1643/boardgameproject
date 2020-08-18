@@ -28,6 +28,7 @@
 		</label>
 	</p>
 	
+	<%-- 
 	<div style="display:none;">
 	<p>
 		<label>작성자<br>
@@ -40,7 +41,8 @@
 		</label>
 	</p>
 	</div>	
-
+	--%>
+	
 	<input type="submit" value="수정하기">
 </form>
 

@@ -10,12 +10,12 @@
 <body>
 <p>제목: ${custom.title}</p>
 <p>내용: ${custom.content}</p>
-<p>작성자: ${custom.name}</p>
+
 <p>기록날짜: ${custom.registerDateTime}  </p>
 
-<c:set var="email" value="${custom.email}"/>
+<c:set var="number" value="${custom.number}"/>
 
-<c:if test="${mem.getEmail() eq email}">
+<c:if test="${mem.getId() eq number}">
     <p>
         <a href="<c:url value="/delete/${custom.count}" />">글삭제</a>
         <a href="<c:url value="/customchange/${custom.count}" />">글수정</a>

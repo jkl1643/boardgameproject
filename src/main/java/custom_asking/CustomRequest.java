@@ -3,8 +3,9 @@ package custom_asking;
 public class CustomRequest {
 	private String title;
 	private String content;
-	private String name;
-	private String email;
+	private int number;
+	//private String name;
+	//private String email;
 	
 	
 	public String getTitle() {
@@ -23,7 +24,7 @@ public class CustomRequest {
 		this.content = content;
 	}
 	
-	public String getName() {
+	/*public String getName() {
 		return name;
 	}
 
@@ -37,6 +38,15 @@ public class CustomRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}*/
+	
+	public int getNumber() {
+		return number;
+	}
+
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 }

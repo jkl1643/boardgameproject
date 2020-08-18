@@ -11,7 +11,7 @@ public class CustomChange {
 	}
 	
 
-	public void changedata(Long count1, String title1, String content1, String name1, String email1) {
+	public void changedata(Long count1, String title1, String content1) {
 		System.out.println("count1 : " + count1);
 		Custom custom = customdao.selectByCount(count1);
 		System.out.println("수정2제먹 : " + custom.getTitle());

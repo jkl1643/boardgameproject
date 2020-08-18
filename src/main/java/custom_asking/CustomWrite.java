@@ -14,7 +14,7 @@ public class CustomWrite {
 	public Long inputdata(CustomRequest req) {
 		
 		Custom newRequest = new Custom(
-			req.getTitle(),req.getContent(),req.getName(),req.getEmail(), LocalDateTime.now());
+			req.getTitle(),req.getContent(), LocalDateTime.now(),req.getNumber());
 	
 		customdao.insert(newRequest);
 		return newRequest.getCount();

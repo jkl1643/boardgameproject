@@ -24,16 +24,16 @@
   
         </label>
     </p>
-    <p>
+   <%--  <p>
         <label>작성자<br>
         <form:input path="name" value = "${mem.getNickname()}"/>
         </label>
     </p>
-    
+   --%> 
     <div style="display:none;">
     <p>
-    	<label>이메일<br>
-    	  <form:input path="email" value = "${idid}" />
+    	<label>작성자<br>
+    	  <form:input path="number" value = "${mem.getId()}" />
     	 </label>
 	 </p>
 	 </div>

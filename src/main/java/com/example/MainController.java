@@ -576,9 +576,9 @@ public class MainController {
 	}
        
     @RequestMapping("/customchange/customchangeok") // 수정함 병렬
-    public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
+    public String handleStep5(Model model, Long count1, String title1, String content1) {
 	
-        customchange.changedata(count1, title1, content1, name1, email1);
+        customchange.changedata(count1, title1, content1);
     	return "customchangeok";
     }
 
