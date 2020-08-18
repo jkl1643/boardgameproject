@@ -5,8 +5,8 @@
   Time: 오후 11:47
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -19,7 +19,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
         }
 
         .modal-content {
@@ -34,7 +34,12 @@
 </head>
 <body>
 <table style="width: 100%;">
-    <tr align="center"><td> 방제목 </td> <td> 인원 </td> <td> 상태 </td> <td> 입장 </td></tr>
+    <tr align="center">
+        <td> 방제목</td>
+        <td> 인원</td>
+        <td> 상태</td>
+        <td> 입장</td>
+    </tr>
     <c:forEach var="room" items="${Room_list}" varStatus="status">
         <tr align="center">
             <td>${room.name}</td>
@@ -51,8 +56,9 @@
         <form action="join" Method="post">
             <input type="text" id="joinid" name="joinid"/><br><br>
             비밀번호 : <input type="password" id="joinpw" name="joinpw" value=""/><br><br>
-            <Input Type ="Submit" Value="방 입장"/><br>
-        </form> <button id="joinclose">창 닫기</button>
+            <Input Type="Submit" Value="방 입장"/><br>
+        </form>
+        <button id="joinclose">창 닫기</button>
     </div>
 </div>
 <script type="text/javascript">
@@ -60,13 +66,14 @@
     var join = document.getElementById('joinRoom');
     var joinclose = document.getElementById('joinclose');
 
-    function join1(roomid)
-    {
+    function join1(roomid) {
         join.style.display = "block";
         document.getElementById('joinid').value = roomid;
     }
 
-    joinclose.onclick = function() { join.style.display = "none"; }
+    joinclose.onclick = function () {
+        join.style.display = "none";
+    }
 </script>
 </body>
 </html>

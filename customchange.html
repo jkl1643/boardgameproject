@@ -1,32 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>글 수정</title>
-<STYLE TYPE="text/css">
-<!--
-	BODY {background-image: url('dia.jpg'); background-repeat: no-repeat; background-size: cover}
-	h1#text1 {}
-	div#box1 {border: 5px solid black; width: 1000px; height: 700px; position: relative; left: 400px; top: 10px}
-	label#label1 {position: relative; left: 70px; top: 10px}
-	input#text2 {width: 800px; height: 20px; position: relative; left: 100px; top: 10px}
-	textarea#text3 {width: 930px; height: 580px; position: relative; left: 30px; top: 30px}
-	input#submit1 {width: 100px; height: 50px; background-color: black; color: white; position: relative; left: 868px; top: 30px}
-	button#button1 {width: 140px; height: 70px; background-color: lightgreen; color: black; position: relative; left: 840px; top: 40px}
-	button#button1:hover {background-color: red; color: blue}
--->
-</STYLE>
+    <meta charset="EUC-KR">
+    <title>글 수정</title>
+    <STYLE TYPE="text/css">
+        <!--
+        BODY {
+            background-image: url('dia.jpg');
+            background-repeat: no-repeat;
+            background-size: cover
+        }
+
+        h1#text1 {
+        }
+
+        div#box1 {
+            border: 5px solid black;
+            width: 1000px;
+            height: 700px;
+            position: relative;
+            left: 400px;
+            top: 10px
+        }
+
+        label#label1 {
+            position: relative;
+            left: 70px;
+            top: 10px
+        }
+
+        input#text2 {
+            width: 800px;
+            height: 20px;
+            position: relative;
+            left: 100px;
+            top: 10px
+        }
+
+        textarea#text3 {
+            width: 930px;
+            height: 580px;
+            position: relative;
+            left: 30px;
+            top: 30px
+        }
+
+        input#submit1 {
+            width: 100px;
+            height: 50px;
+            background-color: black;
+            color: white;
+            position: relative;
+            left: 868px;
+            top: 30px
+        }
+
+        button#button1 {
+            width: 140px;
+            height: 70px;
+            background-color: lightgreen;
+            color: black;
+            position: relative;
+            left: 840px;
+            top: 40px
+        }
+
+        button#button1:hover {
+            background-color: red;
+            color: blue
+        }
+
+        -->
+    </STYLE>
 </head>
 <body>
-	<h1 id="text1">고객지원</h1>
-	<div id="box1">
-	<form:form action="customchangeok" method=post>
+<h1 id="text1">고객지원</h1>
+<div id="box1">
+    <form:form action="customchangeok" method=post>
         <label for="text2" id="label1">제목&nbsp;&nbsp;</label>
         <input type="text" value="기존에 썼던 내용 그대로 출력" id="text2">
         <textarea id="text3">기존에 썼던 내용 그대로 출력</textarea>
-		<input type="submit" value="수정하기" id="submit1"> <!-- ok 페이지 말고 alert로 작성완료 보일수있게 변경 -->
+        <input type="submit" value="수정하기" id="submit1"> <!-- ok 페이지 말고 alert로 작성완료 보일수있게 변경 -->
     </form:form>
-    </div>
- 	<button id="button1"><a href="<c:url value="/custom"/>">메인으로</a></button>
+</div>
+<button id="button1"><a href="<c:url value="/custom"/>">메인으로</a></button>
 </body>
 </html>

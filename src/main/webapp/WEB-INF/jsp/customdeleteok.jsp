@@ -7,10 +7,9 @@
     <title>글 삭제</title>
 </head>
 <body>
-	글이 삭제되었습니다.
-	<a href="<c:url value="/custom" />" > 돌아가기</a>
-	
+글이 삭제되었습니다.
+<a href="<c:url value="/custom" />"> 돌아가기</a>
 
- 	
+
 </body>
 </html>
