@@ -47,7 +47,7 @@
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
-		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
+		<li><a href="<c:url value='/gameranking'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
 		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
@@ -72,7 +72,7 @@
 			System.out.println("듀플안됨");
 		}
 	%>
-	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${mem.getNickname()}
+	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
 	<%
 		//session.setMaxInactiveInterval(5); // 초 단위
 	%>
@@ -123,7 +123,10 @@
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
 			</form>
-			<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div> <%--유병렬 제거한것--%>
+			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
+			<div><form action="newaccount" method="post">
+				<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
+			</form></div>
 		</div>
 	<%}	else {%>
 	<div id="logbox1">
@@ -142,9 +145,6 @@
 			<tr>
 				<td>
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
-						 <div style="display:none;">
-							<Input Type="Text" Name="nickname1" value="${mem.getNickname()}">
-						</div>
 						<Input Type="Submit" Value="내 전적 ▶" id="but2">
 					</form>
 				</td>
@@ -187,7 +187,7 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-	 <img src="image/yahtzee.jpg" width = "100" height = "100">
+		소설가
 	</div>
 </body>
 </html>
