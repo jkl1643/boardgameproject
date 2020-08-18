@@ -646,8 +646,6 @@ public class MainController {
     public ModelAndView Gamelobby(Model model, HttpSession session, HttpServletResponse response,
                                    @RequestParam(value = "gamenumber", required = true) int game_number) throws IOException {
         ModelAndView mv = new ModelAndView();
-
-
         if(session.getAttribute("idid") == null) {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();

@@ -32,7 +32,7 @@
 		div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
 		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-		#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
 		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
@@ -47,7 +47,7 @@
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
-		<li><a href="<c:url value='/gameranking'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
+		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
 		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
