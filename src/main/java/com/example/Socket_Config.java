@@ -18,7 +18,7 @@ public class Socket_Config implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(socketHandler, "/chat").addInterceptors(new SocketHandlerInterceptor());
-        registry.addHandler(dbqudfufhandler1, "/gamescreen");
+        registry.addHandler(dbqudfufhandler1, "/game").addInterceptors(new SocketHandlerInterceptor());
         System.out.println("소켓 핸들러");
     }
 }

@@ -7,7 +7,7 @@
 
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
-		var wsUri = "ws://" + location.host + "/gamescreen";
+		var wsUri = "ws://" + location.host + "/game";
 		var output;
 
 		var rollCounter = 0;
@@ -50,7 +50,7 @@
 		function onOpen(evt)
 		{
 			writeToScreen("연결완료");
-
+			writeToScreen("player = " + player);
 		}
 
 		function onClose(evt)
@@ -71,8 +71,8 @@
 						document.getElementById("roll").disabled = false;
 					}
 					break;
-				case "roll":
 
+				case "roll":
 					var diceImg = new Array();
 					var dice = new Array();
 
