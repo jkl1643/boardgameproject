@@ -8,8 +8,22 @@
 <head>
 <meta charset="EUC-KR">
     <title>고객문의 목록</title>
+<STYLE TYPE="text/css">
+<!--
+	BODY {background-image: url('dia.jpg'); background-repeat: no-repeat; background-size: cover}
+	h1#text1 {}
+	div#box1 {width: 990px; height: 550px; border: 5px solid black; position: relative; left: 400px; top: 10px}
+	table#table1 {width: 1000px; position: relative; left: 0px; top: 0px}
+	td {border-bottom: 1px solid black; border-right: 1px solid black}
+	button#button1 {width: 100px; height: 50px; background-color: lightgreen; color: black; position: relative; left: 1310px; top: 10px}
+	button#button1:hover {background-color: red; color: blue}
+	button#button2 {width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
+	button#button2:hover {background-color: red; color: blue}
+-->
+</STYLE>
 </head>
 <body>
+<h1 id="text1">고객지원</h1>
 <c:forEach var="questionlist" items="${QuestionList}" varStatus="status">
 	${questionlist.count}&nbsp;&nbsp;
 	<a href="<c:url value="/content/${questionlist.count}"/> ">${questionlist.title} </a>
@@ -28,4 +42,3 @@
 </p>
 </body>
 </html>
-
