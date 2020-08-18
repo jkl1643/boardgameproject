@@ -30,7 +30,7 @@
 
 		var roundCounter = 13;
 
-		var player=2;
+		var player=0;
 
 		function init()
 		{
@@ -51,6 +51,11 @@
 		{
 			writeToScreen("연결완료");
 			writeToScreen("player = " + player);
+			<%
+  				String nick = (String)session.getAttribute("a");
+  				System.out.println("onOpen = " + nick);
+  			%>
+			writeToScreen("i = " + nick);
 		}
 
 		function onClose(evt)
@@ -60,10 +65,15 @@
 
 		function onMessage(evt)
 		{
-			var cmd = JSON.parse(evt.data);
+			<%
+  				String nick2 = (String)session.getAttribute("a");
+  				System.out.println("onMessage = " + nick2);
+  			%>
+			writeToScreen("i22 = " + nick2);
+
+			/*var cmd = JSON.parse(evt.data);
 
 			writeToScreen('<span style="color: blue;">수신: ' + cmd.cmd+'</span>');
-
 			switch(cmd.cmd){
 				case "start":
 					player = cmd.player;
@@ -201,7 +211,7 @@
 					break;
 
 
-			}
+			}*/
 
 		}
 
