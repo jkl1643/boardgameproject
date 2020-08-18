@@ -1,16 +1,23 @@
 package com.example;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.OnMessage;
 
 @Component
 public class dbqudfufhandler extends TextWebSocketHandler {
     int i = 0;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
@@ -23,11 +30,12 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        Dice dice = new Dice();
-        String a = String.valueOf(i);
-        HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
-        httpsession.setAttribute("a", a);
-        System.out.println("핸들러 메세지수신할때 = " + a);
-        Chat_Message Message = new Chat_Message();
+        System.out.println("메세지온거 = " + message);
+
+
+    }
+    @OnMessage
+    public void handleMessage(String message){
+        System.out.println("메세지온거 = " + message);
     }
 }

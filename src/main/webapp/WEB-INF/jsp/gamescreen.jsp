@@ -4,7 +4,7 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
-
+	<button id="223" onClick="sendMessage()">메세지보내기</button>
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
 		var wsUri = "ws://" + location.host + "/game";
@@ -56,6 +56,7 @@
   				System.out.println("onOpen = " + nick);
   			%>
 			writeToScreen("i = " + nick);
+
 		}
 
 		function onClose(evt)
@@ -232,6 +233,11 @@
 			pre.style.wordWrap = "break-word";
 			pre.innerHTML = message;
 			output.appendChild(pre);
+		}
+
+		function sendMessage(){
+			var message = player;
+			webSocket.send(message);
 		}
 
 		window.addEventListener("load", init, false);
