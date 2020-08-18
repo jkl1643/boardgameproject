@@ -147,45 +147,61 @@
   webSocket.onmessage = onMessage;
 
 
-  function create1() { create.style.display = "block"; }
-  function join1(roomid)
-  {
+  function create1() {
+    create.style.display = "block";
+  }
+
+  function join1(roomid) {
     join.style.display = "block";
     document.getElementById('joinid').value = roomid;
   }
-  createclose.onclick = function() { create.style.display = "none"; }
-  joinclose.onclick = function() { join.style.display = "none"; }
-  usepw.onclick = function() { if(usepw.checked) { pw.disabled=false} else {pw.disabled=true}}
 
+  createclose.onclick = function () {
+    create.style.display = "none";
+  }
 
+  joinclose.onclick = function () {
+    join.style.display = "none";
+  }
+
+  usepw.onclick = function () {
+    if (usepw.checked) {
+      pw.disabled = false
+    } else {
+      pw.disabled = true
+    }
+  }
 
   // 채팅 // 자바스크립트 나중에 따로 떼어내기
+  document.getElementById("send").addEventListener("click", function () {
+    send();
+  })
+  document.addEventListener('keydown', function (e) {
+    entersend(e);
+  })
 
-  document.getElementById("send").addEventListener("click",function(){ send(); })
-  document.addEventListener('keydown', function(e){ entersend(e); })
   function disconnect(){
     webSocket.send(JSON.stringify({roomID : "lobby", type:"disconnect", writer:nickname}));
     webSocket.close();
   }
+
   function send(){
     msg = document.getElementById("message").value;
     webSocket.send(JSON.stringify({roomID : "lobby", type:"chat", writer:nickname, message : msg}));
     document.getElementById("message").value = "";
   }
-  function entersend(e)
-  {
-    if(e.keyCode == 13)
+
+  function entersend(e) {
+    if (e.keyCode == 13)
       send();
   }
   function onOpen(){
     webSocket.send(JSON.stringify({roomID : "lobby", type:"connect", writer:nickname}));
   }
-  function onMessage(e){
 
+  function onMessage(e) {
     var js = JSON.parse(e.data);
-
-    switch (js.type)
-    {
+    switch (js.type) {
       case "chat":
         chatroom = document.getElementById("lobbychatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + js.message;
@@ -194,16 +210,15 @@
 
       case "create":
         $('#roomlist').load("refreshlist");
-
         break;
 
       default:
         alert("설정 되지 않은 타입입니다. [ " + js.type + " ]");
-
     }
 
 
   }
+
   function onClose(){
     disconnect();
   }

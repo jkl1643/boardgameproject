@@ -20,7 +20,6 @@ import MyGameRecord.MyGameRecordDao;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
-
 @Configuration
 public class JavaConfig {
     @Bean
@@ -38,10 +37,8 @@ public class JavaConfig {
         return ds;
     }
 
-
     @Autowired
     private CustomChange customchange;
-
 
     @Bean
     public MemberDao memberDao() {

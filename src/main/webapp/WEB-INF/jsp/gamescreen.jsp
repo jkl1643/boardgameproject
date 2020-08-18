@@ -1016,7 +1016,7 @@
 	img#diceimg5 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
 	button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px}
 	.divTable{ display: table; width: 700px; height: 750px; position: relative; left: 700px; top: -420px} 
-	.divTableRow { display: table-row; }
+	.divTableRow { display: table-row; } 
 	.divTableHeading { background-color: #EEE; display: table-header-group; } 
 	.divTableCell, .divTableHead { border: 1px solid #999999; display: table-cell; padding: 3px 10px; } 
 	.divTableHeading { background-color: #EEE; display: table-header-group; font-weight: bold; } 
