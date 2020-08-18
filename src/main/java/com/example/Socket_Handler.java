@@ -40,7 +40,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
                 break;
             case "connect":
                 Message.setType("chat");
-                Message.setMessage(nick + "님이 입장하였습니다222222222.");
+                Message.setMessage(nick + "님이 입장하였습니다.");
                 break;
             case "disconnect":
                 Message.setType("chat");
@@ -49,7 +49,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getType());
         }
-        String sendMessage = objectMapper.writeValueAsString(Message);
+        String sendMessage = objectMapper.writeValueAsString(Message); //보낼매새지
 
         if (chatMessage.getRoomID().equals("lobby")) {
             for (WebSocketSession wss : Server.getUser_list().values()) {

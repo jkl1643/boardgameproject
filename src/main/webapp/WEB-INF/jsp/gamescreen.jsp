@@ -4,10 +4,13 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
-	<button id="223" onClick="sendMessage()">메세지보내기</button>
+	<input id="textMessage" type="text">
+	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
-		var wsUri = "ws://" + location.host + "/game";
+
+		//var wsUri = "ws://" + location.host + "/game";
+		var webSocket = new WebSocket("ws://" + location.host + "/game");
 		var output;
 
 		var rollCounter = 0;
@@ -32,30 +35,23 @@
 
 		var player=0;
 
-		function init()
-		{
+		function init() {
 			output = document.getElementById("output");
 			testWebSocket();
 		}
 
 		function testWebSocket()
 		{
-			websocket = new WebSocket(wsUri);
-			websocket.onopen = function(evt) { onOpen(evt) ;};
-			websocket.onclose = function(evt) { onClose(evt) };
-			websocket.onmessage = function(evt) { onMessage(evt) };
-			websocket.onerror = function(evt) { onError(evt) };
+			//websocket = new WebSocket(webSocket);
+			webSocket.onopen = function(evt) { onOpen(evt) ;};
+			webSocket.onclose = function(evt) { onClose(evt) };
+			webSocket.onmessage = function(evt) { onMessage(evt) };
+			webSocket.onerror = function(evt) { onError(evt) };
 		}
 
 		function onOpen(evt)
 		{
 			writeToScreen("연결완료");
-			writeToScreen("player = " + player);
-			<%
-  				String nick = (String)session.getAttribute("a");
-  				System.out.println("onOpen = " + nick);
-  			%>
-			writeToScreen("i = " + nick);
 
 		}
 
@@ -64,13 +60,18 @@
 			writeToScreen("연결해제");
 		}
 
+		function sendMessage(){
+			var message = document.getElementById("textMessage").value;
+			alert(message);
+			webSocket.send(message);
+		}
+
 		function onMessage(evt)
 		{
-			<%
-  				String nick2 = (String)session.getAttribute("a");
-  				System.out.println("onMessage = " + nick2);
-  			%>
-			writeToScreen("i22 = " + nick2);
+			var a = parseInt(evt.data);
+			if(a == 1){
+				document.getElementById("roll").disabled = false;
+			}
 
 			/*var cmd = JSON.parse(evt.data);
 
@@ -235,14 +236,8 @@
 			output.appendChild(pre);
 		}
 
-		function sendMessage(){
-			var message = player;
-			webSocket.send(message);
-		}
 
 		window.addEventListener("load", init, false);
-
-
 
 		function rollDiceButton(){
 			if(rollCounter<3){
