@@ -29,7 +29,7 @@
       background: ivory;
 
     }
-    #pggamename{ grid-area: gamename; }
+    #pggamename{ grid-area: gamename; text-align: center;}
     #pggamemenu{ grid-area: gamemenu; }
     #pgroomlist{ grid-area: roomlist; }
     #pguserlist{ grid-area: userlist; }
@@ -68,12 +68,11 @@
 <%--  미 접속 유저 입장 제한  --%>
 <%
   String nick = (String)session.getAttribute("idid");
-  if (nick == null || nick.equals(""))
-    response.sendRedirect("home");
+
 %>
 
 <%-- 게임 이름 출력 --%>
-  <gamename id="pggamename"> 게임 이름 <br> parameter 로 받아서 이름을 출력한다. ( 수직, 수평 가운데 정렬 ) </gamename>
+  <gamename id="pggamename"> ${Game.game_name} </gamename>
 
 <%--  메뉴  --%>
   <gamemenu id="pggamemenu"> <button id="createbtn" onclick="create1()">방 생성</button> <br> 게임 메뉴 버튼. (=방생성, 전체방, 대기방)</gamemenu>
@@ -83,7 +82,7 @@
   <div id="createRoom" class="modal">
     <div class="modal-content">
       <Form action="createroom" Method="post"><br>
-      방제목 : <input type="text" value="${userid}님의 게임방입니다." name="Createroomname"/><br><br>
+      방제목 : <input type="text" value="<%=nick%>님의 게임방입니다." name="Createroomname"/><br><br>
       게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="Yahtzee"/><br><br>
       비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" value=""/><br><br>
       비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
