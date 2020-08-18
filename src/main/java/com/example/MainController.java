@@ -33,9 +33,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -48,7 +50,7 @@ public class MainController {
     public static String userid2 = null;
     public static String userNickname = null;
     public static int state = 1;
-
+    private DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
     @Autowired
     private Main_Server Server;
 
@@ -622,16 +624,6 @@ public class MainController {
 
   //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @GetMapping("/lobby")
-    public ModelAndView lobby_start(Model model) {
-        ModelAndView mv = new ModelAndView();
-        // model.addAttribute("Room_list", a.getRoom_list());
-        // a.create("test");
-        mv.setViewName("lobby");
-        return mv;
-    }
-
-
     @PostMapping("/join")
     public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
                                    @RequestParam(value = "joinpw", required = false) String PW) {
@@ -650,10 +642,34 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/test")
-    public ModelAndView test_lobby(Model model, HttpSession session) {
+    @GetMapping("/gamelobby")
+    public ModelAndView Gamelobby(Model model, HttpSession session, HttpServletResponse response,
+                                   @RequestParam(value = "gamenumber", required = true) int game_number) throws IOException {
         ModelAndView mv = new ModelAndView();
-        model.addAttribute("userid", session.getAttribute("idid"));
+
+
+        if(session.getAttribute("idid") == null) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인이 필요합니다.'); location.href='home';</script>");
+            out.flush();
+            return mv;
+        }
+
+        int key = control.keyBynick((String) session.getAttribute("idid"));
+        HashMap keyset = new HashMap<String, Integer>();
+        keyset.put("game", game_number);
+        keyset.put("member", key);
+
+        if(control.Checkingbuy(keyset) == 0) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('게임구매가 필요합니다.'); location.href='gamerank';</script>");
+            out.flush();
+            return mv;
+        }
+
+        model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_lobby");
         return mv;
     }
@@ -684,7 +700,6 @@ public class MainController {
     public ModelAndView Gamerank(Model model)
     {
         ModelAndView mv = new ModelAndView();
-        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
         mv.setViewName("Game_rank");
@@ -692,11 +707,24 @@ public class MainController {
     }
 
     @GetMapping("/gameinfo")
-    public ModelAndView Gameinfo(Model model,
-                                 @RequestParam(value = "game", required = true) int game_number)
-    {
+    public ModelAndView Gameinfo(Model model, HttpSession session, HttpServletResponse response,
+                                 @RequestParam(value = "game", required = true) int game_number) throws IOException {
         ModelAndView mv = new ModelAndView();
-        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+
+        if(session.getAttribute("idid") == null) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인이 필요합니다.'); location.href='home';</script>");
+            out.flush();
+            return mv;
+        }
+
+        int key = control.keyBynick((String) session.getAttribute("idid"));
+        HashMap keyset = new HashMap<String, Integer>();
+        keyset.put("game", game_number);
+        keyset.put("member", key);
+
+        model.addAttribute("Checking", control.Checkingbuy(keyset));
         model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_info");
         return mv;
@@ -707,21 +735,30 @@ public class MainController {
                                  @RequestParam(value = "gamenumber", required = true) int game_number)
     {
         ModelAndView mv = new ModelAndView();
-        DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
 
         LocalDateTime Today = LocalDateTime.now().plusHours(9);
         int key = control.keyBynick((String) session.getAttribute("idid"));
+
         Purchase buy = new Purchase(key, game_number, Today);
         control.Buygame(buy);
-        // 추가 한후 다시 전페이지로 돌아가기 .
-        // 게임페이지에서 이미 구입한 게임이면 구입하는걸 막기. ( 대신 게임하러 가기 )
+        // ##### 추가 한후 다시 전페이지로 돌아가기 .
+        // ##### 게임페이지에서 이미 구입한 게임이면 구입하는걸 막기. ( 대신 게임하러 가기 ) , 게임 구매 하러갈때 로그인확인 하기. ( 안했을때는 구입할때
+
         // 내 게임 목록을 구현하기.
         // 내 게임 목록에 쓸정보를 찾기.
         // 디자인은 에픽 식으로 이미지를 나열하고 이미지에 커서가 갈시 게임하러 이동하게.
-        // 게임 목록에서도 게임을 구입했는지 구현하기.
+
+        // ##### 게임 목록에서도 게임을 구입했는지 구현하기.
+
         // 게임 목록에 유저목록 구현하기. ( or 없애기 )
         // 게임 목록에 유저 정보 구현하기
         // 게임방 구현하기.
+        // 160522 432, 170219 471 ~ 170319 475  437 190203 452 190519 476 191110 부터 19년도 끝
+        HashMap keyset = new HashMap<String, Integer>();
+        keyset.put("game", game_number);
+        keyset.put("member", key);
+        model.addAttribute("Checking", control.Checkingbuy(keyset));
+        model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_info");
         return mv;
     }

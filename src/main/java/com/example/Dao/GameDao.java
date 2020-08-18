@@ -1,5 +1,6 @@
 package com.example.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface GameDao {
@@ -10,4 +11,5 @@ public interface GameDao {
     List<Game> SelectRank();
     List<Integer> SelectRankCount();
     Integer keybynick(String nick);
+    Integer Checkingbuy(HashMap keyset);
 }

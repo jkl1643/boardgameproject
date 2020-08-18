@@ -19,7 +19,7 @@
 			"gameimage gamecontrol"
 			"descr descr"
 			"rule rule";
-            grid-template-rows: 150px 300px 200px;
+            grid-template-rows: 100px 300px 200px;
             grid-template-columns:400px minmax(150px, 210px);
             grid-row-gap: 20px;
             grid-column-gap: 20px;
@@ -28,7 +28,7 @@
             background: ivory;
 
         }
-        #pgtitle{ grid-area: title;}
+        #pgtitle{ grid-area: title; text-align: center;}
         #pggameimage{ grid-area: gameimage; }
         #pgcontrol{ grid-area: gamecontrol; }
         #pgdescr{ grid-area: descr; }
@@ -68,7 +68,7 @@
     </style>
 </head>
 <body>
-<div id="pgtitle"> <H1>게임정보</H1> </div>
+<div id="pgtitle"> <H1>${Game.game_name}</H1> </div>
 <gameimage id="pggameimage"><img class="info_img" src="image/${Game.game_image}"/></gameimage>
 <control id="pgcontrol">
     <button id="buybtn" onclick="buy()"> 게임 구매 </button>
@@ -86,11 +86,16 @@
         </form> <button id="closebtn">취소</button>
     </div>
 </div>
-
+<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로">홈으로</a>
+<a style="position:fixed;bottom:50px;right:20px;" href="gamerank" title="목록으로">목록으로</a>
 </body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
     var buyGame = document.getElementById('buyGame');
+    var check = document.getElementById('buybtn');
     var btn = document.getElementById('closebtn');
+
+    $(document).ready(function () { if("${Checking}" == "0") { buybtn.disabled=false } else {buybtn.disabled=true}});
 
     function buy() { buyGame.style.display = "block"; }
     btn.onclick = function() { buyGame.style.display = "none"; }

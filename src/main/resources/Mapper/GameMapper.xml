@@ -54,4 +54,10 @@
 		purchase(purchase_date, member_number, game_number)
 		values(#{purchase_date}, #{member_number}, #{game_number})
 	</insert>
+
+    <select id="Checkingbuy" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*)
+        from purchase
+        where purchase.member_number = #{member} AND purchase.game_number = #{game}
+    </select>
 </mapper>
