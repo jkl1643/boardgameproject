@@ -22,9 +22,11 @@ public class CustomDao {
 						throws SQLException {
 					Custom custom = new Custom(rs.getString("TITLE"),
 							rs.getString("CONTENT"),
-							rs.getString("NAME"),
-							rs.getString("EMAIL"),
-							rs.getTimestamp("REGDATE").toLocalDateTime());
+						//	rs.getString("NAME"),
+						//	rs.getString("EMAIL"),
+							rs.getTimestamp("REGDATE").toLocalDateTime(),
+							rs.getInt("MEMBER_NUMBER")
+						);
 					custom.setCount(rs.getLong("COUNT"));
 					return custom;
 				}
@@ -34,18 +36,27 @@ public class CustomDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public Custom selectByEmail(String email) {
+	/*public Custom selectByEmail(String email) {
 		List<Custom> results = jdbcTemplate.query(
 				"select * from CUSTOM where EMAIL = ?", // memo 수정
 				memRowMapper, email);
 
 		return results.isEmpty() ? null : results.get(0);
-	}
+	}*/
+	
 	
 	public Custom selectByTitle(String title) {
 		List<Custom> results = jdbcTemplate.query(
 				"select * from CUSTOM where TITLE = ?", // memo 수정
 				memRowMapper, title);
+
+		return results.isEmpty() ? null : results.get(0);
+	}
+	
+	public Custom selectByNumber(int number) {
+		List<Custom> results = jdbcTemplate.query(
+				"select * from CUSTOM where MEMBER_NUMBER = ?", // memo 수정
+				memRowMapper, number);
 
 		return results.isEmpty() ? null : results.get(0);
 	}
@@ -59,16 +70,20 @@ public class CustomDao {
 					throws SQLException {
 			
 				PreparedStatement pstmt = con.prepareStatement(
-						"insert into CUSTOM (TITLE, CONTENT, NAME, EMAIL, REGDATE) " + // memo 수정
-								"values (?, ?, ?, ?, ?)",
+						/*"insert into CUSTOM (TITLE, CONTENT, NAME, EMAIL, REGDATE) " + 
+								"values (?, ?, ?, ?, ?)",*/
+						"insert into CUSTOM (TITLE, CONTENT,  REGDATE, MEMBER_NUMBER) " + 
+						"values (?, ?, ?, ? )",
+						
 						new String[] { "COUNT" });
 		
 				pstmt.setString(1, custom.getTitle());
 				pstmt.setString(2, custom.getContent());
-				pstmt.setString(3,custom.getName());
-				pstmt.setString(4,custom.getEmail());
-				pstmt.setTimestamp(5,
+				//pstmt.setString(3,custom.getName());
+				//pstmt.setString(4,custom.getEmail());
+				pstmt.setTimestamp(3,
 						Timestamp.valueOf(custom.getRegisterDateTime()));
+				pstmt.setInt(4, custom.getNumber());
 	
 				return pstmt;
 			}
@@ -79,8 +94,8 @@ public class CustomDao {
 
 	public void update(Custom custom) {
 		jdbcTemplate.update(
-				"update CUSTOM set TITLE = ?, CONTENT = ?, NAME = ? where COUNT = ?",
-				custom.getTitle(), custom.getContent(), custom.getName(), custom.getCount());
+				"update CUSTOM set TITLE = ?, CONTENT = ? where COUNT = ?",
+				custom.getTitle(), custom.getContent(),  custom.getCount());
 	}
 
 	

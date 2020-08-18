@@ -8,16 +8,18 @@ public class Custom {
 	private Long count;
 	private String title; // 문의 제목
 	private String content; // 문의 내용
-	private String name; // 닉네임
-	private String email;
+	//private String name;
+	private int number; // 닉네임
+	//private String email;
 	private LocalDateTime registerDateTime;
 	
-	public Custom(String title, String content, 
-			String name, String email, LocalDateTime regDateTime) {
+	public Custom(String title, String content, LocalDateTime regDateTime,
+			 int number) {
 		this.title = title;
 		this.content = content;
-		this.name = name;
-		this.email = email;
+		this.number = number;
+		//this.name = name;
+		//this.email = email;
 		this.registerDateTime = regDateTime;
 	}
 	
@@ -51,7 +53,7 @@ public class Custom {
 	}
 
 
-	public String getName() {
+	/*public String getName() {
 		return name;
 	}
 
@@ -66,6 +68,15 @@ public class Custom {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}*/
+	
+	public int getNumber() {
+		return number;
+	}
+
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	

@@ -36,6 +36,18 @@ public class Member {
 		return nickname;
 	}
 
+	
+	//수명 추가
+	public void setNickname(String nickname) {
+			this.nickname = nickname;
+	}
+	/*
+	public int getGamelog() {
+		return gamelog;
+	}
+	public void setGamelog(int gamelog) {
+		this.gamelog = gamelog;
+	}*/
 
 	public void changePassword(String oldPassword, String newPassword) {
 		if(!password.equals(oldPassword)) {//저장되있는거   , 지금입력한거

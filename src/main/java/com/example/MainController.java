@@ -2,6 +2,7 @@ package com.example;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.example.Dao.Purchase;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -540,13 +541,20 @@ public class MainController {
 
     	return "custom";
     }
-/*
-    @RequestMapping("/record")
+
+    /*@RequestMapping("/record")
     public String handleStep7() {
 
     	return "mygamerecord";
+    }*/
+   
+    @RequestMapping(value = "/record")
+    public String myresult(Model model, String nickname1) {
+    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname1);
+    	model.addAttribute("myrecord", record);
+		return "mygamerecord";
+    	
     }
-  */
 
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
@@ -570,9 +578,9 @@ public class MainController {
 	}
        
     @RequestMapping("/customchange/customchangeok") // 수정함 병렬
-    public String handleStep5(Model model, Long count1, String title1, String content1, String name1, String email1) {
+    public String handleStep5(Model model, Long count1, String title1, String content1) {
 	
-        customchange.changedata(count1, title1, content1, name1, email1);
+        customchange.changedata(count1, title1, content1);
     	return "customchangeok";
     }
 
@@ -585,8 +593,7 @@ public class MainController {
    	}   
 
 
-
-
+/*
     @GetMapping(value = "/record")
     public String myresult(Model model, String nickname) {
     	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
@@ -594,7 +601,7 @@ public class MainController {
 		return "mygamerecord";
 
     }
-
+*/
 	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
