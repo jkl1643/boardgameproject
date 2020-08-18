@@ -20,6 +20,7 @@ import java.util.List;
 @Component
 
 public class Socket_Handler extends TextWebSocketHandler {
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -35,6 +36,7 @@ public class Socket_Handler extends TextWebSocketHandler {
         Chat_Message Message = new Chat_Message();
 
         switch (chatMessage.getType()) {
+
             case "chat":
                 Message.setType("chat");
                 Message.setMessage(nick + " : " + value);

@@ -519,11 +519,11 @@ public class MainController {
         mav.setViewName("resultfindpwd");
         return mav;
     }
-
-    @RequestMapping("/gamescreen")
+// http://localhost:8080/gamescreen
+    @RequestMapping("/gamescreen") //이 도메인을 치면
     public ModelAndView gamescreen(Model model) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("gamescreen");
+        mav.setViewName("gamescreen"); //이 jsp파일 실행됨
         return mav;
     }
 

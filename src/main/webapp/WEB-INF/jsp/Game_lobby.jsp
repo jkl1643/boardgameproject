@@ -167,7 +167,7 @@
     var webSocket;
     var nickname = "<%=nick%>";
 
-    webSocket = new WebSocket("ws://" + location.host + "/chat");
+    webSocket = new WebSocket("ws://" + location.host + "/boardgameproject_war_exploded/chat");
     webSocket.onopen = onOpen;
     webSocket.onclose = onClose;
     webSocket.onmessage = onMessage;
