@@ -118,6 +118,10 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
         String sendMessage = objectMapper.writeValueAsString(chatMessage); //보낼매새지
 
+
+        System.out.println("서버에서 보냄 : " + sendMessage);
+
+
        if(chatMessage.getPlayer()==1){
             WebSocketSession wss = user.get(name[1]);
             wss.sendMessage(new TextMessage(sendMessage));
