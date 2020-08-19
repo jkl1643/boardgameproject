@@ -40,6 +40,8 @@
 		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
 
+		div#box1 {margin : 40px 0px 0px 100px}
+
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
 		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
@@ -249,8 +251,13 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="200" height="200"/></a>
-		야추 플레이
+		<div id ="box1">
+		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="350" height="350" /></a>
+	</div>
+	<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	야추 플레이
+	</p>
 	</div>
 </body>
 </html>
