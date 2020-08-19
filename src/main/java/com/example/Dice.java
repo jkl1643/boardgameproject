@@ -21,6 +21,8 @@ public class Dice {
     private int Large_Straight;
     private int Chance;
     private int Yahtzee;
+    private int Bonus;
+    private int Player;
 
     public String getCmd() { return cmd; }
     public void setCmd(String cmd) { this.cmd = cmd; }
@@ -62,4 +64,8 @@ public class Dice {
     public void setChance(int chance) { Chance = chance; }
     public int getYahtzee() { return Yahtzee; }
     public void setYahtzee(int yahtzee) { Yahtzee = yahtzee; }
+    public int getBonus() { return Bonus; }
+    public void setBonus(int bonus) { Bonus = bonus; }
+    public int getPlayer() { return Player; }
+    public void setPlayer(int player) { Player = player; }
 }
