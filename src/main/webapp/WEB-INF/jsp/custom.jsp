@@ -19,6 +19,7 @@
 		button#button1:hover {background-color: red; color: blue}
 		button#button2 {width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
 		button#button2:hover {background-color: red; color: blue}
+		a.no-uline { text-decoration:none }
 		-->
 	</STYLE>
 </head>
@@ -32,7 +33,7 @@
 						${questionlist.count}&nbsp;&nbsp;
 				</td>
 				<td>
-					<a href="<c:url value="/content/${questionlist.count}"/> ">${questionlist.title} </a> <!-- 얘네 링크 디렉토리 말고 딴걸로 안됨? ㅠ -->
+					<a href="<c:url value="/content/${questionlist.count}"/>" style="text-decoration:none">${questionlist.title}  </a> <!-- 얘네 링크 디렉토리 말고 딴걸로 안됨? ㅠ -->
 				</td>
 				<td>
 						<%--${questionlist.name}&nbsp;&nbsp;&nbsp;--%>
@@ -45,8 +46,8 @@
 	</table>
 </div>
 <c:if test="${! empty mem}">
-	<button id="button1"><a href="<c:url value="/customwrite" />">글쓰기 </a></button> <!-- 밑줄만 없애고싶은데 왜 밑줄이 생기는지 몰라서 패스 -->
+	<button id="button1"><a href="<c:url value="/customwrite" />" style="text-decoration:none">글쓰기 </a></button> <!-- 밑줄만 없애고싶은데 왜 밑줄이 생기는지 몰라서 패스 -->
 </c:if>
-<button id="button2"><a href="<c:url value="/home" />">메인으로 </a></button>
+<button id="button2"><a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a></button>
 </body>
 </html>

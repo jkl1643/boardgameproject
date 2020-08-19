@@ -7,7 +7,9 @@
 	<input id="textMessage" type="text">
 	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
-		//var wsUri = "ws://" + location.host + "/game";
+
+
+
 		var webSocket = new WebSocket("ws://" + location.host + "/game");
 		var output;
 
@@ -33,6 +35,13 @@
 
 		var player=1;
 
+
+		function sendMessage(){
+			var message = document.getElementById("textMessage").value;
+			alert(message);
+			webSocket.send(message);
+		}
+
 		function init() {
 			output = document.getElementById("output");
 			testWebSocket();
@@ -40,7 +49,6 @@
 
 		function testWebSocket()
 		{
-			//websocket = new WebSocket(webSocket);
 			webSocket.onopen = function(evt) { onOpen(evt) ;};
 			webSocket.onclose = function(evt) { onClose(evt) };
 			webSocket.onmessage = function(evt) { onMessage(evt) };
@@ -49,6 +57,7 @@
 
 		function onOpen(evt)
 		{
+			webSocket.send(JSON.stringify({cmd : "start"}));
 			writeToScreen("연결완료");
 
 		}
@@ -58,17 +67,10 @@
 			writeToScreen("연결해제");
 		}
 
-		function sendMessage(){ //핸들러에 메세지 전송되면 작동하는 함수
-			var message = document.getElementById("textMessage").value;
-			webSocket.send(message);
-		}
+
 
 		function onMessage(evt)
 		{
-			var a = parseInt(evt.data);
-			if(a == 1){
-				document.getElementById("roll").disabled = false;
-			}
 
 			var cmd = JSON.parse(evt.data);
 
@@ -219,11 +221,7 @@
 			writeToScreen('<span style="color: red;">에러:</span> ' + evt.data);
 		}
 
-		function doSend(message)
-		{
-			writeToScreen("발신: " + message);
-			websocket.send(message);
-		}
+
 
 		function writeToScreen(message)
 		{
@@ -236,6 +234,8 @@
 
 		window.addEventListener("load", init, false);
 
+
+
 		function rollDiceButton(){
 			if(rollCounter<3){
 				rollDice(dice, diceKeepNum);
@@ -243,7 +243,7 @@
 				buttonDisabled(RecScore);
 				countDice(dice, diceCounter);
 				checkRoutine(calScore, RecScore, dice, diceCounter);
-				webSocket.send(JSON.stringify({cmd : "roll", dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
+				webSocket.send(JSON.stringify({cmd : "roll", player : player, dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
 					Aces:calScore[0], Twos:calScore[1], Threes:calScore[2], Fours:calScore[3], Fives:calScore[4], Sixes:calScore[5],
 					Three_Of_A_Kind:calScore[6], Four_Of_A_Kind:calScore[7], Full_House:calScore[8], Small_Straight:calScore[9], Large_Straight:calScore[10],
 					Chance:calScore[11], Yahtzee:calScore[12]}));
@@ -552,7 +552,7 @@
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -591,7 +591,7 @@
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -631,7 +631,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -672,7 +672,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -714,7 +714,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -755,7 +755,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -782,7 +782,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -809,7 +809,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -836,7 +836,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -863,7 +863,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -889,7 +889,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -916,7 +916,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -942,7 +942,7 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record",player : player, Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
 				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
 				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
 		}
@@ -1022,8 +1022,8 @@
 
 
 			if(rollCounter==0){
+				document.getElementById("roll").disabled = true;
 				if(player==1) {
-					document.getElementById("roll").disabled = true;
 					document.getElementById("button1").disabled = true;
 					document.getElementById("button3").disabled = true;
 					document.getElementById("button5").disabled = true;
