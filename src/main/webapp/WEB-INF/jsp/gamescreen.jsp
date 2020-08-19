@@ -4,7 +4,6 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
-	<button id="223" onClick="sendMessage()">메세지보내기</button>
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
 		var wsUri = "ws://" + location.host + "/game";
@@ -50,13 +49,6 @@
 		function onOpen(evt)
 		{
 			writeToScreen("연결완료");
-			writeToScreen("player = " + player);
-			<%
-  				String nick = (String)session.getAttribute("a");
-  				System.out.println("onOpen = " + nick);
-  			%>
-			writeToScreen("i = " + nick);
-
 		}
 
 		function onClose(evt)
@@ -66,13 +58,7 @@
 
 		function onMessage(evt)
 		{
-			<%
-  				String nick2 = (String)session.getAttribute("a");
-  				System.out.println("onMessage = " + nick2);
-  			%>
-			writeToScreen("i22 = " + nick2);
-
-			/*var cmd = JSON.parse(evt.data);
+			var cmd = JSON.parse(evt.data);
 
 			writeToScreen('<span style="color: blue;">수신: ' + cmd.cmd+'</span>');
 			switch(cmd.cmd){
@@ -212,7 +198,6 @@
 					break;
 
 
-			}*/
 
 		}
 
@@ -221,11 +206,6 @@
 			writeToScreen('<span style="color: red;">에러:</span> ' + evt.data);
 		}
 
-		function doSend(message)
-		{
-			writeToScreen("발신: " + message);
-			websocket.send(message);
-		}
 
 		function writeToScreen(message)
 		{
@@ -235,10 +215,7 @@
 			output.appendChild(pre);
 		}
 
-		function sendMessage(){
-			var message = player;
-			webSocket.send(message);
-		}
+
 
 		window.addEventListener("load", init, false);
 
