@@ -5,10 +5,10 @@
 <mapper namespace="com.example.Dao.GameDao">
     <resultMap id="Game" type="com.example.Dao.Game">
         <id column="game_number" property="game_number" javaType="int" jdbcType="INTEGER"/>
-        <result column="game_name" property="game_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-        <result column="game_info" property="game_info" javaType="java.lang.String" jdbcType="VARCHAR" />
-        <result column="game_rule" property="game_rule" javaType="java.lang.String" jdbcType="VARCHAR" />
-        <result column="game_image" property="game_image" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <result column="game_name" property="game_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="game_info" property="game_info" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="game_rule" property="game_rule" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="game_image" property="game_image" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="Selectbykey" parameterType="int" resultMap="Game">

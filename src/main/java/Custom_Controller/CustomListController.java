@@ -11,16 +11,16 @@ import custom_asking.Custom;
 
 @Controller
 public class CustomListController {
-	private CustomDao customdao;
+    private CustomDao customdao;
 
-	public void setBoardDao(CustomDao customdao) {
-		this.customdao = customdao;
-	}
-	
-	@GetMapping(value = "/customboard")
-	public String list(Model model) {
-		List<Custom> customlist = customdao.selectAll();
-		model.addAttribute("CustomList",customlist);
-		return "/board/freeboard";
-	}
+    public void setBoardDao(CustomDao customdao) {
+        this.customdao = customdao;
+    }
+
+    @GetMapping(value = "/customboard")
+    public String list(Model model) {
+        List<Custom> customlist = customdao.selectAll();
+        model.addAttribute("CustomList", customlist);
+        return "/board/freeboard";
+    }
 }

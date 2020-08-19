@@ -22,9 +22,9 @@ public class Main_Server {
     private HashMap<String, Room> Room_list;
 
     Main_Server() {
-        Room_list = new HashMap<String, Room>();
-        User_nick = new HashMap<>();
-        User_list = new HashMap<>();
+        Room_list = new HashMap<String, Room>(); //방목록
+        User_nick = new HashMap<>();            //유저닉으로 아이디찾기
+        User_list = new HashMap<>();            //아이디로 소켓찾기
     }
 
     public void connectuser(String nick, WebSocketSession user) {

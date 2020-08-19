@@ -5,9 +5,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+
+<html lang="ko">
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NaverLoginSDK</title>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <meta charset="EUC-KR">
+
 <title>보드게임: 문제있어?</title>
 	<STYLE TYPE="text/css">
 		<!--
@@ -33,6 +40,8 @@
 		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
 
+		div#box1 {margin : 40px 0px 0px 100px}
+
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
 		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
@@ -44,11 +53,12 @@
 	</STYLE>
 </head>
 <body>
+
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
 		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
-		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
+		<li><a href="<c:url value='/custom'/>">게임목록</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
 	<div id="search">
@@ -97,6 +107,24 @@
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+				<div id="naverIdLogin"></div>
+				<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+
+				<!-- 네이버아디디로로그인 초기화 Script -->
+				<script type="text/javascript">
+					var naverLogin = new naver.LoginWithNaverId(
+							{
+								clientId: "qUjM0nj7Jd0tmaKNzt6E",
+								callbackUrl: "http://localhost:8080/naver",
+								isPopup: false, /* 팝업을 통한 연동처리 여부 */
+								loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+							}
+					);
+
+					/* 설정정보를 초기화하고 연동을 준비 */
+					naverLogin.init();
+
+				</script>
 				<div>
 					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
@@ -129,6 +157,42 @@
 			</form></div>
 		</div>
 	<%}	else {%>
+	<script>
+		var naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId: "{YOUR_CLIENT_ID}",
+					callbackUrl: "{YOUR_REDIRECT_URL}",
+					isPopup: false,
+					callbackHandle: true
+					/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
+				}
+		);
+
+		/* (3) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
+		naverLogin.init();
+
+		/* (4) Callback의 처리. 정상적으로 Callback 처리가 완료될 경우 main page로 redirect(또는 Popup close) */
+		window.addEventListener('load', function () {
+			naverLogin.getLoginStatus(function (status) {
+				if (status) {
+					/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+					var email = naverLogin.user.getEmail();
+					if( email == undefined || email == null) {
+						alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+						/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+						naverLogin.reprompt();
+						return;
+					}
+
+					window.location.replace("http://" + window.location.hostname +
+							( (location.port==""||location.port==undefined)?"":":" + location.port) + "/home");
+					/* 인증이 완료된후 /sample/main.html 페이지로 이동하라는것이다. 본인 페이로 수정해야한다. */
+				} else {
+					console.log("callback 처리에 실패하였습니다.");
+				}
+			});
+		});
+	</script>
 	<div id="logbox1">
 		<div id="logbox2"></div>
 		<table id="table1">
@@ -187,7 +251,13 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		소설가
+		<div id ="box1">
+		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="350" height="350" /></a>
+	</div>
+	<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	야추 플레이
+	</p>
 	</div>
 </body>
 </html>

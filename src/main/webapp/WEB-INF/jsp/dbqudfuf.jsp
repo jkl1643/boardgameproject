@@ -6,7 +6,7 @@
 </head>
 <meta charset="UTF-8">
 <script language="javascript" type = "text/javascript">
-    var wsUri = "ws://" + location.host + "/gamescreen";
+    var wsUri = "ws://" + location.host + "/chat";
     var output;
     function init(){
         output = document.getElementById("output");
