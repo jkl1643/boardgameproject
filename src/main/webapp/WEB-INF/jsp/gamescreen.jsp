@@ -260,6 +260,9 @@
 					three_Of_A_Kind:calScore[6], four_Of_A_Kind:calScore[7], full_House:calScore[8], small_Straight:calScore[9], large_Straight:calScore[10],
 					chance:calScore[11], yahtzee:calScore[12]}));
 			}
+			/*
+			var id = document.getElementById("button1");
+			id.style.color = '#d23030';*/
 		}
 
 
