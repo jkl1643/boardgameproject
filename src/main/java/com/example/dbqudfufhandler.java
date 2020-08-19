@@ -42,6 +42,7 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String msg = message.getPayload();
+
         Dice chatMessage = objectMapper.readValue(msg, Dice.class);
 
         System.out.println("메세지온거 = " + msg);
@@ -50,16 +51,18 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
         switch (chatMessage.getCmd()) {
 
+
+
             case "start":
-                if(i>=1) {
+                if(i>=2) {
                     chatMessage.setPlayer(1);
                     String sendMessage = objectMapper.writeValueAsString(chatMessage);
                     WebSocketSession wss = user.get(name[0]);
                     wss.sendMessage(new TextMessage(sendMessage));
-                   /* chatMessage.setPlayer(2);
+                    chatMessage.setPlayer(2);
                     sendMessage = objectMapper.writeValueAsString(chatMessage);
                     wss = user.get(name[1]);
-                    wss.sendMessage(new TextMessage(sendMessage));*/
+                    wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
                 }
                 break;

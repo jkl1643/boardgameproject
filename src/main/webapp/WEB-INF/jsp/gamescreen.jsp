@@ -128,6 +128,7 @@
 
 
 					if(player == 1) {
+
 						document.getElementById("button2").value = String(cmd.Aces);
 						document.getElementById("button4").value = String(cmd.Twos);
 						document.getElementById("button6").value = String(cmd.Threes);
