@@ -60,4 +60,10 @@
         from purchase
         where purchase.member_number = #{member} AND purchase.game_number = #{game}
     </select>
+
+    <select id="Mygamelist" parameterType="java.lang.Integer" resultMap="Game">
+        select *
+        from game join purchase on game.game_number = purchase.game_number
+        where purchase.member_number = #{member_number}
+    </select>
 </mapper>

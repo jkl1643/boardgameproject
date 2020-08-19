@@ -751,13 +751,23 @@ public class MainController {
         // 게임 목록에 유저목록 구현하기. ( or 없애기 )
         // 게임 목록에 유저 정보 구현하기
         // 게임방 구현하기.
-        // 160522 432, 170219 471 ~ 170319 475  437 190203 452 190519 476 191110 부터 19년도 끝
+
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);
         keyset.put("member", key);
         model.addAttribute("Checking", control.Checkingbuy(keyset));
         model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_info");
+        return mv;
+    }
+
+    @GetMapping("/mygamelist")
+    public ModelAndView MyGamelist(Model model, HttpSession session)
+    {
+        ModelAndView mv = new ModelAndView();
+        int key = control.keyBynick((String) session.getAttribute("idid"));
+        model.addAttribute("My_list", control.Game_mylist(key));
+        mv.setViewName("Game_mylist");
         return mv;
     }
 

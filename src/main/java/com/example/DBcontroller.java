@@ -18,4 +18,5 @@ public class DBcontroller {
     public List<Integer> GameCount_list() { return gameDao.SelectRankCount(); }
     public Integer keyBynick(String nick) { return gameDao.keybynick(nick); }
     public Integer Checkingbuy(HashMap keyset) { return gameDao.Checkingbuy(keyset); }
+    public List<Game> Game_mylist(int member_number) { return gameDao.Mygamelist(member_number); }
 }

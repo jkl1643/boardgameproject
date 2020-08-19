@@ -149,7 +149,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="" method="post"> <!-- form 태그 안에 내용 바꿔라 -->
+					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
 						<Input Type="Submit" Value="내 게임 ▶" id="but3">
 					</form>
 				</td>

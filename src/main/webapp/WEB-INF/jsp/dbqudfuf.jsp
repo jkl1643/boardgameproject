@@ -13,7 +13,7 @@
         testWebSocket();
     }
     function testWebSocket(){
-        webSocket = new WebSocket(wsUri);
+        webSocket = new WebSocket("ws://" + location.host + "/gamescreen");
         webSocket.onopen = function (evt) { onOpen(evt); };
         webSocket.onclose = function (evt) { onClose(evt); };
         webSocket.onmessage = function (evt) { onMessage(evt); };

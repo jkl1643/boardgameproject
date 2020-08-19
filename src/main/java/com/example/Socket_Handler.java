@@ -40,7 +40,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
                 break;
             case "connect":
                 Message.setType("chat");
-                Message.setMessage(nick + "님이 입장하였습니다222222222.");
+                Message.setMessage(nick + "님이 입장하였습니다.");
                 break;
             case "disconnect":
                 Message.setType("chat");
