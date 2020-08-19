@@ -46,8 +46,8 @@
 	</table>
 </div>
 <c:if test="${! empty mem}">
-	<button id="button1"><a href="<c:url value="/customwrite" />" style="text-decoration:none">글쓰기 </a></button> <!-- 밑줄만 없애고싶은데 왜 밑줄이 생기는지 몰라서 패스 -->
+	<a href="<c:url value="/customwrite" />" style="text-decoration:none">글쓰기 </a> <!-- 밑줄만 없애고싶은데 왜 밑줄이 생기는지 몰라서 패스 -->
 </c:if>
-<button id="button2"><a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a></button>
+<a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a>
 </body>
 </html>
