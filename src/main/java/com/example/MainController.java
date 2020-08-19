@@ -761,9 +761,9 @@ public class MainController {
         return mv;
     }
 
-    @RequestMapping("/dbqudfuf")
-    public ModelAndView dbqudfuf(ModelAndView mav) {
-        mav.setViewName("dbqudfuf");
+    @RequestMapping("/naver")
+    public ModelAndView naver(ModelAndView mav) {
+        mav.setViewName("naver");
         return mav;
     }
 }

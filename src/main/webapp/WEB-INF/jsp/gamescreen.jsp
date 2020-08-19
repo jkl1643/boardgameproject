@@ -7,8 +7,6 @@
 	<input id="textMessage" type="text">
 	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
-
-
 		//var wsUri = "ws://" + location.host + "/game";
 		var webSocket = new WebSocket("ws://" + location.host + "/game");
 		var output;
@@ -33,7 +31,7 @@
 
 		var roundCounter = 13;
 
-		var player=0;
+		var player=1;
 
 		function init() {
 			output = document.getElementById("output");
@@ -60,9 +58,8 @@
 			writeToScreen("연결해제");
 		}
 
-		function sendMessage(){
+		function sendMessage(){ //핸들러에 메세지 전송되면 작동하는 함수
 			var message = document.getElementById("textMessage").value;
-			alert(message);
 			webSocket.send(message);
 		}
 
@@ -73,7 +70,7 @@
 				document.getElementById("roll").disabled = false;
 			}
 
-			/*var cmd = JSON.parse(evt.data);
+			var cmd = JSON.parse(evt.data);
 
 			writeToScreen('<span style="color: blue;">수신: ' + cmd.cmd+'</span>');
 			switch(cmd.cmd){
@@ -213,7 +210,7 @@
 					break;
 
 
-			}*/
+			}
 
 		}
 
