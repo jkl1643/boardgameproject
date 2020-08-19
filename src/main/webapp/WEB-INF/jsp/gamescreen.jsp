@@ -4,9 +4,13 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
+	<input id="textMessage" type="text">
+	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
-		var wsUri = "ws://" + location.host + "/game";
+
+		//var wsUri = "ws://" + location.host + "/game";
+		var webSocket = new WebSocket("ws://" + location.host + "/game");
 		var output;
 
 		var rollCounter = 0;
@@ -31,24 +35,24 @@
 
 		var player=0;
 
-		function init()
-		{
+		function init() {
 			output = document.getElementById("output");
 			testWebSocket();
 		}
 
 		function testWebSocket()
 		{
-			websocket = new WebSocket(wsUri);
-			websocket.onopen = function(evt) { onOpen(evt) ;};
-			websocket.onclose = function(evt) { onClose(evt) };
-			websocket.onmessage = function(evt) { onMessage(evt) };
-			websocket.onerror = function(evt) { onError(evt) };
+			//websocket = new WebSocket(webSocket);
+			webSocket.onopen = function(evt) { onOpen(evt) ;};
+			webSocket.onclose = function(evt) { onClose(evt) };
+			webSocket.onmessage = function(evt) { onMessage(evt) };
+			webSocket.onerror = function(evt) { onError(evt) };
 		}
 
 		function onOpen(evt)
 		{
 			writeToScreen("연결완료");
+
 		}
 
 		function onClose(evt)
@@ -56,9 +60,20 @@
 			writeToScreen("연결해제");
 		}
 
+		function sendMessage(){
+			var message = document.getElementById("textMessage").value;
+			alert(message);
+			webSocket.send(message);
+		}
+
 		function onMessage(evt)
 		{
-			var cmd = JSON.parse(evt.data);
+			var a = parseInt(evt.data);
+			if(a == 1){
+				document.getElementById("roll").disabled = false;
+			}
+
+			/*var cmd = JSON.parse(evt.data);
 
 			writeToScreen('<span style="color: blue;">수신: ' + cmd.cmd+'</span>');
 			switch(cmd.cmd){
@@ -198,6 +213,7 @@
 					break;
 
 
+			}*/
 
 		}
 
@@ -206,6 +222,11 @@
 			writeToScreen('<span style="color: red;">에러:</span> ' + evt.data);
 		}
 
+		function doSend(message)
+		{
+			writeToScreen("발신: " + message);
+			websocket.send(message);
+		}
 
 		function writeToScreen(message)
 		{
@@ -216,10 +237,7 @@
 		}
 
 
-
 		window.addEventListener("load", init, false);
-
-
 
 		function rollDiceButton(){
 			if(rollCounter<3){
