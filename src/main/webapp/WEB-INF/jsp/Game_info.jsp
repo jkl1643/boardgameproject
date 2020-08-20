@@ -8,10 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>${Game.game_name}-구매페이지</title>
     <style>
         body {
-
             justify-content: center;
             display: grid;
             grid-template-areas:
@@ -25,10 +24,11 @@
             grid-column-gap: 20px;
             height: 100vh;
             margin: 0;
-            background: ivory;
-
+            background-image: url('tmi.jpg');
+            background-repeat: no-repeat;
+            background-size: cover
         }
-        #pgtitle{ grid-area: title; text-align: center;}
+        #pgtitle{color: white; text:grid-area: title; text-align: left;}
         #pggameimage{ grid-area: gameimage; }
         #pgcontrol{ grid-area: gamecontrol; }
         #pgdescr{ grid-area: descr; }
@@ -36,16 +36,18 @@
 
 
         gameimage, control, descr, rule{
-            text-align: center;
+            text-align: left;
             padding: 1.2em;
-            background: lightblue;
+            background: #6A6B6B;
             border-radius: 10px;
         }
         .info_img
         {
-            width: 350px;
-            height: 250px;
+            width: 100%;
+            height: 100%;
         }
+
+        button#buybtn {font-size: large; text-align: center; background-color: black; color: white; position: relative; width: 120px; height: 100px; left: 20px; top: 10px}
         .modal {
             display: none;
             position: fixed;
@@ -65,30 +67,32 @@
             width: 30%; /* Could be more or less, depending on screen size */
             height: 30%;
         }
+        a#te1 {font-size: xx-large; color: white}
+        a#te2 {position: relative; top: 800px; font-size: xx-large; color: white}
     </style>
 </head>
 <body>
 <div id="pgtitle"> <H1>${Game.game_name}</H1> </div>
 <gameimage id="pggameimage"><img class="info_img" src="image/${Game.game_image}"/></gameimage>
 <control id="pgcontrol">
-    <button id="buybtn" onclick="buy()"> 게임 구매 </button>
+    <button id="buybtn" onclick="buy()"> 게임 구매<BR>10000원 </button>
     <button id="playbtn" onclick="location.href='mygamelist'"> 플레이 하러가기 </button>
 </control>
 <descr id="pgdescr">${Game.game_info}</descr>
 <rule id="pgrule">${Game.game_rule}</rule>
 
 
-<%-- 구매 모달레이어 --%>
+<!-- <%-- 구매 모달레이어 --%>
 <div id="buyGame" class="modal">
     <div class="modal-content">
         <form action="buygame" Method="get">
             <input type="text" id="gamenumber" name="gamenumber" value="${Game.game_number}"/><br><br>
-            <Input Type ="Submit" Value="구매하기"/><br>
+            <Input Type ="Submit" Value="구매하기&#13;10000원" id="butot"/><br> 가격도 유동적으로 수정해주면 좋을듯?
         </form> <button id="closebtn">취소</button>
     </div>
-</div>
-<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로">홈으로</a>
-<a style="position:fixed;bottom:50px;right:20px;" href="gamerank" title="목록으로">목록으로</a>
+</div> -->
+<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로" id="te1">홈으로</a>
+<a style="position:fixed;bottom:50px;right:20px;" href="gamerank" title="목록으로" id="te2">목록으로</a>
 </body>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
