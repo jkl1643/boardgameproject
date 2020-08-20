@@ -9,9 +9,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title>Title</title>
+  <title>(게임이름) 게임방</title>
 
   <style>
+    @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
     body {
       align-content: center;
       justify-content: center;
@@ -26,10 +27,12 @@
       grid-column-gap: 10px;
       height: 100vh;
       margin: 0;
-      background: ivory;
+      background-image: url('tmi.jpg');
+      background-repeat: no-repeat;
+      background-size: cover
 
     }
-    #pggamename{ grid-area: gamename; text-align: center;}
+    #pggamename{ grid-area: gamename; text-align: center; font-family: 'Nanum Pen Script', cursive}
     #pggamemenu{ grid-area: gamemenu; }
     #pgroomlist{ grid-area: roomlist; }
     #pguserlist{ grid-area: userlist; }
@@ -58,10 +61,17 @@
 
     gamename, gamemenu, roomlist, userlist, chatting, userinfo{
       padding: 1.2em;
-      background: lightblue;
+      background: #96979A;
       border-radius: 10px;
     }
 
+    ul {list-style-type: none; margin: 0; padding: 0; width: 700px}
+    ul:after {content: ''; display: block; clear: both}
+    li {float: left}
+    li a {display: block; color: black; text-align: center; padding: 1px 80px; text-decoration: none}
+    li a:hover {color: blue}
+    h1#text1 {position: relative; top: -10px; vertical-align: top; font-size: medium; text-align: center}
+    table#table121 {float: right}
   </style>
 </head>
 <body>
@@ -72,59 +82,69 @@
 %>
 
 <%-- 게임 이름 출력 --%>
-  <gamename id="pggamename"> ${Game.game_name} </gamename>
+<gamename id="pggamename"> ${Game.game_name} </gamename>
 
 <%--  메뉴  --%>
-  <gamemenu id="pggamemenu"> <button id="createbtn" onclick="create1()">방 생성</button> <br> 게임 메뉴 버튼. (=방생성, 전체방, 대기방)</gamemenu>
-
+<gamemenu id="pggamemenu">
+  <ul>
+    <li><a class="active" href="#home">방 생성</a></li>
+    <li><a href="#gamerank">전체 방</a></li>
+    <li><a href="#theme">대기방</a></li>
+  </ul>
+</gamemenu>
 
 <%--  방 생성 모달 레이어  --%>
-  <div id="createRoom" class="modal">
-    <div class="modal-content">
-      <Form action="createroom" Method="post"><br>
+<div id="createRoom" class="modal">
+  <div class="modal-content">
+    <Form action="createroom" Method="post"><br>
       방제목 : <input type="text" value="<%=nick%>님의 게임방입니다." name="Createroomname"/><br><br>
       게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="Yahtzee"/><br><br>
       비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" value=""/><br><br>
       비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
-        <Input Type ="Submit" Value="방 생성"/>
-      </Form> <button id="createclose">창 닫기</button>
-    </div>
+      <Input Type ="Submit" Value="방 생성"/>
+    </Form> <button id="createclose">창 닫기</button>
   </div>
+</div>
 
 
 <%-- 방 목록 레이아웃 --%>
 
-  <roomlist id="pgroomlist">
-    <div id="roomlist" style="height: 100%; overflow:auto;">
-    </div>
-  </roomlist>
+<roomlist id="pgroomlist">
+  <div id="roomlist" style="height: 100%; overflow:auto;">
+  </div>
+</roomlist>
 
 
 <%-- 방 입장 모달레이어 --%>
-  <div id="joinRoom" class="modal">
-    <div class="modal-content">
-      <form action="join" Method="post">
-        <input type="text" id="joinid" name="joinid"/><br><br>
-        비밀번호 : <input type="password" id="joinpw" name="joinpw" value=""/><br><br>
-        <Input Type ="Submit" Value="방 입장"/><br>
-      </form> <button id="joinclose">창 닫기</button>
-    </div>
+<div id="joinRoom" class="modal">
+  <div class="modal-content">
+    <form action="join" Method="post">
+      <input type="text" id="joinid" name="joinid"/><br><br>
+      비밀번호 : <input type="password" id="joinpw" name="joinpw" value=""/><br><br>
+      <Input Type ="Submit" Value="방 입장"/><br>
+    </form> <button id="joinclose">창 닫기</button>
   </div>
+</div>
 
 <%--  로비 채팅 구현  --%>
-  <chatting id="pgchatting">
-    <div id="lobbychatroom" style="overflow:auto; height: 90%; width:100%"></div>
-    <input type = "text" id = "message" style = "height : 15%; width : 85%" placeholder="내용을 입력하세요" autofocus/>
-    <button class = "btn btn-primary" id = "send" style="height: 15%; width:10%">전송</button>
-  </chatting>
+<chatting id="pgchatting">
+  <div id="lobbychatroom" style="overflow:auto; height: 90%; width:100%"></div>
+  <input type = "text" id = "message" style = "height : 15%; width : 85%" placeholder="내용을 입력하세요" autofocus/>
+  <button class = "btn btn-primary" id = "send" style="height: 15%; width:10%">전송</button>
+</chatting>
 
 <%--  유저 목록 출력  --%>
-  <userlist id="pguserlist"> 접속중인 유저 목록 <br>( 접속중인 소켓의 닉네임, 상태 전체 출력 ) </userlist>
+<userlist id="pguserlist"> 접속중인 유저 목록 <br>( 접속중인 소켓의 닉네임, 상태 전체 출력 ) </userlist>
 
 <%-- 내 계정 정보 출력 --%>
-  <userinfo id="pguserinfo"> 내 정보 <br>( 세션으로 계정확인( 닉네임, 정보수정, 승패 or MMR )</userinfo>
-
-
+<userinfo id="pguserinfo">
+  <h1 id="text1">(이름)님의 최근 전적</h1>
+  <table id="table121">
+    <tr>
+      <td>아무 데이터</td>
+    </tr>
+  </table>
+</userinfo>
 </body>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
