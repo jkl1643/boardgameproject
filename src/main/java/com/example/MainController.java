@@ -654,6 +654,7 @@ public class MainController {
             return mv;
         }
 
+
         int key = control.keyBynick((String) session.getAttribute("idid"));
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);
@@ -666,7 +667,7 @@ public class MainController {
             out.flush();
             return mv;
         }
-
+        model.addAttribute("Stat", control.Statbynick(keyset));
         model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_lobby");
         return mv;
@@ -685,12 +686,21 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/refreshlist")
-    public ModelAndView Refresh(Model model)
+    @GetMapping("/refreshgamelist")
+    public ModelAndView RefreshGamelist(Model model)
     {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("Room_list", Server.getRoom_list().values());
         mv.setViewName("Game_roomlist"); // room 만든후 .
+        return mv;
+    }
+
+    @GetMapping("/refreshiuserlist")
+    public ModelAndView RefreshUserlist(Model model)
+    {
+        ModelAndView mv = new ModelAndView();
+        model.addAttribute("User_list", Server.getUser_nick().keySet());
+        mv.setViewName("Game_userlist"); // room 만든후 .
         return mv;
     }
 
@@ -742,22 +752,31 @@ public class MainController {
         // ##### 추가 한후 다시 전페이지로 돌아가기 .
         // ##### 게임페이지에서 이미 구입한 게임이면 구입하는걸 막기. ( 대신 게임하러 가기 ) , 게임 구매 하러갈때 로그인확인 하기. ( 안했을때는 구입할때
 
-        // 내 게임 목록을 구현하기.
-        // 내 게임 목록에 쓸정보를 찾기.
-        // 디자인은 에픽 식으로 이미지를 나열하고 이미지에 커서가 갈시 게임하러 이동하게.
+        // ##### 내 게임 목록을 구현하기.
+        // 내 게임 목록에 쓸정보를 찾기. ( 추가할 요소가 있는지 확인 필요 ) 
+        // ##### 디자인은 에픽 식으로 이미지를 나열하고 이미지에 커서가 갈시 게임하러 이동하게.
 
         // ##### 게임 목록에서도 게임을 구입했는지 구현하기.
 
-        // 게임 목록에 유저목록 구현하기. ( or 없애기 )
-        // 게임 목록에 유저 정보 구현하기
-        // 게임방 구현하기.
-        // 160522 432, 170219 471 ~ 170319 475  437 190203 452 190519 476 191110 부터 19년도 끝
+        // 게임 목록에 유저목록 구현하기. ( or 없애기 ) ( 확인 필요 )
+        // 게임 목록에 유저 정보 구현하기 ( 확인 필요 )
+
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);
         keyset.put("member", key);
         model.addAttribute("Checking", control.Checkingbuy(keyset));
         model.addAttribute("Game", control.Selectbykey(game_number));
         mv.setViewName("Game_info");
+        return mv;
+    }
+
+    @GetMapping("/mygamelist")
+    public ModelAndView MyGamelist(Model model, HttpSession session)
+    {
+        ModelAndView mv = new ModelAndView();
+        int key = control.keyBynick((String) session.getAttribute("idid"));
+        model.addAttribute("My_list", control.Game_mylist(key));
+        mv.setViewName("Game_mylist");
         return mv;
     }
 

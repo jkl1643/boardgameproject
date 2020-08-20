@@ -11,6 +11,17 @@
         <result column="game_image" property="game_image" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="Gamerecord" type="com.example.Dao.Gamerecord">
+        <id column="gamerecord_number" property="number" javaType="int" jdbcType="INTEGER"/>
+        <result column="gamerecord_total" property="total" javaType="int" jdbcType="INTEGER"/>
+        <result column="gamerecord_win" property="win" javaType="int" jdbcType="INTEGER"/>
+        <result column="gamerecord_draw" property="draw" javaType="int" jdbcType="INTEGER"/>
+        <result column="gamerecord_lose" property="lose" javaType="int" jdbcType="INTEGER"/>
+        <result column="game_number" property="game_number" javaType="int" jdbcType="INTEGER"/>
+        <result column="member_number" property="member_number" javaType="int" jdbcType="INTEGER"/>
+    </resultMap>
+
+
     <select id="Selectbykey" parameterType="int" resultMap="Game">
         select *
         from GAME
@@ -59,5 +70,17 @@
         select count(*)
         from purchase
         where purchase.member_number = #{member} AND purchase.game_number = #{game}
+    </select>
+
+    <select id="Mygamelist" parameterType="java.lang.Integer" resultMap="Game">
+        select *
+        from game join purchase on game.game_number = purchase.game_number
+        where purchase.member_number = #{member_number}
+    </select>
+
+    <select id="Statbynick" parameterType="java.util.HashMap" resultMap="Gamerecord">
+        select *
+        from gamerecord
+        where gamerecord.member_number = #{member} AND gamerecord.game_number = #{game}
     </select>
 </mapper>

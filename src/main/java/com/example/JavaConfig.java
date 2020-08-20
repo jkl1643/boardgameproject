@@ -132,7 +132,7 @@ public class JavaConfig {
         SqlSessionFactoryBean GameFactory = new SqlSessionFactoryBean();
         GameFactory.setDataSource(dataSource());
         GameFactory.setTypeAliases(Game.class);
-        GameFactory.setMapperLocations(applicationContext.getResource("classpath:Mapper/GameMapper.xml"));
+        GameFactory.setMapperLocations(applicationContext.getResource("classpath:/Mapper/GameMapper.xml"));
         return GameFactory.getObject();
     }
 

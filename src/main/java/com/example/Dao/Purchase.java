@@ -15,9 +15,10 @@ public class Purchase {
     }
 
     public int getMember_number() { return member_number; }
-    public void setMember_number(int member_number) { this.member_number = member_number; }
     public int getGame_number() { return game_number; }
-    public void setGame_number(int game_number) { this.game_number = game_number; }
     public LocalDateTime getPurchase_date() { return purchase_date; }
+
+    public void setMember_number(int member_number) { this.member_number = member_number; }
+    public void setGame_number(int game_number) { this.game_number = game_number; }
     public void setPurchase_date(LocalDateTime purchase_Date) { this.purchase_date = purchase_Date; }
 }

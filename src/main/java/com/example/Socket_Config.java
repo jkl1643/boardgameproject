@@ -15,6 +15,7 @@ public class Socket_Config implements WebSocketConfigurer {
 
     @Autowired
     dbqudfufhandler dbqudfufhandler1;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(socketHandler, "/chat").addInterceptors(new SocketHandlerInterceptor());
