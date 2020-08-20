@@ -134,21 +134,24 @@
 </chatting>
 
 <%--  유저 목록 출력  --%>
-<userlist id="pguserlist"> 접속중인 유저 목록 <br>( 접속중인 소켓의 닉네임, 상태 전체 출력 ) </userlist>
+  <userlist id="pguserlist">
+    <div id="userlist" style="height: 100%; overflow:auto;">
+    </div>
+  </userlist>
 
 <%-- 내 계정 정보 출력 --%>
 <userinfo id="pguserinfo">
-  <h1 id="text1">(이름)님의 최근 전적</h1>
+  <h1 id="text1"><%=nick%>님</h1>
   <table id="table121">
-    <tr>
-      <td>아무 데이터</td>
-    </tr>
+    <tr><td>접속중인 게임 :  ${Game.game_name}</td></tr>
+    <tr><td>게임 전적 : ${Stat.total}전 ${Stat.win}승 ${Stat.draw}무 ${Stat.lose}패</td></tr>
   </table>
+  <a href="home" title="홈으로">돌아가기</a><br><br>
 </userinfo>
 </body>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function () {$("#roomlist").load("refreshlist");});
+  $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshiuserlist");});
   // 방 입장 생성 관련
   var create = document.getElementById('createRoom');
   var join = document.getElementById('joinRoom');
@@ -223,13 +226,14 @@
     var js = JSON.parse(e.data);
     switch (js.type) {
       case "chat":
+        $('#userlist').load("refreshuserlist");
         chatroom = document.getElementById("lobbychatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + js.message;
         chatroom.scrollTop = chatroom.scrollHeight;
         break;
 
       case "create":
-        $('#roomlist').load("refreshlist");
+        $('#roomlist').load("refreshgamelist");
         break;
 
       default:
