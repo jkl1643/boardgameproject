@@ -13,4 +13,5 @@ public interface GameDao {
     Integer keybynick(String nick);
     Integer Checkingbuy(HashMap keyset);
     List<Game> Mygamelist(int member_number);
+    Gamerecord Statbynick(HashMap keyset);
 }

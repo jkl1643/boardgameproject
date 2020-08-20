@@ -72,7 +72,7 @@
 %>
 
 <%-- 게임 이름 출력 --%>
-  <gamename id="pggamename"> ${Game.game_name} </gamename>
+  <gamename id="pggamename"> <h1>${Game.game_name}</h1></gamename>
 
 <%--  메뉴  --%>
   <gamemenu id="pggamemenu"> <button id="createbtn" onclick="create1()">방 생성</button> <br> 게임 메뉴 버튼. (=방생성, 전체방, 대기방)</gamemenu>
@@ -119,16 +119,28 @@
   </chatting>
 
 <%--  유저 목록 출력  --%>
-  <userlist id="pguserlist"> 접속중인 유저 목록 <br>( 접속중인 소켓의 닉네임, 상태 전체 출력 ) </userlist>
+  <userlist id="pguserlist">
+    <div id="userlist" style="height: 100%; overflow:auto;">
+    </div>
+  </userlist>
 
 <%-- 내 계정 정보 출력 --%>
-  <userinfo id="pguserinfo"> 내 정보 <br>( 세션으로 계정확인( 닉네임, 정보수정, 승패 or MMR )</userinfo>
+  <userinfo id="pguserinfo">
+    <%=nick%>님<br><br>
+
+    접속중인 게임 :  ${Game.game_name}<br><br>
+
+    게임 전적 : ${Stat.total}전 ${Stat.win}승 ${Stat.draw}무 ${Stat.lose}패<br><br>
+
+    <a href="home" title="홈으로">돌아가기</a><br><br>
+
+  </userinfo>
 
 
 </body>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function () {$("#roomlist").load("refreshlist");});
+  $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshiuserlist");});
   // 방 입장 생성 관련
   var create = document.getElementById('createRoom');
   var join = document.getElementById('joinRoom');
@@ -203,13 +215,14 @@
     var js = JSON.parse(e.data);
     switch (js.type) {
       case "chat":
+        $('#userlist').load("refreshiuserlist");
         chatroom = document.getElementById("lobbychatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + js.message;
         chatroom.scrollTop = chatroom.scrollHeight;
         break;
 
       case "create":
-        $('#roomlist').load("refreshlist");
+        $('#roomlist').load("refreshigamelist");
         break;
 
       default:

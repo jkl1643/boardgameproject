@@ -72,6 +72,7 @@
 <gameimage id="pggameimage"><img class="info_img" src="image/${Game.game_image}"/></gameimage>
 <control id="pgcontrol">
     <button id="buybtn" onclick="buy()"> 게임 구매 </button>
+    <button id="playbtn" onclick="location.href='mygamelist'"> 플레이 하러가기 </button>
 </control>
 <descr id="pgdescr">${Game.game_info}</descr>
 <rule id="pgrule">${Game.game_rule}</rule>
@@ -92,10 +93,11 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
     var buyGame = document.getElementById('buyGame');
-    var check = document.getElementById('buybtn');
+    var buybtn = document.getElementById('buybtn');
+    var playbtn = document.getElementById('playbtn');
     var btn = document.getElementById('closebtn');
 
-    $(document).ready(function () { if("${Checking}" == "0") { buybtn.disabled=false } else {buybtn.disabled=true}});
+    $(document).ready(function () { if("${Checking}" == "0") { buybtn.disabled=false; playbtn.disabled=true; } else { buybtn.disabled=true; playbtn.disabled=false;}});
 
     function buy() { buyGame.style.display = "block"; }
     btn.onclick = function() { buyGame.style.display = "none"; }
