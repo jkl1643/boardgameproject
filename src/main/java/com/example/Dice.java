@@ -27,6 +27,7 @@ public class Dice {
     private int yahtzee;
     private int bonus;
     private int player;
+    private int selecto;
 
     public String getCmd() { return cmd; }
     public void setCmd(String cmd) { this.cmd = cmd; }
@@ -72,4 +73,6 @@ public class Dice {
     public void setBonus(int bonus) { this.bonus = bonus; }
     public int getPlayer() { return player; }
     public void setPlayer(int player) { this.player = player; }
+    public int getSelecto() { return selecto; }
+    public void setSelecto(int selecto) { this.selecto = selecto; }
 }
