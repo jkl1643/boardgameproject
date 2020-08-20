@@ -97,7 +97,7 @@
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
 				<div><form action="newaccount" method="post">
 					<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
-				</form></div>
+				</form></div> <%--정신나갈거 같아--%>
 				<div>
 					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
