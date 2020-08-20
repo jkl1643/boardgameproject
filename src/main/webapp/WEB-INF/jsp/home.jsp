@@ -25,12 +25,14 @@
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
 		#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-		#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-		#yu {position: relative; float: right; right: 100px; top: -80px}
+		a#loginbutton2 {position: relative; left: -5px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
+		#signupbutton1 {position: relative; left: 60px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		a#signupbutton2 {position: relative; left: -15px; top: 10px; text-decoration: none; color: brown; font-family: 돋움}
 		div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
 		div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
 		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
 		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
@@ -95,10 +97,7 @@
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
-				<div><form action="newaccount" method="post">
-					<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
-				</form></div>
-
+				<div>
 					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
 					boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
@@ -107,23 +106,27 @@
 					boolean created_account = (boolean)request.getAttribute("created_account");
 					boolean error = (boolean)request.getAttribute("error");
 					if(email) {	%>
-						<div id="yu">존재하지 않는 아이디입니다.</div>
+					존재하지 않는 아이디입니다.
 					<%} else if (email){ %>
-						<div id="yu">아이디를 입력해주세요.</div>
+					아이디를 입력해주세요.
 					<%}	else if (emailpwd) {%>
-						<div id="yu">이메일과 암호가 일치하지 않습니다.</div>
+					이메일과 암호가 일치하지 않습니다.
 					<%} else if (delaccount) {%>
-						<div id="yu">계정이 삭제되었습니다.</div>
+					계정이 삭제되었습니다.
 					<%} else if (logout) {%>
-						<div id="yu">로그아웃 되었습니다.</div>
+					로그아웃 되었습니다.
 					<%}
 						if (created_account) { %> 계정이 생성되었습니다. <%}
 						if (error) { %>	이미 있는 닉네임입니다.<%}	%>
+				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
-				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline; id="dis">아이디 저장</div>
-				<div OnClick="location.href ='findaccount'" id="curse" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
+				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
+				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
 			</form>
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
+			<div><form action="newaccount" method="post">
+				<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
+			</form></div>
 		</div>
 	<%}	else {%>
 	<div id="logbox1">

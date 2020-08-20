@@ -1,5 +1,5 @@
 package com.example;
 
-public class PasswordNotMatchException extends RuntimeException{
+public class PasswordNotMatchException extends RuntimeException {
 
 }

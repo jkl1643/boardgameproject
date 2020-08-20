@@ -25,6 +25,20 @@ public class Socket_Handler  extends TextWebSocketHandler {
     @Autowired
     private Main_Server Server;
 
+
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
+        String nick = (String) httpsession.getAttribute("idid");
+        System.out.println("소켓 실행 : " + session.getId() + " / " + nick);
+
+        super.afterConnectionEstablished(session); // 부모 실행
+        Server.connectuser(nick, session);
+        System.out.println("현재원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
+
+    }// afterConnectionEstablished : 웹 소켓 연결시 실행
+
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String msg = message.getPayload();
@@ -40,7 +54,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
                 break;
             case "connect":
                 Message.setType("chat");
-                Message.setMessage(nick + "님이 입장하였습니다222222222.");
+                Message.setMessage(nick + "님이 입장하였습니다.");
                 break;
             case "disconnect":
                 Message.setType("chat");
@@ -49,7 +63,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getType());
         }
-        String sendMessage = objectMapper.writeValueAsString(Message);
+        String sendMessage = objectMapper.writeValueAsString(Message); //보낼매새지
 
         if (chatMessage.getRoomID().equals("lobby")) {
             for (WebSocketSession wss : Server.getUser_list().values()) {
@@ -68,18 +82,6 @@ public class Socket_Handler  extends TextWebSocketHandler {
         }
 
     }// handleTextMessage : 메시지를 수신시 실행
-
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
-        String nick = (String) httpsession.getAttribute("idid");
-        System.out.println("소켓 실행 : " + session.getId() + " / " + nick);
-
-        super.afterConnectionEstablished(session); // 부모 실행
-        Server.connectuser(nick, session);
-        System.out.println("현재원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
-
-    }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {

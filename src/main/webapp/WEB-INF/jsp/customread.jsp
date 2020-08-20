@@ -23,7 +23,7 @@
     </p>
 </c:if>
 <p>
-    <a href="<c:url value="/custom" />"> 돌아가기</a>
+    <a href="<c:url value="/custom" />" style="text-decoration:none" > 돌아가기</a>
 </p>
 </body>
 </html>

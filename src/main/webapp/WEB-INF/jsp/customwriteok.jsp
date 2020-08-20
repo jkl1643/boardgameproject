@@ -7,10 +7,9 @@
     <title>글 저장</title>
 </head>
 <body>
-	글이 저장되었습니다.
-	<a href="<c:url value="/custom" />" >돌아가기</a>
-	
+글이 저장되었습니다.
+<a href="<c:url value="/custom" />" style="text-decoration:none" >돌아가기</a>
 
- 	
+
 </body>
 </html>
