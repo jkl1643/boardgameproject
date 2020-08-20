@@ -365,6 +365,7 @@ public class MainController {
                 mav.addObject("currentpwd", true);
                 editaccount = 0;
             }
+            mav.setViewName("home");
         } else {
             mav.setViewName("home");
         }

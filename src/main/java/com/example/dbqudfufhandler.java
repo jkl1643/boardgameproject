@@ -17,14 +17,17 @@ import java.util.HashMap;
 
 @Component
 public class dbqudfufhandler extends TextWebSocketHandler {
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
     int i = 0;
 
     HashMap<String, WebSocketSession> user = new HashMap<>();
     String[] name=  new String[2];
 
 
-    @Autowired
-    private ObjectMapper objectMapper;
+
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

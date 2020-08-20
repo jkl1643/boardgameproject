@@ -17,11 +17,11 @@
 </head>
 <body>
 <h1 class="title">회원정보 수정</h1>
-<form action="login" method="post">
+<form action="main" method="post">
     <table id="table1">
         <tr>
             <td><strong>아이디</strong></td>
-            <td><Input Type = "Text" value="아이디" Name = "EMAIL" readonly> <BR></td>
+            <td><Input Type = "Text" value="${userid}" Name = "EMAIL" readonly> <BR></td>
         </tr>
         <tr>
             <td><strong>현재 비밀번호</strong></td>

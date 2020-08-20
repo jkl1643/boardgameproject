@@ -42,11 +42,12 @@
 	</STYLE>
 </head>
 <body>
+
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
 		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
-		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
+		<li><a href="<c:url value='/custom'/>">게임목록</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
 	<div id="search">
@@ -59,8 +60,8 @@
 		Member mem = (Member) session.getAttribute("mem");
 	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
 //	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
-		
-		
+
+
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
 		System.out.println("jsp mem : " + mem);
 		if(loginduplicate){
@@ -147,7 +148,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="" method="post"> <!-- form 태그 안에 내용 바꿔라 -->
+					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
 						<Input Type="Submit" Value="내 게임 ▶" id="but3">
 					</form>
 				</td>
@@ -185,7 +186,13 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		소설가
+		<div id ="box1">
+		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="350" height="350" /></a>
+	</div>
+	<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	야추 플레이
+	</p>
 	</div>
 </body>
 </html>

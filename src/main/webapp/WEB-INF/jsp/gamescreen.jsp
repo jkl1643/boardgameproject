@@ -4,10 +4,13 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
-
+	<input id="textMessage" type="text">
+	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
-		var wsUri = "ws://" + location.host + "/game";
+
+
+		var webSocket;
 		var output;
 
 		var rollCounter = 0;
@@ -32,30 +35,31 @@
 
 		var player=0;
 
-		function init()
-		{
+		function sendMessage(){
+			var message = document.getElementById("textMessage").value;
+			alert(message);
+			webSocket.send(message);
+		}
+
+		function init() {
 			output = document.getElementById("output");
 			testWebSocket();
 		}
 
 		function testWebSocket()
 		{
-			websocket = new WebSocket(wsUri);
-			websocket.onopen = function(evt) { onOpen(evt) ;};
-			websocket.onclose = function(evt) { onClose(evt) };
-			websocket.onmessage = function(evt) { onMessage(evt) };
-			websocket.onerror = function(evt) { onError(evt) };
+			webSocket = new WebSocket("ws://" + location.host + "/game");
+			webSocket.onopen = function(evt) { onOpen(evt) ;};
+			webSocket.onclose = function(evt) { onClose(evt) };
+			webSocket.onmessage = function(evt) { onMessage(evt) };
+			webSocket.onerror = function(evt) { onError(evt) };
 		}
 
 		function onOpen(evt)
 		{
+			webSocket.send(JSON.stringify({cmd : "start"}));
 			writeToScreen("연결완료");
-			writeToScreen("player = " + player);
-			<%
-  				String nick = (String)session.getAttribute("a");
-  				System.out.println("onOpen = " + nick);
-  			%>
-			writeToScreen("i = " + nick);
+
 		}
 
 		function onClose(evt)
@@ -63,17 +67,14 @@
 			writeToScreen("연결해제");
 		}
 
+
+
 		function onMessage(evt)
 		{
-			<%
-  				String nick2 = (String)session.getAttribute("a");
-  				System.out.println("onMessage = " + nick2);
-  			%>
-			writeToScreen("i22 = " + nick2);
 
-			/*var cmd = JSON.parse(evt.data);
+			var cmd = JSON.parse(evt.data);
 
-			writeToScreen('<span style="color: blue;">수신: ' + cmd.cmd+'</span>');
+
 			switch(cmd.cmd){
 				case "start":
 					player = cmd.player;
@@ -85,6 +86,7 @@
 				case "roll":
 					var diceImg = new Array();
 					var dice = new Array();
+					var number=0;
 
 
 					diceImg[0] = document.getElementById("diceimg1");
@@ -98,6 +100,8 @@
 					dice[2]=cmd.dice3;
 					dice[3]=cmd.dice4;
 					dice[4]=cmd.dice5;
+
+
 
 					for(var i = 0 ; i<5 ; i++) {
 
@@ -127,91 +131,100 @@
 
 
 					if(player == 1) {
-						document.getElementById("button2").value = String(cmd.Aces);
-						document.getElementById("button4").value = String(cmd.Twos);
-						document.getElementById("button6").value = String(cmd.Threes);
-						document.getElementById("button8").value = String(cmd.Fours);
-						document.getElementById("button10").value = String(cmd.Fives);
-						document.getElementById("button12").value = String(cmd.Sixes);
-						document.getElementById("button14").value = String(cmd.Three_Of_A_Kind);
-						document.getElementById("button16").value = String(cmd.Four_Of_A_Kind);
-						document.getElementById("button18").value = String(cmd.Full_House);
-						document.getElementById("button20").value = String(cmd.Small_Straight);
-						document.getElementById("button22").value = String(cmd.Large_Straight);
-						document.getElementById("button24").value = String(cmd.Chance);
-						document.getElementById("button26").value = String(cmd.Yahtzee);
+
+
+
+
+
+						document.getElementById("button2").value = String(cmd.aces);
+						document.getElementById("button4").value = String(cmd.twos);
+						document.getElementById("button6").value = String(cmd.threes);
+						document.getElementById("button8").value = String(cmd.fours);
+						document.getElementById("button10").value = String(cmd.fives);
+						document.getElementById("button12").value = String(cmd.sixes);
+						document.getElementById("button14").value = String(cmd.three_Of_A_Kind);
+						document.getElementById("button16").value = String(cmd.four_Of_A_Kind);
+						document.getElementById("button18").value = String(cmd.full_House);
+						document.getElementById("button20").value = String(cmd.small_Straight);
+						document.getElementById("button22").value = String(cmd.large_Straight);
+						document.getElementById("button24").value = String(cmd.chance);
+						document.getElementById("button26").value = String(cmd.yahtzee);
 					}
 					else if(player == 2) {
-						document.getElementById("button1").value = String(cmd.Aces);
-						document.getElementById("button3").value = String(cmd.Twos);
-						document.getElementById("button5").value = String(cmd.Threes);
-						document.getElementById("button7").value = String(cmd.Fours);
-						document.getElementById("button9").value = String(cmd.Fives);
-						document.getElementById("button11").value = String(cmd.Sixes);
-						document.getElementById("button13").value = String(cmd.Three_Of_A_Kind);
-						document.getElementById("button15").value = String(cmd.Four_Of_A_Kind);
-						document.getElementById("button17").value = String(cmd.Full_House);
-						document.getElementById("button19").value = String(cmd.Small_Straight);
-						document.getElementById("button21").value = String(cmd.Large_Straight);
-						document.getElementById("button23").value = String(cmd.Chance);
-						document.getElementById("button25").value = String(cmd.Yahtzee);
+
+
+						document.getElementById("button1").value = String(cmd.aces);
+						document.getElementById("button3").value = String(cmd.twos);
+						document.getElementById("button5").value = String(cmd.threes);
+						document.getElementById("button7").value = String(cmd.fours);
+						document.getElementById("button9").value = String(cmd.fives);
+						document.getElementById("button11").value = String(cmd.sixes);
+						document.getElementById("button13").value = String(cmd.three_Of_A_Kind);
+						document.getElementById("button15").value = String(cmd.four_Of_A_Kind);
+						document.getElementById("button17").value = String(cmd.full_House);
+						document.getElementById("button19").value = String(cmd.small_Straight);
+						document.getElementById("button21").value = String(cmd.large_Straight);
+						document.getElementById("button23").value = String(cmd.chance);
+						document.getElementById("button25").value = String(cmd.yahtzee);
 					}
 					break;
 				case "record":
 					var sum =
-							cmd.Aces+
-							cmd.Twos+
-							cmd.Threes+
-							cmd.Fours+
-							cmd.Fives+
-							cmd.Sixes+
-							cmd.Three_Of_A_Kind+
-							cmd.Four_Of_A_Kind+
-							cmd.Full_House+
-							cmd.Small_Straight+
-							cmd.Large_Straight+
-							cmd.Chance+
-							cmd.Yahtzee+
-							cmd.Bonus
+							cmd.aces+
+							cmd.twos+
+							cmd.threes+
+							cmd.fours+
+							cmd.fives+
+							cmd.sixes+
+							cmd.three_Of_A_Kind+
+							cmd.four_Of_A_Kind+
+							cmd.full_House+
+							cmd.small_Straight+
+							cmd.large_Straight+
+							cmd.chance+
+							cmd.yahtzee+
+							cmd.bonus
+
 					if(player == 1) {
-						document.getElementById("button2").value = String(cmd.Aces);
-						document.getElementById("button4").value = String(cmd.Twos);
-						document.getElementById("button6").value = String(cmd.Threes);
-						document.getElementById("button8").value = String(cmd.Fours);
-						document.getElementById("button10").value = String(cmd.Fives);
-						document.getElementById("button12").value = String(cmd.Sixes);
-						document.getElementById("button14").value = String(cmd.Three_Of_A_Kind);
-						document.getElementById("button16").value = String(cmd.Four_Of_A_Kind);
-						document.getElementById("button18").value = String(cmd.Full_House);
-						document.getElementById("button20").value = String(cmd.Small_Straight);
-						document.getElementById("button22").value = String(cmd.Large_Straight);
-						document.getElementById("button24").value = String(cmd.Chance);
-						document.getElementById("button26").value = String(cmd.Yahtzee);
-						document.getElementById("text2").value = String(cmd.Bonus);
-						document.getElementById("text4").value = String(sum);
+						document.getElementById("button2").value = String(cmd.aces);
+						document.getElementById("button4").value = String(cmd.twos);
+						document.getElementById("button6").value = String(cmd.threes);
+						document.getElementById("button8").value = String(cmd.fours);
+						document.getElementById("button10").value = String(cmd.fives);
+						document.getElementById("button12").value = String(cmd.sixes);
+						document.getElementById("button14").value = String(cmd.three_Of_A_Kind);
+						document.getElementById("button16").value = String(cmd.four_Of_A_Kind);
+						document.getElementById("button18").value = String(cmd.full_House);
+						document.getElementById("button20").value = String(cmd.small_Straight);
+						document.getElementById("button22").value = String(cmd.large_Straight);
+						document.getElementById("button24").value = String(cmd.chance);
+						document.getElementById("button26").value = String(cmd.yahtzee);
+						document.getElementById("text2").innerHTML = String(cmd.bonus);
+						document.getElementById("text4").innerHTML = String(sum);
+
 					}
 					else if(player == 2) {
-						document.getElementById("button1").value = String(cmd.Aces);
-						document.getElementById("button3").value = String(cmd.Twos);
-						document.getElementById("button5").value = String(cmd.Threes);
-						document.getElementById("button7").value = String(cmd.Fours);
-						document.getElementById("button9").value = String(cmd.Fives);
-						document.getElementById("button11").value = String(cmd.Sixes);
-						document.getElementById("button13").value = String(cmd.Three_Of_A_Kind);
-						document.getElementById("button15").value = String(cmd.Four_Of_A_Kind);
-						document.getElementById("button17").value = String(cmd.Full_House);
-						document.getElementById("button19").value = String(cmd.Small_Straight);
-						document.getElementById("button21").value = String(cmd.Large_Straight);
-						document.getElementById("button23").value = String(cmd.Chance);
-						document.getElementById("button25").value = String(cmd.Yahtzee);
-						document.getElementById("text1").value = String(cmd.Bonus);
-						document.getElementById("text3").value = String(sum);
+						document.getElementById("button1").value = String(cmd.aces);
+						document.getElementById("button3").value = String(cmd.twos);
+						document.getElementById("button5").value = String(cmd.threes);
+						document.getElementById("button7").value = String(cmd.fours);
+						document.getElementById("button9").value = String(cmd.fives);
+						document.getElementById("button11").value = String(cmd.sixes);
+						document.getElementById("button13").value = String(cmd.three_Of_A_Kind);
+						document.getElementById("button15").value = String(cmd.four_Of_A_Kind);
+						document.getElementById("button17").value = String(cmd.full_House);
+						document.getElementById("button19").value = String(cmd.small_Straight);
+						document.getElementById("button21").value = String(cmd.large_Straight);
+						document.getElementById("button23").value = String(cmd.chance);
+						document.getElementById("button25").value = String(cmd.yahtzee);
+						document.getElementById("text1").innerHTML = String(cmd.bonus);
+						document.getElementById("text3").innerHTML = String(sum);
 					}
 					document.getElementById("roll").disabled = false;
 					break;
 
 
-			}*/
+			}
 
 		}
 
@@ -220,11 +233,7 @@
 			writeToScreen('<span style="color: red;">에러:</span> ' + evt.data);
 		}
 
-		function doSend(message)
-		{
-			writeToScreen("발신: " + message);
-			websocket.send(message);
-		}
+
 
 		function writeToScreen(message)
 		{
@@ -233,6 +242,7 @@
 			pre.innerHTML = message;
 			output.appendChild(pre);
 		}
+
 
 		window.addEventListener("load", init, false);
 
@@ -245,11 +255,14 @@
 				buttonDisabled(RecScore);
 				countDice(dice, diceCounter);
 				checkRoutine(calScore, RecScore, dice, diceCounter);
-				webSocket.send(JSON.stringify({cmd : "roll", dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
-					Aces:calScore[0], Twos:calScore[1], Threes:calScore[2], Fours:calScore[3], Fives:calScore[4], Sixes:calScore[5],
-					Three_Of_A_Kind:calScore[6], Four_Of_A_Kind:calScore[7], Full_House:calScore[8], Small_Straight:calScore[9], Large_Straight:calScore[10],
-					Chance:calScore[11], Yahtzee:calScore[12]}));
+				webSocket.send(JSON.stringify({cmd : "roll", player : player, dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
+					aces:calScore[0], twos:calScore[1], threes:calScore[2], fours:calScore[3], fives:calScore[4], sixes:calScore[5],
+					three_Of_A_Kind:calScore[6], four_Of_A_Kind:calScore[7], full_House:calScore[8], small_Straight:calScore[9], large_Straight:calScore[10],
+					chance:calScore[11], yahtzee:calScore[12]}));
 			}
+			/*
+			var id = document.getElementById("button1");
+			id.style.color = '#d23030';*/
 		}
 
 
@@ -554,9 +567,9 @@
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function TwosButton(){
@@ -593,9 +606,9 @@
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -633,9 +646,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -674,9 +687,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -716,9 +729,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -757,9 +770,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -784,9 +797,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -811,9 +824,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -838,9 +851,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -865,9 +878,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function Large_StraightButton(){
@@ -891,9 +904,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 
@@ -918,9 +931,9 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function YahtzeeButton(){
@@ -944,9 +957,10 @@
 				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", Aces:RecScore[0], Twos:RecScore[1], Threes:RecScore[2], Fours:RecScore[3], Fives:RecScore[4], Sixes:RecScore[5],
-				Three_Of_A_Kind:RecScore[6], Four_Of_A_Kind:RecScore[7], Full_House:RecScore[8], Small_Straight:RecScore[9], Large_Straight:RecScore[10],
-				Chance:RecScore[11], Yahtzee:RecScore[12], Bonus:RecScore[13]}));
+			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+
 		}
 
 
@@ -1024,8 +1038,8 @@
 
 
 			if(rollCounter==0){
+				document.getElementById("roll").disabled = true;
 				if(player==1) {
-					document.getElementById("roll").disabled = true;
 					document.getElementById("button1").disabled = true;
 					document.getElementById("button3").disabled = true;
 					document.getElementById("button5").disabled = true;
