@@ -35,7 +35,7 @@
 
 		var player=0;
 
-		function sendMessage(){
+		function sendMessage() {
 			var message = document.getElementById("textMessage").value;
 			alert(message);
 			webSocket.send(message);
