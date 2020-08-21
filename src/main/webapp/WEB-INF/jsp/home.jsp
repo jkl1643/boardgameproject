@@ -59,7 +59,7 @@
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
 	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
-//	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
+	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
 
 
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
@@ -70,12 +70,7 @@
 		} else {
 			System.out.println("듀플안됨");
 		}
-	%>
-	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
-	<%
-		//session.setMaxInactiveInterval(5); // 초 단위
-	%>
-	<%
+
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
 		if(cookie != null) {
@@ -85,8 +80,9 @@
 				}
 			}
 		}
+
 		System.out.println("mem2 : " + mem);
-		if(/*login == 0 || */mem == null/* && mem.getEmail().isEmpty() || mem.getEmail() == null || mem == null*/){ %>
+		if(mem == null){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
@@ -96,9 +92,12 @@
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
-				<div><form action="newaccount" method="post">
-					<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
-				</form></div>
+			</form>
+				<div>
+					<form action="newaccount" method="post">
+						<Input Type="Submit" Value="회원가입" id="signupbutton1">
+					</form>
+				</div>
 				<div>
 					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
@@ -124,7 +123,7 @@
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-			</form>
+
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
 	<%}	else {%>
@@ -168,9 +167,7 @@
 		</table>
 	</div>
 	<%}%>
-	     login = ${login}, id = ${id}
 	<div id="logbox3">
-		사랑해요 연예가 중계
 	</div>
 	<div id="logbox4">
 		박스
@@ -191,7 +188,7 @@
 	</div>
 	<p>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	야추 플레이
+	플레이
 	</p>
 	</div>
 </body>
