@@ -4,11 +4,11 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
-	<input id="textMessage" type="text">
-	<input onClick="sendMessage()" type="button" value="send">
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
 
+
+		var endTrigger = false;
 
 		var webSocket;
 		var output;
@@ -31,15 +31,11 @@
 
 		var diceCounter = new Array();
 
+		var userId;
+
+		var player = 0;
 
 
-		var player=0;
-
-		function sendMessage(){
-			var message = document.getElementById("textMessage").value;
-			alert(message);
-			webSocket.send(message);
-		}
 
 		function init() {
 			output = document.getElementById("output");
@@ -57,6 +53,7 @@
 
 		function onOpen(evt)
 		{
+
 			webSocket.send(JSON.stringify({cmd : "start"}));
 			writeToScreen("연결완료");
 
@@ -78,8 +75,30 @@
 			switch(cmd.cmd){
 				case "start":
 					player = cmd.player;
+
+
+				<%@ page import="com.example.Member" %>
+				<%
+                    Member mem = (Member) session.getAttribute("mem");
+                    Long userId= null ;
+                    if(mem!=null)
+                        userId = mem.getId();
+                %>
+
+					userId =<%=userId%>;
+
+					if(userId!=null)
+						webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : userId}));
+					else
+						webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : -1}));
+
+
+
+
+
 					if(player == 1){
 						document.getElementById("roll").disabled = false;
+						writeToScreen("니 차례");
 					}
 					break;
 
@@ -308,6 +327,7 @@
 						document.getElementById("text3").innerHTML = String(sum);
 					}
 					document.getElementById("roll").disabled = false;
+					writeToScreen("니 차례");
 					break;
 
 
@@ -328,7 +348,8 @@
 
 
 				case "alert":
-					alert("이긴놈은 player"+String(cmd.selecto));
+					writeToScreen("이긴놈은 player"+String(cmd.selecto));
+					endTrigger=true;
 					break;
 
 			}
@@ -1558,6 +1579,21 @@
 			return sum;
 		}
 
+		function exitButtons(){
+			if(endTrigger==true)
+				webSocket.close();
+			else
+				exitButtonConfrim();
+		}
+
+		function exitButtonConfrim(){
+			if(confirm("탈주 처리 됩니다")){
+				webSocket.close();
+			}
+			else
+				return;
+		}
+
 	</SCRIPT>
 
 	<STYLE TYPE="text/css">
@@ -1588,6 +1624,7 @@
 <body>
 <h2>WebSocket Test</h2>
 <div id="output"></div>
+<div><input type="button" id="exitbutton" value = "나가기" onClick="exitButtons()"></div>
 <div id="box">
 	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true ></button></div>
 	<div><button type="button" id="dice2" onClick="keepDice2Button()" ><img src="dice1.png" id="diceimg2" disabled = true></button></div>
@@ -1675,6 +1712,5 @@
 		</div>
 	</div>
 </div>
-<button id="exitbutton">나가기</button>
 </body>
 </html>

@@ -19,15 +19,20 @@ import java.util.HashMap;
 public class dbqudfufhandler extends TextWebSocketHandler {
     int i = 0;
 
-    int winner = -1;
+    int winner = -1;  // 승자 인덱스 + 1, 승리한 유저 멤버 아이디 불러오기 => userId[winner-1]
+    Long[] userId = new Long[2];  // 유저 멤버 아이디
+
+
     int winnerStack = 0;
-    int[] winnerScore=  new int[2];
+    int[] winnerScore=  new int[2];  // 승자점수
 
 
     int roundcounter=26;
 
     HashMap<String, WebSocketSession> user = new HashMap<>();
-    String[] name=  new String[2];
+    String[] name=  new String[2];// 유저 세션명
+
+
 
 
     @Autowired
@@ -39,9 +44,10 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         String nick = (String) httpsession.getAttribute("idid");
         System.out.println("소켓 실행222222 : " + session.getId() + " / " + nick);
         super.afterConnectionEstablished(session); // 부모 실행
-        name[i] = session.getId();
-        i++;
-        user.put(session.getId(), session);
+
+            name[i] = session.getId();
+            i++;
+            user.put(session.getId(), session);
 
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
@@ -61,6 +67,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
 
             case "start":
+
+
                 if(i>=2) {
                     chatMessage.setPlayer(1);
                     String sendMessage = objectMapper.writeValueAsString(chatMessage);
@@ -72,6 +80,18 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
                 }
+                break;
+
+
+            case "check":
+                int result = chatMessage.getSelecto();
+                if(result!=-1)
+                    userId[chatMessage.getPlayer()-1]= new Long(result);
+                else
+                    ;//접근 거부, 연결 해제
+
+
+                chatMessage.setPlayer(0);
                 break;
 
 
@@ -164,7 +184,14 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         System.out.println("서버에서 보냄 : " + sendMessage);
 
 
-       if(chatMessage.getPlayer()==1){
+        if(chatMessage.getPlayer()!=0) {
+            if (userId[chatMessage.getPlayer() - 1] != null)
+                System.out.println("허용유저");
+            else
+                System.out.println("미허용유저");
+        }
+
+        if(chatMessage.getPlayer()==1){
             WebSocketSession wss = user.get(name[1]);
             wss.sendMessage(new TextMessage(sendMessage));
        }
