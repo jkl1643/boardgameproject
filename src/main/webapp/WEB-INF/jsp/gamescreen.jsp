@@ -39,7 +39,23 @@
 
 		function init() {
 			output = document.getElementById("output");
-			testWebSocket();
+
+			<%@ page import="com.example.Member" %>
+			<%
+                Member mem = (Member) session.getAttribute("mem");
+                Long userId= null ;
+                if(mem!=null)
+                    userId = mem.getId();
+            %>
+
+			userId =<%=userId%>;
+			userId = -1 ;
+
+			if(userId!=null)
+				testWebSocket();
+			else
+				writeToScreen("로그인해라");
+
 		}
 
 		function testWebSocket()
@@ -54,6 +70,8 @@
 		function onOpen(evt)
 		{
 
+
+
 			webSocket.send(JSON.stringify({cmd : "start"}));
 			writeToScreen("연결완료");
 
@@ -61,6 +79,8 @@
 
 		function onClose(evt)
 		{
+
+
 			writeToScreen("연결해제");
 		}
 
@@ -76,25 +96,7 @@
 				case "start":
 					player = cmd.player;
 
-
-				<%@ page import="com.example.Member" %>
-				<%
-                    Member mem = (Member) session.getAttribute("mem");
-                    Long userId= null ;
-                    if(mem!=null)
-                        userId = mem.getId();
-                %>
-
-					userId =<%=userId%>;
-
-					if(userId!=null)
-						webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : userId}));
-					else
-						webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : -1}));
-
-
-
-
+					webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : userId}));
 
 					if(player == 1){
 						document.getElementById("roll").disabled = false;
@@ -348,9 +350,14 @@
 
 
 				case "alert":
+					document.getElementById("roll").disabled = true;
 					writeToScreen("이긴놈은 player"+String(cmd.selecto));
 					endTrigger=true;
 					break;
+
+
+				case "close":
+					webSocket.close();
 
 			}
 
@@ -1588,6 +1595,7 @@
 
 		function exitButtonConfrim(){
 			if(confirm("탈주 처리 됩니다")){
+				webSocket.send(JSON.stringify({cmd : "run", player: player}));
 				webSocket.close();
 			}
 			else
@@ -1617,14 +1625,14 @@
 		.divTableHeading { background-color: #EEE; display: table-header-group; font-weight: bold; }
 		.divTableFoot { background-color: #EEE; display: table-footer-group; font-weight: bold; }
 		.divTableBody {text-align: center; display: table-row-group; }
-		button#exitbutton {width: 100px; height: 50px; background-color: black; color: white; position: relative; right: -1610px; top: 60px}
+		input#exitbutton {width: 100px; height: 50px; background-color: black; color: white; position: relative; right: -1610px; top: 60px}
 		-->
 	</STYLE>
 </head>
 <body>
 <h2>WebSocket Test</h2>
 <div id="output"></div>
-<div><input type="button" id="exitbutton" value = "나가기" onClick="exitButtons()"></div>
+
 <div id="box">
 	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true ></button></div>
 	<div><button type="button" id="dice2" onClick="keepDice2Button()" ><img src="dice1.png" id="diceimg2" disabled = true></button></div>
@@ -1712,5 +1720,6 @@
 		</div>
 	</div>
 </div>
+<div><input type="button" id="exitbutton" value = "나가기" onClick="exitButtons()"></div>
 </body>
 </html>

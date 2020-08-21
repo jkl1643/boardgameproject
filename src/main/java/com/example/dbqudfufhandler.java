@@ -35,7 +35,7 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     HashMap<String, WebSocketSession> user = new HashMap<>();
     String[] name=  new String[2];// 유저 세션명
-
+    String nameBuffer = "";
 
 
 
@@ -48,9 +48,13 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         System.out.println("소켓 실행222222 : " + session.getId() + " / " + nick);
         super.afterConnectionEstablished(session); // 부모 실행
 
+        if(i<2)
             name[i] = session.getId();
-            i++;
-            user.put(session.getId(), session);
+        else
+            nameBuffer =  session.getId();
+
+        i++;
+        user.put(session.getId(), session);
 
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
@@ -69,10 +73,13 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
 
 
+
             case "start":
 
 
-                if(i>=2) {
+
+
+                if(i==2) {
                     chatMessage.setPlayer(1);
                     String sendMessage = objectMapper.writeValueAsString(chatMessage);
                     WebSocketSession wss = user.get(name[0]);
@@ -83,6 +90,15 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
                 }
+                else if(i>2){
+                    chatMessage.setPlayer(0);
+                    chatMessage.setCmd("close");
+                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(nameBuffer);
+                    wss.sendMessage(new TextMessage(sendMessage));
+                    i--;
+                }
+
                 break;
 
 
@@ -173,6 +189,28 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     }
 
                 }
+                break;
+
+            case "run":
+
+                chatMessage.setCmd("alert");
+                if(chatMessage.getPlayer()==1){
+                    winner=2;
+                    chatMessage.setSelecto(winner);
+                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(name[1]);
+                    wss.sendMessage(new TextMessage(sendMessage));
+                    chatMessage.setPlayer(0);
+                }
+                else if(chatMessage.getPlayer()==2){
+                    winner=1;
+                    chatMessage.setSelecto(winner);
+                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(name[0]);
+                    wss.sendMessage(new TextMessage(sendMessage));
+                    chatMessage.setPlayer(0);
+                }
+
                 break;
 
 
