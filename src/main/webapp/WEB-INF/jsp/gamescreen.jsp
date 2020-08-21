@@ -31,7 +31,7 @@
 
 		var diceCounter = new Array();
 
-		var roundCounter = 13;
+
 
 		var player=0;
 
@@ -169,13 +169,15 @@
 					}
 					break;
 				case "record":
-					var sum =
-							cmd.aces+
+					var sumBonus = cmd.aces+
 							cmd.twos+
 							cmd.threes+
 							cmd.fours+
 							cmd.fives+
-							cmd.sixes+
+							cmd.sixes;
+
+					var sum =
+							sumBonus+
 							cmd.three_Of_A_Kind+
 							cmd.four_Of_A_Kind+
 							cmd.full_House+
@@ -183,48 +185,154 @@
 							cmd.large_Straight+
 							cmd.chance+
 							cmd.yahtzee+
-							cmd.bonus
+							cmd.bonus;
 
 					if(player == 1) {
 						document.getElementById("button2").value = String(cmd.aces);
+						if(cmd.selecto==0)
+							document.getElementById("button2").style.color = '#d23030';
+
 						document.getElementById("button4").value = String(cmd.twos);
+						if(cmd.selecto==1)
+							document.getElementById("button4").style.color = '#d23030';
+
 						document.getElementById("button6").value = String(cmd.threes);
+						if(cmd.selecto==2)
+							document.getElementById("button6").style.color = '#d23030';
+
 						document.getElementById("button8").value = String(cmd.fours);
+						if(cmd.selecto==3)
+							document.getElementById("button8").style.color = '#d23030';
+
 						document.getElementById("button10").value = String(cmd.fives);
+						if(cmd.selecto==4)
+							document.getElementById("button10").style.color = '#d23030';
+
 						document.getElementById("button12").value = String(cmd.sixes);
+						if(cmd.selecto==5)
+							document.getElementById("button12").style.color = '#d23030';
+
 						document.getElementById("button14").value = String(cmd.three_Of_A_Kind);
+						if(cmd.selecto==6)
+							document.getElementById("button14").style.color = '#d23030';
+
 						document.getElementById("button16").value = String(cmd.four_Of_A_Kind);
+						if(cmd.selecto==7)
+							document.getElementById("button16").style.color = '#d23030';
+
 						document.getElementById("button18").value = String(cmd.full_House);
+						if(cmd.selecto==8)
+							document.getElementById("button18").style.color = '#d23030';
+
 						document.getElementById("button20").value = String(cmd.small_Straight);
+						if(cmd.selecto==9)
+							document.getElementById("button20").style.color = '#d23030';
+
 						document.getElementById("button22").value = String(cmd.large_Straight);
+						if(cmd.selecto==10)
+							document.getElementById("button22").style.color = '#d23030';
+
 						document.getElementById("button24").value = String(cmd.chance);
+						if(cmd.selecto==11)
+							document.getElementById("button24").style.color = '#d23030';
+
 						document.getElementById("button26").value = String(cmd.yahtzee);
-						document.getElementById("text2").innerHTML = String(cmd.bonus);
+						if(cmd.selecto==12)
+							document.getElementById("button26").style.color = '#d23030';
+
+						if(sumBonus>=63)
+							document.getElementById("text2").innerHTML = String(cmd.bonus);
+						else
+							document.getElementById("text2").innerHTML = String(sumBonus)+"/63";
+
 						document.getElementById("text4").innerHTML = String(sum);
 
 					}
 					else if(player == 2) {
 						document.getElementById("button1").value = String(cmd.aces);
+						if(cmd.selecto==0)
+							document.getElementById("button1").style.color = '#d23030';
+
 						document.getElementById("button3").value = String(cmd.twos);
+						if(cmd.selecto==1)
+							document.getElementById("button3").style.color = '#d23030';
+
 						document.getElementById("button5").value = String(cmd.threes);
+						if(cmd.selecto==2)
+							document.getElementById("button5").style.color = '#d23030';
+
 						document.getElementById("button7").value = String(cmd.fours);
+						if(cmd.selecto==3)
+							document.getElementById("button7").style.color = '#d23030';
+
 						document.getElementById("button9").value = String(cmd.fives);
+						if(cmd.selecto==4)
+							document.getElementById("button9").style.color = '#d23030';
+
 						document.getElementById("button11").value = String(cmd.sixes);
+						if(cmd.selecto==5)
+							document.getElementById("button11").style.color = '#d23030';
+
 						document.getElementById("button13").value = String(cmd.three_Of_A_Kind);
+						if(cmd.selecto==6)
+							document.getElementById("button13").style.color = '#d23030';
+
 						document.getElementById("button15").value = String(cmd.four_Of_A_Kind);
+						if(cmd.selecto==7)
+							document.getElementById("button15").style.color = '#d23030';
+
 						document.getElementById("button17").value = String(cmd.full_House);
+						if(cmd.selecto==8)
+							document.getElementById("button17").style.color = '#d23030';
+
 						document.getElementById("button19").value = String(cmd.small_Straight);
+						if(cmd.selecto==9)
+							document.getElementById("button19").style.color = '#d23030';
+
 						document.getElementById("button21").value = String(cmd.large_Straight);
+						if(cmd.selecto==10)
+							document.getElementById("button21").style.color = '#d23030';
+
 						document.getElementById("button23").value = String(cmd.chance);
+						if(cmd.selecto==11)
+							document.getElementById("button23").style.color = '#d23030';
+
 						document.getElementById("button25").value = String(cmd.yahtzee);
-						document.getElementById("text1").innerHTML = String(cmd.bonus);
+						if(cmd.selecto==12)
+							document.getElementById("button25").style.color = '#d23030';
+
+						if(sumBonus>=63)
+							document.getElementById("text1").innerHTML = String(cmd.bonus);
+						else
+							document.getElementById("text1").innerHTML = String(sumBonus)+"/63";
 						document.getElementById("text3").innerHTML = String(sum);
 					}
 					document.getElementById("roll").disabled = false;
 					break;
 
 
+
+
+				case "end":
+
+					document.getElementById("roll").disabled = true;
+					var sum = 0 ;
+					for(var i = 0 ; i < 13 ; i++)
+						sum+=RecScore[i];
+					if(RecScore[13]!=-1)
+						sum+=RecScore[13]
+					webSocket.send(JSON.stringify({cmd : "end", player : player, selecto : sum }));
+
+
+					break;
+
+
+				case "alert":
+					alert("이긴놈은 player"+String(cmd.selecto));
+					break;
+
 			}
+
 
 		}
 
@@ -255,14 +363,12 @@
 				buttonDisabled(RecScore);
 				countDice(dice, diceCounter);
 				checkRoutine(calScore, RecScore, dice, diceCounter);
-				webSocket.send(JSON.stringify({cmd : "roll", player : player, dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
+				webSocket.send(JSON.stringify({cmd : "roll", player : player,  dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
 					aces:calScore[0], twos:calScore[1], threes:calScore[2], fours:calScore[3], fives:calScore[4], sixes:calScore[5],
 					three_Of_A_Kind:calScore[6], four_Of_A_Kind:calScore[7], full_House:calScore[8], small_Straight:calScore[9], large_Straight:calScore[10],
 					chance:calScore[11], yahtzee:calScore[12]}));
 			}
-			/*
-			var id = document.getElementById("button1");
-			id.style.color = '#d23030';*/
+
 		}
 
 
@@ -531,6 +637,12 @@
 
 		function AcesButton(){
 			document.getElementById("roll").disabled = true;
+			if(player==1)
+				var id = document.getElementById("button1");
+			else if(player==2)
+				var id = document.getElementById("button2");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[0]==-1) {
 				RecScore[0] = calScore[0];
 				calScore[13] += calScore[0];
@@ -558,22 +670,23 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player, selecto : 0 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function TwosButton(){
 			document.getElementById("roll").disabled = true;
+			if(player==1)
+				var id = document.getElementById("button3");
+			else if(player==2)
+				var id = document.getElementById("button4");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[1]==-1) {
 				RecScore[1] = calScore[1];
 				calScore[13] += calScore[1];
@@ -597,16 +710,11 @@
 				buttonDisabled(RecScore);
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
 
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 1 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -614,6 +722,13 @@
 
 		function ThreesButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button5");
+			else if(player==2)
+				var id = document.getElementById("button6");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[2]==-1) {
 				RecScore[2] = calScore[2];
 				calScore[13] += calScore[2];
@@ -638,15 +753,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 2 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -654,6 +764,13 @@
 
 		function FoursButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button7");
+			else if(player==2)
+				var id = document.getElementById("button8");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[3]==-1) {
 
 				RecScore[3] = calScore[3];
@@ -679,15 +796,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 3 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -696,6 +808,13 @@
 
 		function FivesButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button9");
+			else if(player==2)
+				var id = document.getElementById("button10");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[4]==-1) {
 
 				RecScore[4] = calScore[4];
@@ -721,15 +840,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 4 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -737,6 +851,13 @@
 
 		function SixesButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button11");
+			else if(player==2)
+				var id = document.getElementById("button12");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[5]==-1) {
 
 				RecScore[5] = calScore[5];
@@ -762,15 +883,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 5 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -778,6 +894,13 @@
 
 		function Three_Of_A_KindButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button13");
+			else if(player==2)
+				var id = document.getElementById("button14");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[6]==-1) {
 				RecScore[6] = calScore[6];
 				if(player==1)
@@ -789,15 +912,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 6 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -805,6 +923,13 @@
 
 		function Four_Of_A_KindButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button15");
+			else if(player==2)
+				var id = document.getElementById("button16");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[7]==-1) {
 				RecScore[7] = calScore[7];
 				if(player==1)
@@ -816,15 +941,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 7 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -832,6 +952,13 @@
 
 		function Full_HouseButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button17");
+			else if(player==2)
+				var id = document.getElementById("button18");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[8]==-1) {
 				RecScore[8] = calScore[8];
 				if(player==1)
@@ -843,15 +970,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 8 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -859,6 +981,13 @@
 
 		function Small_StraightButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button19");
+			else if(player==2)
+				var id = document.getElementById("button20");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[9]==-1) {
 				RecScore[9] = calScore[9];
 				if(player==1)
@@ -870,21 +999,23 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 9 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function Large_StraightButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button21");
+			else if(player==2)
+				var id = document.getElementById("button22");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[10]==-1) {
 				RecScore[10] = calScore[10];
 				if(player==1)
@@ -896,15 +1027,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 10, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
@@ -912,7 +1038,15 @@
 
 		function ChanceButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button23");
+			else if(player==2)
+				var id = document.getElementById("button24");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[11]==-1) {
+
 				RecScore[11] = calScore[11];
 				if(player==1)
 					document.getElementById('text3').innerHTML=String(RecScoreSum(RecScore));
@@ -923,21 +1057,23 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 11 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 		}
 
 		function YahtzeeButton(){
 			document.getElementById("roll").disabled = true;
+
+			if(player==1)
+				var id = document.getElementById("button25");
+			else if(player==2)
+				var id = document.getElementById("button26");
+			id.style.color = '#d23030';
+
 			if(rollCounter>0 && RecScore[12]==-1) {
 				RecScore[12] = calScore[12];
 				if(player==1)
@@ -949,15 +1085,10 @@
 
 				for(var i = 0 ; i < 5 ; i++)
 					diceKeepNum[i]=0;
-				roundCounter--;
 
-				if(roundCounter==0){
-					document.getElementById("roll").disabled = true;
-					alert("게임 종료");
-				}
 
 			}
-			webSocket.send(JSON.stringify({cmd : "record", player : player, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
+			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 12 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
 

@@ -48,6 +48,7 @@
         }
 
         button#buybtn {font-size: large; text-align: center; background-color: black; color: white; position: relative; width: 120px; height: 100px; left: 20px; top: 10px}
+        button#playbtn {font-size: large; text-align: center; background-color: black; color: white; position: relative; width: 150px; height: 50px; left: 5px; top: 60px}
         .modal {
             display: none;
             position: fixed;

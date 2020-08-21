@@ -23,6 +23,13 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     int i = 0;
 
+    int winner = -1;
+    int winnerStack = 0;
+    int[] winnerScore=  new int[2];
+
+
+    int roundcounter=26;
+
     HashMap<String, WebSocketSession> user = new HashMap<>();
     String[] name=  new String[2];
 
@@ -69,8 +76,11 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     chatMessage.setPlayer(0);
                 }
                 break;
+
+
             case "roll":
                 break;
+
             case "record":
                 if(chatMessage.getAces()==-1)
                     chatMessage.setAces(0);
@@ -114,6 +124,38 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 if(chatMessage.getBonus()==-1)
                     chatMessage.setBonus(0);
 
+                roundcounter--;
+
+                break;
+
+
+            case "end":
+
+                winnerScore[(chatMessage.getPlayer())-1]=chatMessage.getSelecto();
+                winnerStack++;
+                chatMessage.setPlayer(0);
+
+
+
+                if(winnerStack==2){
+                    if(winnerScore[0]>winnerScore[1])
+                        winner=1;
+                    else
+                        winner=2;
+
+
+                    chatMessage.setCmd("alert");
+                    chatMessage.setSelecto(winner);
+                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    for(int i = 0 ; i<2 ; i++) {
+                        WebSocketSession wss = user.get(name[i]);
+                        wss.sendMessage(new TextMessage(sendMessage));
+                    }
+
+                }
+                break;
+
+
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getCmd());
                 break;
@@ -133,6 +175,16 @@ public class dbqudfufhandler extends TextWebSocketHandler {
            WebSocketSession wss = user.get(name[0]);
            wss.sendMessage(new TextMessage(sendMessage));
        }
+
+        if(roundcounter==0){
+            chatMessage.setCmd("end");
+            sendMessage = objectMapper.writeValueAsString(chatMessage);
+            for(int i = 0 ; i<2 ; i++) {
+                WebSocketSession wss = user.get(name[i]);
+                wss.sendMessage(new TextMessage(sendMessage));
+            }
+            roundcounter++;
+        }
 
 
     }// handleTextMessage : 메시지를 수신시 실행
