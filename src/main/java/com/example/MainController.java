@@ -651,6 +651,13 @@ public class MainController {
 
             model.addAttribute("id", ID);
             model.addAttribute("pw", PW);
+            switch(Server.getRoom_list().get(ID).getGame())
+            {
+                case "Yahtzee":
+                    mv.setViewName("gamescreen");
+                    break;
+
+            }
             mv.setViewName("Game_room");
         }
         else
@@ -711,7 +718,7 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/refreshiuserlist")
+    @GetMapping("/refreshuserlist")
     public ModelAndView RefreshUserlist(Model model)
     {
         ModelAndView mv = new ModelAndView();
@@ -724,6 +731,7 @@ public class MainController {
     public ModelAndView Gamerank(Model model)
     {
         ModelAndView mv = new ModelAndView();
+        System.out.println(control.GameRank_list());
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
         mv.setViewName("Game_rank");
