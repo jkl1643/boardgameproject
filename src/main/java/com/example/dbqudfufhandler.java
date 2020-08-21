@@ -17,6 +17,10 @@ import java.util.HashMap;
 
 @Component
 public class dbqudfufhandler extends TextWebSocketHandler {
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
     int i = 0;
 
     int winner = -1;  // 승자 인덱스 + 1, 승리한 유저 멤버 아이디 불러오기 => userId[winner-1]
@@ -35,8 +39,7 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
 
 
-    @Autowired
-    private ObjectMapper objectMapper;
+
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

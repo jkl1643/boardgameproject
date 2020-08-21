@@ -49,14 +49,14 @@
     <select id="SelectRank" resultMap="Game">
         Select game.*
         From purchase RIGHT JOIN game ON purchase.game_number = game.game_number
-        group by purchase.game_number
+        group by game.game_number
         order by count(member_number) desc
     </select>
 
     <select id="SelectRankCount" resultType="java.lang.Integer">
         Select count(member_number)
         From purchase RIGHT JOIN game ON purchase.game_number = game.game_number
-        group by purchase.game_number
+        group by game.game_number
         order by count(member_number) desc
     </select>
 

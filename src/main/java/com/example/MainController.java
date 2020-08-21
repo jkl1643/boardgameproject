@@ -26,7 +26,8 @@ import custom_asking.CustomWrite;
 
 import MyGameRecord.MyGameRecord;
 import MyGameRecord.MyGameRecordDao;
-
+import MyGameRecord.MyGameRecordRequest;
+import MyGameRecord.MyGameRecordWrite;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -67,9 +68,13 @@ public class MainController {
     @Autowired
     private CustomChange customchange;
     
+   
     @Autowired
-    private MyGameRecordDao mygamerecordDao;
-
+    private MyGameRecordDao mygamerecorddao;
+    
+    @Autowired
+    private MyGameRecordWrite mygamerecordwrite;
+    
     // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
@@ -87,11 +92,13 @@ public class MainController {
 		this.customwrite = customwrite;
 	}
 
-    public void setMyGameRecordDao(MyGameRecordDao mygamerecordDao) {
-		this.mygamerecordDao = mygamerecordDao;
+    public void setMyGameRecordDao(MyGameRecordDao mygamerecorddao) {
+		this.mygamerecorddao = mygamerecorddao;
 	}
 
-
+    public void setMygameRecordWrite(MyGameRecordWrite mygamerecordwrite) {
+    	this.mygamerecordwrite = mygamerecordwrite;
+    }
 
 	@RequestMapping("/logout")
     public ModelAndView logout(ModelAndView mav, HttpSession session) {
@@ -365,6 +372,7 @@ public class MainController {
                 mav.addObject("currentpwd", true);
                 editaccount = 0;
             }
+            mav.setViewName("home");
         } else {
             mav.setViewName("home");
         }
@@ -547,7 +555,7 @@ public class MainController {
 
     	return "mygamerecord";
     }*/
-   
+   /*
     @RequestMapping(value = "/record")
     public String myresult(Model model, String nickname1) {
     	MyGameRecord record = mygamerecordDao.selectByNickname(nickname1);
@@ -555,7 +563,7 @@ public class MainController {
 		return "mygamerecord";
     	
     }
-
+*/
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
@@ -620,6 +628,14 @@ public class MainController {
     public String handleStep6() {
         return "gameranking";
     }
+    
+    @RequestMapping("/testok") // 수정함 병렬
+    public String handleStep8(MyGameRecordRequest request) {
+    		mygamerecordwrite.input(request);
+       // customchange.changedata(count1, title1, content1);
+    	return "customchangeok";
+    }
+    
     //윤수명끝----------------------------
 
   //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -635,6 +651,13 @@ public class MainController {
 
             model.addAttribute("id", ID);
             model.addAttribute("pw", PW);
+            switch(Server.getRoom_list().get(ID).getGame())
+            {
+                case "Yahtzee":
+                    mv.setViewName("gamescreen");
+                    break;
+
+            }
             mv.setViewName("Game_room");
         }
         else
@@ -695,7 +718,7 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping("/refreshiuserlist")
+    @GetMapping("/refreshuserlist")
     public ModelAndView RefreshUserlist(Model model)
     {
         ModelAndView mv = new ModelAndView();
@@ -708,6 +731,7 @@ public class MainController {
     public ModelAndView Gamerank(Model model)
     {
         ModelAndView mv = new ModelAndView();
+        System.out.println(control.GameRank_list());
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
         mv.setViewName("Game_rank");

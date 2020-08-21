@@ -42,11 +42,12 @@
 	</STYLE>
 </head>
 <body>
+
 	<P CLASS="part1"><B> 보드게임: 문제있어? </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
 		<li><a href="<c:url value='/gamerank'/>">게임순위</a></li> <!-- 메뉴바의 게임순위 버튼 -->
-		<li><a href="<c:url value='/custom'/>">테마</a></li> <!-- 메뉴바의 테마 버튼 -->
+		<li><a href="<c:url value='/custom'/>">게임목록</a></li> <!-- 메뉴바의 테마 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
 	<div id="search">
@@ -58,9 +59,9 @@
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
 	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
-//	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
-		
-		
+	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
+
+
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
 		System.out.println("jsp mem : " + mem);
 		if(loginduplicate){
@@ -69,12 +70,7 @@
 		} else {
 			System.out.println("듀플안됨");
 		}
-	%>
-	${id},,,,,,,,,,,,,, ${idid},,,,,,,,,,,${mem.getEmail()},,, ${rec.getNickname()}
-	<%
-		//session.setMaxInactiveInterval(5); // 초 단위
-	%>
-	<%
+
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
 		if(cookie != null) {
@@ -84,8 +80,9 @@
 				}
 			}
 		}
+
 		System.out.println("mem2 : " + mem);
-		if(/*login == 0 || */mem == null/* && mem.getEmail().isEmpty() || mem.getEmail() == null || mem == null*/){ %>
+		if(mem == null){ %>
 		<div id="logbox1">
 			<div id="logbox2"></div>
 			<form action="main" method="post">
@@ -95,9 +92,12 @@
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
 				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
-				<div><form action="newaccount" method="post">
-					<Input Type = "Submit" Value = "회원가입" id="signupbutton1">
-				</form></div>
+			</form>
+				<div>
+					<form action="newaccount" method="post">
+						<Input Type="Submit" Value="회원가입" id="signupbutton1">
+					</form>
+				</div>
 				<div>
 					<%
 					boolean email = (boolean)request.getAttribute("unknown_email");
@@ -123,7 +123,7 @@
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-			</form>
+
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
 	<%}	else {%>
@@ -147,7 +147,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="" method="post"> <!-- form 태그 안에 내용 바꿔라 -->
+					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
 						<Input Type="Submit" Value="내 게임 ▶" id="but3">
 					</form>
 				</td>
@@ -167,9 +167,7 @@
 		</table>
 	</div>
 	<%}%>
-	     login = ${login}, id = ${id}
 	<div id="logbox3">
-		사랑해요 연예가 중계
 	</div>
 	<div id="logbox4">
 		박스
@@ -185,7 +183,13 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		소설가
+		<div id ="box1">
+		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="350" height="350" /></a>
+	</div>
+	<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	플레이
+	</p>
 	</div>
 </body>
 </html>
