@@ -5,22 +5,23 @@ import java.time.LocalDateTime;
 public class MyGameRecord {
    
 	private Long gamerecord_number;
-    private int total;
-    private int win;
-    private int draw;
-    private int lose;
+    private int gamerecord_total;
+    private int gamerecord_win;
+    private int gamerecord_draw;
+    private int gamerecord_lose;
     private int game_number;
     private int member_number;
 //	private LocalDateTime registerDateTime;
 //  private String nickname;
-    public MyGameRecord(int total, int win,
-                        int draw, int lose) {
+    public MyGameRecord(int gamerecord_total, int gamerecord_win,
+                        int gamerecord_draw, int gamerecord_lose, int game_number, int member_number) {
       //  this.nickname = nickname;
-        this.total = total;
-        this.win = win;
-        this.draw = draw;
-        this.lose = lose;
-
+        this.gamerecord_total = gamerecord_total;
+        this.gamerecord_win = gamerecord_win;
+        this.gamerecord_draw = gamerecord_draw;
+        this.gamerecord_lose = gamerecord_lose;
+        this.game_number = game_number;
+        this.member_number = member_number;
     }
 
     public Long getGamerecord_number() {
@@ -30,28 +31,28 @@ public class MyGameRecord {
 		this.gamerecord_number = gamerecord_number;
 	}
 	public int getTotal() {
-		return total;
+		return gamerecord_total;
 	}
-	public void setTotal(int total) {
-		this.total = total;
+	public void setTotal(int gamerecord_total) {
+		this.gamerecord_total = gamerecord_total;
 	}
 	public int getWin() {
-		return win;
+		return gamerecord_win;
 	}
-	public void setWin(int win) {
-		this.win = win;
+	public void setWin(int gamerecord_win) {
+		this.gamerecord_win = gamerecord_win;
 	}
 	public int getDraw() {
-		return draw;
+		return gamerecord_draw;
 	}
-	public void setDraw(int draw) {
-		this.draw = draw;
+	public void setDraw(int gamerecord_draw) {
+		this.gamerecord_draw = gamerecord_draw;
 	}
 	public int getLose() {
-		return lose;
+		return gamerecord_lose;
 	}
-	public void setLose(int lose) {
-		this.lose = lose;
+	public void setLose(int gamerecord_lose) {
+		this.gamerecord_lose = gamerecord_lose;
 	}
 	public int getGame_number() {
 		return game_number;

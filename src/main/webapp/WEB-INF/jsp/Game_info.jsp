@@ -83,7 +83,7 @@
 <rule id="pgrule">${Game.game_rule}</rule>
 
 
-<!-- <%-- 구매 모달레이어 --%>
+<%-- 구매 모달레이어 --%>
 <div id="buyGame" class="modal">
     <div class="modal-content">
         <form action="buygame" Method="get">
@@ -91,7 +91,7 @@
             <Input Type ="Submit" Value="구매하기&#13;10000원" id="butot"/><br> 가격도 유동적으로 수정해주면 좋을듯?
         </form> <button id="closebtn">취소</button>
     </div>
-</div> -->
+</div>
 <a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로" id="te1">홈으로</a>
 <a style="position:fixed;bottom:50px;right:20px;" href="gamerank" title="목록으로" id="te2">목록으로</a>
 </body>

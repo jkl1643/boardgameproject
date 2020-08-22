@@ -71,7 +71,7 @@
     li a {display: block; color: black; text-align: center; padding: 1px 80px; text-decoration: none}
     li a:hover {color: blue}
     h1#text1 {position: relative; top: -10px; vertical-align: top; font-size: medium; text-align: center}
-    table#table121 {float: right}
+    table#table121 {float: left}
   </style>
 </head>
 <body>
@@ -87,7 +87,7 @@
 <%--  메뉴  --%>
 <gamemenu id="pggamemenu">
   <ul>
-    <li><a class="active" href="#home">방 생성</a></li>
+    <li><a class="active" href="#home" onclick="create1()">방 생성</a></li>
     <li><a href="#gamerank">전체 방</a></li>
     <li><a href="#theme">대기방</a></li>
   </ul>
@@ -145,13 +145,13 @@
   <table id="table121">
     <tr><td>접속중인 게임 :  ${Game.game_name}</td></tr>
     <tr><td>게임 전적 : ${Stat.total}전 ${Stat.win}승 ${Stat.draw}무 ${Stat.lose}패</td></tr>
+    <tr><td><a href="home" title="홈으로">돌아가기</a></td></tr>
   </table>
-  <a href="home" title="홈으로">돌아가기</a><br><br>
 </userinfo>
 </body>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshiuserlist");});
+  $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshuserlist");});
   // 방 입장 생성 관련
   var create = document.getElementById('createRoom');
   var join = document.getElementById('joinRoom');
