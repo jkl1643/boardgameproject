@@ -16,6 +16,7 @@
 
 <%
     String nick = (String) session.getAttribute("idid");
+    session.setAttribute("roomid", request.getAttribute("id"));
     if (nick == null || nick.equals(""))
         response.sendRedirect("home");
 %>

@@ -36,7 +36,7 @@ public class Room {
     public boolean join(String nick, String pw) {
 
         if (!password.equals(pw)) {
-            System.out.println("미일치 : " + pw + " / " + password);
+            System.out.println("비번 미일치 : " + nick + " / " + password + ", " + pw);
             return false;
         }
 
@@ -46,6 +46,7 @@ public class Room {
     }
 
     public void exit(String nick) {
+        System.out.println("방 퇴장 : " + nick + " / " + ID);
         usernicks.remove(nick);
         player = usernicks.size();
     }
