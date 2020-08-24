@@ -21,6 +21,8 @@ import MyGameRecord.MyGameRecordWrite;
 import custom_asking.CustomDao;
 import custom_asking.CustomWrite;
 
+import java.util.HashMap;
+
 @Configuration
 public class JavaConfig {
     @Bean
@@ -121,12 +123,6 @@ public class JavaConfig {
     ApplicationContext applicationContext;
 
     @Bean
-    public Main_Server Server()
-    {
-        return new Main_Server();
-    }
-
-    @Bean
     public ObjectMapper objectMapper()
     {
         return new ObjectMapper();
@@ -154,6 +150,18 @@ public class JavaConfig {
     {
         DBcontroller dbcontrol = new DBcontroller(GameFactoryTemplate().getMapper(GameDao.class));
         return dbcontrol;
+    }
+
+    @Bean
+    public  HashMap<Integer, Main_Server> Server_list() throws Exception {
+
+        HashMap<Integer, Main_Server> Server_list = new HashMap<Integer, Main_Server>();
+        for(Game game : dbcontrol().SelectAll()) {
+            System.out.println(game.getGame_number());
+            Server_list.put(game.getGame_number(), new Main_Server());
+        }
+
+        return Server_list;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////

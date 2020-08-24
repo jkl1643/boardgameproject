@@ -1,8 +1,10 @@
 package com.example;
 
 //import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.example.Dao.Game;
 import com.example.Dao.Purchase;
 
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -10,11 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import custom_asking.Custom;
@@ -52,8 +50,9 @@ public class MainController {
     public static String userNickname = null;
     public static int state = 1;
     private DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
+
     @Autowired
-    private Main_Server Server;
+    private HashMap<Integer, Main_Server> Server_list;
 
     @Autowired
     private MemberDao memberDao;
@@ -74,7 +73,9 @@ public class MainController {
     
     @Autowired
     private MyGameRecordWrite mygamerecordwrite;
-    
+
+
+
     // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
@@ -101,7 +102,7 @@ public class MainController {
     }
 
 	@RequestMapping("/logout")
-    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+    public ModelAndView logout(ModelAndView mav, HttpSession session, Model model) {
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -110,6 +111,8 @@ public class MainController {
         mav.addObject("wrongemail", false);
         mav.addObject("created_account", false);
         mav.addObject("error", false);
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         //mav.addObject("loginduplicate", false);
         //mav.addObject("id", id);
         Member name = (Member)session.getAttribute("mem");
@@ -134,7 +137,7 @@ public class MainController {
     }
 
     @RequestMapping("/home")
-    public ModelAndView login(ModelAndView mav, HttpSession session,
+    public ModelAndView login(ModelAndView mav, HttpSession session, Model model,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
@@ -151,7 +154,8 @@ public class MainController {
         } catch (Exception e) {
             login = 1;
         }
-
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -270,6 +274,8 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("login", 0);
         mav.addObject("loginduplicate", false);
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         System.out.println("login1 = " + login);
 
         Member member = memberDao.selectByEmail(id);
@@ -628,42 +634,27 @@ public class MainController {
     public String handleStep6() {
         return "gameranking";
     }
-    
+
     @RequestMapping("/testok") // 수정함 병렬
-    public String handleStep8(MyGameRecordRequest request) {
-    		mygamerecordwrite.input(request);
-       // customchange.changedata(count1, title1, content1);
-    	return "customchangeok";
+    public String handleStep8(MyGameRecordRequest request, HttpSession session) {
+	    System.out.println("request = " + request.getClass().getName());
+        mygamerecordwrite.input(request, session);
+        System.out.println("22222222" + request);
+        // customchange.changedata(count1, title1, content1);
+        return "customchangeok";
+    }
+
+    @RequestMapping("/test")
+    public String handleStep8(Model model) {
+        model.addAttribute("mygamerecord", new MyGameRecordRequest());
+        return "test";
     }
     
     //윤수명끝----------------------------
 
   //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @PostMapping("/join")
-    public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
-                                   @RequestParam(value = "joinpw", required = false) String PW) {
-        ModelAndView mv = new ModelAndView();
-        if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
 
-            Server.select(ID, PW, (String) session.getAttribute("idid"));
-            System.out.println("방 접속 : " + ID + " / " + session.getAttribute("idid"));
-
-            model.addAttribute("id", ID);
-            model.addAttribute("pw", PW);
-            switch(Server.getRoom_list().get(ID).getGame())
-            {
-                case "Yahtzee":
-                    mv.setViewName("gamescreen");
-                    break;
-
-            }
-            mv.setViewName("Game_room");
-        }
-        else
-            mv.setViewName("Game_lobby");
-        return mv;
-    }
 
     @GetMapping("/gamelobby")
     public ModelAndView Gamelobby(Model model, HttpSession session, HttpServletResponse response,
@@ -690,38 +681,74 @@ public class MainController {
             out.flush();
             return mv;
         }
+
         model.addAttribute("Stat", control.Statbynick(keyset));
         model.addAttribute("Game", control.Selectbykey(game_number));
+        session.setAttribute("Gamenumber", game_number);
         mv.setViewName("Game_lobby");
         return mv;
     }
 //
-    @PostMapping("/createroom")
-    public ModelAndView CreateRoom(Model model,
+
+
+    @RequestMapping(value="/createroom", method = {RequestMethod.POST})
+    public ModelAndView CreateRoom(Model model, HttpSession session,
                                    @RequestParam(value = "Createroomname", required = true) String name,
                                    @RequestParam(value = "Createroomgame", required = true) String game,
                                    @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
     {
-        Server.create(name, game, pw);
-        model.addAttribute("Room_list", Server.getRoom_list().values());
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("Game_lobby"); // room 만든후 .
-        return mv;
+        Main_Server Server = Server_list.get(control.Selectbyname(game).getGame_number());
+        String Roomid = Server.create(name, game, pw);
+
+        return lobby_join(model, session, Roomid, pw);
     }
 
     @GetMapping("/refreshgamelist")
-    public ModelAndView RefreshGamelist(Model model)
+    public ModelAndView RefreshGamelist(Model model, HttpSession session)
     {
+        Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
+
         ModelAndView mv = new ModelAndView();
         model.addAttribute("Room_list", Server.getRoom_list().values());
         mv.setViewName("Game_roomlist"); // room 만든후 .
         return mv;
     }
 
+    @PostMapping("/join")
+    public ModelAndView lobby_join(Model model, HttpSession session, @RequestParam(value = "joinid", required = false) String ID,
+                                   @RequestParam(value = "joinpw", required = false) String PW) {
+        ModelAndView mv = new ModelAndView();
+
+        Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
+
+        if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
+
+            Server.select(ID, PW, (String) session.getAttribute("idid"));
+            System.out.println("방 접속 : " + session.getAttribute("idid") + " / " + ID);
+
+            model.addAttribute("id", ID);
+            model.addAttribute("pw", PW);
+            switch(Server.getRoom_list().get(ID).getGame())
+            {
+                case "Yahtzee":
+                    mv.setViewName("gamescreen");
+                    break;
+
+            }
+            mv.setViewName("Game_room");
+        }
+        else
+            mv.setViewName("Game_lobby");
+        return mv;
+    }
+
     @GetMapping("/refreshuserlist")
-    public ModelAndView RefreshUserlist(Model model)
+    public ModelAndView RefreshUserlist(Model model, HttpSession session)
     {
         ModelAndView mv = new ModelAndView();
+
+        Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
+
         model.addAttribute("User_list", Server.getUser_nick().keySet());
         mv.setViewName("Game_userlist"); // room 만든후 .
         return mv;
@@ -809,6 +836,7 @@ public class MainController {
         mav.setViewName("naver");
         return mav;
     }
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
