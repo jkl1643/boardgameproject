@@ -1,4 +1,4 @@
-package com.example.Dao;
+package com.example;
 
 public class Davinch {
 }
