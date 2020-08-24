@@ -1,5 +1,6 @@
 package MyGameRecord;
 
+import java.nio.file.FileStore;
 import java.sql.*;
 
 
@@ -7,17 +8,29 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import com.example.MemberDao;
+import org.apache.catalina.Session;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+
+import com.example.Member;
+import com.example.Dao.Game;
 
 import MyGameRecord.MyGameRecord;
 
 
 public class MyGameRecordDao {
+    private MemberDao memberDao;
+	private Game game;
     private JdbcTemplate jdbcTemplate;
+    public MyGameRecordDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
     private RowMapper<MyGameRecord> memRowMapper =
             new RowMapper<MyGameRecord>() {
                 @Override
@@ -37,9 +50,7 @@ public class MyGameRecordDao {
                 }
             };
 
-    public MyGameRecordDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+
 /*
     public MyGameRecord selectByNickname(String nickname) {
         List<MyGameRecord> results = jdbcTemplate.query(
@@ -49,7 +60,7 @@ public class MyGameRecordDao {
         return results.isEmpty() ? null : results.get(0);
     }
 */
-    public MyGameRecord selectByMEMNUM(int mem_num) {
+    public MyGameRecord selectByMEMNUM(Long mem_num) {
         List<MyGameRecord> results = jdbcTemplate.query(
                 "select * from GAMERECORD where MEMBER_NUMBER = ?", // memo 수정
                 memRowMapper, mem_num);
@@ -58,7 +69,7 @@ public class MyGameRecordDao {
     }
     
     
-    public void insert(MyGameRecord record) {
+    public void insert(MyGameRecord record) { // 1차 실험용
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
@@ -84,13 +95,46 @@ public class MyGameRecordDao {
         record.setGamerecord_number(keyValue.longValue());
     }
 
+
+    public void insert2(MyGameRecord record, HttpSession session) { //2차 실험용
+        System.out.println("이메일 - " + record.getMember_number());
+        Member mem = (Member) session.getAttribute("mem");
+        System.out.println("이메일2 - " + mem.getEmail());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con)
+                    throws SQLException {
+
+                PreparedStatement pstmt = con.prepareStatement(
+                        "insert into GAMERECORD ( GAMERECORD_TOTAL, GAMERECORD_WIN, GAMERECORD_DRAW, "
+                                + "GAMERECORD_LOSE, GAME_NUMBER, MEMBER_NUMBER) " + // memo 수정
+                                "values (?, ?, ?, ?, ?,?)",
+                        new String[]{"GAMERECORD_NUMBER"});
+
+                pstmt.setInt(1, record.getTotal());
+                pstmt.setInt(2, record.getWin());
+                pstmt.setInt(3, record.getDraw());
+                pstmt.setInt(4, record.getLose());
+
+                pstmt.setLong(5, mem.getId());
+                pstmt.setInt(6, 1);
+                return pstmt;
+            }
+        }, keyHolder);
+        Number keyValue = keyHolder.getKey();
+        record.setGamerecord_number(keyValue.longValue());
+    }
+    
     //
     public void update(MyGameRecord record) {
         jdbcTemplate.update(
-                "update MYGAMERECORD set GAMERECORD_TOTAL = ?, GAMERECORD_WIN = ?, GAMERECORD_DRAW = ?, LOSE = ?, where MEMBER_NUMBER = ?",
+                "update GAMERECORD set GAMERECORD_TOTAL = ?, GAMERECORD_WIN = ?, GAMERECORD_DRAW = ?, LOSE = ?, where MEMBER_NUMBER = ?",
                 record.getTotal(), record.getWin(), record.getDraw(), record.getMember_number());
     }
 
+   
+    
 
     public List<MyGameRecord> selectAll() {
         List<MyGameRecord> results = jdbcTemplate.query("select * from GAMERECORD",

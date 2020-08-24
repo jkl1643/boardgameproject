@@ -19,6 +19,11 @@
 	input#text4 {position: relative; left: 620px; top: 110px}
 -->
 </STYLE>
+	<script type = "text/javascript">
+		$(document).ready(function (){
+			$("#text3")
+		})
+	</script>
 </head>
 <body>
 	<h1 class="title">회원가입 창</h1>

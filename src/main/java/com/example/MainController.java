@@ -101,7 +101,7 @@ public class MainController {
     }
 
 	@RequestMapping("/logout")
-    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+    public ModelAndView logout(ModelAndView mav, HttpSession session, Model model) {
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -110,6 +110,8 @@ public class MainController {
         mav.addObject("wrongemail", false);
         mav.addObject("created_account", false);
         mav.addObject("error", false);
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         //mav.addObject("loginduplicate", false);
         //mav.addObject("id", id);
         Member name = (Member)session.getAttribute("mem");
@@ -134,7 +136,7 @@ public class MainController {
     }
 
     @RequestMapping("/home")
-    public ModelAndView login(ModelAndView mav, HttpSession session,
+    public ModelAndView login(ModelAndView mav, HttpSession session, Model model,
                               @RequestParam(value = "EMAIL", required = false, defaultValue = "0") String id,
                               @RequestParam(value = "PWD", required = false) String pwd,
                               @RequestParam(value = "PWD2", required = false) String pwd2,
@@ -151,7 +153,8 @@ public class MainController {
         } catch (Exception e) {
             login = 1;
         }
-
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("unknown_email", false);
         mav.addObject("email_pwd_match", false);
         mav.addObject("email_pwd_match2", false);
@@ -270,6 +273,8 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("login", 0);
         mav.addObject("loginduplicate", false);
+        model.addAttribute("Rank_list", control.GameRank_list());
+        model.addAttribute("Rank_count", control.GameCount_list());
         System.out.println("login1 = " + login);
 
         Member member = memberDao.selectByEmail(id);
@@ -628,12 +633,20 @@ public class MainController {
     public String handleStep6() {
         return "gameranking";
     }
-    
+
     @RequestMapping("/testok") // 수정함 병렬
-    public String handleStep8(MyGameRecordRequest request) {
-    		mygamerecordwrite.input(request);
-       // customchange.changedata(count1, title1, content1);
-    	return "customchangeok";
+    public String handleStep8(MyGameRecordRequest request, HttpSession session) {
+	    System.out.println("request = " + request.getClass().getName());
+        mygamerecordwrite.input(request, session);
+        System.out.println("22222222" + request);
+        // customchange.changedata(count1, title1, content1);
+        return "customchangeok";
+    }
+
+    @RequestMapping("/test")
+    public String handleStep8(Model model) {
+        model.addAttribute("mygamerecord", new MyGameRecordRequest());
+        return "test";
     }
     
     //윤수명끝----------------------------
@@ -809,6 +822,7 @@ public class MainController {
         mav.setViewName("naver");
         return mav;
     }
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

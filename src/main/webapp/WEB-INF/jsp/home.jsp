@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.Member" %>
 <%@ page import="MyGameRecord.MyGameRecord" %>
+<%@ page import="com.example.Dao.Game" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -11,7 +12,11 @@
 <title>보드게임: 문제있어?</title>
 	<STYLE TYPE="text/css">
 		<!--
-		BODY {background-image: url("board.jpg"); background-repeat: no-repeat; background-size: cover}
+		BODY {
+			background-image: url("board.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 		.part1 {font-family: fantasy; position: relative; left: 750px; font-size: xx-large}
 		ul {list-style-type: none; margin: 0; padding: 0; width: 1100px; background-color: #333}
 		ul:after {content: ''; display: block; clear: both}
@@ -38,7 +43,20 @@
 		input#but3 {background-color: black; color: white}
 		input#but4 {background-color: black; color: white}
 		input#but5 {background-color: black; color: white}
+		gameimage{
+			text-align: center;
+			padding: 1em;
+			background: lightblue;
+			border-radius: 10px;
+		}
+
+		.img
+		{
+			height: 300px;
+			width: 300px;
+		}
 		-->
+
 	</STYLE>
 </head>
 <body>
@@ -117,8 +135,8 @@
 					<%} else if (logout) {%>
 						<div id="yu">로그아웃 되었습니다.</div>
 					<%}
-						if (created_account) { %> 계정이 생성되었습니다. <%}
-						if (error) { %>	이미 있는 닉네임입니다.<%}	%>
+						if (created_account) { %> <div id="yu">계정이 생성되었습니다.</div> <%}
+						if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}	%>
 				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
@@ -183,13 +201,17 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>
 	<div id="logbox5">
-		<div id ="box1">
-		<a href="<c:url value='/custom'/>"> <img src="yahtzee.jpg" width="350" height="350" /></a>
-	</div>
-	<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	플레이
-	</p>
+
+		<table>
+			<br>
+			<c:forEach var="game" items="${Rank_list}" varStatus="status" begin="0" end="2">
+				<gameimage>
+					<a href="gameinfo?game=${game.game_number}">
+						<img class="img" src="image/${game.game_image}"/>
+					</a>
+				</gameimage>
+			</c:forEach>
+		</table>
 	</div>
 </body>
 </html>
