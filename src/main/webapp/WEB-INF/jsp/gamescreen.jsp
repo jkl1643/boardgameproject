@@ -100,6 +100,7 @@
 
 					if(player == 1){
 						document.getElementById("roll").disabled = false;
+
 						writeToScreen("니 차례");
 					}
 					break;
@@ -329,6 +330,7 @@
 						document.getElementById("text3").innerHTML = String(sum);
 					}
 					document.getElementById("roll").disabled = false;
+					document.getElementById("roll").style.WebkitAnimation = "col 1s infinite";
 					writeToScreen("니 차례");
 					break;
 
@@ -1606,7 +1608,8 @@
 
 	<STYLE TYPE="text/css">
 		<!--
-		BODY {background-image: url('fff.jpg'); background-repeat: no-repeat; background-size: cover}
+		BODY {background-color: #bf8861}
+		h2#web {font-size: large; text-align: center; color: #253245; position: relative; top: 10px; -webkit-animation: none}
 		div#box {background-color: white; width: 1600px; height: 750px; border: 5px solid black; position: relative; left: 100px; top: 50px}
 		button#dice1 {width: 70px; height: 70px; position: relative; left: 100px; top: 70px}
 		img#diceimg1 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
@@ -1618,7 +1621,12 @@
 		img#diceimg4 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
 		button#dice5 {width: 70px; height: 70px; position: relative; left: 500px; top: -210px}
 		img#diceimg5 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px}
+		button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px; animation: none}
+		@-webkit-keyframes col {
+			0% { color: red; }
+			50% { color: blue; }
+			100% { color: red; }
+		}
 		.divTable{ display: table; width: 700px; height: 750px; position: relative; left: 700px; top: -395px}
 		.divTableRow { display: table-row; }
 		.divTableHeading { background-color: #EEE; display: table-header-group; }
@@ -1631,7 +1639,7 @@
 	</STYLE>
 </head>
 <body>
-<h2>WebSocket Test</h2>
+<h2 id="web">야추 게임에 오신것을 환영합니다!</h2>
 <div id="output"></div>
 
 <div id="box">
