@@ -1606,19 +1606,20 @@
 
 	<STYLE TYPE="text/css">
 		<!--
-		div#box {width: 1600px; height: 750px; border: 5px solid black; position: relative; left: 100px; top: 50px}
+		BODY {background-image: url('fff.jpg'); background-repeat: no-repeat; background-size: cover}
+		div#box {background-color: white; width: 1600px; height: 750px; border: 5px solid black; position: relative; left: 100px; top: 50px}
 		button#dice1 {width: 70px; height: 70px; position: relative; left: 100px; top: 70px}
 		img#diceimg1 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#dice2 {width: 70px; height: 70px; position: relative; left: 200px; top: -5px}
+		button#dice2 {width: 70px; height: 70px; position: relative; left: 200px; top: 0px}
 		img#diceimg2 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#dice3 {width: 70px; height: 70px; position: relative; left: 300px; top: -80px}
+		button#dice3 {width: 70px; height: 70px; position: relative; left: 300px; top: -70px}
 		img#diceimg3 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#dice4 {width: 70px; height: 70px; position: relative; left: 400px; top: -155px}
+		button#dice4 {width: 70px; height: 70px; position: relative; left: 400px; top: -140px}
 		img#diceimg4 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#dice5 {width: 70px; height: 70px; position: relative; left: 500px; top: -230px}
+		button#dice5 {width: 70px; height: 70px; position: relative; left: 500px; top: -210px}
 		img#diceimg5 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
 		button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px}
-		.divTable{ display: table; width: 700px; height: 750px; position: relative; left: 700px; top: -420px}
+		.divTable{ display: table; width: 700px; height: 750px; position: relative; left: 700px; top: -395px}
 		.divTableRow { display: table-row; }
 		.divTableHeading { background-color: #EEE; display: table-header-group; }
 		.divTableCell, .divTableHead { border: 1px solid #999999; display: table-cell; padding: 3px 10px; }
