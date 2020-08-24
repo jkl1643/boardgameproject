@@ -78,7 +78,7 @@
 <%--  미 접속 유저 입장 제한  --%>
 <%
   String nick = (String)session.getAttribute("idid");
-
+  session.setAttribute("roomid", "lobby");
 %>
 
 <%-- 게임 이름 출력 --%>
@@ -98,7 +98,7 @@
   <div class="modal-content">
     <Form action="createroom" Method="post"><br>
       방제목 : <input type="text" value="<%=nick%>님의 게임방입니다." name="Createroomname"/><br><br>
-      게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="Yahtzee"/><br><br>
+      게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="${Game.game_name}"/><br><br>
       비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" value=""/><br><br>
       비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
       <Input Type ="Submit" Value="방 생성"/>

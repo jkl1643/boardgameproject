@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>게임순위별 목록</title>
     <style>
         body {
             justify-content: center;
@@ -18,14 +18,15 @@
             grid-column-gap: 10px;
             height: 100vh;
             margin: 10px;
-            background: ivory;
-
+            background-image: url('tmi.jpg');
+            background-repeat: no-repeat;
+            background-size: cover
         }
 
         gameimage, gameinfo{
             text-align: center;
             padding: 1.2em;
-            background: lightblue;
+            background: #6A6B6B;
             border-radius: 10px;
         }
         #ddd
@@ -39,8 +40,8 @@
             height: 150px;
             width: 150px;
         }
-
-
+        a#me1 {float: right}
+        a#me2 {float: right}
     </style>
 </head>
 <body>
@@ -52,7 +53,7 @@
     <gameimage><a href="gameinfo?game=${game.game_number}"><img class="img" src="image/${game.game_image}"/></a></gameimage>
     <gameinfo><B>${status.count}위 게임 : ${game.game_name} / 판매 수 : ${Rank_count.get(status.count-1)}<br></B>${game.game_info}</gameinfo>
 </c:forEach>
-<a style="position:fixed;bottom:50px;right:20px;" href="#" title="맨 위로">맨 위로</a>
-<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로">홈으로</a>
+<a style="position:fixed;bottom:50px;right:20px;" href="#" title="맨 위로" id="me1">맨 위로</a>
+<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로" id="me2">홈으로</a>
 </body>
 </html>

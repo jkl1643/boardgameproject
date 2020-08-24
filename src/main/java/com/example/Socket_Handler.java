@@ -1,6 +1,8 @@
 package com.example;
 
 
+import com.example.Dao.Game;
+import com.example.Dao.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private Main_Server Server;
+    private HashMap<Integer, Main_Server> Server_list;
 
 
 
@@ -31,32 +33,42 @@ public class Socket_Handler  extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         String nick = (String) httpsession.getAttribute("idid");
-        System.out.println("소켓 실행 : " + session.getId() + " / " + nick);
+        Main_Server Server = Server_list.get((int) httpsession.getAttribute("Gamenumber"));
+        String roomid = (String) httpsession.getAttribute("roomid");
+
+        System.out.println("소켓 실행 : "  + nick + " / " + session.getId() );
 
         super.afterConnectionEstablished(session); // 부모 실행
-        Server.connectuser(nick, session);
+        Server.connectuser(nick, session, roomid);
         System.out.println("현재원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
 
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+
         String msg = message.getPayload();
         Chat_Message chatMessage = objectMapper.readValue(msg, Chat_Message.class);
         String nick = chatMessage.getWriter();
         String value = chatMessage.getMessage();
         Chat_Message Message = new Chat_Message();
 
+        HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
+        Main_Server Server = Server_list.get((int) httpsession.getAttribute("Gamenumber"));
+
         switch (chatMessage.getType()) {
             case "chat":
+                System.out.println("채팅 : " + nick + " / " + value);
                 Message.setType("chat");
                 Message.setMessage(nick + " : " + value);
                 break;
             case "connect":
+                System.out.println("채팅 입장 : " + nick);
                 Message.setType("chat");
                 Message.setMessage(nick + "님이 입장하였습니다.");
                 break;
             case "disconnect":
+                System.out.println("채팅 퇴장 : " + nick);
                 Message.setType("chat");
                 Message.setMessage(nick + "님이 퇴장하셨습니다.");
                 break;
@@ -66,13 +78,15 @@ public class Socket_Handler  extends TextWebSocketHandler {
         String sendMessage = objectMapper.writeValueAsString(Message); //보낼매새지
 
         if (chatMessage.getRoomID().equals("lobby")) {
-            for (WebSocketSession wss : Server.getUser_list().values()) {
+            for (User user : Server.getUser_list().values()) {
+                WebSocketSession wss = user.getWss();
                 wss.sendMessage(new TextMessage(sendMessage));
             }
         } else {
             Room room = Server.getRoom_list().get(chatMessage.getRoomID());
             for (String nicks : room.getUsers()) {
-                WebSocketSession wss = Server.getUser_list().get(Server.getUser_nick().get(nicks));
+                User user = Server.getUser_list().get(Server.getUser_nick().get(nicks));
+                WebSocketSession wss = user.getWss();
                 try {
                     wss.sendMessage(new TextMessage(sendMessage));
                 } catch (Exception e) {
@@ -87,6 +101,8 @@ public class Socket_Handler  extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         String nick = (String) httpsession.getAttribute("idid");
+        Main_Server Server = Server_list.get((int) httpsession.getAttribute("Gamenumber"));
+
         Server.disconnectuser(nick);
 
         super.afterConnectionClosed(session, status); // 부모 실행
