@@ -374,10 +374,8 @@
 
 		function writeToScreen(message)
 		{
-			var pre = document.createElement("p");
-			pre.parentNode.innerHTML = "";
+			var pre = document.getElementById('output');
 			pre.innerHTML = message;
-			output.appendChild(pre);
 		}
 
 
@@ -1610,7 +1608,7 @@
 		<!--
 		BODY {background-color: #bf8861}
 		h2#web {font-size: x-large; text-align: center; color: #253245; position: relative; top: 10px; -webkit-animation: none}
-		div#output {position: relative; left: 900px; top: 10px; font-size: large; -webkit-animation:blink 1s ease-in-out infinite alternate;}
+		p#output {position: relative; left: 900px; top: 10px; font-size: large; -webkit-animation:blink 1s ease-in-out infinite alternate;}
 		@-webkit-keyframes blink{
 			0% {opacity:0;}
 			100% {opacity:1;}
@@ -1645,7 +1643,7 @@
 </head>
 <body>
 <h2 id="web">야추 게임에 오신것을 환영합니다!</h2>
-<div id="output"></div>
+<p id="output"></p>
 <div id="box">
 	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true ></button></div>
 	<div><button type="button" id="dice2" onClick="keepDice2Button()" ><img src="dice1.png" id="diceimg2" disabled = true></button></div>
