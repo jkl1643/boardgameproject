@@ -791,7 +791,7 @@ public class MainController {
             out.flush();
             return mv;
         }
-
+System.out.println("안녕하세요"+control.keyBynick((String) session.getAttribute("idid")));
         int key = control.keyBynick((String) session.getAttribute("idid"));
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);

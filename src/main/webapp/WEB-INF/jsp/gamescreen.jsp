@@ -375,7 +375,7 @@
 		function writeToScreen(message)
 		{
 			var pre = document.createElement("p");
-			pre.style.wordWrap = "break-word";
+			pre.parentNode.innerHTML = "";
 			pre.innerHTML = message;
 			output.appendChild(pre);
 		}
@@ -1646,7 +1646,6 @@
 <body>
 <h2 id="web">야추 게임에 오신것을 환영합니다!</h2>
 <div id="output"></div>
-
 <div id="box">
 	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true ></button></div>
 	<div><button type="button" id="dice2" onClick="keepDice2Button()" ><img src="dice1.png" id="diceimg2" disabled = true></button></div>

@@ -37,7 +37,7 @@
     <select id="keybynick" parameterType="java.lang.String" resultType="java.lang.Integer">
         select member_number
         from MEMBER
-        where member_nickname=#{member_nickname}
+        where member_email=#{member_email}
     </select>
 
     <select id="SelectAll" resultMap="Game">

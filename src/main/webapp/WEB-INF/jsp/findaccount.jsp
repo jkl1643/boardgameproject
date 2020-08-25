@@ -14,7 +14,7 @@
 </STYLE>
 </head>
 <body>
-	<h1 id="text">찾고자 하는 아이디 또는 비밀번호를 선택해주십시오.</h1>
+	<h1 id="text">찾고자 하는 비밀번호를 선택해주십시오.</h1>
     <button id="findpwd" onclick="location.href='findpwd'">비밀번호 찾기</button>
     <button id="button33" onClick="history.back();">뒤로가기</button>
 </body>
