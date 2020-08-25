@@ -152,6 +152,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshuserlist");});
+  window.addEventListener("beforeunload", disconnect());
+
   // 방 입장 생성 관련
   var create = document.getElementById('createRoom');
   var join = document.getElementById('joinRoom');
@@ -163,6 +165,7 @@
   // 채팅 관련
   var webSocket;
   var nickname = "<%=nick%>";
+  var open = 0;
 
   webSocket = new WebSocket("ws://" + location.host + "/chat");
   webSocket.onopen = onOpen;
@@ -203,9 +206,13 @@
     entersend(e);
   })
 
-  function disconnect(){
-    webSocket.send(JSON.stringify({roomID : "lobby", type:"disconnect", writer:nickname}));
-    webSocket.close();
+  function disconnect() {
+    alert("종료 시작")
+    if (open == 1) {
+      alert("종료 완료")
+      webSocket.send(JSON.stringify({roomID: "lobby", type: "disconnect", writer: nickname}));
+      webSocket.close();
+    }
   }
 
   function send(){
@@ -220,6 +227,7 @@
   }
   function onOpen(){
     webSocket.send(JSON.stringify({roomID : "lobby", type:"connect", writer:nickname}));
+    open = 1;
   }
 
   function onMessage(e) {
@@ -244,7 +252,7 @@
   }
 
   function onClose(){
-    disconnect();
+      disconnect();
   }
 
 </script>

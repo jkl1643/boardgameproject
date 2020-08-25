@@ -40,6 +40,13 @@ public class Room {
             return false;
         }
 
+        if (player == maxplayer){
+            System.out.println("인원이 이미 다 참");
+            return false;
+        }
+
+
+
         usernicks.add(nick);
         player = usernicks.size();
         return true;
