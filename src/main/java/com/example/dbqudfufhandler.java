@@ -26,7 +26,10 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     private HashMap<Integer, Main_Server> Server_list;
 
 
-
+    String[] nickname = new String[2];
+    int i = 0;
+    
+    
     String blacklist;
     String getRoomId;
     int getUserId;
@@ -62,7 +65,16 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         super.afterConnectionEstablished(session); // 부모 실행
 
 
+        if(i<2) {
 
+            nickname[i] = nick;
+        }
+       
+
+        for(int a = 0; a < nickname.length; a++) {
+        System.out.println("닉네임은 무엇 : " + nickname[a]);
+        }
+        i++;	
 
         user.put(session.getId(), session);
 
@@ -243,9 +255,21 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     d = winnerScoreHash.get(getRoomId);
                     if (d[0] > d[1]) {
                         winnerHash.put(getRoomId, 1);
+                        System.out.println("승리자 = " + nickname[0]);
+                    	System.out.println("패배자 = " + nickname[1]);
+                    	/*
+                    	Member member1 = memberDao.selectByNickname(nickname[0]);
+                    	
+                    	
+                    	MyGameRecord newRequest = new MyGameRecord(
+                    			1,1,0,0,1,member1.getId());
+                        
+					mygamerecorddao.insert(newRequest);*/
                     }
                     else {
                         winnerHash.put(getRoomId, 2);
+                        System.out.println("승리자 = " + nickname[1]);
+                    	System.out.println("패배자 = " + nickname[0]);
                     }
                 }
 
