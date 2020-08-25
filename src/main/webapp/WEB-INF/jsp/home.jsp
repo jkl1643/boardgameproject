@@ -84,12 +84,12 @@
 
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
 		System.out.println("jsp mem : " + mem);
-		if(loginduplicate){
+		/*if(loginduplicate){
 			System.out.println("듀플");
 			return;
 		} else {
 			System.out.println("듀플안됨");
-		}
+		}*/
 
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
@@ -155,18 +155,61 @@
 		while(en.hasMoreElements()){
 			String key = en.nextElement().toString();
 			System.out.println("aaaa");
-			if(key.equals(mem.getEmail())){ System.out.println("bbbb");%>
+			if(loginduplicate){
+				System.out.println("bbbb");%>
 
 	<script>
-		alert("이미 로그인됨");
-
+		alert("이미 로그인 되어 있습니다.");
 	</script>
+	<div id="logbox1">
+		<div id="logbox2"></div>
+		<form action="main" method="post">
+			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
+			<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
+			<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
+			<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
+			<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
+			<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+		</form>
+		<div>
+			<form action="newaccount" method="post">
+				<Input Type="Submit" Value="회원가입" id="signupbutton1">
+			</form>
+		</div>
+		<div>
+			<%
+				boolean email = (boolean)request.getAttribute("unknown_email");
+				boolean emailpwd = (boolean)request.getAttribute("email_pwd_match");
+				boolean logout = (boolean)request.getAttribute("logout");
+				boolean delaccount = (boolean)request.getAttribute("delaccount");
+				boolean created_account = (boolean)request.getAttribute("created_account");
+				boolean error = (boolean)request.getAttribute("error");
+				if(email) {	%>
+			<div id="yu">존재하지 않는 아이디입니다.</div>
+			<%} else if (email){ %>
+			<div id="yu">아이디를 입력해주세요.</div>
+			<%}	else if (emailpwd) {%>
+			<div id="yu">이메일과 암호가 일치하지 않습니다.</div>
+			<%} else if (delaccount) {%>
+			<div id="yu">계정이 삭제되었습니다.</div>
+			<%} else if (logout) {%>
+			<div id="yu">로그아웃 되었습니다.</div>
+			<%}
+				if (created_account) { %> <div id="yu">계정이 생성되었습니다.</div> <%}
+			if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}
+
+
+		%>
+		</div>
+		<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
+		<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
+		<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
+
+		<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
+	</div>
 
 	<%System.out.println("ccc");
-	}
-		System.out.println(key + " : " + MainController.loginUsers.get(key));
-	}
-	%>
+	} else {%>
 	<div id="logbox1">
 		<div id="logbox2"></div>
 		<table id="table1">
@@ -206,7 +249,9 @@
 			</tr>
 		</table>
 	</div>
-	<%}%>
+	<%}
+	}
+	}%>
 	<div id="logbox3">
 	</div>
 	<div id="logbox4">
