@@ -28,6 +28,7 @@ public class Dice {
     private int bonus;
     private int player;
     private int selecto;
+    private String roomId;
 
     public String getCmd() { return cmd; }
     public void setCmd(String cmd) { this.cmd = cmd; }
@@ -75,4 +76,6 @@ public class Dice {
     public void setPlayer(int player) { this.player = player; }
     public int getSelecto() { return selecto; }
     public void setSelecto(int selecto) { this.selecto = selecto; }
+    public String getRoomId() { return roomId; }
+    public void setRoomId(String roomId) { this.roomId = roomId; }
 }

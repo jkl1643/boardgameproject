@@ -3,6 +3,8 @@
 <%@ page import="com.example.Member" %>
 <%@ page import="MyGameRecord.MyGameRecord" %>
 <%@ page import="com.example.Dao.Game" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="com.example.MainController" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -136,7 +138,10 @@
 						<div id="yu">로그아웃 되었습니다.</div>
 					<%}
 						if (created_account) { %> <div id="yu">계정이 생성되었습니다.</div> <%}
-						if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}	%>
+						if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}
+
+
+					%>
 				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
@@ -144,7 +149,24 @@
 
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
-	<%}	else {%>
+	<%}	else {
+		Enumeration en = MainController.loginUsers.keys();
+
+		while(en.hasMoreElements()){
+			String key = en.nextElement().toString();
+			System.out.println("aaaa");
+			if(key.equals(mem.getEmail())){ System.out.println("bbbb");%>
+
+	<script>
+		alert("이미 로그인됨");
+
+	</script>
+
+	<%System.out.println("ccc");
+	}
+		System.out.println(key + " : " + MainController.loginUsers.get(key));
+	}
+	%>
 	<div id="logbox1">
 		<div id="logbox2"></div>
 		<table id="table1">

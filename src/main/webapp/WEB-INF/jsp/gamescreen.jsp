@@ -32,6 +32,7 @@
 		var diceCounter = new Array();
 
 		var userId;
+		var roomId;
 
 		var player = 0;
 
@@ -46,10 +47,16 @@
                 Long userId= null ;
                 if(mem!=null)
                     userId = mem.getId();
+
+                String roomId = (String) session.getAttribute("roomid");
             %>
 
 			userId =<%=userId%>;
+
+			// 테스트
 			userId = -1 ;
+			roomId = -1 ;
+
 
 			if(userId!=null)
 				testWebSocket();
@@ -69,18 +76,14 @@
 
 		function onOpen(evt)
 		{
-
-
-
-			webSocket.send(JSON.stringify({cmd : "start"}));
+			webSocket.send(JSON.stringify({cmd : "start", selecto : userId, roomId : roomId}));
 			writeToScreen("연결완료");
 
 		}
 
 		function onClose(evt)
 		{
-
-
+			webSocket.send(JSON.stringify({cmd: "close", roomId: roomId}));
 			writeToScreen("연결해제");
 		}
 
@@ -96,11 +99,8 @@
 				case "start":
 					player = cmd.player;
 
-					webSocket.send(JSON.stringify({cmd : "check", player : player, selecto : userId}));
-
 					if(player == 1){
 						document.getElementById("roll").disabled = false;
-
 						writeToScreen("니 차례");
 					}
 					break;
@@ -330,6 +330,9 @@
 						document.getElementById("text3").innerHTML = String(sum);
 					}
 					document.getElementById("roll").disabled = false;
+
+
+					writeToScreen("게임 시작");
 					document.getElementById("roll").style.WebkitAnimation = "col 1s infinite";
 					document.getElementById("roll").addEventListener('click',function(){
 						document.getElementById("roll").style.WebkitAnimation = 'none';
@@ -348,7 +351,7 @@
 						sum+=RecScore[i];
 					if(RecScore[13]!=-1)
 						sum+=RecScore[13]
-					webSocket.send(JSON.stringify({cmd : "end", player : player, selecto : sum }));
+					webSocket.send(JSON.stringify({cmd : "end", player : player, selecto : sum, roomId : roomId }));
 
 
 					break;
@@ -360,9 +363,6 @@
 					endTrigger=true;
 					break;
 
-
-				case "close":
-					webSocket.close();
 
 			}
 
@@ -396,10 +396,11 @@
 				buttonDisabled(RecScore);
 				countDice(dice, diceCounter);
 				checkRoutine(calScore, RecScore, dice, diceCounter);
-				webSocket.send(JSON.stringify({cmd : "roll", player : player,  dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
+				webSocket.send(JSON.stringify({cmd : "roll", player : player, dice1:dice[0], dice2:dice[1], dice3:dice[2], dice4:dice[3], dice5:dice[4],
 					aces:calScore[0], twos:calScore[1], threes:calScore[2], fours:calScore[3], fives:calScore[4], sixes:calScore[5],
 					three_Of_A_Kind:calScore[6], four_Of_A_Kind:calScore[7], full_House:calScore[8], small_Straight:calScore[9], large_Straight:calScore[10],
-					chance:calScore[11], yahtzee:calScore[12]}));
+					chance:calScore[11], yahtzee:calScore[12], roomId : roomId}));
+
 			}
 
 		}
@@ -709,7 +710,7 @@
 
 			webSocket.send(JSON.stringify({cmd : "record", player : player, selecto : 0 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 		function TwosButton(){
@@ -749,7 +750,7 @@
 
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 1 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -791,7 +792,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 2 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -834,7 +835,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 3 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -878,7 +879,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 4 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -921,7 +922,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 5 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -950,7 +951,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 6 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -979,7 +980,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 7 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -1008,7 +1009,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 8 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -1037,7 +1038,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 9 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 		function Large_StraightButton(){
@@ -1065,7 +1066,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 10, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 
@@ -1095,7 +1096,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 11 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 		}
 
 		function YahtzeeButton(){
@@ -1123,7 +1124,7 @@
 			}
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 12 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
-				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13]}));
+				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
 
 		}
 
@@ -1600,7 +1601,7 @@
 
 		function exitButtonConfrim(){
 			if(confirm("탈주 처리 됩니다")){
-				webSocket.send(JSON.stringify({cmd : "run", player: player}));
+				webSocket.send(JSON.stringify({cmd : "run", player: player, roomId : roomId}));
 				webSocket.close();
 			}
 			else
