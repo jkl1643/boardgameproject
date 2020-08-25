@@ -108,7 +108,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 }
 
                 int a = index.get(getRoomId);
-                index.put(getRoomId, a++);
+                a= a+1;
+                index.put(getRoomId, a);
 
                 a = index.get(getRoomId);
 
@@ -196,7 +197,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     chatMessage.setBonus(0);
 
                 a = roundcounterHash.get(getRoomId);
-                roundcounterHash.put(getRoomId, a--);
+                a = a-1;
+                roundcounterHash.put(getRoomId, a);
 
                 break;
 
@@ -209,7 +211,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 winnerScoreHash.put(getRoomId, d);
 
                 a = winnerStackHash.get(getRoomId);
-                winnerStackHash.put(getRoomId, a++);
+                a = a+1;
+                winnerStackHash.put(getRoomId, a);
 
                 chatMessage.setPlayer(0);
 
@@ -291,7 +294,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 wss.sendMessage(new TextMessage(sendMessage));
             }
             int a = roundcounterHash.get(getRoomId);
-            roundcounterHash.put(getRoomId, a++);
+            a = a+1;
+            roundcounterHash.put(getRoomId, a);
         }
 
 
@@ -305,10 +309,28 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         //String nick = (String) httpsession.getAttribute("idid");
         super.afterConnectionClosed(session, status); // 부모 실행
         user.remove(session.getId(), session);
+        index
 
 
         System.out.println("B실행");
 
+
+
+        HashMap<String, Integer> index = new HashMap<>();
+
+        HashMap<String, Integer> winnerHash = new HashMap<>();
+
+        HashMap<String, Long[]> userIdHash = new HashMap<>();
+
+        HashMap<String, Integer> winnerStackHash = new HashMap<>();
+
+        HashMap<String, Integer[]> winnerScoreHash = new HashMap<>();
+
+        HashMap<String, Integer> roundcounterHash = new HashMap<>();
+
+        HashMap<String, String[]> nameHash = new HashMap<>();
+
+        HashMap<String, WebSocketSession> user = new HashMap<>();
 
 
         System.out.println("소켓 종료");

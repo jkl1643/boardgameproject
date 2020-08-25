@@ -1,9 +1,13 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="EUC-KR">
 	<title>게임화면</title>
+	<%
+		session.setAttribute("roomid", request.getAttribute("id"));
+	%>
 	<SCRIPT LANGUAGE = "JavaScript" type = "text/javascript">
 
 
@@ -32,7 +36,7 @@
 		var diceCounter = new Array();
 
 		var userId;
-		var roomId;
+		var roomId = "${id}";
 
 		var player = 0;
 
@@ -43,25 +47,18 @@
 
 			<%@ page import="com.example.Member" %>
 			<%
+
+
                 Member mem = (Member) session.getAttribute("mem");
                 Long userId= null ;
                 if(mem!=null)
                     userId = mem.getId();
 
-                String roomId = (String) session.getAttribute("roomid");
             %>
 
 			userId =<%=userId%>;
 
-			// 테스트
-			userId = -1 ;
-			roomId = -1 ;
-
-
-			if(userId!=null)
-				testWebSocket();
-			else
-				writeToScreen("로그인해라");
+			testWebSocket();
 
 		}
 
@@ -83,7 +80,6 @@
 
 		function onClose(evt)
 		{
-			webSocket.send(JSON.stringify({cmd: "close", roomId: roomId}));
 			writeToScreen("연결해제");
 		}
 
