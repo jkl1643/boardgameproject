@@ -359,6 +359,9 @@
 					endTrigger=true;
 					break;
 
+				case "close":
+					webSocket.close();
+					break;
 
 			}
 

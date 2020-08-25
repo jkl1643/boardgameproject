@@ -12,7 +12,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import javax.servlet.http.HttpSession;
 import javax.websocket.OnMessage;
 import java.util.HashMap;
-
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 @Component
@@ -25,11 +27,7 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
 
 
-
-
-
-
-
+    String blacklist;
     String getRoomId;
     int getUserId;
 
@@ -74,8 +72,6 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         Main_Server Server = Server_list.get(1);
-        if(Server == null)
-            System.out.println("능지");
 
         HashMap<String, Room> Room_List = Server.getRoom_list();
 
@@ -95,6 +91,32 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
                 getRoomId = chatMessage.getRoomId();
                 getUserId = chatMessage.getSelecto();
+                boolean sameId = false;
+                int a1 = 0;
+                Long[] a2 = null;
+
+                if((index.get(getRoomId)==null) || (userIdHash.get(getRoomId)==null));
+                else {
+                    a1 = index.get(getRoomId);
+                    a2 = userIdHash.get(getRoomId);
+                }
+
+                for(int i = 0 ; i<a1 ; i++)
+                    if(a2[i] == getUserId){
+                        sameId = true;
+                        break;
+                    }
+
+                if(sameId || (Room_List.get(getRoomId).getStatus() == "Start")){
+                    chatMessage.setCmd("close");
+                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(session.getId());
+                    wss.sendMessage(new TextMessage(sendMessage));
+                    chatMessage.setPlayer(0);
+                    blacklist = session.getId();
+                    break;
+                }
+
 
 
                 if(index.containsKey(getRoomId)==false){
@@ -261,9 +283,6 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
                 break;
 
-            case "close":
-                System.out.println("A실행");
-                break;
 
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getCmd());
@@ -305,15 +324,49 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
+        Main_Server Server = Server_list.get(1);
+
+        HashMap<String, Room> Room_List = Server.getRoom_list();
+
         //HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         //String nick = (String) httpsession.getAttribute("idid");
         super.afterConnectionClosed(session, status); // 부모 실행
         user.remove(session.getId(), session);
-
-
         System.out.println("B실행");
+        String sId = session.getId();
 
+        if(sId!=blacklist) {
 
+            Set set = nameHash.entrySet();
+            Iterator iterator = set.iterator();
+            while (iterator.hasNext()) {
+
+                Map.Entry entry = (Map.Entry) iterator.next();
+
+                String key = (String) entry.getKey();
+                String[] value = (String[]) entry.getValue();
+
+                if (value[0] == sId || value[1] == sId) {
+                    getRoomId = key;
+                    break;
+                }
+            }
+            int a = index.get(getRoomId);
+            a--;
+            index.put(getRoomId, a);
+            System.out.println("줄었다" + a);
+            if (a == 0) {
+                index.remove(getRoomId);
+                winnerHash.remove(getRoomId);
+                userIdHash.remove(getRoomId);
+                winnerStackHash.remove(getRoomId);
+                winnerScoreHash.remove(getRoomId);
+                roundcounterHash.remove(getRoomId);
+                nameHash.remove(getRoomId);
+                Room_List.remove(getRoomId);
+                System.out.println("종료");
+            }
+        }
 
         System.out.println("소켓 종료");
     }// afterConnectionClosed : 웹 소켓 close시 실행
