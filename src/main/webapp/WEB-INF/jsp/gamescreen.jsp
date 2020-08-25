@@ -1613,7 +1613,7 @@
 		<!--
 		BODY {background-color: #bf8861}
 		h2#web {font-size: x-large; text-align: center; color: #253245; position: relative; top: 10px; -webkit-animation: none}
-		div#output {position: relative; left: 900px; top: 10px; font-size: large; -webkit-animation:blink 1.5s ease-in-out infinite alternate;}
+		div#output {position: relative; left: 900px; top: 10px; font-size: large; -webkit-animation:blink 1s ease-in-out infinite alternate;}
 		@-webkit-keyframes blink{
 			0% {opacity:0;}
 			100% {opacity:1;}
