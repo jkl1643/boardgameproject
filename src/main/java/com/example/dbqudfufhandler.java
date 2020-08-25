@@ -309,28 +309,10 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         //String nick = (String) httpsession.getAttribute("idid");
         super.afterConnectionClosed(session, status); // 부모 실행
         user.remove(session.getId(), session);
-        index
 
 
         System.out.println("B실행");
 
-
-
-        HashMap<String, Integer> index = new HashMap<>();
-
-        HashMap<String, Integer> winnerHash = new HashMap<>();
-
-        HashMap<String, Long[]> userIdHash = new HashMap<>();
-
-        HashMap<String, Integer> winnerStackHash = new HashMap<>();
-
-        HashMap<String, Integer[]> winnerScoreHash = new HashMap<>();
-
-        HashMap<String, Integer> roundcounterHash = new HashMap<>();
-
-        HashMap<String, String[]> nameHash = new HashMap<>();
-
-        HashMap<String, WebSocketSession> user = new HashMap<>();
 
 
         System.out.println("소켓 종료");
