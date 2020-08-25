@@ -46,8 +46,11 @@ public class Main_Server {
     {
         String roomid = User_list.get(User_nick.get(nick)).getRoomid();
 
-        if(roomid != "lobby")
+        if(roomid != "lobby") {
             Room_list.get(roomid).exit(nick);
+            if(Room_list.get(roomid).getPlayer() == 0)
+                Room_list.remove(roomid);
+        }
         
         System.out.println("유저 퇴장 : " + nick + " / " + roomid);
         User_list.remove(User_nick.get(nick));
