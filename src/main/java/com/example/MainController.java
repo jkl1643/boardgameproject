@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MainController {
     public static String userid2 = null;
     public static String userNickname = null;
     public static int state = 1;
-    private static Hashtable loginUsers = new Hashtable();
+    public static Hashtable loginUsers = new Hashtable();
     private DBcontroller control = (DBcontroller)ctx.getBean("dbcontrol");
 
     @Autowired
@@ -299,95 +300,100 @@ public class MainController {
             id = "0";
         }*/
         String idid = (String) session.getAttribute("idid");
-        try {
-            if (login == 0 /*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/) { //이전에 로그인 한적이 없을때
-                Member name = (Member) session.getAttribute("mem");
-                System.out.println("name = " + name);
-                if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
-                    System.out.println("ididid = " + name.getEmail());
-                    if (id.equals(name.getEmail())) {
-                        System.out.println("중복");
-                        mav.addObject("loginduplicate", true);
-                    } else {
-                        session.setAttribute("mem", member);
-                        //          session.setAttribute("rec", record); // 수명
-                        System.out.println("셋됨");
-                    }
+        if (login == 0 /*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/) { //이전에 로그인 한적이 없을때
+            Member name = (Member) session.getAttribute("mem");
+            System.out.println("name = " + name);
+            if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
+                System.out.println("ididid = " + name.getEmail());
+                if (id.equals(name.getEmail())) {
+                    System.out.println("중복");
+                    mav.addObject("loginduplicate", true);
                 } else {
                     session.setAttribute("mem", member);
+                    //          session.setAttribute("rec", record); // 수명
+                    System.out.println("셋됨");
+                }
+            } else {
+                session.setAttribute("mem", member);
 //                session.setAttribute("rec", record); // 수명
-                    System.out.println("널임");
-                }
+                System.out.println("널임");
+            }
 
-                loginUsers.put(name2.getId(), name2.getEmail());
 
-                System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
-                try {
-                    MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
-                    lgn.login(id, pwd); //로그인
+            loginUsers.put(id, id);
 
-                    mav.addObject("login", 1);
-                    System.out.println("login = " + login);
-                    System.out.println("id = " + id + ", pwd = " + pwd);
-                    userid2 = MemberLogin.loginEmail;
-                    userNickname = nickname;
-                    model.addAttribute("userid", userid2);
-                    login = 1; //로그인을했을때
-                    if (saveId != null) {
-                        Cookie cookie = new Cookie("saveId", id);
-                        response.addCookie(cookie);
-                    }
-                    mav.setViewName("home");
-                } catch (MemberNotFoundException e) {
-                    System.out.println("존재하지 않는 이메일입니다.2\n");
-                /*if(id == null) {
-                    mav.addObject("unknown_email", true);
-                }*/
-                    mav.addObject("unknown_email", true);
+            Enumeration en = loginUsers.keys();
 
-                    id = "0";
-                    mav.setViewName("home");
-                } catch (WrongIdPasswordException e) {
-                    System.out.println("이메일과 암호가 일치하지 않습니다.\n");
-                    mav.addObject("email_pwd_match", true);
-                    id = "0";
-                    mav.setViewName("home");
-                } catch (IOException e) {
-                    id = "0";
-                    mav.setViewName("home");
-                } catch (NullPointerException e) {
-                    id = "0";
-                    mav.setViewName("home");
-                }
-                //계정삭제, 정보수정을 누르지 않았을때
-            } else if (editaccount == 1) {
-                editaccount = 0;
-                ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
-                try {
-                    editaccount = 0;
-                    changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, nickname);
-                    System.out.println("정보를 수정했습니다.\n");
-                    mav.addObject("editaccount", true);
-                } catch (MemberNotFoundException e) {
-                    System.out.println("존재하지 않는 이메일입니다.\n");
-                    editaccount = 0;
-                } catch (WrongIdPasswordException e) {
-                    System.out.println("이메일과 암호가 일치하지 않습니다.\n");
-                    editaccount = 0;
-                } catch (PasswordNotMatchException e) {
-                    System.out.println("확인 비밀번호가 일치하지 않습니다.");
-                    mav.addObject("chkpwd", false);
-                    editaccount = 0;
-                } catch (PasswordNotMatchException2 e) {
-                    System.out.println("현재 비밀번호가 일치하지 않습니다.");
-                    mav.addObject("currentpwd", true);
-                    editaccount = 0;
+            while(en.hasMoreElements()){
+                String key = en.nextElement().toString();
+                System.out.println(key + " : " + loginUsers.get(key));
+            }
+
+
+            System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
+            try {
+                MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
+                lgn.login(id, pwd); //로그인
+
+                mav.addObject("login", 1);
+                System.out.println("login = " + login);
+                System.out.println("id = " + id + ", pwd = " + pwd);
+                userid2 = MemberLogin.loginEmail;
+                userNickname = nickname;
+                model.addAttribute("userid", userid2);
+                login = 1; //로그인을했을때
+                if (saveId != null) {
+                    Cookie cookie = new Cookie("saveId", id);
+                    response.addCookie(cookie);
                 }
                 mav.setViewName("home");
-            } else {
+            } catch (MemberNotFoundException e) {
+                System.out.println("존재하지 않는 이메일입니다.2\n");
+            /*if(id == null) {
+                mav.addObject("unknown_email", true);
+            }*/
+                mav.addObject("unknown_email", true);
+
+                id = "0";
+                mav.setViewName("home");
+            } catch (WrongIdPasswordException e) {
+                System.out.println("이메일과 암호가 일치하지 않습니다.\n");
+                mav.addObject("email_pwd_match", true);
+                id = "0";
+                mav.setViewName("home");
+            } catch (IOException e) {
+                id = "0";
+                mav.setViewName("home");
+            } catch (NullPointerException e) {
+                id = "0";
                 mav.setViewName("home");
             }
-        } catch (Exception e){
+            //계정삭제, 정보수정을 누르지 않았을때
+        } else if (editaccount == 1) {
+            editaccount = 0;
+            ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
+            try {
+                editaccount = 0;
+                changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, nickname);
+                System.out.println("정보를 수정했습니다.\n");
+                mav.addObject("editaccount", true);
+            } catch (MemberNotFoundException e) {
+                System.out.println("존재하지 않는 이메일입니다.\n");
+                editaccount = 0;
+            } catch (WrongIdPasswordException e) {
+                System.out.println("이메일과 암호가 일치하지 않습니다.\n");
+                editaccount = 0;
+            } catch (PasswordNotMatchException e) {
+                System.out.println("확인 비밀번호가 일치하지 않습니다.");
+                mav.addObject("chkpwd", false);
+                editaccount = 0;
+            } catch (PasswordNotMatchException2 e) {
+                System.out.println("현재 비밀번호가 일치하지 않습니다.");
+                mav.addObject("currentpwd", true);
+                editaccount = 0;
+            }
+            mav.setViewName("home");
+        } else {
             mav.setViewName("home");
         }
         /*String name = (String)session.getAttribute("id");
