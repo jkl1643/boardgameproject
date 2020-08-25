@@ -20,22 +20,35 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     @Autowired
     private ObjectMapper objectMapper;
 
-
-    int i = 0;
-
-    int winner = -1;  // 승자 인덱스 + 1, 승리한 유저 멤버 아이디 불러오기 => userId[winner-1]
-    Long[] userId = new Long[2];  // 유저 멤버 아이디
+    @Autowired
+    private HashMap<Integer, Main_Server> Server_list;
 
 
-    int winnerStack = 0;
-    int[] winnerScore=  new int[2];  // 승자점수
 
 
-    int roundcounter=26;
+
+
+
+
+    String getRoomId;
+    int getUserId;
+
+
+    HashMap<String, Integer> index = new HashMap<>();
+
+    HashMap<String, Integer> winnerHash = new HashMap<>();
+
+    HashMap<String, Long[]> userIdHash = new HashMap<>();
+
+    HashMap<String, Integer> winnerStackHash = new HashMap<>();
+
+    HashMap<String, Integer[]> winnerScoreHash = new HashMap<>();
+
+    HashMap<String, Integer> roundcounterHash = new HashMap<>();
+
+    HashMap<String, String[]> nameHash = new HashMap<>();
 
     HashMap<String, WebSocketSession> user = new HashMap<>();
-    String[] name=  new String[2];// 유저 세션명
-    String nameBuffer = "";
 
 
 
@@ -43,17 +56,16 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+
+
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         String nick = (String) httpsession.getAttribute("idid");
         System.out.println("소켓 실행222222 : " + session.getId() + " / " + nick);
         super.afterConnectionEstablished(session); // 부모 실행
 
-        if(i<2)
-            name[i] = session.getId();
-        else
-            nameBuffer =  session.getId();
 
-        i++;
+
+
         user.put(session.getId(), session);
 
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
@@ -61,9 +73,15 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        String msg = message.getPayload();
+        Main_Server Server = Server_list.get(1);
+        if(Server == null)
+            System.out.println("능지");
 
+        HashMap<String, Room> Room_List = Server.getRoom_list();
+
+        String msg = message.getPayload();
         Dice chatMessage = objectMapper.readValue(msg, Dice.class);
+
 
         System.out.println("메세지온거 = " + msg);
 
@@ -72,52 +90,69 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         switch (chatMessage.getCmd()) {
 
 
-
-
             case "start":
 
 
+                getRoomId = chatMessage.getRoomId();
+                getUserId = chatMessage.getSelecto();
 
 
-                if(i==2) {
+                if(index.containsKey(getRoomId)==false){
+                    index.put(getRoomId, 0);
+                    winnerHash.put(getRoomId, -1);
+                    userIdHash.put(getRoomId, new Long[2]);
+                    winnerStackHash.put(getRoomId, 0);
+                    winnerScoreHash.put(getRoomId, new Integer[2]);
+                    roundcounterHash.put(getRoomId, 26);
+                    nameHash.put(getRoomId, new String[2]);
+                }
+
+                int a = index.get(getRoomId);
+                index.put(getRoomId, a++);
+
+                a = index.get(getRoomId);
+
+                Long[] b = userIdHash.get(getRoomId);
+                b[a-1]= new Long(getUserId);
+                userIdHash.put(getRoomId, b);
+
+                String[] c = nameHash.get(getRoomId);
+                c[a-1]= session.getId();
+                nameHash.put(getRoomId, c);
+
+
+                if(index.get(getRoomId)==2) {
                     chatMessage.setPlayer(1);
                     String sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    WebSocketSession wss = user.get(name[0]);
+                    WebSocketSession wss = user.get(nameHash.get(getRoomId)[0]);
                     wss.sendMessage(new TextMessage(sendMessage));
+
                     chatMessage.setPlayer(2);
                     sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    wss = user.get(name[1]);
+                    wss = user.get(nameHash.get(getRoomId)[1]);
                     wss.sendMessage(new TextMessage(sendMessage));
+
                     chatMessage.setPlayer(0);
+
+
+                    Room_List.get(getRoomId).setStatus("Start");
+
                 }
-                else if(i>2){
-                    chatMessage.setPlayer(0);
-                    chatMessage.setCmd("close");
-                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    WebSocketSession wss = user.get(nameBuffer);
-                    wss.sendMessage(new TextMessage(sendMessage));
-                    i--;
-                }
+
 
                 break;
 
 
-            case "check":
-                int result = chatMessage.getSelecto();
-                if(result!=-1)
-                    userId[chatMessage.getPlayer()-1]= new Long(result);
-                else
-                    ;//접근 거부, 연결 해제
 
-
-                chatMessage.setPlayer(0);
-                break;
 
 
             case "roll":
+                getRoomId = chatMessage.getRoomId();
                 break;
 
             case "record":
+                getRoomId = chatMessage.getRoomId();
+
                 if(chatMessage.getAces()==-1)
                     chatMessage.setAces(0);
 
@@ -160,59 +195,72 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 if(chatMessage.getBonus()==-1)
                     chatMessage.setBonus(0);
 
-                roundcounter--;
+                a = roundcounterHash.get(getRoomId);
+                roundcounterHash.put(getRoomId, a--);
 
                 break;
 
 
             case "end":
+                getRoomId = chatMessage.getRoomId();
 
-                winnerScore[(chatMessage.getPlayer())-1]=chatMessage.getSelecto();
-                winnerStack++;
+                Integer d[] = winnerScoreHash.get(getRoomId);
+                d[(chatMessage.getPlayer())-1]=chatMessage.getSelecto();
+                winnerScoreHash.put(getRoomId, d);
+
+                a = winnerStackHash.get(getRoomId);
+                winnerStackHash.put(getRoomId, a++);
+
                 chatMessage.setPlayer(0);
 
 
-
-                if(winnerStack==2){
-                    if(winnerScore[0]>winnerScore[1])
-                        winner=1;
-                    else
-                        winner=2;
-
+                if(winnerStackHash.get(getRoomId)==2) {
+                    d = winnerScoreHash.get(getRoomId);
+                    if (d[0] > d[1]) {
+                        winnerHash.put(getRoomId, 1);
+                    }
+                    else {
+                        winnerHash.put(getRoomId, 2);
+                    }
+                }
 
                     chatMessage.setCmd("alert");
-                    chatMessage.setSelecto(winner);
+                    chatMessage.setSelecto(winnerHash.get(getRoomId));
                     String sendMessage = objectMapper.writeValueAsString(chatMessage);
                     for(int i = 0 ; i<2 ; i++) {
-                        WebSocketSession wss = user.get(name[i]);
+                        WebSocketSession wss = user.get(nameHash.get(getRoomId)[i]);
                         wss.sendMessage(new TextMessage(sendMessage));
                     }
 
-                }
+
                 break;
 
             case "run":
+                getRoomId = chatMessage.getRoomId();
 
                 chatMessage.setCmd("alert");
                 if(chatMessage.getPlayer()==1){
-                    winner=2;
-                    chatMessage.setSelecto(winner);
-                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    WebSocketSession wss = user.get(name[1]);
+                    winnerHash.put(getRoomId, 2);
+                    chatMessage.setSelecto(2);
+                    sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(nameHash.get(getRoomId)[1]);
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
                 }
                 else if(chatMessage.getPlayer()==2){
-                    winner=1;
-                    chatMessage.setSelecto(winner);
-                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    WebSocketSession wss = user.get(name[0]);
+                    winnerHash.put(getRoomId, 1);
+                    chatMessage.setSelecto(1);
+                    sendMessage = objectMapper.writeValueAsString(chatMessage);
+                    WebSocketSession wss = user.get(nameHash.get(getRoomId)[0]);
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
                 }
 
                 break;
 
+            case "close":
+                System.out.println("A실행");
+                break;
 
             default:
                 System.out.println("정의 되지 않은 타입 : " + chatMessage.getCmd());
@@ -225,30 +273,25 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         System.out.println("서버에서 보냄 : " + sendMessage);
 
 
-        if(chatMessage.getPlayer()!=0) {
-            if (userId[chatMessage.getPlayer() - 1] != null)
-                System.out.println("허용유저");
-            else
-                System.out.println("미허용유저");
-        }
 
         if(chatMessage.getPlayer()==1){
-            WebSocketSession wss = user.get(name[1]);
+            WebSocketSession wss = user.get(nameHash.get(getRoomId)[1]);
             wss.sendMessage(new TextMessage(sendMessage));
        }
        else if(chatMessage.getPlayer()==2) {
-           WebSocketSession wss = user.get(name[0]);
+           WebSocketSession wss = user.get(nameHash.get(getRoomId)[0]);
            wss.sendMessage(new TextMessage(sendMessage));
        }
 
-        if(roundcounter==0){
+        if(roundcounterHash.get(getRoomId)==0){
             chatMessage.setCmd("end");
             sendMessage = objectMapper.writeValueAsString(chatMessage);
             for(int i = 0 ; i<2 ; i++) {
-                WebSocketSession wss = user.get(name[i]);
+                WebSocketSession wss = user.get(nameHash.get(getRoomId)[i]);
                 wss.sendMessage(new TextMessage(sendMessage));
             }
-            roundcounter++;
+            int a = roundcounterHash.get(getRoomId);
+            roundcounterHash.put(getRoomId, a++);
         }
 
 
@@ -257,10 +300,17 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+
         //HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         //String nick = (String) httpsession.getAttribute("idid");
         super.afterConnectionClosed(session, status); // 부모 실행
         user.remove(session.getId(), session);
+
+
+        System.out.println("B실행");
+
+
+
         System.out.println("소켓 종료");
     }// afterConnectionClosed : 웹 소켓 close시 실행
 }
