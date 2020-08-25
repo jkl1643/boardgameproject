@@ -145,7 +145,7 @@
 				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
-				<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">비밀번호 찾기</div>
+				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">비밀번호 찾기</div>
 
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
@@ -250,6 +250,7 @@
 		</table>
 	</div>
 	<%}
+			break;
 	}
 	}%>
 	<div id="logbox3">

@@ -123,13 +123,26 @@ public class MainController {
             } else {
                 mav.addObject("login", 1);
             }
-            session.invalidate();
+            //session.invalidate();
             System.out.println("로그아웃 = " + login);
 
             MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
             mav.addObject("loginduplicate", false);
             mav.addObject("logout", true);
             lgo.logout();
+            Enumeration e = loginUsers.keys();
+            while(e.hasMoreElements()){
+                //session = (HttpSession) e.nextElement();
+                //if(loginUsers.get(session).equals(name.getEmail())){
+                String a = (String) e.nextElement();
+                System.out.println("loginuser = " + loginUsers.get(a));
+                if(loginUsers.get(a).equals(name.getEmail())) {
+                    loginUsers.remove(name.getEmail());
+                    System.out.println(" " + name.getEmail() + "해쉬 사라짐");
+                    session.invalidate();
+                }
+                //}
+            }
 
         //}
         mav.setViewName("home");
@@ -320,15 +333,18 @@ public class MainController {
             }
 
 
-            loginUsers.put(id, id);
+
 
             Enumeration en = loginUsers.keys();
 
             while(en.hasMoreElements()){
                 String key = en.nextElement().toString();
                 System.out.println(key + " : " + loginUsers.get(key));
+                if(key.equals(member.getEmail())){
+                    mav.addObject("loginduplicate", true);
+                }
             }
-
+            loginUsers.put(id, id);
 
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
