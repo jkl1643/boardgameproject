@@ -331,6 +331,9 @@
 					}
 					document.getElementById("roll").disabled = false;
 					document.getElementById("roll").style.WebkitAnimation = "col 1s infinite";
+					document.getElementById("roll").addEventListener('click',function(){
+						document.getElementById("roll").style.WebkitAnimation = 'none';
+					})
 					writeToScreen("니 차례");
 					break;
 
@@ -1609,7 +1612,12 @@
 	<STYLE TYPE="text/css">
 		<!--
 		BODY {background-color: #bf8861}
-		h2#web {font-size: large; text-align: center; color: #253245; position: relative; top: 10px; -webkit-animation: none}
+		h2#web {font-size: x-large; text-align: center; color: #253245; position: relative; top: 10px; -webkit-animation: none}
+		div#output {position: relative; left: 900px; top: 10px; font-size: large; -webkit-animation:blink 1.5s ease-in-out infinite alternate;}
+		@-webkit-keyframes blink{
+			0% {opacity:0;}
+			100% {opacity:1;}
+		}
 		div#box {background-color: white; width: 1600px; height: 750px; border: 5px solid black; position: relative; left: 100px; top: 50px}
 		button#dice1 {width: 70px; height: 70px; position: relative; left: 100px; top: 70px}
 		img#diceimg1 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
@@ -1621,7 +1629,7 @@
 		img#diceimg4 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
 		button#dice5 {width: 70px; height: 70px; position: relative; left: 500px; top: -210px}
 		img#diceimg5 {position: absolute; top:0; left: 0; width: 100%; height: 100%}
-		button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px; animation: none}
+		button#roll {width: 70px; height: 40px; position: relative; left: 300px; top: -200px; -webkit-animation: none}
 		@-webkit-keyframes col {
 			0% { color: red; }
 			50% { color: blue; }
