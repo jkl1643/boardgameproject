@@ -80,6 +80,8 @@
 
 		function onClose(evt)
 		{
+			window.location.href='home';
+
 			writeToScreen("연결해제");
 		}
 
@@ -360,6 +362,7 @@
 					break;
 
 				case "close":
+					alert("잘못된 접근");
 					webSocket.close();
 					break;
 
