@@ -43,6 +43,8 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         this.memberDao = memberDao;
     }
 
+
+
     public void setMyGameRecordDao(MyGameRecordDao mygamerecorddao) {
 		this.mygamerecorddao = mygamerecorddao;
 	}
@@ -394,13 +396,16 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                     }
                 }
 
-                    chatMessage.setCmd("alert");
-                    chatMessage.setSelecto(winnerHash.get(getRoomId));
-                    String sendMessage = objectMapper.writeValueAsString(chatMessage);
-                    for(int i = 0 ; i<2 ; i++) {
-                        WebSocketSession wss = user.get(nameHash.get(getRoomId)[i]);
-                        wss.sendMessage(new TextMessage(sendMessage));
-                    }
+                chatMessage.setCmd("alert");
+                a = winnerHash.get(getRoomId);
+                System.out.println("답"+a);
+                chatMessage.setSelecto(a);
+                String sendMessage = objectMapper.writeValueAsString(chatMessage);
+                for(int i = 0 ; i<2 ; i++) {
+                    WebSocketSession wss = user.get(nameHash.get(getRoomId)[i]);
+                    wss.sendMessage(new TextMessage(sendMessage));
+                }
+
 
 
                 break;
