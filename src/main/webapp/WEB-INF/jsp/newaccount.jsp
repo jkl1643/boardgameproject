@@ -122,7 +122,7 @@
 		<Input Type="checkbox" Name="check2" id="text2">
 		<p id="text12">약관에 동의합니다.</p>--%>
 		<Input Type="Submit" Value="제출합니다" id="text3">
-		<Input type="reset" value="다시입력" style="border-radius:5px;"/>
+		<Input type="reset" value="다시입력"/>
 		<Input type="button" value="뒤로가기" id="text4" onClick="history.back();">
 	</form>
 </body>
