@@ -29,17 +29,17 @@
 		div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
-		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1000px; top: -52px}
 		div#logbox2 {background-color: lightblue; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		input#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		#yu {position: relative; left: 200px; top: -60px}
 		#asdf {position: relative; left: 60px}
-		div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
-		div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
-		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
-		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
+		/*div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}*/
+		div#logbox4 {width: 1090px; height: 440px; border: 5px solid black; position: relative; left: 0px; top: -500px}
+		/*div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}*/
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px}
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
 		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
@@ -245,11 +245,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<%--<td>
 					<form action="" method="post">
 						<Input Type="Submit" Value="위시리스트 ▶" id="but4">
 					</form>
-				</td>
+				</td>--%>
 				<td>
 					<form action="logout" method="post">
 						<Input Type="Submit" Value="로그아웃 ▶" id="but5">
@@ -262,7 +262,7 @@
 			break;
 	}
 	}%>
-	<div id="logbox3">
+	<%--<div id="logbox3">
 	</div>
 	<div id="logbox4">
 		박스
@@ -276,8 +276,8 @@
 			   onclick="window.open('http://naver.com', '팝업창 이름1', 'width=1000, height=1000')">
 		<input type="button" value="새창2"
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
-	</div>
-	<div id="logbox5">
+	</div>--%>
+	<div id="logbox4">
 
 		<table>
 			<br>
