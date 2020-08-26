@@ -653,6 +653,15 @@ public class MainController {
     	
     }
 */
+    @RequestMapping(value = "/record")
+    public String myresult(Model model, Long memnum) {
+    	MyGameRecord record = mygamerecorddao.selectByMEMNUM(memnum);
+    	System.out.println("실험 : " + record.getTotal());
+    	model.addAttribute("myrecord", record);
+		return "mygamerecord";
+
+    }
+    
     @RequestMapping("/customwrite")
    	public String handleStep2(Model model) {
    		model.addAttribute("customrequest", new CustomRequest());
