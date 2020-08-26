@@ -156,7 +156,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {$("#roomlist").load("refreshgamelist"); $("#userlist").load("refreshuserlist");});
-  window.addEventListener("beforeunload", disconnect());
+
 
   // 방 입장 생성 관련
   var create = document.getElementById('createRoom');

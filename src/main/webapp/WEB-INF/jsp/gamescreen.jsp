@@ -1,4 +1,4 @@
-
+<%@ page import="com.example.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -80,6 +80,8 @@
 
 		function onClose(evt)
 		{
+			window.location.href='home';
+
 			writeToScreen("연결해제");
 		}
 
@@ -360,6 +362,7 @@
 					break;
 
 				case "close":
+					alert("잘못된 접근");
 					webSocket.close();
 					break;
 
