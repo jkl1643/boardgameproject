@@ -9,19 +9,19 @@
 	BODY {background-image: url("board2.jpg"); background-repeat: no-repeat; background-size: cover}
 	.title {text-align: center; font-family: sans-serif; color: brown}
 	table#table1 {width: 400px; height: 400px; position: relative; left: 400px; top: 10px}
-	div#textbox1 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 10px}
+	/*div#textbox1 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 10px}
 	input#text1 {position: relative; left: 800px; top: 35px}
 	p#text11 {position: relative; left: 850px; top: 0px}
 	div#textbox2 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 55px}
-	p#text12 {position: relative; left: 850px; top: 39px}
+	p#text12 {position: relative; left: 850px; top: 39px}*/
 	input#text2 {position: relative; left: 800px; top: 75px}
-	input#text3 {position: relative; left: 520px; top: 110px}
-	input#text4 {position: relative; left: 620px; top: 110px}
+	input#text3 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 400px; top: 110px}
+	input#text5 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 470px; top: 110px}
+	input#text4 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 540px; top: 110px}
 -->
 </STYLE>
 	<script type = "text/javascript">
 		function validate(){
-			alert("aaa");
 			var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
 			var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			// 이메일이 적합한지 검사할 정규식
@@ -76,7 +76,7 @@
 				nickname.focus();
 				return false;
 			}
-
+			return true;
 		}
 
 
@@ -96,23 +96,23 @@
 </head>
 <body>
 	<h1 class="title">회원가입 창</h1>
-	<form name="join" onsubmit="return validate();" action="home"  method="post" enctype="text/plain">
+	<form name="join" onsubmit="return validate();" action="home"  method="post">
 		<table id="table1">
 			<tr>
 				<td><strong>이메일</strong></td>
-				<td><Input Type="Text" id="EMAIL" Name="EMAIL"> <BR></td>
+				<td><Input Type="Text" id="EMAIL" Name="EMAIL2"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>비밀번호</strong></td>
-				<td><Input Type="PassWord" id="PWD" Name="PWD"> <BR></td>
+				<td><Input Type="PassWord" id="PWD" Name="PWD2"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>비밀번호 확인</strong></td>
-				<td><Input Type="PassWord" id="PWD2" Name="PWD2"> <BR></td>
+				<td><Input Type="PassWord" id="PWD2" Name="PWD22"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>닉네임</strong></td>
-				<td><Input Type="Text" id="NICKNAME" Name="NICKNAME"> <BR></td>
+				<td><Input Type="Text" id="NICKNAME" Name="NICKNAME2"> <BR></td>
 			</tr>
 		</table>
 		<%--<div id="textbox1"></div>
@@ -122,7 +122,7 @@
 		<Input Type="checkbox" Name="check2" id="text2">
 		<p id="text12">약관에 동의합니다.</p>--%>
 		<Input Type="Submit" Value="제출합니다" id="text3">
-		<Input type="reset" value="다시입력"/>
+		<Input type="reset" value="다시입력" id="text5">
 		<Input type="button" value="뒤로가기" id="text4" onClick="history.back();">
 	</form>
 </body>

@@ -99,7 +99,7 @@ public class JavaConfig {
     
     @Bean
     public MyGameRecordDao mygamerecorddao() {
-        return new MyGameRecordDao(dataSource());
+        return new MyGameRecordDao(dataSource(), memberDao());
     }
 //
     @Bean

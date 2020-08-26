@@ -30,10 +30,12 @@
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-		#logbox2 {background-image: url("brick.jpg"); width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px; font-size: xx-large; float: center; vertical-align: center}
-		#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-		#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		div#logbox2 {background-color: lightblue; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
+		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		input#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		#yu {position: relative; left: 200px; top: -60px}
+		#asdf {position: relative; left: 60px}
 		div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}
 		div#logbox4 {width: 1100px; height: 700px; border: 5px solid black; position: relative; left: 0px; top: -1300px}
 		div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}
@@ -106,7 +108,7 @@
 		if(mem == null){ %>
 		<div id="logbox1">
 			<div id="logbox2">
-				현재 접속자 수 : ${users}명
+				<p id="yuba">현재 접속자 수 : ${users}명</p>
 			</div>
 			<form action="main" method="post">
 				<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
@@ -148,7 +150,7 @@
 				</div>
 				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
-				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">비밀번호 찾기</div>
+				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;" id="asdf">비밀번호 찾기</div>
 
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
@@ -165,7 +167,9 @@
 		alert("이미 로그인 되어 있습니다.");
 	</script>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<form action="main" method="post">
 			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
 			<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
@@ -214,7 +218,9 @@
 	<%System.out.println("ccc");
 	} else {%>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<table id="table1">
 			<tr>
 				<td>${mem.getEmail()}님 환영합니다!</td>

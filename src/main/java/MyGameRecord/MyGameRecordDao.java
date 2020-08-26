@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.example.MemberDao;
+import com.example.RegisterRequest;
 import org.apache.catalina.Session;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -28,7 +29,8 @@ public class MyGameRecordDao {
     private MemberDao memberDao;
 	private Game game;
     private JdbcTemplate jdbcTemplate;
-    public MyGameRecordDao(DataSource dataSource) {
+    public MyGameRecordDao(DataSource dataSource, MemberDao memberDao) {
+        this.memberDao = memberDao;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     private RowMapper<MyGameRecord> memRowMapper =
@@ -43,7 +45,7 @@ public class MyGameRecordDao {
                             rs.getInt("GAMERECORD_DRAW"),
                             rs.getInt("GAMERECORD_LOSE"),
                             rs.getInt("GAME_NUMBER"),
-                            rs.getInt("MEMBER_NUMBER")
+                            rs.getLong("MEMBER_NUMBER")
                             );
                     record.setGamerecord_number(rs.getLong("GAMERECORD_NUMBER"));
                     return record;
@@ -87,7 +89,7 @@ public class MyGameRecordDao {
                 pstmt.setInt(3, record.getDraw());
                 pstmt.setInt(4, record.getLose());
                 pstmt.setInt(5, record.getGame_number());
-                pstmt.setInt(6, record.getMember_number());
+                pstmt.setLong(6, record.getMember_number());
                 return pstmt;
             }
         }, keyHolder);
@@ -96,10 +98,13 @@ public class MyGameRecordDao {
     }
 
 
-    public void insert2(MyGameRecord record, HttpSession session) { //2차 실험용
+    public void insert2(MyGameRecord record, HttpSession session, RegisterRequest req) { //2차 실험용
         System.out.println("이메일 - " + record.getMember_number());
-        Member mem = (Member) session.getAttribute("mem");
-        System.out.println("이메일2 - " + mem.getEmail());
+        //Member mem = (Member) session.getAttribute("mem");
+        //System.out.println("이메일2 - " + mem.getEmail());
+        System.out.println("아이디 = " + req.getEmail());
+        Member member3 = memberDao.selectByEmail(req.getEmail());
+        System.out.println("666666");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
@@ -116,9 +121,8 @@ public class MyGameRecordDao {
                 pstmt.setInt(2, record.getWin());
                 pstmt.setInt(3, record.getDraw());
                 pstmt.setInt(4, record.getLose());
-
-                pstmt.setLong(5, mem.getId());
-                pstmt.setInt(6, 1);
+                pstmt.setInt(5, 1);
+                pstmt.setLong(6, member3.getId());
                 return pstmt;
             }
         }, keyHolder);
@@ -129,8 +133,8 @@ public class MyGameRecordDao {
     //
     public void update(MyGameRecord record) {
         jdbcTemplate.update(
-                "update GAMERECORD set GAMERECORD_TOTAL = ?, GAMERECORD_WIN = ?, GAMERECORD_DRAW = ?, LOSE = ?, where MEMBER_NUMBER = ?",
-                record.getTotal(), record.getWin(), record.getDraw(), record.getMember_number());
+                "update GAMERECORD set GAMERECORD_TOTAL = ?, GAMERECORD_WIN = ?, GAMERECORD_DRAW = ?, GAMERECORD_LOSE = ? where MEMBER_NUMBER LIKE ?",
+                record.getTotal(), record.getWin(), record.getDraw(), record.getLose(), record.getMember_number());
     }
 
    
