@@ -387,12 +387,16 @@ public class MainController {
 
             Enumeration en = loginUsers.keys();
 
-            while(en.hasMoreElements()){
-                String key = en.nextElement().toString();
-                System.out.println(key + " : " + loginUsers.get(key));
-                if(key.equals(member.getEmail())){
-                    mav.addObject("loginduplicate", true);
+            try {
+                while (en.hasMoreElements()) {
+                    String key = en.nextElement().toString();
+                    System.out.println(key + " : " + loginUsers.get(key));
+                    if (key.equals(member.getEmail())) {
+                        mav.addObject("loginduplicate", true);
+                    }
                 }
+            } catch (Exception e){
+
             }
             loginUsers.put(id, id);
             System.out.println("해쉬테이블 인원 : " + String.valueOf(loginUsers.size()));

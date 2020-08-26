@@ -33,8 +33,8 @@
 		div#logbox1_2 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 30px;}
 		div#logbox2 {background-color: #d1f1fa; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
-		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
-		input#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		input#loginbutton1 {position: relative; left: -100px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
+		input#signupbutton1 {position: relative; left: 300px; top: 150px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		#yu {position: relative; left: 200px; top: -80px}
 		#asdf {position: relative; left: 60px}
 		/*div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}*/
@@ -63,7 +63,11 @@
 
 	  	a { text-decoration:none }
 	-->
+		input[type=checkbox] {
 
+			transform : scale(1.5);
+
+		}
 	</STYLE>
 </head>
 <body>
@@ -147,13 +151,11 @@
 					<%}
 						if (created_account) { %> <div id="yu">계정이 생성되었습니다.</div> <%}
 						if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}
-
-
 					%>
 				</div>
-				<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
-				<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
-				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;" id="asdf">비밀번호 찾기</div>
+			<label for="saveId"><div style="margin-left: 200px; margin-top: -50px; float: left;"><input type="checkbox" id="saveId" name="saveId"<%=cookieId!=""?"checked" : ""%>>&nbsp;아이디 저장&nbsp; / &nbsp;</div></label>
+			<%--<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">--%><%--아이디 저장--%><%--</div>--%>
+				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 310px; margin-top: -50px; float: left; display: inline;" id="asdf">비밀번호 찾기</div>
 
 			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
