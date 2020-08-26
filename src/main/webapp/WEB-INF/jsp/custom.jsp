@@ -10,7 +10,7 @@
 	<title>고객문의 목록</title>
 	<STYLE TYPE="text/css">
 		<!--
-		BODY {background-image: url('dia.jpg'); background-repeat: no-repeat; background-size: cover}
+		BODY {background-image: url("dia.jpg"); background-repeat: no-repeat; background-size: cover}
 		h1#text1 {}
 		div#box1 {width: 990px; height: 550px; border: 5px solid black; position: relative; left: 400px; top: 10px}
 		table#table1 {width: 1000px; position: relative; left: 0px; top: 0px}

@@ -8,7 +8,7 @@
     <title>${custom.title}</title>
     <STYLE TYPE="text/css">
         <!--
-        BODY {background-image: url('dia.jpg'); background-repeat: no-repeat; background-size: cover}
+        BODY {background-image: url("dia.jpg"); background-repeat: no-repeat; background-size: cover}
         h1#text1 {}
         div#box1 {border: 5px solid black; width: 1000px; height: 700px; position: relative; left: 400px; top: 10px}
         label#label1 {position: relative; left: 70px; top: 10px}
