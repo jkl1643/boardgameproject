@@ -584,9 +584,12 @@ public class dbqudfufhandler extends TextWebSocketHandler {
         user.remove(session.getId(), session);
         System.out.println("B실행");
         String sId = session.getId();
+        String anothersId = "";
+        boolean realUser = false;
+
 
         if(sId!=blacklist) {
-
+            realUser = true;
             Set set = nameHash.entrySet();
             Iterator iterator = set.iterator();
             while (iterator.hasNext()) {
@@ -597,7 +600,16 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 String[] value = (String[]) entry.getValue();
 
                 if (value[0] == sId || value[1] == sId) {
+                    if(value[0]==sId){
+                        anothersId = value[1];
+                        winnerHash.put(key, 2);
+                    }
+                    else if ( value[1] == sId){
+                        anothersId = value[0];
+                        winnerHash.put(key, 1);
+                    }
                     getRoomId = key;
+
                     break;
                 }
             }
@@ -615,7 +627,24 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 nameHash.remove(getRoomId);
                 Room_List.remove(getRoomId);
                 System.out.println("종료");
+                realUser=false;
             }
+
+
+
+        if(realUser) {
+
+
+            int f = winnerHash.get(getRoomId);
+            String sendMessage = ("{\"cmd\":\"alert\",\"selecto\":"+ Integer.toString(f)+"}");
+
+                WebSocketSession wss = user.get(anothersId);
+                wss.sendMessage(new TextMessage(sendMessage));
+
+                //여기다 하나 더 넣어라
+
+        }
+
         }
 
         System.out.println("소켓 종료");

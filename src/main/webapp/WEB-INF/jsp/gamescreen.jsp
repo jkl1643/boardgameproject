@@ -711,6 +711,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player, selecto : 0 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 		function TwosButton(){
@@ -751,6 +752,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 1 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -793,6 +795,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 2 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -836,6 +839,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 3 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -880,6 +884,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 4 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -923,6 +928,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 5 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -952,6 +958,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 6 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -981,6 +988,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 7 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -1010,6 +1018,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 8 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -1039,6 +1048,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 9 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 		function Large_StraightButton(){
@@ -1067,6 +1077,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 10, aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 
@@ -1097,6 +1108,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 11 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
+			writeToScreen("상대 차례");
 		}
 
 		function YahtzeeButton(){
@@ -1125,7 +1137,7 @@
 			webSocket.send(JSON.stringify({cmd : "record", player : player,selecto : 12 , aces:RecScore[0], twos:RecScore[1], threes:RecScore[2], fours:RecScore[3], fives:RecScore[4], sixes:RecScore[5],
 				three_Of_A_Kind:RecScore[6], four_Of_A_Kind:RecScore[7], full_House:RecScore[8], small_Straight:RecScore[9], large_Straight:RecScore[10],
 				chance:RecScore[11], yahtzee:RecScore[12], bonus:RecScore[13], roomId : roomId}));
-
+			writeToScreen("상대 차례");
 		}
 
 
