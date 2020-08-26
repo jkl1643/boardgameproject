@@ -202,7 +202,6 @@ public class MainController {
         System.out.println("이메일 = " + id);
         try {
             /*Member member = memberDao.selectByEmail(id);
-
             session.setAttribute("mem", member);*/
             Member name = (Member)session.getAttribute("mem");
             System.out.println("home name = " + name);
@@ -337,6 +336,7 @@ public class MainController {
         mav.addObject("loginduplicate", false);
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
+        mav.addObject("users", loginUsers.size());
 
         System.out.println("login1 = " + login);
         Member name2 = (Member)session.getAttribute("mem");
@@ -344,6 +344,11 @@ public class MainController {
         Member member = memberDao.selectByEmail(id);
        // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
         System.out.println("member = " + member);
+        try {
+            System.out.println("name2.getEmail() = " + name2.getEmail());
+        } catch (Exception e){
+            System.out.println("안됨");
+        }
 
         session.setAttribute("idid", id);
         delaccount = 0;
@@ -379,9 +384,6 @@ public class MainController {
 //                session.setAttribute("rec", record); // 수명
                 System.out.println("널임");
             }
-
-
-
 
             Enumeration en = loginUsers.keys();
 
@@ -468,6 +470,7 @@ public class MainController {
             System.out.println("이미 로그인한 아이디");
         }*/
         System.out.println("login2 = " + login);
+        mav.setViewName("home");
         return mav;
     }
 

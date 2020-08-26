@@ -20,7 +20,7 @@
 	input#text4 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 540px; top: 110px}
 -->
 </STYLE>
-	<%--<script type = "text/javascript">
+	<script type = "text/javascript">
 		function validate(){
 			var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
 			var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -76,7 +76,6 @@
 				nickname.focus();
 				return false;
 			}
-			alert("true");
 			return true;
 		}
 
@@ -93,11 +92,11 @@
 		}
 
 
-	</script>--%>
+	</script>
 </head>
 <body>
 	<h1 class="title">회원가입 창</h1>
-	<form name="join" <%--onsubmit="return validate();"--%> action="home"  method="post">
+	<form name="join" onsubmit="return validate();" action="home"  method="post">
 		<table id="table1">
 			<tr>
 				<td><strong>이메일</strong></td>
