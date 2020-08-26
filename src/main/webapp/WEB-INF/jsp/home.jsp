@@ -30,7 +30,7 @@
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1230px; top: -52px}
-		div#logbox2 {width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+		div#logbox2 {background-color: lightblue; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		input#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
@@ -80,9 +80,7 @@
 		int login = (int) request.getAttribute("login");
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
-
 		int users = (int) request.getAttribute("users");
-		System.out.println("에러에러");
 	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
 	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
 
@@ -169,7 +167,9 @@
 		alert("이미 로그인 되어 있습니다.");
 	</script>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<form action="main" method="post">
 			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
 			<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
@@ -218,7 +218,9 @@
 	<%System.out.println("ccc");
 	} else {%>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<table id="table1">
 			<tr>
 				<td>${mem.getEmail()}님 환영합니다!</td>
