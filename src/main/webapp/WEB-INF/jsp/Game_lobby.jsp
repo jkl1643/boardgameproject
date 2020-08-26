@@ -72,6 +72,10 @@
     li a:hover {color: blue}
     h1#text1 {position: relative; top: -10px; vertical-align: top; font-size: medium; text-align: center}
     table#table121 {float: left}
+    input#bb1 {text-align: center; background-color: black; color: white}
+    button#createclose {text-align: center; background-color: black; color: white}
+    input#jj1 {text-align: center; background-color: black; color: white}
+    button#joinclose {text-align: center; background-color: black; color: white}
   </style>
 </head>
 <body>
@@ -97,11 +101,11 @@
 <div id="createRoom" class="modal">
   <div class="modal-content">
     <Form action="createroom" Method="post"><br>
-      방제목 : <input type="text" value="<%=nick%>님의 게임방입니다." name="Createroomname"/><br><br>
+      방제목 : <input type="text" value="<%=nick%>님의 게임방입니다." name="Createroomname" id="dd1"/><br><br>
       게임 : <input type="text" placeholder="게임" name="Createroomgame" readonly="readonly" value="${Game.game_name}"/><br><br>
       비밀번호 : <input type="text" id="Createroompw" name="Createroompw" disabled="disabled" value=""/><br><br>
       비번 사용 <input type="checkbox" name="Usepw" id="Usepw" value=false/><br><br>
-      <Input Type ="Submit" Value="방 생성"/>
+      <Input Type ="Submit" Value="방 생성" id="bb1"/>
     </Form> <button id="createclose">창 닫기</button>
   </div>
 </div>
@@ -121,7 +125,7 @@
     <form action="join" Method="post">
       <input type="text" id="joinid" name="joinid"/><br><br>
       비밀번호 : <input type="password" id="joinpw" name="joinpw" value=""/><br><br>
-      <Input Type ="Submit" Value="방 입장"/><br>
+      <Input Type ="Submit" Value="방 입장" id="jj1"/><br>
     </form> <button id="joinclose">창 닫기</button>
   </div>
 </div>
