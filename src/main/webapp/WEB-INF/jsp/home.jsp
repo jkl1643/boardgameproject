@@ -94,12 +94,11 @@
 
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
 		System.out.println("jsp mem : " + mem);
-		/*if(loginduplicate){
+		if(loginduplicate){
 			System.out.println("듀플");
-			return;
 		} else {
 			System.out.println("듀플안됨");
-		}*/
+		}
 
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
@@ -112,7 +111,15 @@
 		}
 
 		System.out.println("mem2 : " + mem);
-		if(mem == null){ %>
+		if(mem == null){
+			if(loginduplicate){
+				System.out.println("bbbb");%>
+				<script>
+					alert("이미 로그인 되어 있습니다.");
+				</script>
+			<%}%>
+
+
 		<div id="logbox1">
 			<div id="logbox2">
 				<p id="yuba">현재 접속자 수 : ${users}명</p>
@@ -256,7 +263,7 @@
 			<tr>
 				<td>
 					<form action="editaccount" method="post">
-						<Input Type="Submit" Value="내 정보 수정 ▶" id="but4"><img src="edit.png" id="edit">
+						<Input Type="Submit" Value="내 정보 수정 ▶" id="but4">
 					</form>
 				</td>
 				<td>

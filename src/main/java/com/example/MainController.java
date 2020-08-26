@@ -160,30 +160,34 @@ public class MainController {
         Member name = (Member)session.getAttribute("mem");
         //if (name ) {//로그아웃
             login = 0;
-            if(login == 0) {
-                mav.addObject("login", 0);
-            } else {
-                mav.addObject("login", 1);
-            }
-            //session.invalidate();
-            System.out.println("로그아웃 = " + login);
-
-            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
-            mav.addObject("loginduplicate", false);
-            mav.addObject("logout", true);
-            lgo.logout();
-            Enumeration e = loginUsers.keys();
-            while(e.hasMoreElements()){
-                //session = (HttpSession) e.nextElement();
-                //if(loginUsers.get(session).equals(name.getEmail())){
-                String a = (String) e.nextElement();
-                System.out.println("loginuser = " + loginUsers.get(a));
-                if(loginUsers.get(a).equals(name.getEmail())) {
-                    loginUsers.remove(name.getEmail());
-                    System.out.println(" " + name.getEmail() + "해쉬 사라짐");
-                    session.invalidate();
+            try {
+                if (login == 0) {
+                    mav.addObject("login", 0);
+                } else {
+                    mav.addObject("login", 1);
                 }
-                //}
+                //session.invalidate();
+                System.out.println("로그아웃 = " + login);
+
+                MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+                mav.addObject("loginduplicate", false);
+                mav.addObject("logout", true);
+                lgo.logout();
+                Enumeration e = loginUsers.keys();
+                while (e.hasMoreElements()) {
+                    //session = (HttpSession) e.nextElement();
+                    //if(loginUsers.get(session).equals(name.getEmail())){
+                    String a = (String) e.nextElement();
+                    System.out.println("loginuser = " + loginUsers.get(a));
+                    if (loginUsers.get(a).equals(name.getEmail())) {
+                        loginUsers.remove(name.getEmail());
+                        System.out.println(" " + name.getEmail() + "해쉬 사라짐");
+                        session.invalidate();
+                    }
+                    //}
+                }
+            } catch (Exception e){
+
             }
 
         //}
@@ -366,10 +370,10 @@ public class MainController {
             id = "0";
         }*/
         String idid = (String) session.getAttribute("idid");
-        if (login == 0) { //이전에 로그인 한적이 없을때/*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/
+        if (name2 == null) { //이전에 로그인 한적이 없을때/*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/
             Member name = (Member) session.getAttribute("mem");
             System.out.println("name = " + name);
-            if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
+            /*if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
                 System.out.println("ididid = " + name.getEmail());
                 if (id.equals(name.getEmail())) {
                     System.out.println("중복");
@@ -383,21 +387,23 @@ public class MainController {
                 session.setAttribute("mem", member);
 //                session.setAttribute("rec", record); // 수명
                 System.out.println("널임");
-            }
+            }*/
 
             Enumeration en = loginUsers.keys();
 
-            try {
+            //ry {
                 while (en.hasMoreElements()) {
                     String key = en.nextElement().toString();
                     System.out.println(key + " : " + loginUsers.get(key));
                     if (key.equals(member.getEmail())) {
                         mav.addObject("loginduplicate", true);
+                        mav.setViewName("home");
+                        return mav;
                     }
                 }
-            } catch (Exception e){
+            //} catch (Exception e){
 
-            }
+            //}
             loginUsers.put(id, id);
             System.out.println("해쉬테이블 인원 : " + String.valueOf(loginUsers.size()));
             mav.addObject("users", loginUsers.size());
@@ -406,7 +412,7 @@ public class MainController {
             try {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
-
+                session.setAttribute("mem", member);
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
