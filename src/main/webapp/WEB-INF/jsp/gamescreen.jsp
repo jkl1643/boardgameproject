@@ -74,15 +74,13 @@
 		function onOpen(evt)
 		{
 			webSocket.send(JSON.stringify({cmd : "start", selecto : userId, roomId : roomId}));
-			writeToScreen("연결완료");
+			writeToScreen("다른 플레이어 기다리는 중...");
 
 		}
 
 		function onClose(evt)
 		{
 			window.location.href='home';
-
-			writeToScreen("연결해제");
 		}
 
 
@@ -99,7 +97,10 @@
 
 					if(player == 1){
 						document.getElementById("roll").disabled = false;
-						writeToScreen("니 차례");
+						writeToScreen("당신 차례입니다");
+					}
+					else{
+						writeToScreen("상대 차례");
 					}
 					break;
 
@@ -330,12 +331,11 @@
 					document.getElementById("roll").disabled = false;
 
 
-					writeToScreen("게임 시작");
 					document.getElementById("roll").style.WebkitAnimation = "col 1s infinite";
 					document.getElementById("roll").addEventListener('click',function(){
 						document.getElementById("roll").style.WebkitAnimation = 'none';
 					})
-					writeToScreen("니 차례");
+					writeToScreen("당신 차례입니다");
 					break;
 
 
@@ -357,7 +357,7 @@
 
 				case "alert":
 					document.getElementById("roll").disabled = true;
-					writeToScreen("이긴놈은 player"+String(cmd.selecto));
+					writeToScreen("승자는 플레이어"+String(cmd.selecto)+" 입니다");
 					endTrigger=true;
 					break;
 
