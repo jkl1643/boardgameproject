@@ -13,11 +13,11 @@ public class MyGameRecordWrite {
 	public Long input(MyGameRecordRequest req, HttpSession session) {
 		System.out.println("req.getWin = " + req.getWin());
 		MyGameRecord newRequest = new MyGameRecord(
-			req.getTotal(), req.getWin(), req.getLose(), req.getDraw(), req.getGame_number(), 
-			req.getMember_number());
+			req.getTotal(), req.getWin(), req.getLose(), req.getDraw(), req.getGame_number(),
+				(long) req.getMember_number());
 
 		System.out.println("1111111111 = " + req.getWin());
-		mygamerecorddao.insert2(newRequest, session);
+		//mygamerecorddao.insert2(newRequest, session,);
 		System.out.println("333333333 = " + req.getWin());
 		return newRequest.getGamerecord_number();
 	}

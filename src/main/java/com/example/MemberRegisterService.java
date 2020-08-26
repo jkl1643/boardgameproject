@@ -19,11 +19,11 @@ public class MemberRegisterService {
         }
         System.out.println("3");
         Member newMember = new Member(req.getEmail(), req.getPassword(), req.getNickname(), req.getRegisterDate()); //맴버객체를 만듬 new Date()
-     //   MyGameRecord newrecord = new MyGameRecord(req.getNickname(), 0, 0, 0, 0);
+        //MyGameRecord newrecord = new MyGameRecord(0, 0, 0, 0, 1, member.getId());
         System.out.println("4");
         memberDao.insert(newMember); //Dao에 삽입
         System.out.println("5");
-       // mygamerecordDao.insert(newrecord);
+        //mygamerecordDao.insert2(newrecord);
         return newMember.getId();
     }
 }

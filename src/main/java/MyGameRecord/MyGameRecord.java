@@ -1,7 +1,5 @@
 package MyGameRecord;
 
-import java.time.LocalDateTime;
-
 public class MyGameRecord {
    
 	private Long gamerecord_number;
@@ -10,11 +8,11 @@ public class MyGameRecord {
     private int gamerecord_draw;
     private int gamerecord_lose;
     private int game_number;
-    private int member_number;
+    private Long member_number;
 //	private LocalDateTime registerDateTime;
 //  private String nickname;
     public MyGameRecord(int gamerecord_total, int gamerecord_win,
-                        int gamerecord_draw, int gamerecord_lose, int game_number, int member_number) {
+						int gamerecord_draw, int gamerecord_lose, int game_number, Long member_number) {
       //  this.nickname = nickname;
         this.gamerecord_total = gamerecord_total;
         this.gamerecord_win = gamerecord_win;
@@ -60,14 +58,26 @@ public class MyGameRecord {
 	public void setGame_number(int game_number) {
 		this.game_number = game_number;
 	}
-	public int getMember_number() {
+	public Long getMember_number() {
 		return member_number;
 	}
-	public void setMember_number(int member_number) {
+	public void setMember_number(Long member_number) {
 		this.member_number = member_number;
 	}
 
-  
+	public void changeTotal(int gamerecord_total) {
+		this.gamerecord_total = gamerecord_total;;
+	}
+	
+	public void changeWin(int gamerecord_win) {
+		this.gamerecord_win = gamerecord_win;
+	}
 
-
+	public void changeLose(int gamerecord_lose) {
+		this.gamerecord_lose = gamerecord_lose;
+	}
+	
+	public void changeDraw(int gamerecord_draw) {
+		this.gamerecord_draw = gamerecord_draw;
+	}
 }
