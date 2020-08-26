@@ -110,6 +110,7 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
         Main_Server Server = Server_list.get(1);
 
         HashMap<String, Room> Room_List = Server.getRoom_list();
@@ -277,6 +278,84 @@ public class dbqudfufhandler extends TextWebSocketHandler {
 
                 chatMessage.setPlayer(0);
 
+                if(winnerStackHash.get(getRoomId)==2) {
+                    d = winnerScoreHash.get(getRoomId);
+                    if (d[0] > d[1]) {
+                        winnerHash.put(getRoomId, 1);
+                        System.out.println("승리자 = " + nickname[0]);
+                        System.out.println("패배자 = " + nickname[1]);
+
+                        Member member1 = memberDao.selectByNickname(nickname[0]); // 1p
+                        Member member2 = memberDao.selectByNickname(nickname[1]); // 2p
+                        MyGameRecord mygame1 = mygamerecorddao.selectByMEMNUM(member1.getId());
+                        MyGameRecord mygame2 = mygamerecorddao.selectByMEMNUM(member2.getId());
+
+
+                        if(member1.getId() == mygame1.getMember_number()) // 1p 승리시 업데이트
+                        {
+                            //업데이트
+                            System.out.println("업데이트확인");
+                            //mygamerecorddao.update(record);
+                            System.out.println("mygame1번호 = " + mygame1.getMember_number());
+                            /* total +1 ,
+                             * win + 1,
+                             * lose + 0
+                             * draw + 0
+                             */
+
+                            mygame1.changeTotal(mygame1.getTotal()+1);
+                            mygame1.changeWin(mygame1.getWin()+1);
+                            mygame1.changeDraw(mygame1.getDraw());
+                            mygame1.changeLose(mygame1.getLose());
+                            System.out.println("mygame1" + mygame1.getTotal());
+                            mygamerecorddao.update(mygame1);
+                            System.out.println("2");
+                        }/*
+                        else if(mygame1.getTotal() == 0) { // 처음 승리시
+                            //insert
+                            System.out.println("인서트확인");
+
+                            *//*MyGameRecordRequest req;*//*
+                            //MyGameRecordRequest newRequest = new MyGameRecordRequest(
+                                    //0, 0, 0, 0, 0, 0);
+                            //mygamerecordwrite.input(newRequest, httpsession);
+                            //mygamerecordwrite.input(req, session);
+
+                        }*/
+
+                        if(member2.getId() == mygame2.getMember_number()) // 2p 패배시
+                        {
+                            //업데이트
+                            System.out.println("업데이트확인");
+                            //mygamerecorddao.update(record);
+                            /* total +1 ,
+                             * win + 0,
+                             * lose + 1
+                             * draw + 0
+                             */
+                        }
+                        else if(mygame1.getTotal() == 0) { // 처음 승리시
+                            //insert
+                            System.out.println("인서트확인");
+
+                        }
+
+                    	/*
+                    	Member member1 = memberDao.selectByNickname(nickname[0]);
+
+
+                    	MyGameRecord newRequest = new MyGameRecord(
+                    			1,1,0,0,1,member1.getId());
+
+					mygamerecorddao.insert(newRequest);*/
+                    }
+                    else {
+                        winnerHash.put(getRoomId, 2);
+                        System.out.println("승리자 = " + nickname[1]);
+                        System.out.println("패배자 = " + nickname[0]);
+                    }
+                }
+
 
                 if(winnerStackHash.get(getRoomId)==2) {
                     d = winnerScoreHash.get(getRoomId);
@@ -330,21 +409,104 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                 getRoomId = chatMessage.getRoomId();
 
                 chatMessage.setCmd("alert");
-                if(chatMessage.getPlayer()==1){
+                if(chatMessage.getPlayer()==1){ //탈주한 플래이어가 1, 2가 이김
                     winnerHash.put(getRoomId, 2);
                     chatMessage.setSelecto(2);
                     sendMessage = objectMapper.writeValueAsString(chatMessage);
                     WebSocketSession wss = user.get(nameHash.get(getRoomId)[1]);
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
+
+
                 }
-                else if(chatMessage.getPlayer()==2){
+                else if(chatMessage.getPlayer()==2){    //2p가 도망, 1이 이김
                     winnerHash.put(getRoomId, 1);
                     chatMessage.setSelecto(1);
                     sendMessage = objectMapper.writeValueAsString(chatMessage);
                     WebSocketSession wss = user.get(nameHash.get(getRoomId)[0]);
                     wss.sendMessage(new TextMessage(sendMessage));
                     chatMessage.setPlayer(0);
+
+                    System.out.println("승리자 = " + nickname[0]);
+                    System.out.println("패배자 = " + nickname[1]);
+
+                    Member member1 = memberDao.selectByEmail(nickname[0]); // 1p
+                    Member member2 = memberDao.selectByEmail(nickname[1]); // 2p
+                    System.out.println("member2 = " + member2.getId());
+                    MyGameRecord mygame1 = mygamerecorddao.selectByMEMNUM(member1.getId());
+                    MyGameRecord mygame2 = mygamerecorddao.selectByMEMNUM(member2.getId());
+
+
+                    if(member1.getId() == mygame1.getMember_number()) // 1p 승리시 업데이트
+                    {
+                        //업데이트
+                        System.out.println("업데이트확인");
+                        //mygamerecorddao.update(record);
+                        System.out.println("mygame1번호 = " + mygame1.getMember_number());
+                        /* total +1 ,
+                         * win + 1,
+                         * lose + 0
+                         * draw + 0
+                         */
+
+                        mygame1.changeTotal(mygame1.getTotal()+1);
+                        mygame1.changeWin(mygame1.getWin()+1);
+                        mygame1.changeDraw(mygame1.getDraw());
+                        mygame1.changeLose(mygame1.getLose());
+                        System.out.println("mygame1 = " + mygame1.getTotal());
+                        System.out.println("mygame2 = " + mygame1.getWin());
+                        System.out.println("mygame3 = " + mygame1.getDraw());
+                        System.out.println("mygame4 = " + mygame1.getLose());
+                        System.out.println("mygame5 = " + mygame1.getMember_number());
+                        System.out.println("mygame6 = " + mygame1.getGamerecord_number());
+                        System.out.println("mygame6 = " + mygame1.getGame_number());
+                        mygamerecorddao.update(mygame1);
+                        System.out.println("2");
+                    }/*
+                        else if(mygame1.getTotal() == 0) { // 처음 승리시
+                            //insert
+                            System.out.println("인서트확인");
+
+                            *//*MyGameRecordRequest req;*//*
+                            //MyGameRecordRequest newRequest = new MyGameRecordRequest(
+                                    //0, 0, 0, 0, 0, 0);
+                            //mygamerecordwrite.input(newRequest, httpsession);
+                            //mygamerecordwrite.input(req, session);
+
+                        }*/
+
+                    if(member2.getId() == mygame2.getMember_number()) // 2p 패배시
+                    {
+                        //업데이트
+                        System.out.println("업데이트확인");
+                        //mygamerecorddao.update(record);
+                        /* total +1 ,
+                         * win + 0,
+                         * lose + 1
+                         * draw + 0
+                         */
+                    }
+                    else if(mygame1.getTotal() == 0) { // 처음 승리시
+                        //insert
+                        System.out.println("인서트확인");
+
+                    }
+
+                    	/*
+                    	Member member1 = memberDao.selectByNickname(nickname[0]);
+
+
+                    	MyGameRecord newRequest = new MyGameRecord(
+                    			1,1,0,0,1,member1.getId());
+
+					mygamerecorddao.insert(newRequest);*/
+
+                    else {
+                        winnerHash.put(getRoomId, 2);
+                        System.out.println("승리자 = " + nickname[1]);
+                        System.out.println("패배자 = " + nickname[0]);
+                    }
+
                 }
 
                 break;

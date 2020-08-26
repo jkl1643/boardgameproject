@@ -45,6 +45,6 @@ public class MyGameRecordRequest {
 		public void setMember_number(int member_number) {
 			this.member_number = member_number;
 		}
-	    
+	  
 	    
 }

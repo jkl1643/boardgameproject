@@ -19,9 +19,8 @@
 	input#text4 {position: relative; left: 620px; top: 110px}
 -->
 </STYLE>
-	<script type = "text/javascript">
+	<%--<script type = "text/javascript">
 		function validate(){
-			alert("aaa");
 			var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
 			var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			// 이메일이 적합한지 검사할 정규식
@@ -76,7 +75,8 @@
 				nickname.focus();
 				return false;
 			}
-
+			alert("true");
+			return true;
 		}
 
 
@@ -92,27 +92,27 @@
 		}
 
 
-	</script>
+	</script>--%>
 </head>
 <body>
 	<h1 class="title">회원가입 창</h1>
-	<form name="join" onsubmit="return validate();" action="home"  method="post" enctype="text/plain">
+	<form name="join" <%--onsubmit="return validate();"--%> action="home"  method="post">
 		<table id="table1">
 			<tr>
 				<td><strong>이메일</strong></td>
-				<td><Input Type="Text" id="EMAIL" Name="EMAIL"> <BR></td>
+				<td><Input Type="Text" id="EMAIL" Name="EMAIL2"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>비밀번호</strong></td>
-				<td><Input Type="PassWord" id="PWD" Name="PWD"> <BR></td>
+				<td><Input Type="PassWord" id="PWD" Name="PWD2"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>비밀번호 확인</strong></td>
-				<td><Input Type="PassWord" id="PWD2" Name="PWD2"> <BR></td>
+				<td><Input Type="PassWord" id="PWD2" Name="PWD22"> <BR></td>
 			</tr>
 			<tr>
 				<td><strong>닉네임</strong></td>
-				<td><Input Type="Text" id="NICKNAME" Name="NICKNAME"> <BR></td>
+				<td><Input Type="Text" id="NICKNAME" Name="NICKNAME2"> <BR></td>
 			</tr>
 		</table>
 		<%--<div id="textbox1"></div>
