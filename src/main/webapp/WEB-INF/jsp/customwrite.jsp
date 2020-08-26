@@ -27,14 +27,10 @@
 <div id="box1">
     <form action="customwriteok" method="post">
         <label for="text2" id="label1">제목&nbsp;&nbsp;</label>
-       <%-- 
-        <form:input type="text" path="title" id="text2" placeholder="제목을 입력하세요." /> 
-        <form:textarea path="content" id="text3" placeholder="문의 내용을 입력하세요." /> 
-       --%>
-       <Input Type="Text" Name="title" >
-       <Input Type="Text" Name="content" >
-       <div style="display:none;">
-        <Input Type="Text" Name ="number" value = "${mem.getId()}" />
+       <Input Type="Text" Name="title" id="text2">
+        <textarea Name="content" id="text3" placeholder="문의 내용을 입력하세요."></textarea>
+        <div style="display:none;" id="dtd">
+        <Input Type="Text" Name ="number" value = "${mem.getId()}">
         </div>
         <input type="submit" value="저장하기" id="submit1">
     </form>
@@ -44,24 +40,3 @@
 </button>
 </body>
 </html>
-
-
-<%-- 
-<form action="customchangeok" method="post">
-	<div style="display:none;">
-	<p>
-		<label>번호<br>
-			<Input Type="Text" Name="count1" value="${custom1.count}">
-		</label>
-	</p>
-	</div>
-	<p>
-		<label>제목<br>
-			<Input Type="Text" Name="title1" value="${custom1.title}">
-		</label>
-	</p>
-	<p>
-		<label>내용<br>
-			<Input Type="Text" Name="content1" value="${custom1.content}">
-		</label>
-	</p>--%>
