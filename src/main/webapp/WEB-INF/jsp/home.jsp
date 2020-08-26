@@ -167,7 +167,9 @@
 		alert("이미 로그인 되어 있습니다.");
 	</script>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<form action="main" method="post">
 			<div style="margin-left: 200px; margin-top: 20px; float: left; display: inline;">아이디</div>
 			<div style="margin-left: 300px; margin-top: -25px; float: left; display: inline;"><input type="text" placeholder="아이디 조건" Name="id" id="inputid1" value="<%=cookieId !="" ? cookieId : "" %>"></div>
@@ -216,7 +218,9 @@
 	<%System.out.println("ccc");
 	} else {%>
 	<div id="logbox1">
-		<div id="logbox2">현재 접속자 수 : ${users}명</div>
+		<div id="logbox2">
+			<p id="yuba">현재 접속자 수 : ${users}명</p>
+		</div>
 		<table id="table1">
 			<tr>
 				<td>${mem.getEmail()}님 환영합니다!</td>
