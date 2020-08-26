@@ -14,12 +14,12 @@ public class Socket_Config implements WebSocketConfigurer {
     Socket_Handler socketHandler;
 
     @Autowired
-    dbqudfufhandler dbqudfufhandler1;
+    YahtzeeHandler yahtzeeHandler1;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(socketHandler, "/chat").addInterceptors(new SocketHandlerInterceptor());
-        registry.addHandler(dbqudfufhandler1, "/game").addInterceptors(new SocketHandlerInterceptor());
+        registry.addHandler(yahtzeeHandler1, "/game").addInterceptors(new SocketHandlerInterceptor());
         System.out.println("소켓 핸들러");
     }
 }
