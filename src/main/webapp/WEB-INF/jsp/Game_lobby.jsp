@@ -92,8 +92,6 @@
 <gamemenu id="pggamemenu">
   <ul>
     <li><a class="active" href="#home" onclick="create1()">방 생성</a></li>
-    <li><a href="#gamerank">전체 방</a></li>
-    <li><a href="#theme">대기방</a></li>
   </ul>
 </gamemenu>
 

@@ -76,7 +76,7 @@
 <div id="pgtitle"> <H1>${Game.game_name}</H1> </div>
 <gameimage id="pggameimage"><img class="info_img" src="image/${Game.game_image}"/></gameimage>
 <control id="pgcontrol">
-    <button id="buybtn" onclick="buy()"> 게임 구매<BR>10000원 </button>
+    <button id="buybtn" onclick="buy()"> 게임 구매 </button>
     <button id="playbtn" onclick="location.href='mygamelist'"> 플레이 하러가기 </button>
 </control>
 <descr id="pgdescr">${Game.game_info}</descr>
@@ -88,7 +88,7 @@
     <div class="modal-content">
         <form action="buygame" Method="get">
             <input type="text" id="gamenumber" name="gamenumber" value="${Game.game_number}"/><br><br>
-            <Input Type ="Submit" Value="구매하기&#13;10000원" id="butot"/><br> 가격도 유동적으로 수정해주면 좋을듯?
+            <Input Type ="Submit" Value="구매하기" id="butot"/>
         </form> <button id="closebtn">취소</button>
     </div>
 </div>

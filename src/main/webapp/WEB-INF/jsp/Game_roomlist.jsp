@@ -41,14 +41,16 @@
         <td> 입장</td>
     </tr>
     <c:forEach var="room" items="${Room_list}" varStatus="status">
-        <tr align="center">
-            <td>${room.name}</td>
-            <td>${room.player} / ${room.maxplayer}</td>
-            <td>${room.status}</td>
-            <td>
-                <button id="${room.ID}" onclick="join1(this.id)">입장</button>
-            </td>
-        </tr>
+        <c:if test="${room.status eq 'Waiting'}">
+            <tr align="center">
+                <td>${room.name}</td>
+                <td>${room.player} / ${room.maxplayer}</td>
+                <td>${room.status}</td>
+                <td>
+                    <button id="${room.ID}" onclick="join1(this.id)">입장</button>
+                </td>
+            </tr>
+        </c:if>
     </c:forEach>
 </table>
 <div id="joinRoom" class="modal">
