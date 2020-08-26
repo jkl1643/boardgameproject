@@ -29,7 +29,7 @@
 		div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
-		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1000px; top: -52px; background-color: #f6fad7;}
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1000px; top: -52px; background-color: #f6fad7; font-size: 30px;}
 		div#logbox2 {background-color: #d1f1fa; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
@@ -223,16 +223,16 @@
 		<div id="logbox2">
 			<p id="yuba">현재 접속자 수 : ${users}명</p>
 		</div>
-		<table id="table1">
+		<center><table id="table1">
 			<tr>
 				<td>${mem.getEmail()}님 환영합니다!</td>
-				<td>
+				<%--<td>
 					<form action="editaccount" method="post"> <!-- 내 전적으로 바꿈 -->
 						<Input Type="Submit" Value="내 정보 수정 ▶" id="but1">
 					</form>
-				</td>
+				</td>--%>
 			</tr>
-		</table>
+		</table></center>
 		<table id="table2">
 			<tr>
 				<td>
@@ -247,11 +247,11 @@
 				</td>
 			</tr>
 			<tr>
-				<%--<td>
-					<form action="" method="post">
-						<Input Type="Submit" Value="위시리스트 ▶" id="but4">
+				<td>
+					<form action="editaccount" method="post">
+						<Input Type="Submit" Value="내 정보 수정 ▶" id="but4">
 					</form>
-				</td>--%>
+				</td>
 				<td>
 					<form action="logout" method="post">
 						<Input Type="Submit" Value="로그아웃 ▶" id="but5">
