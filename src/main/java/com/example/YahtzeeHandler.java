@@ -322,10 +322,10 @@ public class YahtzeeHandler extends TextWebSocketHandler {
                             System.out.println("2업데이트확인");
                            
                             System.out.println("mygame2번호 = " + mygame2.getMember_number());
-                            mygame1.changeTotal(mygame2.getTotal()+1);
-                            mygame1.changeWin(mygame2.getWin());
-                            mygame1.changeDraw(mygame2.getDraw());
-                            mygame1.changeLose(mygame2.getLose()+1);
+                            mygame2.changeTotal(mygame2.getTotal()+1);
+                            mygame2.changeWin(mygame2.getWin());
+                            mygame2.changeDraw(mygame2.getDraw());
+                            mygame2.changeLose(mygame2.getLose()+1);
                             System.out.println("mygame2" + mygame2.getTotal());
                             mygamerecorddao.update(mygame2);
                             System.out.println("3");
@@ -351,10 +351,10 @@ public class YahtzeeHandler extends TextWebSocketHandler {
                             System.out.println("2업데이트확인");
                            
                             System.out.println("mygame2번호 = " + mygame2.getMember_number());
-                            mygame1.changeTotal(mygame2.getTotal()+1);
-                            mygame1.changeWin(mygame2.getWin()+1);
-                            mygame1.changeDraw(mygame2.getDraw());
-                            mygame1.changeLose(mygame2.getLose());
+                            mygame2.changeTotal(mygame2.getTotal()+1);
+                            mygame2.changeWin(mygame2.getWin()+1);
+                            mygame2.changeDraw(mygame2.getDraw());
+                            mygame2.changeLose(mygame2.getLose());
                             System.out.println("mygame2" + mygame2.getTotal());
                             mygamerecorddao.update(mygame2);
                             System.out.println("4");
@@ -433,10 +433,10 @@ public class YahtzeeHandler extends TextWebSocketHandler {
                         System.out.println("2업데이트확인");
                        
                         System.out.println("mygame2번호 = " + mygame2.getMember_number());
-                        mygame1.changeTotal(mygame2.getTotal()+1);
-                        mygame1.changeWin(mygame2.getWin()+1);
-                        mygame1.changeDraw(mygame2.getDraw());
-                        mygame1.changeLose(mygame2.getLose());
+                        mygame2.changeTotal(mygame2.getTotal()+1);
+                        mygame2.changeWin(mygame2.getWin()+1);
+                        mygame2.changeDraw(mygame2.getDraw());
+                        mygame2.changeLose(mygame2.getLose());
                         System.out.println("mygame2" + mygame2.getTotal());
                         mygamerecorddao.update(mygame2);
                         System.out.println("4");
@@ -520,10 +520,10 @@ public class YahtzeeHandler extends TextWebSocketHandler {
                         System.out.println("2업데이트확인");
                        
                         System.out.println("mygame2번호 = " + mygame2.getMember_number());
-                        mygame1.changeTotal(mygame2.getTotal()+1);
-                        mygame1.changeWin(mygame2.getWin());
-                        mygame1.changeDraw(mygame2.getDraw());
-                        mygame1.changeLose(mygame2.getLose()+1);
+                        mygame2.changeTotal(mygame2.getTotal()+1);
+                        mygame2.changeWin(mygame2.getWin());
+                        mygame2.changeDraw(mygame2.getDraw());
+                        mygame2.changeLose(mygame2.getLose()+1);
                         System.out.println("mygame2" + mygame2.getTotal());
                         mygamerecorddao.update(mygame2);
                         System.out.println("3");
