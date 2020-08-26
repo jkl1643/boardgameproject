@@ -40,6 +40,12 @@ public class MemberDao {
 		List<Member> results = jdbcTemplate.query("select * from MEMBER where member_email LIKE ?", memRowMapper, email);
 		return results.isEmpty() ? null : results.get(0);
 	}
+	
+	public Member selectByNickname(String nickname) {
+		List<Member> results = jdbcTemplate.query("select * from MEMBER where member_nickname LIKE ?", memRowMapper, nickname);
+		return results.isEmpty() ? null : results.get(0);
+	}
+	
 	/*public Member selectByEmail(String email) {
 		List<Member> results = jdbcTemplate.query("select * from MEMBER where EMAIL = ?",
 				new RowMapper<Member>() {
