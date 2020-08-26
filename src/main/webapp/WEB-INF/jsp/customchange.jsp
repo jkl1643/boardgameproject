@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +25,20 @@
 <body>
 <h1 id="text1">고객지원</h1>
 <div id="box1">
-	<form:form action="customchangeok" method=post>
+	<form action="customchangeok" method=post>
+	<div style="display:none;">
+	<p>
+		<label>번호<br>
+			<Input Type="Text" Name="count1" value="${custom1.count}">
+		</label>
+	</p>
+	</div>
 		<label for="text2" id="label1">제목&nbsp;&nbsp;</label>
 		<input type="text" name="title1" value="${custom1.title}" id="text2">
 		<textarea name="content1" id="text3">${custom1.content}</textarea>
 		<input type="submit" value="수정하기" id="submit1">
-	</form:form>
+	</form>
 </div>
-<button id="button1"><a href="<c:url value="/custom"/>">메인으로</a></button>
+<button id="button1"><a href="<c:url value="/custom"/>">돌아가기</a></button>
 </body>
 </html>
