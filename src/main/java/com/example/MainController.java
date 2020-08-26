@@ -113,6 +113,7 @@ public class MainController {
         mav.addObject("error", false);
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
+        mav.addObject("users", loginUsers.size());
         //mav.addObject("loginduplicate", false);
         //mav.addObject("id", id);
         Member name = (Member)session.getAttribute("mem");
@@ -156,6 +157,7 @@ public class MainController {
                               @RequestParam(value = "PWD2", required = false) String pwd2,
                               @RequestParam(value = "NICKNAME", required = false) String nickname) {
         System.out.println("--------홈------------");
+        mav.addObject("users", loginUsers.size());
         System.out.println("이메일 = " + id);
         try {
             /*Member member = memberDao.selectByEmail(id);
@@ -345,6 +347,8 @@ public class MainController {
                 }
             }
             loginUsers.put(id, id);
+            System.out.println("해쉬테이블 인원 : " + String.valueOf(loginUsers.size()));
+            mav.addObject("users", loginUsers.size());
 
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
