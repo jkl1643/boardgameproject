@@ -237,6 +237,11 @@
 			<tr>
 				<td>
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
+					<div style="display:none;">
+					
+						<Input Type="Text" Name="memnum" value="${mem.getId()}">
+					</div>
+						
 						<Input Type="Submit" Value="내 전적 ▶" id="but2">
 					</form>
 				</td>
