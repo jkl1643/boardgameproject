@@ -23,7 +23,7 @@ import java.util.Set;
 
 
 @Component
-public class dbqudfufhandler extends TextWebSocketHandler {
+public class YahtzeeHandler extends TextWebSocketHandler {
     @Autowired
     private ObjectMapper objectMapper;
 

@@ -29,15 +29,15 @@
 		div#search {position: relative; left: 750px; top: -47px; width: 300px; border: 1px solid blue; background: white}
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
-		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1000px; top: -52px}
-		div#logbox2 {background-color: lightblue; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
+		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; right: -1000px; top: -52px; background-color: #f6fad7;}
+		div#logbox2 {background-color: #d1f1fa; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 250px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		input#signupbutton1 {position: relative; left: 300px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		#yu {position: relative; left: 200px; top: -60px}
 		#asdf {position: relative; left: 60px}
 		/*div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}*/
-		div#logbox4 {width: 1090px; height: 440px; border: 5px solid black; position: relative; left: 0px; top: -500px}
+		div#logbox4 {width: 1090px; height: 440px; border: 5px solid black; position: relative; left: 0px; top: -500px; font-size: 30px; background-color: #f6fad7;}
 		/*div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}*/
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px}
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
@@ -47,19 +47,21 @@
 		input#but3 {background-color: black; color: white}
 		input#but4 {background-color: black; color: white}
 		input#but5 {background-color: black; color: white}
-		gameimage{
+		/*gameimage{
 			text-align: center;
 			padding: 1em;
 			background: lightblue;
 			border-radius: 10px;
-		}
+		}*/
 
 		.img
 		{
 			height: 300px;
 			width: 300px;
 		}
-		-->
+
+	  	a { text-decoration:none }
+	-->
 
 	</STYLE>
 </head>
@@ -278,13 +280,14 @@
 			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
 	</div>--%>
 	<div id="logbox4">
-
+		게임 랭킹<BR><BR>
+		&emsp;1위&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;2위&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;3위
 		<table>
 			<br>
 			<c:forEach var="game" items="${Rank_list}" varStatus="status" begin="0" end="2">
 				<gameimage>
 					<a href="gameinfo?game=${game.game_number}">
-						<img class="img" src="image/${game.game_image}"/>
+						&nbsp;&nbsp;<img class="img" src="image/${game.game_image}"/>&nbsp;&nbsp;&nbsp;&nbsp;
 					</a>
 				</gameimage>
 			</c:forEach>
