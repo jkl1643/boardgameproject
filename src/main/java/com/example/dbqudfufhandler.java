@@ -2,6 +2,11 @@ package com.example;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import MyGameRecord.MyGameRecord;
+import MyGameRecord.MyGameRecordDao;
+import MyGameRecord.MyGameRecordWrite;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -25,7 +30,29 @@ public class dbqudfufhandler extends TextWebSocketHandler {
     @Autowired
     private HashMap<Integer, Main_Server> Server_list;
 
+    @Autowired
+    private MyGameRecordDao mygamerecorddao;
+    
+    @Autowired
+    private MyGameRecordWrite mygamerecordwrite;
 
+    @Autowired
+    private MemberDao memberDao;
+    
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
+
+    public void setMyGameRecordDao(MyGameRecordDao mygamerecorddao) {
+		this.mygamerecorddao = mygamerecorddao;
+	}
+
+    public void setMygameRecordWrite(MyGameRecordWrite mygamerecordwrite) {
+    	this.mygamerecordwrite = mygamerecordwrite;
+    }
+    
+    
+    
     String[] nickname = new String[2];
     int i = 0;
     
@@ -257,6 +284,21 @@ public class dbqudfufhandler extends TextWebSocketHandler {
                         winnerHash.put(getRoomId, 1);
                         System.out.println("승리자 = " + nickname[0]);
                     	System.out.println("패배자 = " + nickname[1]);
+                    	
+                    	Member member1 = memberDao.selectByNickname(nickname[0]);
+                    	MyGameRecord mygame = mygamerecorddao.selectByMEMNUM(member1.getId());
+                   
+  
+                    	if(member1.getId() == mygame.getMember_number())
+                    	{
+                    		//업데이트
+                    	}
+                    	else if(mygame.getTotal() == 0) {
+                    		//insert
+                    		
+                    	}
+                    	
+                    	
                     	/*
                     	Member member1 = memberDao.selectByNickname(nickname[0]);
                     	
