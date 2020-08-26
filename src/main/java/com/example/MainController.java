@@ -653,6 +653,7 @@ public class MainController {
     	
     }
 */
+    //
     @RequestMapping(value = "/record")
     public String myresult(Model model, Long memnum) {
     	MyGameRecord record = mygamerecorddao.selectByMEMNUM(memnum);

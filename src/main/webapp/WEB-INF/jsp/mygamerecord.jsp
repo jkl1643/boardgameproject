@@ -12,6 +12,7 @@
 <body>
 
 <p>
+
 총 경기 수 : ${myrecord.getTotal()}
 </p>
 
