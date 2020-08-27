@@ -40,8 +40,8 @@
             height: 150px;
             width: 150px;
         }
-        a#me1 {float: right}
-        a#me2 {float: right}
+
+        a#me2 {float: right ; font-size: xx-large; color: white ; text-decoration: none}
     </style>
 </head>
 <body>
@@ -53,7 +53,8 @@
     <gameimage><a href="gameinfo?game=${game.game_number}"><img class="img" src="image/${game.game_image}"/></a></gameimage>
     <gameinfo><B>${status.count}위 게임 : ${game.game_name} / 판매 수 : ${Rank_count.get(status.count-1)}<br></B>${game.game_info}</gameinfo>
 </c:forEach>
-<a style="position:fixed;bottom:50px;right:20px;" href="#" title="맨 위로" id="me1">맨 위로</a>
+
 <a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로" id="me2">홈으로</a>
+
 </body>
 </html>

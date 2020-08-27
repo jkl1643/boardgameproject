@@ -17,7 +17,7 @@
 		td {border-bottom: 1px solid black; border-right: 1px solid black}
 		button#button1 {width: 100px; height: 50px; background-color: lightgreen; color: black; position: relative; left: 1310px; top: 10px}
 		button#button1:hover {background-color: red; color: blue}
-		button#button2 {width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
+		button#button2 {text-decoration: none; width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
 		button#button2:hover {background-color: red; color: blue}
 		-->
 	</STYLE>
@@ -45,8 +45,8 @@
 	</table>
 </div>
 <c:if test="${! empty mem}">
-	<button id="button1"><a href="<c:url value="/customwrite" />">글쓰기 </a></button>
+	<button id="button1"><a href="<c:url value="/customwrite" />" style="text-decoration:none">글쓰기 </a></button>
 </c:if>
-<button id="button2"><a href="<c:url value="/home" />">메인으로 </a></button>
+<button id="button2"><a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a></button>
 </body>
 </html>
