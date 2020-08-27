@@ -735,17 +735,16 @@ public class MainController {
 
 	}
 
-    @GetMapping(value = "/customchange/{count}")
-    public String change(@PathVariable("count") Long memCount, Model model) {
+    @GetMapping(value = "/customchange")
+    public String change(@RequestParam(value = "count", required = true) Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
 	
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
        
-    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
+    @RequestMapping("/customchangeok") // 수정함 병렬
     public String handleStep5(Model model, Long count1, String title1, String content1) {
-	
         customchange.changedata(count1, title1, content1);
     	return "customchangeok";
     }
@@ -768,12 +767,12 @@ public class MainController {
 
     }
 */
-	@GetMapping(value = "/content/{count}")
-	public String detail(@PathVariable("count") Long memCount, Model model) {
-		Custom custom = customdao.selectByCount(memCount);
-		model.addAttribute("custom", custom);
-		return "customread";
-	}
+    @GetMapping(value = "/content")
+    public String detail(@RequestParam(value = "count", required = true) Long memCount, Model model) {
+        Custom custom = customdao.selectByCount(memCount);
+        model.addAttribute("custom", custom);
+        return "customread";
+    }
     
 	@GetMapping(value = "/delete/{count}")
 	public String delete(@PathVariable("count") Long memCount, Model model) {
