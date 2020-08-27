@@ -115,6 +115,7 @@ public class MainController {
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("users", loginUsers.size());
+        mav.addObject("loginduplicate", false);
 
         ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
         try {
@@ -155,7 +156,7 @@ public class MainController {
         model.addAttribute("Rank_list", control.GameRank_list());
         model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("users", loginUsers.size());
-        //mav.addObject("loginduplicate", false);
+        mav.addObject("loginduplicate", false);
         //mav.addObject("id", id);
         Member name = (Member)session.getAttribute("mem");
         //if (name ) {//로그아웃
@@ -208,6 +209,7 @@ public class MainController {
             /*Member member = memberDao.selectByEmail(id);
             session.setAttribute("mem", member);*/
             Member name = (Member)session.getAttribute("mem");
+
             System.out.println("home name = " + name);
             login = 0;
         } catch (Exception e) {
@@ -344,16 +346,28 @@ public class MainController {
 
         System.out.println("login1 = " + login);
         Member name2 = (Member)session.getAttribute("mem");
+
+
         /*System.out.println("name2.getEmail() = " + name2.getEmail());*/
         Member member = memberDao.selectByEmail(id);
        // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
         System.out.println("member = " + member);
         try {
-            System.out.println("name2.getEmail() = " + name2.getEmail());
+            System.out.println("name2 = " + name2);
         } catch (Exception e){
             System.out.println("안됨");
         }
 
+        if(name2 == null){
+            Enumeration en = loginUsers.keys();
+            while (en.hasMoreElements()) {
+                String key = en.nextElement().toString();
+                System.out.println(key + " : " + loginUsers.get(key));
+                if (key.equals(member.getEmail())) {
+                    session.setAttribute("mem", member);
+                }
+            }
+        }
         session.setAttribute("idid", id);
         delaccount = 0;
         model.addAttribute("userid", id);
@@ -369,6 +383,7 @@ public class MainController {
         /*if (id == null) {
             id = "0";
         }*/
+        name2 = (Member)session.getAttribute("mem");
         String idid = (String) session.getAttribute("idid");
         if (name2 == null) { //이전에 로그인 한적이 없을때/*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/
             Member name = (Member) session.getAttribute("mem");
@@ -413,6 +428,7 @@ public class MainController {
                 MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
                 lgn.login(id, pwd); //로그인
                 session.setAttribute("mem", member);
+                session.setMaxInactiveInterval(10);
                 mav.addObject("login", 1);
                 System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
