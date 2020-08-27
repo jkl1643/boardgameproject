@@ -116,6 +116,7 @@ public class MainController {
         model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("users", loginUsers.size());
         mav.addObject("loginduplicate", false);
+        mav.addObject("login", 1);
 
         ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
         try {
