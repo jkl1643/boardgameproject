@@ -37,17 +37,17 @@
 		input#signupbutton1 {position: relative; left: 300px; top: 150px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
 		#yu {position: relative; left: 200px; top: -80px}
 		#asdf {position: relative; left: 60px}
-		/*div#logbox3 {width: 590px; height: 800px; border: 5px solid black; position: relative; right: -1230px; top: -10px}*/
 		div#logbox4 {width: 1090px; height: 440px; border: 5px solid black; position: relative; left: 0px; top: -500px; font-size: 30px; background-color: #f6fad7;}
-		/*div#logbox5 {width: 1100px; height: 520px; border: 5px solid black; position: relative; left: 0px; top: -1250px}*/
-		/*div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px}*/
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
-		input#but1 {background-color: black; color: white; position: relative; left: 10px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
-		input#but2 {background-color: black; color: white}
-		input#but3 {background-color: black; color: white}
-		input#but4 {background-color: black; color: white}
-		input#but5 {background-color: black; color: white}
+		button#but2 {width: 120px; height: 75px; position: relative}
+		img#img1 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+		button#but3 {width: 120px; height: 75px; position: relative}
+		img#img2 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+		button#but4 {width: 120px; height: 75px; position: relative}
+		img#img3 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+		button#but5 {width: 120px; height: 75px; position: relative}
+		img#img4 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
 		/*gameimage{
 			text-align: center;
 			padding: 1em;
@@ -247,28 +247,26 @@
 				<td>
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
 					<div style="display:none;">
-					
 						<Input Type="Text" Name="memnum" value="${mem.getId()}">
 					</div>
-						
-						<Input Type="Submit" Value="내 전적 ▶" id="but2">
+						<button type="button" id="but2"><img src="ma1.jpg" id="img1"></button>
 					</form>
 				</td>
 				<td>
 					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
-						<Input Type="Submit" Value="내 게임 ▶" id="but3">
+						<button type="button" id="but3"><img src="ma2.jpg" id="img2"></button>
 					</form>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<form action="editaccount" method="post">
-						<Input Type="Submit" Value="내 정보 수정 ▶" id="but4">
+						<button type="button" id="but4"><img src="ma3.jpg" id="img3"></button>
 					</form>
 				</td>
 				<td>
 					<form action="logout" method="post">
-						<Input Type="Submit" Value="로그아웃 ▶" id="but5">
+						<button type="button" id="but5"><img src="ma4.jpg" id="img4"></button>
 					</form>
 				</td>
 			</tr>
