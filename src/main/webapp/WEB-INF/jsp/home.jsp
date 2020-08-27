@@ -249,24 +249,24 @@
 					<div style="display:none;">
 						<Input Type="Text" Name="memnum" value="${mem.getId()}">
 					</div>
-						<button type="button" id="but2"><img src="ma1.jpg" id="img1"></button>
+						<button type="button" OnClick="location.href ='record'" id="but2"><img src="ma1.jpg" id="img1"></button>
 					</form>
 				</td>
 				<td>
 					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
-						<button type="button" id="but3"><img src="ma2.jpg" id="img2"></button>
+						<button type="button" OnClick="location.href ='mygamelist'" id="but3"><img src="ma2.jpg" id="img2"></button>
 					</form>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<form action="editaccount" method="post">
-						<button type="button" id="but4"><img src="ma3.jpg" id="img3"></button>
+						<button type="button" OnClick="location.href ='editaccount'" id="but4"><img src="ma3.jpg" id="img3"></button>
 					</form>
 				</td>
 				<td>
 					<form action="logout" method="post">
-						<button type="button" id="but5"><img src="ma4.jpg" id="img4"></button>
+						<button type="button" OnClick="location.href ='logout'" id="but5"><img src="ma4.jpg" id="img4"></button>
 					</form>
 				</td>
 			</tr>
