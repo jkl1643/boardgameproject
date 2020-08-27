@@ -1663,7 +1663,7 @@
 <h2 id="web">야추 게임에 오신것을 환영합니다!</h2>
 <p id="output"></p>
 <div id="box">
-	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true ></button></div>
+	<div><button type="button" id="dice1" onClick="keepDice1Button()" ><img src="dice1.png" id="diceimg1" disabled = true></button></div>
 	<div><button type="button" id="dice2" onClick="keepDice2Button()" ><img src="dice1.png" id="diceimg2" disabled = true></button></div>
 	<div><button type="button" id="dice3" onClick="keepDice3Button()" ><img src="dice1.png" id="diceimg3" disabled = true></button></div>
 	<div><button type="button" id="dice4" onClick="keepDice4Button()" ><img src="dice1.png" id="diceimg4" disabled = true></button></div>

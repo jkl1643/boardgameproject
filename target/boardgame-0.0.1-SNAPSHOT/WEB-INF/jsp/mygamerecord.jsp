@@ -29,6 +29,19 @@
 패배 : ${myrecord.getLose()}	
 </p>
 
+<p>
+승 : ${myrecord.getWin()}
+</p>
+
+<p>
+무승부 : ${myrecord.getDraw()}
+
+</p>
+
+<p>
+패배 : ${myrecord.getLose()}	
+</p>
+
 
 </body>
 </html>
