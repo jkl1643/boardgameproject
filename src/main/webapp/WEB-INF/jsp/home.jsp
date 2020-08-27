@@ -30,7 +30,7 @@
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
-		div#logbox1_2 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
+		div#logbox1_2 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 30px;}
 		div#logbox2 {background-color: #d1f1fa; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
@@ -39,6 +39,7 @@
 		#asdf {position: relative; left: 60px}
 		div#logbox4 {width: 1090px; height: 440px; border: 5px solid black; position: relative; left: 0px; top: -500px; font-size: 30px; background-color: #f6fad7;}
 		table#table1 {width: 400px; height: 100px; float: right; position: relative; right: 50px; top: 0px}
+		td#nono {width: 300px; height: 16px}
 		table#table2 {width: 330px; height: 200px; float: right; position: relative; right: 100px; top: 10px}
 		button#but2 {width: 120px; height: 75px; position: relative}
 		img#img1 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
@@ -234,7 +235,7 @@
 		</div>
 		<center><table id="table1">
 			<tr>
-				<td>${mem.getEmail()}님 환영합니다!</td>
+				<td id="nono">${mem.getEmail()}님 환영합니다!</td>
 				<td><%
 					boolean editaccount = (boolean)request.getAttribute("editaccount");
 					boolean chkpwd = (boolean)request.getAttribute("chkpwd");

@@ -45,8 +45,8 @@
 	</table>
 </div>
 <c:if test="${! empty mem}">
-	<button id="button1"><a href="<c:url value="/customwrite" />">글쓰기 </a></button>
+	<button id="button1"><a href="<c:url value="/customwrite" />" style="text-decoration:none">글쓰기 </a></button>
 </c:if>
-<button id="button2"><a href="<c:url value="/home" />">메인으로 </a></button>
+<button id="button2"><a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a></button>
 </body>
 </html>
