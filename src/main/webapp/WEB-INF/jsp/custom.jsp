@@ -17,7 +17,7 @@
 		td {border-bottom: 1px solid black; border-right: 1px solid black}
 		button#button1 {width: 100px; height: 50px; background-color: lightgreen; color: black; position: relative; left: 1310px; top: 10px}
 		button#button1:hover {background-color: red; color: blue}
-		button#button2 {width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
+		button#button2 {text-decoration: none; width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
 		button#button2:hover {background-color: red; color: blue}
 		-->
 	</STYLE>
