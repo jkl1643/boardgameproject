@@ -361,6 +361,7 @@ public class MainController {
         } catch (Exception e){
             System.out.println("안됨");
         }
+        MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
 
         if(name2 == null){
             Enumeration en = loginUsers.keys();
@@ -368,7 +369,14 @@ public class MainController {
                 String key = en.nextElement().toString();
                 System.out.println(key + " : " + loginUsers.get(key));
                 if (key.equals(member.getEmail())) {
-                    session.setAttribute("mem", member);
+                    try {
+                        lgn.login(id, pwd);
+                        loginUsers.put(id, id);
+                        session.setAttribute("mem", member);
+                    } catch (Exception e){
+
+                    }
+
                 }
             }
         }
@@ -423,14 +431,15 @@ public class MainController {
             //} catch (Exception e){
 
             //}
-            loginUsers.put(id, id);
+
             System.out.println("해쉬테이블 인원 : " + String.valueOf(loginUsers.size()));
             mav.addObject("users", loginUsers.size());
 
             System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
-                MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
+
                 lgn.login(id, pwd); //로그인
+                loginUsers.put(id, id);
                 session.setAttribute("mem", member);
                 session.setMaxInactiveInterval(10);
                 mav.addObject("login", 1);
