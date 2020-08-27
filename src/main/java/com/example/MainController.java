@@ -60,14 +60,14 @@ public class MainController {
     //윤수명 추가 2
     @Autowired
     private CustomWrite customwrite;
-    
+
     @Autowired
     private CustomDao customdao;
-    
+
     @Autowired
     private CustomChange customchange;
-    
-   
+
+
     @Autowired
     private MyGameRecordDao mygamerecorddao;
 
@@ -80,11 +80,11 @@ public class MainController {
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
 	}
-    
+
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-   
+
 	public void setCustomDao(CustomDao customdao) {
 		this.customdao =customdao;
 	}
@@ -231,6 +231,9 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("id", id);
         mav.addObject("loginduplicate", false);
+        mav.addObject("editaccount", false);
+        mav.addObject("chkpwd", false);
+        mav.addObject("currentpwd", false);
         if(login == 0) {
             mav.addObject("login", 0);
         } else {
@@ -239,8 +242,8 @@ public class MainController {
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
 
-
         RegisterRequest req = new RegisterRequest();
+
         if (login != 1 && delaccount != 1) {
             req.setEmail(id);
             req.setNickname(nickname);
@@ -265,6 +268,7 @@ public class MainController {
                 mav.setViewName("home");
                 return mav;
             }
+
             try {
                 MemberRegisterService memberRegSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
                 System.out.println("11");
@@ -337,8 +341,9 @@ public class MainController {
         mav.addObject("insert_memo", false);
         mav.addObject("created_account", false);
         mav.addObject("delmemo", false);
-        mav.addObject("editaccount", false);
+
         mav.addObject("currentpwd", false);
+        mav.addObject("editaccount", false);
         mav.addObject("chkpwd", false);
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
@@ -730,17 +735,16 @@ public class MainController {
 
 	}
 
-    @GetMapping(value = "/customchange/{count}")
-    public String change(@PathVariable("count") Long memCount, Model model) {
+    @GetMapping(value = "/customchange")
+    public String change(@RequestParam(value = "count", required = true) Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
 	
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
        
-    @RequestMapping("/customchange/customchangeok") // 수정함 병렬
+    @RequestMapping("/customchangeok") // 수정함 병렬
     public String handleStep5(Model model, Long count1, String title1, String content1) {
-	
         customchange.changedata(count1, title1, content1);
     	return "customchangeok";
     }
@@ -763,12 +767,12 @@ public class MainController {
 
     }
 */
-	@GetMapping(value = "/{count}")
-	public String detail(@PathVariable("count") Long memCount, Model model) {
-		Custom custom = customdao.selectByCount(memCount);
-		model.addAttribute("custom", custom);
-		return "customread";
-	}
+    @GetMapping(value = "/content")
+    public String detail(@RequestParam(value = "count", required = true) Long memCount, Model model) {
+        Custom custom = customdao.selectByCount(memCount);
+        model.addAttribute("custom", custom);
+        return "customread";
+    }
     
 	@GetMapping(value = "/delete/{count}")
 	public String delete(@PathVariable("count") Long memCount, Model model) {

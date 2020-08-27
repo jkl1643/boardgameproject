@@ -230,14 +230,17 @@
 	<div id="logbox1_2">
 		<div id="logbox2">
 			<p id="yuba">현재 접속자 수 : ${users}명</p>
+			<%System.out.println("dddd");%>
 		</div>
 		<center><table id="table1">
 			<tr>
 				<td id="nono">${mem.getEmail()}님 환영합니다!</td>
+				<%System.out.println("eee");%>
 				<td><%
 					boolean editaccount = (boolean)request.getAttribute("editaccount");
 					boolean chkpwd = (boolean)request.getAttribute("chkpwd");
 					boolean currentpwd = (boolean)request.getAttribute("currentpwd");
+					System.out.println("eee-2");
 					if (editaccount) {%>
 					<p id="yu">정보를 수정했습니다.</p>
 					<%}%>
@@ -260,20 +263,23 @@
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
 					<div style="display:none;">
 						<Input Type="Text" Name="memnum" value="${mem.getId()}">
+						<%System.out.println("ffff");%>
 					</div>
 						<button type="submit" id="but2"><img src="ma1.jpg" id="img1"></button>
 					</form>
 				</td>
 				<td>
 					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
-						<button type="button" OnClick="location.href ='mygamelist'" id="but3"><img src="ma2.jpg" id="img2"></button>
+						<button type="button" OnClick="location.href ='mygamelist'" id="but3"><img src="ma2.jpg" id="img2"/></button>
 					</form>
 				</td>
 			</tr>
+			<%System.out.println("gggg");%>
 			<tr>
 				<td>
 					<form action="editaccount" method="post">
 						<button type="button" OnClick="location.href ='editaccount'" id="but4"><img src="ma3.jpg" id="img3"></button>
+					</form>
 					</form>
 				</td>
 				<td>
@@ -305,7 +311,7 @@
 	</div>--%>
 	<div id="logbox4">
 		게임 랭킹<BR><BR>
-		&emsp;1위&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;2위&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;3위
+
 		<table>
 			<br>
 			<c:forEach var="game" items="${Rank_list}" varStatus="status" begin="0" end="2">

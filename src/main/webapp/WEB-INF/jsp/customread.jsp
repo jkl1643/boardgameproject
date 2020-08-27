@@ -35,7 +35,7 @@
     
     <c:if test="${mem.getId() eq number}">
         <button id="button1"><a href="<c:url value="/delete/${custom.count}" />" style="text-decoration:none">글 삭제</a></button>
-        <button id="button2"><a href="<c:url value="/customchange/${custom.count}" />" style="text-decoration:none" >글 수정</a></button>
+        <button id="button2"><a href="<c:url value="/customchange?count=${custom.count}" />" style="text-decoration:none" >글 수정</a></button>
     </c:if>
 </div>
 <button id="button3"><a href="<c:url value="/custom"/>" style="text-decoration:none">돌아가기</a></button>
