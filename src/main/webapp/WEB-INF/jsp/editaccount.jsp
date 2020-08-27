@@ -71,8 +71,10 @@
             }
 
 
-            if(!check(re,pw,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
-                return false;
+            if(pw.value!=null) {
+                if (!check(re, pw, "패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+                    return false;
+                }
             }
 
 
