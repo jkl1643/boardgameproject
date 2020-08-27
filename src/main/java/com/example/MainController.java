@@ -255,7 +255,7 @@ public class MainController {
             System.out.println("pwd2 = " + pwd2);
             if (!req.isPasswordEqualToConfirmPassword()) {
                 mav.setViewName("home");
-                mav.addObject("error", true);
+                mav.addObject("email_pwd_match", true);
                 System.out.println("암호와 확인이 일치하지 않습니다.\n");
                 return mav;
             }

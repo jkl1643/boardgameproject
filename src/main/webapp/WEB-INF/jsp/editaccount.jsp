@@ -1,5 +1,10 @@
 <%@page import="com.example.MemberLogin" %>
 <%@ page import="com.example.Member" %>
+<%@ page import="com.example.MemberDao" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+<%@ page import="com.example.JavaConfig" %>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -20,11 +25,14 @@
 
         var pwd;
 
-        <%@ page import="com.example.Member" %>
         <%
+            final ApplicationContext ctx = new AnnotationConfigApplicationContext(JavaConfig.class);
+            MemberDao memberDao = ctx.getBean("memberDao", MemberDao.class);
+            //MemberDao memberDao;
             String pwd= null ;
+            Member member = memberDao.selectByEmail(mem.getEmail());
             if(mem!=null)
-                pwd = mem.getPassword();
+                pwd = member.getPassword();
         %>
 
         pwd =<%=pwd%>;
@@ -54,6 +62,12 @@
 
             if(oldpwd.value=="") {
                 alert("기존 비밀번호를 입력해 주세요");
+                oldpwd.focus();
+                return false;
+            }
+
+            if(oldpwd.value != pwd){
+                alert("현재 비밀번호가 일치하지 않습니다.")
                 oldpwd.focus();
                 return false;
             }
@@ -103,7 +117,7 @@
 
 </head>
 <body>
-<h1 class="title">회원정보 수정</h1>>
+<h1 class="title">회원정보 수정</h1>
     <form name="join" onsubmit="return validate();" action="editaccount2"  method="post">
     <table id="table1">
         <tr>
