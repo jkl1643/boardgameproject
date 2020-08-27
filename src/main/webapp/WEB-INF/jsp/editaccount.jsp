@@ -46,7 +46,7 @@
                 return false;
             }
 
-            if(pw.value==null) {
+            /*if(pw.value==null) {
                 alert("비밀번호를 입력해 주세요");
                 pw.focus();
                 return false;
@@ -82,7 +82,7 @@
                 alert("닉네임을 입력해 주세요");
                 nickname.focus();
                 return false;
-            }
+            }*/
             return true;
         }
 
