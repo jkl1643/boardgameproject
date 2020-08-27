@@ -17,6 +17,18 @@
         -->
     </STYLE>
     <script type = "text/javascript">
+
+        var pwd;
+
+        <%@ page import="com.example.Member" %>
+        <%
+            String pwd= null ;
+            if(mem!=null)
+                pwd = mem.getPassword();
+        %>
+
+        pwd =<%=pwd%>;
+
         function validate(){
             var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
             var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -30,7 +42,7 @@
 
 
 
-            if(email.value==null) {
+            if(email.value=="") {
                 alert("이메일을 입력해 주세요");
                 email.focus();
                 return false;
@@ -40,19 +52,19 @@
                 return false;
             }
 
-            if(oldpwd.value==null) {
+            if(oldpwd.value=="") {
                 alert("기존 비밀번호를 입력해 주세요");
                 oldpwd.focus();
                 return false;
             }
 
-            if(pw.value==null) {
-                alert("비밀번호를 입력해 주세요");
-                pw.focus();
+            if(oldpwd.value!=pwd) {
+                alert("비밀번호가 다릅니다. 다시 입력해 주세요");
+                oldpwd.focus();
                 return false;
             }
 
-            if(oldpwd.value==pw.value) {
+            if(pwd==pw.value) {
                 alert("기존과 같은 비밀번호");
                 pw.focus();
                 return false;
@@ -60,12 +72,6 @@
 
 
             if(!check(re,pw,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
-                return false;
-            }
-
-            if(pwd2.value==null) {
-                alert("비밀번호를 입력해 주세요");
-                pwd2.focus();
                 return false;
             }
 
@@ -77,12 +83,6 @@
                 return false;
             }
 
-
-            if(nickname.value=="") {
-                alert("닉네임을 입력해 주세요");
-                nickname.focus();
-                return false;
-            }
             return true;
         }
 
