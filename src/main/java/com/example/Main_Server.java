@@ -42,19 +42,44 @@ public class Main_Server {
         System.out.println("유저 입장 : " + nick + " / " + roomid);
     }
 
-    public void disconnectuser(String nick)
-    {
+    public void disconnectuser(String nick) throws JsonProcessingException {
         String roomid = User_list.get(User_nick.get(nick)).getRoomid();
 
-        if(roomid != "lobby") {
+        if(roomid.equals("lobby")) {
+            User_list.remove(User_nick.get(nick));
+            User_nick.remove(nick);
+
+            Chat_Message d = new Chat_Message();
+
+            d.setType("disconnected");
+            d.setMessage(nick + "님이 퇴장하셨습니다.");
+            String js = "";
+
+
+            js = objectMapper.writeValueAsString(d);
+
+            for (User user : User_list.values()) {
+                WebSocketSession wss = user.getWss();
+                try {
+                    wss.sendMessage(new TextMessage(js));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        else
+        {
             Room_list.get(roomid).exit(nick);
             if(Room_list.get(roomid).getPlayer() == 0)
                 Room_list.remove(roomid);
+
+            User_list.remove(User_nick.get(nick));
+            User_nick.remove(nick);
         }
-        
+
         System.out.println("유저 퇴장 : " + nick + " / " + roomid);
-        User_list.remove(User_nick.get(nick));
-        User_nick.remove(nick);
+
     }
 
 
@@ -94,11 +119,11 @@ public class Main_Server {
         {
             if(room.getID().equals(roomID))
             {
-                room.join(nick, pw);
-                System.out.println("방 입장 : " + nick + " / " + room.getName());
+                    room.join(nick, pw);
+                    System.out.println("방 입장 : " + nick + " / " + room.getName());
             }
-        }
 
+        }
 
     }
 
