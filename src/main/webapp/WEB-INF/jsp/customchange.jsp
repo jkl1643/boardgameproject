@@ -39,6 +39,6 @@
 		<input type="submit" value="수정하기" id="submit1">
 	</form>
 </div>
-<button id="button1"><a href="<c:url value="/custom"/>">돌아가기</a></button>
+<button id="button1"><a href="<c:url value="/custom"/>" style="text-decoration:none" >돌아가기</a></button>
 </body>
 </html>
