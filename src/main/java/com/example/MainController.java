@@ -60,14 +60,14 @@ public class MainController {
     //윤수명 추가 2
     @Autowired
     private CustomWrite customwrite;
-    
+
     @Autowired
     private CustomDao customdao;
-    
+
     @Autowired
     private CustomChange customchange;
-    
-   
+
+
     @Autowired
     private MyGameRecordDao mygamerecorddao;
 
@@ -80,11 +80,11 @@ public class MainController {
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
 	}
-    
+
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-   
+
 	public void setCustomDao(CustomDao customdao) {
 		this.customdao =customdao;
 	}
@@ -231,6 +231,9 @@ public class MainController {
         mav.addObject("error", false);
         mav.addObject("id", id);
         mav.addObject("loginduplicate", false);
+        mav.addObject("editaccount", false);
+        mav.addObject("chkpwd", false);
+        mav.addObject("currentpwd", false);
         if(login == 0) {
             mav.addObject("login", 0);
         } else {
@@ -265,6 +268,7 @@ public class MainController {
                 mav.setViewName("home");
                 return mav;
             }
+
             try {
                 MemberRegisterService memberRegSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
                 System.out.println("11");
@@ -337,8 +341,9 @@ public class MainController {
         mav.addObject("insert_memo", false);
         mav.addObject("created_account", false);
         mav.addObject("delmemo", false);
-        mav.addObject("editaccount", false);
+
         mav.addObject("currentpwd", false);
+        mav.addObject("editaccount", false);
         mav.addObject("chkpwd", false);
         mav.addObject("created_memo", false);
         mav.addObject("error", false);
