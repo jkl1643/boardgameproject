@@ -572,8 +572,9 @@ public class MainController {
     }
 
     @RequestMapping("/findpwd")
-    public ModelAndView findpwd(Model model) {
+    public ModelAndView findpwd(Model model, String id, String nickname) {
         ModelAndView mav = new ModelAndView();
+
         mav.setViewName("findpwd");
         return mav;
     }
@@ -647,10 +648,15 @@ public class MainController {
     }
 
     @RequestMapping("/resultfindpwd")
-    public ModelAndView findpwd(Model model, String id, String nickname) {
+    public ModelAndView resultfindpwd(Model model, String id, String nickname) {
         ModelAndView mav = new ModelAndView();
         List<Member> results2 = memberDao.findpwd(id, nickname);
         model.addAttribute("result", results2);
+        Member member = memberDao.selectByEmail(id);
+        mav.addObject("realemail", member.getEmail());
+        mav.addObject("inputid", id);
+        mav.addObject("realnickname", member.getNickname());
+        mav.addObject("inputnickname", nickname);
         mav.setViewName("resultfindpwd");
         return mav;
     }

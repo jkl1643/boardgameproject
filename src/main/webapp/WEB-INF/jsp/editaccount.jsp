@@ -98,10 +98,8 @@
                 pwd2.focus();
                 return false;
             }
-            alert("성공")
+            alert("정보가 수정되었습니다.");
             return true;
-
-
         }
 
 
