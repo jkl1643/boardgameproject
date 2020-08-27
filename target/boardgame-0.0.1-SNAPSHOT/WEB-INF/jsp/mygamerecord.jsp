@@ -19,6 +19,8 @@
         div#textbox2 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 55px}
         p#text12 {position: relative; left: 850px; top: 39px}*/
         input#text2 {position: relative; left: 800px; top: 75px}
+        button#button2 {text-decoration: none; width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
+		button#button2:hover {background-color: red; color: blue}
         input#text3 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 400px; top: 110px}
         input#text5 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 470px; top: 110px}
         input#text4 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 540px; top: 110px}
@@ -61,7 +63,7 @@
     <br>
     <br>
     <br>
-
+<button id="button2"><a href="<c:url value="/home" />" style="text-decoration:none">메인으로 </a></button>
 </center>
 </body>
 </html>
