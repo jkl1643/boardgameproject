@@ -62,11 +62,6 @@ public class Socket_Handler  extends TextWebSocketHandler {
                 Message.setType("chat");
                 Message.setMessage(nick + " : " + value);
                 break;
-            case "disconnect":
-                System.out.println("채팅 퇴장 : " + nick);
-                Message.setType("chat");
-                Message.setMessage(nick + "님이 퇴장하셨습니다.");
-                break;
             case "connect":
                 System.out.println("채팅 입장 : " + nick);
                 Message.setType("chat");

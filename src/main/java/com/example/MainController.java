@@ -845,7 +845,11 @@ public class MainController {
         Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
 
         if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
-
+            if(Server.getRoom_list().get(ID).getMaxplayer() == Server.getRoom_list().get(ID).getPlayer())
+            {
+                mv.setViewName("Game_lobby");
+                return mv;
+            }
             Server.select(ID, PW, (String) session.getAttribute("idid"));
             System.out.println("방 접속 : " + session.getAttribute("idid") + " / " + ID);
 
@@ -859,6 +863,7 @@ public class MainController {
 
             }
             mv.setViewName("gamescreen");
+            //////마지막에 수정필요
         }
         else
             mv.setViewName("Game_lobby");
@@ -923,17 +928,6 @@ System.out.println("안녕하세요"+control.keyBynick((String) session.getAttri
 
         Purchase buy = new Purchase(key, game_number, Today);
         control.Buygame(buy);
-        // ##### 추가 한후 다시 전페이지로 돌아가기 .
-        // ##### 게임페이지에서 이미 구입한 게임이면 구입하는걸 막기. ( 대신 게임하러 가기 ) , 게임 구매 하러갈때 로그인확인 하기. ( 안했을때는 구입할때
-
-        // ##### 내 게임 목록을 구현하기.
-        // 내 게임 목록에 쓸정보를 찾기. ( 추가할 요소가 있는지 확인 필요 ) 
-        // ##### 디자인은 에픽 식으로 이미지를 나열하고 이미지에 커서가 갈시 게임하러 이동하게.
-
-        // ##### 게임 목록에서도 게임을 구입했는지 구현하기.
-
-        // 게임 목록에 유저목록 구현하기. ( or 없애기 ) ( 확인 필요 )
-        // 게임 목록에 유저 정보 구현하기 ( 확인 필요 )
 
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);

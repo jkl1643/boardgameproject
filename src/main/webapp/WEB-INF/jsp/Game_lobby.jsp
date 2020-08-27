@@ -209,12 +209,8 @@
   })
 
   function disconnect() {
-    alert("종료 시작")
-    if (open == 1) {
-      alert("종료 완료")
       webSocket.send(JSON.stringify({roomID: "lobby", type: "disconnect", writer: nickname}));
       webSocket.close();
-    }
   }
 
   function send(){
@@ -236,6 +232,14 @@
     var js = JSON.parse(e.data);
     switch (js.type) {
       case "chat":
+        $('#userlist').load("refreshuserlist");
+        chatroom = document.getElementById("lobbychatroom");
+        chatroom.innerHTML = chatroom.innerHTML + "<br>" + js.message;
+        chatroom.scrollTop = chatroom.scrollHeight;
+        break;
+
+      case "disconnected":
+        $('#roomlist').load("refreshgamelist");
         $('#userlist').load("refreshuserlist");
         chatroom = document.getElementById("lobbychatroom");
         chatroom.innerHTML = chatroom.innerHTML + "<br>" + js.message;

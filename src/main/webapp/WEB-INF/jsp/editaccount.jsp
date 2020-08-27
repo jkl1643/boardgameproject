@@ -98,8 +98,10 @@
                 pwd2.focus();
                 return false;
             }
-
+            alert("성공")
             return true;
+
+
         }
 
 
