@@ -239,13 +239,13 @@
 					boolean chkpwd = (boolean)request.getAttribute("chkpwd");
 					boolean currentpwd = (boolean)request.getAttribute("currentpwd");
 					if (editaccount) {%>
-					<p id="yu1">정보를 수정했습니다.</p>
+					<p id="yu">정보를 수정했습니다.</p>
 					<%}%>
 					<%if (chkpwd) {%>
-					<p id="yu1">확인 비밀번호가 일치하지 않습니다.</p>
+					<p id="yu">확인 비밀번호가 일치하지 않습니다.</p>
 					<%}%>
 					<%if (currentpwd) {%>
-					<p id="yu1">현재 비밀번호가 일치하지 않습니다.</p>
+					<p id="yu">현재 비밀번호가 일치하지 않습니다.</p>
 					<%}%></td>
 				<%--<td>
 					<form action="editaccount" method="post"> <!-- 내 전적으로 바꿈 -->
