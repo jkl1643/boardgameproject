@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="EUC-KR">
     <title>${custom.title}</title>
     <STYLE TYPE="text/css">
         <!--

@@ -662,9 +662,18 @@ public class MainController {
         List<Member> results2 = memberDao.findpwd(id, nickname);
         model.addAttribute("result", results2);
         Member member = memberDao.selectByEmail(id);
-        mav.addObject("realemail", member.getEmail());
+        try {
+            mav.addObject("realemail", member.getEmail());
+        } catch (Exception e){
+            mav.addObject("realemail", "0");
+        }
         mav.addObject("inputid", id);
-        mav.addObject("realnickname", member.getNickname());
+
+        try {
+            mav.addObject("realnickname", member.getNickname());
+        } catch (Exception e){
+            mav.addObject("realnickname", "/*987/");
+        }
         mav.addObject("inputnickname", nickname);
         mav.setViewName("resultfindpwd");
         return mav;
@@ -754,7 +763,7 @@ public class MainController {
 
     }
 */
-	@GetMapping(value = "/content/{count}")
+	@GetMapping(value = "/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
 		model.addAttribute("custom", custom);

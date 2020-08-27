@@ -30,26 +30,9 @@
 			var email = document.getElementById("text1");
 			var nickname = document.getElementById("text2");
 
-			<%--<%
-				final ApplicationContext ctx = new AnnotationConfigApplicationContext(JavaConfig.class);
-				MemberDao memberDao = ctx.getBean("memberDao", MemberDao.class);
-				//MemberDao memberDao;
-				String email2 = null, nick = null;
-				Member member = memberDao.selectByEmail(email);
-				if(mem!=null){
-					email2 = member.getEmail();
-					nick = member.getNickname();
-				}
-			%>--%>
-
-
 			var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
 			var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			// 이메일이 적합한지 검사할 정규식
-
-
-
-
 
 			if(email.value=="") {
 				alert("이메일을 입력해 주세요");
@@ -63,7 +46,7 @@
 
 			if(nickname.value=="") {
 				alert("닉네임을 입력해 주세요");
-				oldpwd.focus();
+				nickname.focus();
 				return false;
 			}
 			return true;
@@ -78,8 +61,6 @@
 			what.focus();
 			return false;
 		}
-
-
 	</script>
 </head>
 <%--<body>
@@ -93,7 +74,7 @@
 <body>
 <h1 id="text">비밀번호찾기</h1>
 <div id="box1">
-	<form name="join" onsubmit="return validate();" action="resultfindpwd"  method="post">
+	<form name="join" onsubmit="return validate();" action="resultfindpwd" method="post">
 		<p id="dd1">아이디 : </p>
 		<Input Type = "Text" Name = "id" id="text1"> <BR>
 		<p id="dd2">닉네임 : </p>
