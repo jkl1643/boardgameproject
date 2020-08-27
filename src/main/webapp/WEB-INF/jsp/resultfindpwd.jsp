@@ -9,15 +9,15 @@
 		<!--
 		BODY {background-image: url("board.jpg"); background-repeat: no-repeat; background-size: cover}
 		div#box1 {background-color: #bfff00; width: 800px; height: 300px; border: 5px solid black; position: relative; left: 500px; top: 100px}
-		div#box2 {width: 1000px; height: 1000px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
+		div#box2 {width: 580px; height: 500px; border: 10px solid #000000; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
 		p#text1 {text-align: center; font-size: x-large; position: relative; top: 70px}
-		button#button1 {width: 150px; height: 100px; position: relative; /*left: 820px; top: 250px;*/ background-color: black; color: white}
-		input#text4 {background-color: black; color: white; width: 100px; height: 50px; position: relative; /*left: 620px; top: 110px*/}
+		button#button1 {width: 150px; height: 100px; position: relative; left: 300px; top: 450px; background-color: black; color: white}
+		input#text4 {background-color: black; color: white; width: 100px; height: 50px; position: relative; left: 170px; top: 100px}
 		-->
 	</STYLE>
 </head>
 <body>
-	<div id="box2">
+	<div id="box1">
 	<%
 		String realemail = (String)request.getAttribute("realemail");
 		String inputid = (String)request.getAttribute("inputid");
@@ -28,14 +28,12 @@
 		System.out.println(realnickname);
 		System.out.println(inputnickname);
 		if(!realemail.equals(inputid)){%>
-			아이디가 일치하지 않습니다.
+			<p id="text1"> ${member.email}아이디가 일치하지 않습니다.</p>
 		<%} else if(!realnickname.equals(inputnickname)){%>
-			닉네임이 일치하지 않습니다.
+			<p id="text1"> ${member.email}닉네임이 일치하지 않습니다.</p>
 		<%} else{%>
 			<c:forEach var="member" items="${result}" varStatus="status">
-				<div id="box1">
 					<p id="text1"> ${member.email}님의 비밀번호는 ${member.password}입니다.</p>
-				</div>
 			</c:forEach>
 		<%}%>
 	<button id="button1" onclick="location.href='home'">홈으로</button>
