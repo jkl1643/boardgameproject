@@ -248,6 +248,7 @@
 					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
 					<div style="display:none;">
 						<Input Type="Text" Name="memnum" value="${mem.getId()}">
+						
 					</div>
 						<button type="button" OnClick="location.href ='record'" id="but2"><img src="ma1.jpg" id="img1"></button>
 					</form>
