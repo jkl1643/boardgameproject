@@ -40,7 +40,7 @@
                 return false;
             }
 
-            if(oldpwd.value==null) {
+            if(oldpwd.value==null || oldpwd.value == "") {
                 alert("기존 비밀번호를 입력해 주세요");
                 oldpwd.focus();
                 return false;
