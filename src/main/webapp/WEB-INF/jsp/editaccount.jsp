@@ -98,7 +98,7 @@
                 pwd2.focus();
                 return false;
             }
-
+            alert("정보가 수정되었습니다.");
             return true;
         }
 
