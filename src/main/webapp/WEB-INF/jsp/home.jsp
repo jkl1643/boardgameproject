@@ -30,7 +30,7 @@
 		input#searbut {font-size: 16px; width: 225px; padding: 10px; border: 0px; outline: none; float: left}
 		button#searbut1 {width: 50px; height: 40px; border: 0px; background: blue; outline: none; float: right; color: white}
 		div#logbox1 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
-		div#logbox1_2 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 20px;}
+		div#logbox1_2 {width: 580px; height: 500px; border: 10px solid black; position: relative; left: 1120px; top: -52px; background-color: #f6fad7; font-size: 30px;}
 		div#logbox2 {background-color: #d1f1fa; width: 565px; height: 100px; border: 1px solid blue; margin-top: 5px; margin-left: 5px; margin-right: 5px}
 		p#yuba {font-size: xx-large; text-align: center; position: relative; left: 20px; top: -5px}
 		input#loginbutton1 {position: relative; left: -100px; top: 200px; height: 50px; width: 120px; border-color: #6495ED; background-color: #BCD2EE; border-radius: 5px; margin: auto; text-align: center; font-size: 20px; font-family: impact}
