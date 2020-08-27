@@ -117,6 +117,9 @@ public class MainController {
         mav.addObject("users", loginUsers.size());
         mav.addObject("loginduplicate", false);
         mav.addObject("login", 1);
+        mav.addObject("editaccount", false);
+        mav.addObject("chkpwd", false);
+        mav.addObject("currentpwd", false);
 
         ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
         try {
@@ -132,7 +135,7 @@ public class MainController {
             editaccount = 0;
         } catch (PasswordNotMatchException e) {
             System.out.println("확인 비밀번호가 일치하지 않습니다.");
-            mav.addObject("chkpwd", false);
+            mav.addObject("chkpwd", true);
             editaccount = 0;
         } catch (PasswordNotMatchException2 e) {
             System.out.println("현재 비밀번호가 일치하지 않습니다.");
