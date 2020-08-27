@@ -242,8 +242,8 @@ public class MainController {
         System.out.println("login = " + login);
         System.out.println("delaccount = " + delaccount);
 
-
         RegisterRequest req = new RegisterRequest();
+
         if (login != 1 && delaccount != 1) {
             req.setEmail(id);
             req.setNickname(nickname);
@@ -768,7 +768,7 @@ public class MainController {
 
     }
 */
-	@GetMapping(value = "/{count}")
+	@GetMapping(value = "/content/{count}")
 	public String detail(@PathVariable("count") Long memCount, Model model) {
 		Custom custom = customdao.selectByCount(memCount);
 		model.addAttribute("custom", custom);
