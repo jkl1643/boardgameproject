@@ -28,8 +28,9 @@ class PlayerDeck
 {
     private List<Card> Deck;
 
-    public void add(Card card){
-        this.Deck.add(card);
+    public void add(Card card)
+    {
+        Deck.add(card);
     }
 
     public boolean check(int num, String value )
@@ -69,6 +70,12 @@ public class Davinch {
         Deck.add(new Card("-", "White"));
     }
 
+    public boolean join(int userid)
+    {
+        players.add(userid);
+        return true;
+    }
+
     public boolean start()
     {
         for(int key : players)
@@ -97,10 +104,12 @@ public class Davinch {
                 Deck.remove(card);
             }
         }
+        // 카드를 랜덤 배분한다.
 
 
-        // 턴변수는 랜덤으로 정하기
         turn = rand.nextInt(players.size());
+        //시작 하는 사람은 랜덤으로 정해진다 .
+
         return true;
     }
     // 플레이어의 수는 유동적이다
