@@ -47,12 +47,6 @@
 		img#img3 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
 		button#but5 {width: 120px; height: 75px; position: relative}
 		img#img4 {position: absolute; top: 0; left: 0; width: 100%; height: 100%}
-		/*gameimage{
-			text-align: center;
-			padding: 1em;
-			background: lightblue;
-			border-radius: 10px;
-		}*/
 
 		.img
 		{
@@ -74,30 +68,16 @@
 	<P CLASS="part1"><B> 보드게임 </B></P> <!-- 제목 -->
 	<ul>
 		<li><a class="active" href="#home">홈</a></li> <!-- 메뉴바의 홈 버튼 -->
-		<li><a href="<c:url value='/gamerank'/>">게임목록</a></li> <!-- 메뉴바의 게임순위 버튼 -->
-		<%--<li><a href="<c:url value='/custom'/>">게임목록</a></li> <!-- 메뉴바의 테마 버튼 -->--%>
+		<li><a href="<c:url value='/gamerank'/>">게임목록</a></li> <!-- 메뉴바의 게임목록 버튼 -->
 		<li><a href="<c:url value='/custom'/>">고객문의</a></li> <!-- 메뉴바의 고객문의 버튼 -->
 	</ul>
-	<%--<div id="search">
-			&lt;%&ndash;<input type="text" placeholder="게임 검색" id="searbut"> <!-- 게임검색 창의 텍스트 입력칸 -->
-			<button id="searbut1">검색</button> <!-- 게임검색 창의 검색 버튼 -->&ndash;%&gt;
-	</div>--%>
 	<%
 		int login = (int) request.getAttribute("login");
 		String idid = (String) session.getAttribute("idid");
 		Member mem = (Member) session.getAttribute("mem");
 		int users = (int) request.getAttribute("users");
-	//	MyGameRecord rec = (MyGameRecord) session.setAttribute();
-	//	MyGameRecord rec = (MyGameRecord) session.getAttribute("rec");
-
 
 		boolean loginduplicate = (boolean) request.getAttribute("loginduplicate");
-		System.out.println("jsp mem : " + mem);
-		if(loginduplicate){
-			System.out.println("듀플");
-		} else {
-			System.out.println("듀플안됨");
-		}
 
 		Cookie [] cookie = request.getCookies();
 		String cookieId = "";
@@ -109,10 +89,8 @@
 			}
 		}
 
-		System.out.println("mem2 : " + mem);
 		if(mem == null){
-			if(loginduplicate){
-				System.out.println("bbbb");%>
+			if(loginduplicate){ %>
 				<script>
 					alert("이미 로그인 되어 있습니다.");
 				</script>
@@ -129,7 +107,7 @@
 				<div style="margin-left: 200px; margin-top: 20px; float: left;">패스워드</div>
 				<div style="margin-left: 300px; margin-top: -25px; float: left;"><input type="password" placeholder="비밀번호 조건" Name ="pwd"></div>
 				<div style="margin-left: 250px; margin-top: 20px; float: left;"></div>
-				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"> <%--유병렬 입력한것--%></div>
+				<div><Input Type = "Submit" Value = "로그인" id="loginbutton1"></div>
 			</form>
 				<div>
 					<form action="newaccount" method="post">
@@ -160,19 +138,14 @@
 					%>
 				</div>
 			<label for="saveId"><div style="margin-left: 200px; margin-top: -50px; float: left;"><input type="checkbox" id="saveId" name="saveId"<%=cookieId!=""?"checked" : ""%>>&nbsp;아이디 저장&nbsp; / &nbsp;</div></label>
-			<%--<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">--%><%--아이디 저장--%><%--</div>--%>
 				<div OnClick="location.href ='findpwd'" style="cursor: pointer; margin-left: 310px; margin-top: -50px; float: left; display: inline;" id="asdf">비밀번호 찾기</div>
-
-			<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 		</div>
 	<%}	else {
 		Enumeration en = MainController.loginUsers.keys();
 
 		while(en.hasMoreElements()){
 			String key = en.nextElement().toString();
-			System.out.println("aaaa");
-			if(loginduplicate){
-				System.out.println("bbbb");%>
+			if(loginduplicate){%>
 				<script>
 					alert("이미 로그인 되어 있습니다.");
 				</script>
@@ -214,104 +187,73 @@
 						<%}
 							if (created_account) { %> <div id="yu">계정이 생성되었습니다.</div> <%}
 						if (error) { %>	<div id="yu">이미 있는 닉네임입니다.</div> <%}
-
-
 					%>
 					</div>
 					<div style="margin-left: 350px; margin-top: 17px; float: left;"><input type="checkbox" id="saveId" name="saveId" <%=cookieId!=""?"checked" : ""%>></div>
 					<div style="margin-left: 370px; margin-top: -20px; float: left; display: inline;">아이디 저장</div>
 					<div OnClick="location.href ='findaccount'" style="cursor: pointer; margin-left: 300px; margin-top: 20px; float: left; display: inline;">아이디/비밀번호 찾기</div>
-
-					<%--<div id="signupbutton1"><a href="newaccount" id="signupbutton2">회원가입</a></div>--%> <%--유병렬 제거한것--%>
 				</div>
 
-				<%System.out.println("ccc");
-			} else {%>
-	<div id="logbox1_2">
-		<div id="logbox2">
-			<p id="yuba">현재 접속자 수 : ${users}명</p>
-			<%System.out.println("dddd");%>
-		</div>
-		<center><table id="table1">
-			<tr>
-				<td id="nono">${mem.getEmail()}님 환영합니다!</td>
-				<%System.out.println("eee");%>
-				<td><%
-					boolean editaccount = (boolean)request.getAttribute("editaccount");
-					boolean chkpwd = (boolean)request.getAttribute("chkpwd");
-					boolean currentpwd = (boolean)request.getAttribute("currentpwd");
-					System.out.println("eee-2");
-					if (editaccount) {%>
-					<p id="yu">정보를 수정했습니다.</p>
-					<%}%>
-					<%if (chkpwd) {%>
-					<p id="yu">확인 비밀번호가 일치하지 않습니다.</p>
-					<%}%>
-					<%if (currentpwd) {%>
-					<p id="yu">현재 비밀번호가 일치하지 않습니다.</p>
-					<%}%></td>
-				<%--<td>
-					<form action="editaccount" method="post"> <!-- 내 전적으로 바꿈 -->
-						<Input Type="Submit" Value="내 정보 수정 ▶" id="but1">
-					</form>
-				</td>--%>
-			</tr>
-		</table></center>
-		<table id="table2">
-			<tr>
-				<td>
-					<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
-					<div style="display:none;">
-						<Input Type="Text" Name="memnum" value="${mem.getId()}">
-						<%System.out.println("ffff");%>
+			  <%} else {%>
+					<div id="logbox1_2">
+						<div id="logbox2">
+							<p id="yuba">현재 접속자 수 : ${users}명</p>
+						</div>
+						<center><table id="table1">
+							<tr>
+								<td id="nono">${mem.getEmail()}님 환영합니다!</td>
+								<td><%
+									boolean editaccount = (boolean)request.getAttribute("editaccount");
+									boolean chkpwd = (boolean)request.getAttribute("chkpwd");
+									boolean currentpwd = (boolean)request.getAttribute("currentpwd");
+									if (editaccount) {%>
+									<p id="yu">정보를 수정했습니다.</p>
+									<%}%>
+									<%if (chkpwd) {%>
+									<p id="yu">확인 비밀번호가 일치하지 않습니다.</p>
+									<%}%>
+									<%if (currentpwd) {%>
+									<p id="yu">현재 비밀번호가 일치하지 않습니다.</p>
+									<%}%></td>
+							</tr>
+						</table></center>
+						<table id="table2">
+							<tr>
+								<td>
+									<form action="record" method="post"> <!-- 내 전적으로 바꿈 -->
+									<div style="display:none;">
+										<Input Type="Text" Name="memnum" value="${mem.getId()}">
+									</div>
+										<button type="submit" id="but2"><img src="ma1.jpg" id="img1"></button>
+									</form>
+								</td>
+								<td>
+									<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
+										<button type="button" OnClick="location.href ='mygamelist'" id="but3"><img src="ma2.jpg" id="img2"/></button>
+									</form>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<form action="editaccount" method="post">
+										<button type="button" OnClick="location.href ='editaccount'" id="but4"><img src="ma3.jpg" id="img3"></button>
+									</form>
+									</form>
+								</td>
+								<td>
+									<form action="logout" method="post">
+										<button type="button" OnClick="location.href ='logout'" id="but5"><img src="ma4.jpg" id="img4"></button>
+									</form>
+								</td>
+							</tr>
+						</table>
 					</div>
-						<button type="submit" id="but2"><img src="ma1.jpg" id="img1"></button>
-					</form>
-				</td>
-				<td>
-					<form action="mygamelist" method="get"> <!-- form 태그 안에 내용 바꿔라 -->
-						<button type="button" OnClick="location.href ='mygamelist'" id="but3"><img src="ma2.jpg" id="img2"/></button>
-					</form>
-				</td>
-			</tr>
-			<%System.out.println("gggg");%>
-			<tr>
-				<td>
-					<form action="editaccount" method="post">
-						<button type="button" OnClick="location.href ='editaccount'" id="but4"><img src="ma3.jpg" id="img3"></button>
-					</form>
-					</form>
-				</td>
-				<td>
-					<form action="logout" method="post">
-						<button type="button" OnClick="location.href ='logout'" id="but5"><img src="ma4.jpg" id="img4"></button>
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
 	<%}
 			break;
 	}
 	}%>
-	<%--<div id="logbox3">
-	</div>
-	<div id="logbox4">
-		박스
-		<script type="text/javascript">
-			//window.location.href = "http://stackoverflow.com";
-			//api 구현 못함
-		</script>
-		<input type="button" value="새창"
-			   onclick="window.open('http://stackoverflow.com', '팝업창 이름', 'width=1000, height=1000')">
-		<input type="button" value="새창1"
-			   onclick="window.open('http://naver.com', '팝업창 이름1', 'width=1000, height=1000')">
-		<input type="button" value="새창2"
-			   onclick="window.open('https://start.spring.io/', '팝업창 이름2', 'width=1000, height=1000')">
-	</div>--%>
 	<div id="logbox4">
 		게임 랭킹<BR><BR>
-
 		<table>
 			<br>
 			<c:forEach var="game" items="${Rank_list}" varStatus="status" begin="0" end="2">

@@ -52,16 +52,6 @@ public class MyGameRecordDao {
                 }
             };
 
-
-/*
-    public MyGameRecord selectByNickname(String nickname) {
-        List<MyGameRecord> results = jdbcTemplate.query(
-                "select * from GAMERECORD where NICKNAME = ?", // memo 수정
-                memRowMapper, nickname);
-
-        return results.isEmpty() ? null : results.get(0);
-    }
-*/
     public MyGameRecord selectByMEMNUM(Long mem_num) {
         List<MyGameRecord> results = jdbcTemplate.query(
                 "select * from GAMERECORD where MEMBER_NUMBER = ?", // memo 수정
@@ -99,12 +89,7 @@ public class MyGameRecordDao {
 
 
     public void insert2(MyGameRecord record, HttpSession session, RegisterRequest req) { //2차 실험용
-        System.out.println("이메일 - " + record.getMember_number());
-        //Member mem = (Member) session.getAttribute("mem");
-        //System.out.println("이메일2 - " + mem.getEmail());
-        System.out.println("아이디 = " + req.getEmail());
         Member member3 = memberDao.selectByEmail(req.getEmail());
-        System.out.println("666666");
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
@@ -129,16 +114,12 @@ public class MyGameRecordDao {
         Number keyValue = keyHolder.getKey();
         record.setGamerecord_number(keyValue.longValue());
     }
-    
-    //
+
     public void update(MyGameRecord record) {
         jdbcTemplate.update(
                 "update GAMERECORD set GAMERECORD_TOTAL = ?, GAMERECORD_WIN = ?, GAMERECORD_DRAW = ?, GAMERECORD_LOSE = ? where MEMBER_NUMBER LIKE ?",
                 record.getTotal(), record.getWin(), record.getDraw(), record.getLose(), record.getMember_number());
     }
-
-   
-    
 
     public List<MyGameRecord> selectAll() {
         List<MyGameRecord> results = jdbcTemplate.query("select * from GAMERECORD",
@@ -146,15 +127,10 @@ public class MyGameRecordDao {
         return results;
     }
 
-
-    //
-
-
     public MyGameRecord selectByGamenumber(Long Count) {
         List<MyGameRecord> results = jdbcTemplate.query(
                 "select * from GAMERECORD where GAMERECORD_NUMBER = ?",
                 memRowMapper, Count);
-
         return results.isEmpty() ? null : results.get(0);
     }
     
@@ -181,7 +157,6 @@ public class MyGameRecordDao {
             }
         }, keyHolder);
         Number keyValue = keyHolder.getKey();
-       // record.setGamerecord_number(keyValue.longValue());
     }
     
     

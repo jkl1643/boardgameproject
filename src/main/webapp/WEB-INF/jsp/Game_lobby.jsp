@@ -108,9 +108,7 @@
   </div>
 </div>
 
-
 <%-- 방 목록 레이아웃 --%>
-
 <roomlist id="pgroomlist">
   <div id="roomlist" style="height: 100%; overflow:auto;">
   </div>

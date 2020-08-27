@@ -13,9 +13,7 @@ public class checkIdPassword {
     }
 
     public void checkidpassword(String email, String pwd) {
-        System.out.println("1111");
         Member member = memberDao.selectByEmail(email);
-        System.out.println("2222");
         if (member == null)
             throw new MemberNotFoundException();
         member.checkPassword(email, pwd);

@@ -27,8 +27,6 @@ public class Socket_Handler  extends TextWebSocketHandler {
     @Autowired
     private HashMap<Integer, Main_Server> Server_list;
 
-
-
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         HttpSession httpsession = (HttpSession) session.getAttributes().get("session");
@@ -40,13 +38,12 @@ public class Socket_Handler  extends TextWebSocketHandler {
 
         super.afterConnectionEstablished(session); // 부모 실행
         Server.connectuser(nick, session, roomid);
-        System.out.println("현재원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
+        System.out.println("현재인원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
 
     }// afterConnectionEstablished : 웹 소켓 연결시 실행
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
         String msg = message.getPayload();
         Chat_Message chatMessage = objectMapper.readValue(msg, Chat_Message.class);
         String nick = chatMessage.getWriter();
@@ -101,7 +98,7 @@ public class Socket_Handler  extends TextWebSocketHandler {
         Server.disconnectuser(nick);
 
         super.afterConnectionClosed(session, status); // 부모 실행
-        System.out.println("현재원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
+        System.out.println("현재인원 : " + Server.getUser_list().size() + " " + Server.getUser_nick().size());
         System.out.println("소켓 종료 : " + nick);
     }// afterConnectionClosed : 웹 소켓 close시 실행
 }

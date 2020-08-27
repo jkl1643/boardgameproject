@@ -9,11 +9,8 @@ public class MyGameRecord {
     private int gamerecord_lose;
     private int game_number;
     private Long member_number;
-//	private LocalDateTime registerDateTime;
-//  private String nickname;
     public MyGameRecord(int gamerecord_total, int gamerecord_win,
 						int gamerecord_draw, int gamerecord_lose, int game_number, Long member_number) {
-      //  this.nickname = nickname;
         this.gamerecord_total = gamerecord_total;
         this.gamerecord_win = gamerecord_win;
         this.gamerecord_draw = gamerecord_draw;

@@ -22,8 +22,6 @@ public class CustomDao {
 						throws SQLException {
 					Custom custom = new Custom(rs.getString("TITLE"),
 							rs.getString("CONTENT"),
-						//	rs.getString("NAME"),
-						//	rs.getString("EMAIL"),
 							rs.getTimestamp("REGDATE").toLocalDateTime(),
 							rs.getInt("MEMBER_NUMBER")
 						);
@@ -35,15 +33,6 @@ public class CustomDao {
 	public CustomDao(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-
-	/*public Custom selectByEmail(String email) {
-		List<Custom> results = jdbcTemplate.query(
-				"select * from CUSTOM where EMAIL = ?", // memo 수정
-				memRowMapper, email);
-
-		return results.isEmpty() ? null : results.get(0);
-	}*/
-	
 	
 	public Custom selectByTitle(String title) {
 		List<Custom> results = jdbcTemplate.query(
@@ -60,7 +49,6 @@ public class CustomDao {
 
 		return results.isEmpty() ? null : results.get(0);
 	}
-	
 
 	public void insert(Custom custom) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -70,8 +58,6 @@ public class CustomDao {
 					throws SQLException {
 			
 				PreparedStatement pstmt = con.prepareStatement(
-						/*"insert into CUSTOM (TITLE, CONTENT, NAME, EMAIL, REGDATE) " + 
-								"values (?, ?, ?, ?, ?)",*/
 						"insert into CUSTOM (TITLE, CONTENT,  REGDATE, MEMBER_NUMBER) " + 
 						"values (?, ?, ?, ? )",
 						
@@ -79,8 +65,6 @@ public class CustomDao {
 		
 				pstmt.setString(1, custom.getTitle());
 				pstmt.setString(2, custom.getContent());
-				//pstmt.setString(3,custom.getName());
-				//pstmt.setString(4,custom.getEmail());
 				pstmt.setTimestamp(3,
 						Timestamp.valueOf(custom.getRegisterDateTime()));
 				pstmt.setInt(4, custom.getNumber());
@@ -110,8 +94,6 @@ public class CustomDao {
 				"delete from CUSTOM where COUNT = ?", // memo 수정
 				custom.getCount());
 	}
-	
-	
 
 	public int count() {
 		Integer count = jdbcTemplate.queryForObject(
@@ -135,9 +117,4 @@ public class CustomDao {
 
 		return results.isEmpty() ? null : results.get(0);
 	}
-	
-	
-	
-	
-	
 }

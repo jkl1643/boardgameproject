@@ -10,7 +10,5 @@ public class CustomController {
     public String handleStep1() {
         return "newaccount";
     }
-
-
 }
 

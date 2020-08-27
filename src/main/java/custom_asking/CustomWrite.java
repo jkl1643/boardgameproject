@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 public class CustomWrite {
 	private CustomDao customdao;
-
 	public CustomWrite(CustomDao customdao) {
 		this.customdao = customdao;
 	}

@@ -28,7 +28,6 @@ public class MemberDao {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate")
 					);
 					member.setId(rs.getLong("member_number"));
@@ -45,32 +44,13 @@ public class MemberDao {
 		List<Member> results = jdbcTemplate.query("select * from MEMBER where member_nickname LIKE ?", memRowMapper, nickname);
 		return results.isEmpty() ? null : results.get(0);
 	}
-	
-	/*public Member selectByEmail(String email) {
-		List<Member> results = jdbcTemplate.query("select * from MEMBER where EMAIL = ?",
-				new RowMapper<Member>() {
-					@Override
-					public Member mapRow(ResultSet rs, int rowNum) throws SQLException{
-						Member member = new Member(rs.getString("EMAIL"),
-												rs.getString("PASSWORD"),
-												rs.getString("NAME"),
-												rs.getString("TELEPHONE"),
-												rs.getString("ADDRESS"),
-												rs.getTimestamp("REGDATE"));
-						member.setId(rs.getLong("ID"));
-						return member;
-					}
-										
-				}, email);
-		return results.isEmpty() ? null : results.get(0);
-	}*/
+
 	public List<Member> selectAll(){
 		List<Member> results = jdbcTemplate.query("select * from MEMBER",
 				(ResultSet rs, int rowNum) -> {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate")
 					);
 					member.setId(rs.getLong("ID"));
@@ -115,7 +95,6 @@ public class MemberDao {
 					Member member = new Member(rs.getString("member_email"),
 							rs.getString("member_password"),
 							rs.getString("member_nickname"),
-							/*rs.getInt("member_gamelog"),*/
 							rs.getTimestamp("member_regdate"));
 					member.setId(rs.getLong("member_number"));
 			return member;

@@ -81,7 +81,6 @@ public class JavaConfig {
         return changeInfoSvc;
     }
 
-    // 윤수명 추가22gf
     @Bean
     public CustomDao customdao() {
         return new CustomDao(dataSource());
@@ -101,7 +100,7 @@ public class JavaConfig {
     public MyGameRecordDao mygamerecorddao() {
         return new MyGameRecordDao(dataSource(), memberDao());
     }
-//
+
     @Bean
     public CustomChange customchange() {
         CustomChange controller = new CustomChange();
@@ -116,9 +115,6 @@ public class JavaConfig {
         return tm;
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Autowired
     ApplicationContext applicationContext;
 
@@ -129,8 +125,7 @@ public class JavaConfig {
     }
 
     @Bean
-    public SqlSessionFactory GameFactory() throws Exception
-    {
+    public SqlSessionFactory GameFactory() throws Exception {
         SqlSessionFactoryBean GameFactory = new SqlSessionFactoryBean();
         GameFactory.setDataSource(dataSource());
         GameFactory.setTypeAliases(Game.class);
@@ -139,36 +134,23 @@ public class JavaConfig {
     }
 
     @Bean
-    public SqlSessionTemplate GameFactoryTemplate() throws Exception
-    {
+    public SqlSessionTemplate GameFactoryTemplate() throws Exception {
         return new SqlSessionTemplate(GameFactory());
-
     }
 
     @Bean
-    public DBcontroller dbcontrol() throws Exception
-    {
+    public DBcontroller dbcontrol() throws Exception {
         DBcontroller dbcontrol = new DBcontroller(GameFactoryTemplate().getMapper(GameDao.class));
         return dbcontrol;
     }
 
     @Bean
     public  HashMap<Integer, Main_Server> Server_list() throws Exception {
-
         HashMap<Integer, Main_Server> Server_list = new HashMap<Integer, Main_Server>();
         for(Game game : dbcontrol().SelectAll()) {
             System.out.println(game.getGame_number());
             Server_list.put(game.getGame_number(), new Main_Server());
         }
-
         return Server_list;
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-   	
-   	
-	
-
-   
 }

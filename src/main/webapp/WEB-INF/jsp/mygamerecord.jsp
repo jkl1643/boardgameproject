@@ -13,11 +13,6 @@
         BODY {background-image: url("board2.jpg"); background-repeat: no-repeat; background-size: cover}
         .title {text-align: center; font-family: sans-serif; color: brown}
         table#table1 {width: 400px; height: 400px; position: relative; left: 400px; top: 10px}
-        /*div#textbox1 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 10px}
-        input#text1 {position: relative; left: 800px; top: 35px}
-        p#text11 {position: relative; left: 850px; top: 0px}
-        div#textbox2 {width: 700px; height: 250px; border: 1px solid black; position: relative; left: 300px; top: 55px}
-        p#text12 {position: relative; left: 850px; top: 39px}*/
         input#text2 {position: relative; left: 800px; top: 75px}
         button#button2 {text-decoration: none; width: 150px; height: 75px; background-color: lightgreen; color: black; position: relative; left: 700px; top: 140px}
 		button#button2:hover {background-color: red; color: blue}
@@ -30,8 +25,6 @@
 <body>
 <center>
     <font size = "17" color = "blue" face ="굴림">${mem.getNickname()}님의 게임 전적입니다. </font>
-
-
     <br>
     <br>
     <br>

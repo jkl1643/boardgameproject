@@ -63,14 +63,6 @@
 		}
 	</script>
 </head>
-<%--<body>
-	<h1>비밀번호찾기</h1>
-	<form action=resultfindpwd method="post">
-		이메일 : <Input Type = "Text" Name = "id"> <BR>
-		닉네임 : <Input Type = "Text" Name = "tel"> <BR>
-		<BR><Input Type = "Submit" Value = "비밀번호 찾기">
-	</form>
-</body>--%>
 <body>
 <h1 id="text">비밀번호찾기</h1>
 <div id="box1">

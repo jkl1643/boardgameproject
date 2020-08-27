@@ -30,7 +30,6 @@
     <%} %>
     <BR><Input Type="Submit" Value="계정과 메모 삭제">
     <Input type="button" value="되돌아가기" onClick="history.back();">
-    <%-- <%MainController.delaccount = 0; %> --%>
 </form>
 </body>
 </html>

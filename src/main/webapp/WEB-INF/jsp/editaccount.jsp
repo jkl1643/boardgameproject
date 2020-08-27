@@ -22,13 +22,11 @@
         -->
     </STYLE>
     <script type = "text/javascript">
-
         var pwd;
 
         <%
             final ApplicationContext ctx = new AnnotationConfigApplicationContext(JavaConfig.class);
             MemberDao memberDao = ctx.getBean("memberDao", MemberDao.class);
-            //MemberDao memberDao;
             String pwd= null ;
             Member member = memberDao.selectByEmail(mem.getEmail());
             if(mem!=null)
@@ -47,8 +45,6 @@
             var pw = document.getElementById("pwd");
             var pwd2 = document.getElementById("pwd2");
             var nickname = document.getElementById("nickname");
-
-
 
             if(email.value=="") {
                 alert("이메일을 입력해 주세요");
@@ -84,13 +80,11 @@
                 return false;
             }
 
-
             if(pw.value!="") {
                 if (!check(re, pw, "패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
                     return false;
                 }
             }
-
 
             if(pw.value != pwd2.value) {
                 alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
@@ -102,8 +96,6 @@
             return true;
         }
 
-
-
         function check(re, what, message) {
             if(re.test(what.value)) {
                 return true;
@@ -113,8 +105,6 @@
             what.focus();
             return false;
         }
-
-
     </script>
 
 </head>

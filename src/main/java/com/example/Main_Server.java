@@ -1,7 +1,4 @@
 package com.example;
-
-
-
 import com.example.Dao.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,10 +10,8 @@ import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.*;
 
-
 // Room_Server : 만들어진 방들을 저장하고 관리하는 클래스
 public class Main_Server {
-
     private ObjectMapper objectMapper;
     private HashMap<String, String> User_nick;
     private HashMap<String, User> User_list;
@@ -34,7 +29,6 @@ public class Main_Server {
             User_list.remove(User_nick.get(nick));
             User_nick.remove(nick);
         }
-        //
         User newuser = new User(user, roomid);
         User_list.put(user.getId(), newuser);
         User_nick.put(nick, user.getId());
@@ -55,7 +49,6 @@ public class Main_Server {
             d.setMessage(nick + "님이 퇴장하셨습니다.");
             String js = "";
 
-
             js = objectMapper.writeValueAsString(d);
 
             for (User user : User_list.values()) {
@@ -66,26 +59,21 @@ public class Main_Server {
                     e.printStackTrace();
                 }
             }
-        }
-
-        else
-        {
+        } else {
             Room_list.get(roomid).exit(nick);
-            if(Room_list.get(roomid).getPlayer() == 0)
+            if(Room_list.get(roomid).getPlayer() == 0) {
                 Room_list.remove(roomid);
+            }
 
             User_list.remove(User_nick.get(nick));
             User_nick.remove(nick);
         }
-
         System.out.println("유저 퇴장 : " + nick + " / " + roomid);
-
     }
 
 
 //    방관련
-    public String create(String name, String game, String pw)
-    {
+    public String create(String name, String game, String pw) {
         Room room = new Room(name, game, pw);
         Room_list.put(room.getID(), room);
 
@@ -100,8 +88,7 @@ public class Main_Server {
             e.printStackTrace();
         }
         System.out.println(Room_list.size());
-        for(User user : User_list.values())
-        {
+        for(User user : User_list.values()) {
             WebSocketSession wss = user.getWss();
             try {
                 wss.sendMessage(new TextMessage(js));
@@ -113,18 +100,13 @@ public class Main_Server {
         return room.getID();
     }
 
-    public void select(String roomID, String pw, String nick)
-    {
-        for(Room room : Room_list.values())
-        {
-            if(room.getID().equals(roomID))
-            {
+    public void select(String roomID, String pw, String nick) {
+        for(Room room : Room_list.values()) {
+            if(room.getID().equals(roomID)) {
                     room.join(nick, pw);
                     System.out.println("방 입장 : " + nick + " / " + room.getName());
             }
-
         }
-
     }
 
     public HashMap<String, Room> getRoom_list() { return Room_list; }

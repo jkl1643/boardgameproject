@@ -21,12 +21,8 @@
 	<%
 		String realemail = (String)request.getAttribute("realemail");
 		String inputid = (String)request.getAttribute("inputid");
-		System.out.println(realemail);
-		System.out.println(inputid);
 		String realnickname = (String)request.getAttribute("realnickname");
 		String inputnickname = (String)request.getAttribute("inputnickname");
-		System.out.println(realnickname);
-		System.out.println(inputnickname);
 		if(!realemail.equals(inputid)){%>
 			<p id="text1"> ${member.email}아이디가 일치하지 않습니다.</p>
 		<%} else if(!realnickname.equals(inputnickname)){%>

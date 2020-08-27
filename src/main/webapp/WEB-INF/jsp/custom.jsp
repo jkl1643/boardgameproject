@@ -32,10 +32,10 @@
 						${questionlist.count}&nbsp;&nbsp;
 				</td>
 				<td>
-					<a href="<c:url value="content?count=${questionlist.count}"/>" style="text-decoration:none">${questionlist.title}  </a> <!-- 얘네 링크 디렉토리 말고 딴걸로 안됨? ㅠ -->
+					<a href="<c:url value="content?count=${questionlist.count}"/>"
+					   style="text-decoration:none">${questionlist.title} </a>
 				</td>
 				<td>
-						<%--${questionlist.name}&nbsp;&nbsp;&nbsp;--%>
 				</td>
 				<td>
 						${questionlist.registerDateTime}

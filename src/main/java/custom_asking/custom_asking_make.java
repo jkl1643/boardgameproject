@@ -12,6 +12,5 @@ public class custom_asking_make {
 
     // front 개발 시 
 
-
 }
 

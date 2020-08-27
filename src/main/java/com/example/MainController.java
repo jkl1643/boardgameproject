@@ -57,7 +57,6 @@ public class MainController {
     @Autowired
     private MemberDao memberDao;
 
-    //윤수명 추가 2
     @Autowired
     private CustomWrite customwrite;
 
@@ -67,7 +66,6 @@ public class MainController {
     @Autowired
     private CustomChange customchange;
 
-
     @Autowired
     private MyGameRecordDao mygamerecorddao;
 
@@ -75,8 +73,6 @@ public class MainController {
     private MyGameRecordWrite mygamerecordwrite;
     private Room room;
 
-
-    // 윤수명 끝
     public void setCustomChange(CustomChange customchange) {
 		this.customchange = customchange;
 	}
@@ -161,41 +157,33 @@ public class MainController {
         model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("users", loginUsers.size());
         mav.addObject("loginduplicate", false);
-        //mav.addObject("id", id);
         Member name = (Member)session.getAttribute("mem");
-        //if (name ) {//로그아웃
-            login = 0;
-            try {
-                if (login == 0) {
-                    mav.addObject("login", 0);
-                } else {
-                    mav.addObject("login", 1);
-                }
-                //session.invalidate();
-                System.out.println("로그아웃 = " + login);
-
-                MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
-                mav.addObject("loginduplicate", false);
-                mav.addObject("logout", true);
-                lgo.logout();
-                Enumeration e = loginUsers.keys();
-                while (e.hasMoreElements()) {
-                    //session = (HttpSession) e.nextElement();
-                    //if(loginUsers.get(session).equals(name.getEmail())){
-                    String a = (String) e.nextElement();
-                    System.out.println("loginuser = " + loginUsers.get(a));
-                    if (loginUsers.get(a).equals(name.getEmail())) {
-                        loginUsers.remove(name.getEmail());
-                        System.out.println(" " + name.getEmail() + "해쉬 사라짐");
-                        session.invalidate();
-                    }
-                    //}
-                }
-            } catch (Exception e){
-
+        login = 0;
+        try {
+            if (login == 0) {
+                mav.addObject("login", 0);
+            } else {
+                mav.addObject("login", 1);
             }
+            System.out.println("로그아웃 = " + login);
 
-        //}
+            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
+            mav.addObject("loginduplicate", false);
+            mav.addObject("logout", true);
+            lgo.logout();
+            Enumeration e = loginUsers.keys();
+            while (e.hasMoreElements()) {
+                String a = (String) e.nextElement();
+                System.out.println("loginuser = " + loginUsers.get(a));
+                if (loginUsers.get(a).equals(name.getEmail())) {
+                    loginUsers.remove(name.getEmail());
+                    System.out.println(" " + name.getEmail() + "해쉬 사라짐");
+                    session.invalidate();
+                }
+            }
+        } catch (Exception e){
+
+        }
         mav.setViewName("home");
         return mav;
     }
@@ -208,13 +196,8 @@ public class MainController {
                               @RequestParam(value = "NICKNAME2", required = false) String nickname) {
         System.out.println("--------홈------------");
         mav.addObject("users", loginUsers.size());
-        System.out.println("이메일 = " + id);
         try {
-            /*Member member = memberDao.selectByEmail(id);
-            session.setAttribute("mem", member);*/
             Member name = (Member)session.getAttribute("mem");
-
-            System.out.println("home name = " + name);
             login = 0;
         } catch (Exception e) {
             login = 1;
@@ -251,11 +234,7 @@ public class MainController {
             req.setConfirmPassword(pwd2);
         }
 
-        System.out.println("id = " + id);
-
         if (!id.equals("0")) { //회원가입 아아디에 값을 입력했을때
-            System.out.println("pwd = " + pwd);
-            System.out.println("pwd2 = " + pwd2);
             if (!req.isPasswordEqualToConfirmPassword()) {
                 mav.setViewName("home");
                 mav.addObject("email_pwd_match", true);
@@ -271,21 +250,16 @@ public class MainController {
 
             try {
                 MemberRegisterService memberRegSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
-                System.out.println("11");
                 memberRegSvc.regist(req); //회원가입
                 Member member2 = memberDao.selectByEmail(id);
-                System.out.println("1.2");
                 MyGameRecord newrecord = new MyGameRecord(0, 0, 0, 0, 1, member2.getId());
-                System.out.println("1.5");
                 mygamerecorddao.insert2(newrecord, session, req);
-                System.out.println("22");
                 mav.addObject("created_account", true);
             } catch (DuplicateMemberException e) {
                 mav.addObject("error", true);
                 System.out.println("이미 존재하는 이메일입니다.\n");
             } catch (Exception e) {
                 mav.addObject("error", true);
-                System.out.println("dd");
             }
             MemberLogin.loginEmail = id;
             System.out.println("계정생성 = " + id);
@@ -297,26 +271,6 @@ public class MainController {
             mav.setViewName("home");
         }
         id = "0";
-        System.out.println("나중id22 = " + id);
-        /*if (login == 1 && delaccount == 0) {//로그아웃
-            login = 0;
-            if(login == 0) {
-                mav.addObject("login", 0);
-            } else {
-                mav.addObject("login", 1);
-            }
-            session.invalidate();
-            System.out.println("로그아웃 = " + login);
-
-            MemberLogout lgo = ctx.getBean("lgo", MemberLogout.class);
-            mav.addObject("loginduplicate", false);
-            mav.addObject("logout", true);
-            lgo.logout();
-
-        }*/
-        /*if(id == null){
-            session.invalidate();
-        }*/
         return mav;
     }
 
@@ -341,7 +295,6 @@ public class MainController {
         mav.addObject("insert_memo", false);
         mav.addObject("created_account", false);
         mav.addObject("delmemo", false);
-
         mav.addObject("currentpwd", false);
         mav.addObject("editaccount", false);
         mav.addObject("chkpwd", false);
@@ -353,19 +306,8 @@ public class MainController {
         model.addAttribute("Rank_count", control.GameCount_list());
         mav.addObject("users", loginUsers.size());
 
-        System.out.println("login1 = " + login);
         Member name2 = (Member)session.getAttribute("mem");
-
-
-        /*System.out.println("name2.getEmail() = " + name2.getEmail());*/
         Member member = memberDao.selectByEmail(id);
-       // MyGameRecord record = mygamerecordDao.selectByNickname(nickname); // 수명
-        System.out.println("member = " + member);
-        try {
-            System.out.println("name2 = " + name2);
-        } catch (Exception e){
-            System.out.println("안됨");
-        }
         MemberLogin lgn = ctx.getBean("lgn", MemberLogin.class);
 
         if(name2 == null){
@@ -381,7 +323,6 @@ public class MainController {
                     } catch (Exception e){
 
                     }
-
                 }
             }
         }
@@ -389,66 +330,40 @@ public class MainController {
         delaccount = 0;
         model.addAttribute("userid", id);
 
-        System.out.println("id = " + id);
         System.out.println("delaccount = " + delaccount);
         System.out.println("delmemo = " + delmemo);
         System.out.println("editaccount = " + editaccount);
+
         if(login == 1) {
             mav.addObject("id2", id);
         }
 
-        /*if (id == null) {
-            id = "0";
-        }*/
         name2 = (Member)session.getAttribute("mem");
         String idid = (String) session.getAttribute("idid");
-        if (name2 == null) { //이전에 로그인 한적이 없을때/*&& !name2.getEmail().equals(id) || name2.getEmail() == null*/
+        if (name2 == null) { //이전에 로그인 한적이 없을때
             Member name = (Member) session.getAttribute("mem");
             System.out.println("name = " + name);
-            /*if (name != null) { //세션 있을떄 로그인 다른곳에서 돼 있을때
-                System.out.println("ididid = " + name.getEmail());
-                if (id.equals(name.getEmail())) {
-                    System.out.println("중복");
-                    mav.addObject("loginduplicate", true);
-                } else {
-                    session.setAttribute("mem", member);
-                    //          session.setAttribute("rec", record); // 수명
-                    System.out.println("셋됨");
-                }
-            } else {
-                session.setAttribute("mem", member);
-//                session.setAttribute("rec", record); // 수명
-                System.out.println("널임");
-            }*/
 
             Enumeration en = loginUsers.keys();
-
-            //ry {
-                while (en.hasMoreElements()) {
-                    String key = en.nextElement().toString();
-                    System.out.println(key + " : " + loginUsers.get(key));
-                    if (key.equals(member.getEmail())) {
-                        mav.addObject("loginduplicate", true);
-                        mav.setViewName("home");
-                        return mav;
-                    }
+            while (en.hasMoreElements()) {
+                String key = en.nextElement().toString();
+                System.out.println(key + " : " + loginUsers.get(key));
+                if (key.equals(member.getEmail())) {
+                    mav.addObject("loginduplicate", true);
+                    mav.setViewName("home");
+                    return mav;
                 }
-            //} catch (Exception e){
-
-            //}
+            }
 
             System.out.println("해쉬테이블 인원 : " + String.valueOf(loginUsers.size()));
             mav.addObject("users", loginUsers.size());
 
-            System.out.println("MemberLogin.loginEmail = " + MemberLogin.loginEmail);
             try {
-
                 lgn.login(id, pwd); //로그인
                 loginUsers.put(id, id);
                 session.setAttribute("mem", member);
                 session.setMaxInactiveInterval(10);
                 mav.addObject("login", 1);
-                System.out.println("login = " + login);
                 System.out.println("id = " + id + ", pwd = " + pwd);
                 userid2 = MemberLogin.loginEmail;
                 userNickname = nickname;
@@ -461,11 +376,7 @@ public class MainController {
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 System.out.println("존재하지 않는 이메일입니다.2\n");
-            /*if(id == null) {
                 mav.addObject("unknown_email", true);
-            }*/
-                mav.addObject("unknown_email", true);
-
                 id = "0";
                 mav.setViewName("home");
             } catch (WrongIdPasswordException e) {
@@ -480,40 +391,9 @@ public class MainController {
                 id = "0";
                 mav.setViewName("home");
             }
-            //계정삭제, 정보수정을 누르지 않았을때
-        } /*else if (editaccount == 1) {
-            editaccount = 0;
-            ChangeInfoService changeInfoSvc = ctx.getBean("changeInfoSvc", ChangeInfoService.class);
-            try {
-                editaccount = 0;
-                changeInfoSvc.changePassword(userid2, oldpwd, pwd, pwd2, nickname);
-                System.out.println("정보를 수정했습니다.\n");
-                mav.addObject("editaccount", true);
-            } catch (MemberNotFoundException e) {
-                System.out.println("존재하지 않는 이메일입니다.\n");
-                editaccount = 0;
-            } catch (WrongIdPasswordException e) {
-                System.out.println("이메일과 암호가 일치하지 않습니다.\n");
-                editaccount = 0;
-            } catch (PasswordNotMatchException e) {
-                System.out.println("확인 비밀번호가 일치하지 않습니다.");
-                mav.addObject("chkpwd", false);
-                editaccount = 0;
-            } catch (PasswordNotMatchException2 e) {
-                System.out.println("현재 비밀번호가 일치하지 않습니다.");
-                mav.addObject("currentpwd", true);
-                editaccount = 0;
-            }
-            mav.setViewName("home");
-        }*/ else {
+        } else {
             mav.setViewName("home");
         }
-        /*String name = (String)session.getAttribute("id");
-        System.out.println("ididid = " + name);
-        if(id.equals(name)){
-            System.out.println("이미 로그인한 아이디");
-        }*/
-        System.out.println("login2 = " + login);
         mav.setViewName("home");
         return mav;
     }
@@ -535,20 +415,19 @@ public class MainController {
         mav.addObject("wrongemail", false);
         if (delaccount == 1) {
             checkIdPassword checkidpwd = ctx.getBean("checkidpwd", checkIdPassword.class);
-            System.out.println("아디 = " + delid + "비번22 = " + delpwd);
+            System.out.println("아디 = " + delid + "비번 = " + delpwd);
             try {
                 checkidpwd.checkidpassword(delid, delpwd);
                 MemberDao memberDao = ctx.getBean("memberDao", MemberDao.class);
                 memberDao.delete(delid, delpwd);
                 mav.addObject("delaccount", true);
-                System.out.println("bbbbb");
                 login = 0;
                 delaccount = 0;
                 mav.setViewName("home");
             } catch (MemberNotFoundException e) {
                 mav.setViewName("delaccount");
                 mav.addObject("wrongemail", true);
-                System.out.println("잘못된 아이디 입력입니다.2");
+                System.out.println("잘못된 아이디 입력입니다.");
                 return mav;
             } catch (WrongIdPasswordException e) {
                 mav.setViewName("delaccount");
@@ -588,76 +467,7 @@ public class MainController {
     @RequestMapping("/findpwd")
     public ModelAndView findpwd(Model model, String id, String nickname) {
         ModelAndView mav = new ModelAndView();
-
         mav.setViewName("findpwd");
-        return mav;
-    }
-
-    @RequestMapping("/findid")
-    public ModelAndView findid(Model model, String id, HttpServletRequest req, HttpServletResponse resp) {
-        /*String host = "smtp.naver.com";
-        String password = "";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", 465);
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-
-
-        StringBuffer temp = new StringBuffer();
-        Random rnd = new Random();
-        for (int i = 0; i < 10; i++) {
-            int rIndex = rnd.nextInt(3);
-            switch (rIndex) {
-                case 0:
-                    // a-z
-                    temp.append((char) ((int) (rnd.nextInt(26)) + 97));
-                    break;
-                case 1:
-                    // A-Z
-                    temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-                    break;
-                case 2:
-                    // 0-9
-                    temp.append((rnd.nextInt(10)));
-                    break;
-            }
-        }
-        String AuthenticationKey = temp.toString();
-        System.out.println(AuthenticationKey);
-
-        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(id, password);
-            }
-        });
-
-        try {
-            MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(id, "KH"));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(id));
-
-            // 메일 제목
-            msg.setSubject("안녕하세요  인증 메일입니다.");
-            // 메일 내용
-            msg.setText("인증 번호는 :" + temp);
-
-            Transport.send(msg);
-            System.out.println("이메일 전송");
-
-        } catch (Exception e) {
-            e.printStackTrace();// TODO: handle exception
-        }
-        HttpSession saveKey = req.getSession();
-        saveKey.setAttribute("AuthenticationKey", AuthenticationKey);*/
-
-
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("findid");
         return mav;
     }
 
@@ -691,32 +501,15 @@ public class MainController {
         return mav;
     }
 
-    //윤수명 고객문의 컨트롤러1---------
+    //고객문의 컨트롤러1---------
     @RequestMapping("/custom")
     public String handleStep1() {
-
     	return "custom";
     }
 
-    /*@RequestMapping("/record")
-    public String handleStep7() {
-
-    	return "mygamerecord";
-    }*/
-   /*
-    @RequestMapping(value = "/record")
-    public String myresult(Model model, String nickname1) {
-    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname1);
-    	model.addAttribute("myrecord", record);
-		return "mygamerecord";
-    	
-    }
-*/
-    //
     @RequestMapping(value = "/record")
     public String myresult(Model model, Long memnum) {
     	MyGameRecord record = mygamerecorddao.selectByMEMNUM(memnum);
-    	System.out.println("실험 : " + record.getTotal());
     	model.addAttribute("myrecord", record);
 		return "mygamerecord";
 
@@ -738,7 +531,6 @@ public class MainController {
     @GetMapping(value = "/customchange")
     public String change(@RequestParam(value = "count", required = true) Long memCount, Model model) {
 		Custom custom1 = customdao.selectByCount(memCount);
-	
 		model.addAttribute("custom1", custom1);
 		return "customchange";
 	}
@@ -755,18 +547,8 @@ public class MainController {
    		List<Custom> questionlist = customdao.selectAll();
    		model.addAttribute("QuestionList",questionlist);
    		return "custom";
-   	}   
+   	}
 
-
-/*
-    @GetMapping(value = "/record")
-    public String myresult(Model model, String nickname) {
-    	MyGameRecord record = mygamerecordDao.selectByNickname(nickname);
-    	model.addAttribute("myrecord", record);
-		return "mygamerecord";
-
-    }
-*/
     @GetMapping(value = "/content")
     public String detail(@RequestParam(value = "count", required = true) Long memCount, Model model) {
         Custom custom = customdao.selectByCount(memCount);
@@ -786,11 +568,9 @@ public class MainController {
         return "gameranking";
     }
 
-    @RequestMapping("/testok") // 수정함 병렬
+    @RequestMapping("/testok")
     public String handleStep8(MyGameRecordRequest request, HttpSession session) {
-	    System.out.println("request = " + request.getClass().getName());
         mygamerecordwrite.input(request, session);
-        System.out.println("22222222" + request);
         // customchange.changedata(count1, title1, content1);
         return "customchangeok";
     }
@@ -800,12 +580,6 @@ public class MainController {
         model.addAttribute("mygamerecord", new MyGameRecordRequest());
         return "test";
     }
-    
-    //윤수명끝----------------------------
-
-  //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     @GetMapping("/gamelobby")
     public ModelAndView Gamelobby(Model model, HttpSession session, HttpServletResponse response,
@@ -818,7 +592,6 @@ public class MainController {
             out.flush();
             return mv;
         }
-
 
         int key = control.keyBynick((String) session.getAttribute("idid"));
         HashMap keyset = new HashMap<String, Integer>();
@@ -839,15 +612,12 @@ public class MainController {
         mv.setViewName("Game_lobby");
         return mv;
     }
-//
-
 
     @RequestMapping(value="/createroom", method = {RequestMethod.POST})
     public ModelAndView CreateRoom(Model model, HttpSession session,
                                    @RequestParam(value = "Createroomname", required = true) String name,
                                    @RequestParam(value = "Createroomgame", required = true) String game,
-                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw)
-    {
+                                   @RequestParam(value = "Createroompw", defaultValue = "", required = false) String pw) {
         Main_Server Server = Server_list.get(control.Selectbyname(game).getGame_number());
         String Roomid = Server.create(name, game, pw);
         session.setAttribute("room", room);
@@ -855,8 +625,7 @@ public class MainController {
     }
 
     @GetMapping("/refreshgamelist")
-    public ModelAndView RefreshGamelist(Model model, HttpSession session)
-    {
+    public ModelAndView RefreshGamelist(Model model, HttpSession session) {
         Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
 
         ModelAndView mv = new ModelAndView();
@@ -873,8 +642,7 @@ public class MainController {
         Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
 
         if(Server.getRoom_list().get(ID).getPassword().equals(PW)) {
-            if(Server.getRoom_list().get(ID).getMaxplayer() == Server.getRoom_list().get(ID).getPlayer())
-            {
+            if(Server.getRoom_list().get(ID).getMaxplayer() == Server.getRoom_list().get(ID).getPlayer()) {
                 mv.setViewName("Game_lobby");
                 return mv;
             }
@@ -883,15 +651,12 @@ public class MainController {
 
             model.addAttribute("id", ID);
             model.addAttribute("pw", PW);
-            switch(Server.getRoom_list().get(ID).getGame())
-            {
+            switch(Server.getRoom_list().get(ID).getGame()) {
                 case "Yahtzee":
                     mv.setViewName("gamescreen");
                     break;
-
             }
             mv.setViewName("gamescreen");
-            //////마지막에 수정필요
         }
         else
             mv.setViewName("Game_lobby");
@@ -899,8 +664,7 @@ public class MainController {
     }
 
     @GetMapping("/refreshuserlist")
-    public ModelAndView RefreshUserlist(Model model, HttpSession session)
-    {
+    public ModelAndView RefreshUserlist(Model model, HttpSession session) {
         ModelAndView mv = new ModelAndView();
 
         Main_Server Server = Server_list.get((int) session.getAttribute("Gamenumber"));
@@ -911,8 +675,7 @@ public class MainController {
     }
 
     @GetMapping("/gamerank")
-    public ModelAndView Gamerank(Model model)
-    {
+    public ModelAndView Gamerank(Model model) {
         ModelAndView mv = new ModelAndView();
         System.out.println(control.GameRank_list());
         model.addAttribute("Rank_list", control.GameRank_list());
@@ -933,7 +696,7 @@ public class MainController {
             out.flush();
             return mv;
         }
-System.out.println("안녕하세요"+control.keyBynick((String) session.getAttribute("idid")));
+        System.out.println("안녕하세요"+control.keyBynick((String) session.getAttribute("idid")));
         int key = control.keyBynick((String) session.getAttribute("idid"));
         HashMap keyset = new HashMap<String, Integer>();
         keyset.put("game", game_number);
@@ -947,8 +710,7 @@ System.out.println("안녕하세요"+control.keyBynick((String) session.getAttri
 
     @GetMapping("/buygame")
     public ModelAndView Buygame(Model model, HttpSession session,
-                                 @RequestParam(value = "gamenumber", required = true) int game_number)
-    {
+                                 @RequestParam(value = "gamenumber", required = true) int game_number) {
         ModelAndView mv = new ModelAndView();
 
         LocalDateTime Today = LocalDateTime.now().plusHours(9);
@@ -967,8 +729,7 @@ System.out.println("안녕하세요"+control.keyBynick((String) session.getAttri
     }
 
     @GetMapping("/mygamelist")
-    public ModelAndView MyGamelist(Model model, HttpSession session)
-    {
+    public ModelAndView MyGamelist(Model model, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         int key = control.keyBynick((String) session.getAttribute("idid"));
         model.addAttribute("My_list", control.Game_mylist(key));
@@ -983,5 +744,3 @@ System.out.println("안녕하세요"+control.keyBynick((String) session.getAttri
     }
 
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////

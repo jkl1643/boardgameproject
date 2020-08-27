@@ -56,6 +56,6 @@
 </c:forEach>
 
 <a style="position:fixed;bottom:50px;right:20px;" href="#" title="맨 위로">맨 위로</a>
-<a style="position:fixed;bottom:30px;right:20px;" href="main.jsp" title="홈으로">홈으로</a>
+<a style="position:fixed;bottom:30px;right:20px;" href="home" title="홈으로">홈으로</a>
 </body>
 </html>

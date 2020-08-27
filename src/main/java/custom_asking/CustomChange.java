@@ -9,7 +9,6 @@ public class CustomChange {
 	public void setCustomChange(CustomDao customdao) {
 		this.customdao = customdao;
 	}
-	
 
 	public void changedata(Long count1, String title1, String content1) {
 		System.out.println("count1 : " + count1);
@@ -24,20 +23,3 @@ public class CustomChange {
 		}
 	}
 }
-/*Custom custom1 = customdao.selectByCount(memCount);
-private MemberDao memberDao;
-//
-@Transactional
-public void changePassword(String email, String oldPwd, String newPwd) {
-	Member member = memberDao.selectByEmail(email);
-	if (member == null)
-		throw new MemberNotFoundException();
-
-	member.changePassword(oldPwd, newPwd);
-
-	memberDao.update(member);
-}
-
-public void setMemberDao(MemberDao memberDao) {
-	this.memberDao = memberDao;
-}*/

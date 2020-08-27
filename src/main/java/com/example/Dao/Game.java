@@ -7,9 +7,7 @@ public class Game {
     private String game_rule;
     private String game_image;
 
-
-    public Game(int game_number, String game_name, String game_info, String game_rule, String game_image)
-    {
+    public Game(int game_number, String game_name, String game_info, String game_rule, String game_image) {
         this.game_name = game_name;
         this.game_info = game_info;
         this.game_rule = game_rule;

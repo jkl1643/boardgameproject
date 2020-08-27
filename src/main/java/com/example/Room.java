@@ -45,8 +45,6 @@ public class Room {
             return false;
         }
 
-
-
         usernicks.add(nick);
         player = usernicks.size();
         return true;

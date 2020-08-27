@@ -34,6 +34,4 @@ public class Gamerecord {
     public int getLose() { return lose; }
     public int getGame_number() { return game_number; }
     public int getMember_number() { return member_number; }
-
-
 }
