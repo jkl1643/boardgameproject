@@ -5,8 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +17,8 @@
         label#label1 {position: relative; left: 70px; top: 10px}
         input#text2 {width: 800px; height: 20px; position: relative; left: 100px; top: 10px}
         textarea#text3 {width: 930px; height: 580px; position: relative; left: 30px; top: 30px}
-        button#button1 {width: 100px; height: 50px; background-color: white; color: blue; position: relative; left: 350px; top: 30px}
-        button#button2 {width: 100px; height: 50px; background-color: white; color: blue; position: relative; left: 450px; top: 30px}
+        button#button1 {width: 100px; height: 50px; background-color: #ca90ee; color: blue; position: relative; left: 350px; top: 30px}
+        button#button2 {width: 100px; height: 50px; background-color: #ca90ee; color: blue; position: relative; left: 450px; top: 30px}
         button#button3 {width: 140px; height: 70px; background-color: lightgreen; color: black; position: relative; left: 840px; top: 40px}
         button#button3:hover {background-color: red; color: blue}
         -->
